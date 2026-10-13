@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+
+namespace MyFirstMod
+{
+    // Structure fragment: implement and register the three StageContent classes, then register MyAdventure.
+    // Provide your own pools, characters, rounds, card counts, and difficulty; this is not a complete mod.
+    public sealed class MyAdventure : AdventureContent
+    {
+        public MyAdventure() : base(ModEntry.PackageId + ".adventure.my_adventure") { }
+        public override string Name => "My Adventure";
+        public override string Description => "Connect three regions of your own.";
+        public override string SourceStageId => ModEntry.PackageId + ".stage.region_one";
+        public override string PreviewImageId => SourceStageId;
+        public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
+        {
+            Step("one", "First Region", ".stage.region_one"),
+            Step("two", "Second Region", ".stage.region_two"),
+            Step("three", "Third Region", ".stage.region_three")
+        };
+        public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
+        {
+            new AdventureDifficultyDefinition { difficulty = 1, maxHeroCount = 1 }
+        };
+
+        private AdventureStepDefinition Step(string suffix, string name, string stageSuffix) =>
+            new AdventureStepDefinition
+            {
+                id = Id + ".step." + suffix,
+                displayName = name,
+                sourceStageId = ModEntry.PackageId + stageSuffix,
+                columnCount = GameRules.ColumnCount,
+                roundCount = 1,
+                cardsPerRound = GameRules.CardsPerStage,
+                generationProfile = StageGenerationProfiles.Default
+            };
+    }
+}

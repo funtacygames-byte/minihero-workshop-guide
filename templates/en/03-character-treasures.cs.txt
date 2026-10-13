@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    [System.Serializable]
+    public abstract class LanternTreasure : TreasureContent
+    {
+        protected LanternTreasure(string id) : base(id) { }
+        public override IReadOnlyList<string> PoolTags =>
+            new[] { "treasure_pool.your_package.lantern" };
+    }
+
+    [System.Serializable]
+
+    public sealed class LanternCompass : LanternTreasure, IModPresentationContent
+    {
+        public LanternCompass() : base(ModEntry.PackageId + ".treasure.lantern_compass") { }
+        public override string Name => "Starlit Compass";
+        public override TreasureRank Rank => TreasureRank.Rare;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override string Describe(int level) => $"Gain {2 * level} shield when entering a stage.";
+        public override void OnStageEntered(StageEnteredEvent e)
+        {
+            e?.Runtime?.AddShield(2 * e.SourceLevel);
+        }
+        public ModPresentation Presentation => ModAssets.Icon("assets/icons/lantern-compass.png");
+    }
+
+    [System.Serializable]
+
+    public sealed class MoonGlassBottle : LanternTreasure
+    {
+        public MoonGlassBottle() : base(ModEntry.PackageId + ".treasure.moon_glass_bottle") { }
+        public override string Name => "Moon Glass Bottle";
+        public override TreasureRank Rank => TreasureRank.Rare;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Life };
+        public override string Describe(int level) => $"Gain {2 * level} maximum HP.";
+        public override void OnTreasureStats(TreasureStatsEvent e)
+        {
+            if (e != null) e.maxHpFlat += 2 * e.SourceLevel;
+        }
+    }
+}
+
+// Register both treasures. A shared tag between character TreasurePoolTags and these PoolTags grants eligibility.
+// For exceptions, override the character TreasurePool with Exclude, Include, and SetWeight.
+// Character selection does not grant StartingTreasureTypes; do not promise starting treasure rewards.

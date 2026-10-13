@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+**/bin/
+**/obj/
+**/.tmode-sdk/
+**/.snapshots/
+*.dll
+*.pdb
+*.user
+*.log

@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public static class MusicIds
+    {
+        public const string LanternTheme = ModEntry.PackageId + ".music.lantern_trail";
+    }
+
+    // 把这段放入 ModEntry.Load：
+    // registrar.AddMusicTheme(new ModMusicTheme(
+    //     MusicIds.LanternTheme,
+    //     new Dictionary<ModMusicCue, string>
+    //     {
+    //         [ModMusicCue.StageExplore] = "music/lantern-explore.ogg",
+    //         [ModMusicCue.BossBattle] = "music/lantern-boss.ogg"
+    //     }));
+
+    // 再在 StageDefinition 中填写：
+    // music = MusicIds.LanternTheme,
+    // boss = false, // Boss 关卡改为 true
+}

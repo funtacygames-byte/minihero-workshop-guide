@@ -1,0 +1,23 @@
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    [MiniHeroMod(PackageId)]
+    public sealed class ModEntry : MiniHeroMod
+    {
+        public const string PackageId = "your.package";
+
+        public override void Load(IModRegistrar registrar)
+        {
+            registrar.AddConfig(new ModConfigDefinition(
+                "shield_per_stage", "每场景护盾", ModConfigValueKind.Integer,
+                "2", "平衡", "进入场景时获得的护盾。", 0, 20));
+
+            // 把其他模板中的实例放在这里：
+            // registrar.AddContents(new MyTrait(), new MyMove(), new MyCharacter());
+        }
+    }
+}
+
+// 读取时使用：
+// int shield = ModConfig.GetInt(ModEntry.PackageId, "shield_per_stage", 2, 0, 20);

@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+
+namespace MyFirstMod
+{
+    // 结构片段：先实现并注册这三个 StageContent，再在入口注册 MyAdventure。
+    // 这里不提供牌池、角色或完整作品；轮数、牌数和难度须按自己的玩法设计。
+    public sealed class MyAdventure : AdventureContent
+    {
+        public MyAdventure() : base(ModEntry.PackageId + ".adventure.my_adventure") { }
+        public override string Name => "我的冒险";
+        public override string Description => "连接自己制作的三个地区。";
+        public override string SourceStageId => ModEntry.PackageId + ".stage.region_one";
+        public override string PreviewImageId => SourceStageId;
+        public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
+        {
+            Step("one", "第一地区", ".stage.region_one"),
+            Step("two", "第二地区", ".stage.region_two"),
+            Step("three", "第三地区", ".stage.region_three")
+        };
+        public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
+        {
+            new AdventureDifficultyDefinition { difficulty = 1, maxHeroCount = 1 }
+        };
+
+        private AdventureStepDefinition Step(string suffix, string name, string stageSuffix) =>
+            new AdventureStepDefinition
+            {
+                id = Id + ".step." + suffix,
+                displayName = name,
+                sourceStageId = ModEntry.PackageId + stageSuffix,
+                columnCount = GameRules.ColumnCount,
+                roundCount = 1,
+                cardsPerRound = GameRules.CardsPerStage,
+                generationProfile = StageGenerationProfiles.Default
+            };
+    }
+}

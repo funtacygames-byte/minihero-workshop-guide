@@ -1,0 +1,29 @@
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public sealed class WoundedRage : EnemyTraitContent
+    {
+        public WoundedRage() : base(ModEntry.PackageId + ".enemy_trait.wounded_rage") { }
+        public override string Name => "负伤狂怒";
+        public override string Description => "受到伤害后，攻击增加 1。";
+        public override void OnAfterDamaged(EnemyTraitEvent e)
+        {
+            if (e?.Owner != null) e.Owner.enemyTraitAttackDelta += 1;
+        }
+    }
+
+    public sealed class MossWolf : EnemyContent, IModPresentationContent
+    {
+        public MossWolf() : base(ModEntry.PackageId + ".enemy.moss_wolf") { }
+        public override string Name => "苔背魔狼";
+        public override string Description => "潜伏在林间苔丛中的魔狼。";
+        public override int Attack => 6;
+        public override int Defense => 1;
+        public override int MaxHp => 18;
+        public override int RewardGold => 5;
+        public override string EnemyTraitId => ModEntry.PackageId + ".enemy_trait.wounded_rage";
+        public ModPresentation Presentation => ModAssets.Enemy("assets/portraits/moss-wolf.png");
+    }
+}

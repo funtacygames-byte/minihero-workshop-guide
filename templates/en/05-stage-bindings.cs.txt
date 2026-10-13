@@ -1,0 +1,50 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public sealed class LanternTrail : StageContent, IModPresentationContent
+    {
+        public LanternTrail() : base(ModEntry.PackageId + ".stage.lantern_trail") { }
+        public override string Name => "Lantern Trail";
+        public override string Subtitle => "Follow warm lantern light through the whispering forest.";
+        public override int Order => 9000;
+
+        public override StageDefinition CreateDefinition(GameContentRegistry registry)
+        {
+            EnemyContent wolf = registry.Get<EnemyContent>(ModEntry.PackageId + ".enemy.moss_wolf");
+            return new StageDefinition
+            {
+                id = Id,
+                name = Name,
+                subtitle = Subtitle,
+                columnCount = GameRules.ColumnCount,
+                generatedCardCount = GameRules.CardsPerStage,
+                appearancePool = new List<CardState>
+                {
+                    wolf.CreateCard(Id + ".moss_wolf"),
+                    ContentCards.Card(Id + ".exit", CardType.Exit, "Forest Exit", "Leave this forest.")
+                },
+                allowedCharacterIds = new List<string>
+                {
+                    ModEntry.PackageId + ".character.lantern_ranger"
+                }
+            };
+        }
+
+        public ModPresentation Presentation => ModAssets.Stage(
+            "assets/backgrounds/lantern-trail.png",
+            "assets/backgrounds/lantern-map.png",
+            "assets/backgrounds/lantern-arrival.png");
+    }
+}
+
+// appearancePool supplies random candidates; use StageDefinition.fixedColumns for exact counts and positions.
+// Empty allowedCharacterIds is unrestricted; otherwise include the test character ID.
+// Since Mod API 1.7.0, append a package character to a built-in selectable level:
+// registrar.AddCharacterToLevel("challenge_wild_corruption_nest",
+//     ModEntry.PackageId + ".character.lantern_ranger");
+// Use the stable level-selection ID, not a component pool ID such as wilderness_beasts.
+// For an independent adventure, implement your own StageContent,
+// create appearancePool with ContentCards.Enemy/Card, and use StageGenerationProfiles.Layered when appropriate.

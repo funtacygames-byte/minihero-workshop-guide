@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="500" viewBox="0 0 1040 500" role="img" aria-labelledby="title desc">
+<title id="title">Artwork proportions</title><desc id="desc">Character Icon 284 by 512; Avatar and BattleArt square; StageBackground 16 to 9. Dashed boxes indicate a suggested margin.</desc>
+<rect width="1040" height="500" rx="16" fill="#f7f3e9"/>
+<g fill="#e5edde" stroke="#59715e" stroke-width="2"><rect x="70" y="100" width="142" height="256" rx="4"/><rect x="295" y="132" width="180" height="180" rx="4"/><rect x="570" y="132" width="400" height="225" rx="4"/></g>
+<g fill="none" stroke="#8e9f84" stroke-width="2" stroke-dasharray="7 7"><rect x="82" y="112" width="118" height="232"/><rect x="310" y="147" width="150" height="150"/><rect x="590" y="152" width="360" height="185"/></g>
+<g fill="#a8bea0"><circle cx="141" cy="153" r="24"/><path d="M118 184h46l17 107h-80z"/><rect x="118" y="291" width="16" height="40"/><rect x="148" y="291" width="16" height="40"/><circle cx="385" cy="205" r="37"/><path d="M331 276c0-62 108-62 108 0z"/><path d="M590 322l92-98 90 80 63-54 115 87H590z"/></g>
+<g font-family="sans-serif" text-anchor="middle" fill="#31443c" font-size="23"><text x="141" y="65">Icon</text><text x="385" y="65">Avatar / BattleArt</text><text x="770" y="65">StageBackground</text></g>
+<g font-family="sans-serif" text-anchor="middle" fill="#685c49" font-size="19"><text x="141" y="401">284 × 512</text><text x="141" y="432">71:128</text><text x="385" y="401">512 × 512 / 1024 × 1024</text><text x="385" y="432">1:1</text><text x="770" y="401">1672 × 941</text><text x="770" y="432">≈ 16:9</text></g>
+</svg>

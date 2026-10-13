@@ -1,0 +1,50 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public sealed class LanternTrail : StageContent, IModPresentationContent
+    {
+        public LanternTrail() : base(ModEntry.PackageId + ".stage.lantern_trail") { }
+        public override string Name => "提灯林径";
+        public override string Subtitle => "沿着暖色灯火穿过低语森林。";
+        public override int Order => 9000;
+
+        public override StageDefinition CreateDefinition(GameContentRegistry registry)
+        {
+            EnemyContent wolf = registry.Get<EnemyContent>(ModEntry.PackageId + ".enemy.moss_wolf");
+            return new StageDefinition
+            {
+                id = Id,
+                name = Name,
+                subtitle = Subtitle,
+                columnCount = GameRules.ColumnCount,
+                generatedCardCount = GameRules.CardsPerStage,
+                appearancePool = new List<CardState>
+                {
+                    wolf.CreateCard(Id + ".moss_wolf"),
+                    ContentCards.Card(Id + ".exit", CardType.Exit, "林径出口", "离开这片森林。")
+                },
+                allowedCharacterIds = new List<string>
+                {
+                    ModEntry.PackageId + ".character.lantern_ranger"
+                }
+            };
+        }
+
+        public ModPresentation Presentation => ModAssets.Stage(
+            "assets/backgrounds/lantern-trail.png",
+            "assets/backgrounds/lantern-map.png",
+            "assets/backgrounds/lantern-arrival.png");
+    }
+}
+
+// appearancePool 决定随机牌池；需要固定数量和列位置时改用 StageDefinition.fixedColumns。
+// allowedCharacterIds 为空表示不限角色；非空时必须包含要测试的角色 ID。
+// 从 Mod API 1.7.0 开始，可以把本包角色追加到正式大关卡：
+// registrar.AddCharacterToLevel("challenge_wild_corruption_nest",
+//     ModEntry.PackageId + ".character.lantern_ranger");
+// 这里的 ID 是关卡选择界面的稳定大关卡 ID，不是 wilderness_beasts 等小关卡牌池 ID。
+// 如果要做独立冒险，新建自己的 StageContent，
+// 用 ContentCards.Enemy/Card 构建 appearancePool，并用 StageGenerationProfiles.Layered。

@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public sealed class LanternSight : TraitContent
+    {
+        public LanternSight() : base(ModEntry.PackageId + ".trait.lantern_sight") { }
+        public override string Name => "灯辉视野";
+        public override string Description => "普通攻击额外选择一名随机敌人。";
+        public override void OnBeforeNormalAttackTargets(BeforeNormalAttackTargetsEvent e)
+        {
+            if (e != null) e.additionalRandomTargets += 1;
+        }
+    }
+
+    public sealed class SilverBolt : MoveContent, IModPresentationContent
+    {
+        public SilverBolt() : base(ModEntry.PackageId + ".move.silver_bolt") { }
+        public override string Name => "银辉箭";
+        public override string Description => "对一名敌人造成 2 倍攻击伤害。";
+        public override MoveTargetKind TargetKind => MoveTargetKind.Enemy;
+        public override int MaxUses => 2;
+        public override int AttackMultiplier => 2;
+        public ModPresentation Presentation => ModAssets.Icon("assets/icons/silver-bolt.png");
+    }
+
+    public sealed class LanternRanger : CharacterContent, IModPresentationContent
+    {
+        public LanternRanger() : base(ModEntry.PackageId + ".character.lantern_ranger") { }
+        public override string Name => "提灯游侠";
+        public override string Role => "猎人";
+        public override string School => "林地巡守";
+        public override string Description => "以提灯与轻弩守护旅队。";
+        public override PlayerState BaseStats => new PlayerState
+        { hp = 24, maxHp = 24, attack = 6, defense = 1, wisdom = 2 };
+        public override IReadOnlyList<Type> TraitTypes => new[] { typeof(LanternSight) };
+        public override IReadOnlyList<Type> StartingMoveTypes => new[] { typeof(SilverBolt) };
+        // Current runtime limitation: StartingTreasureTypes is validated/stored but not granted on selection.
+        // public override IReadOnlyList<Type> StartingTreasureTypes => new[] { typeof(LanternCompass) };
+        public override IReadOnlyList<string> TreasurePoolTags => new[] { "treasure_pool.your_package.lantern" };
+        // 可选：在上述 Tag 默认结果上做角色专属调整。
+        // public override TreasurePoolDefinition TreasurePool => base.TreasurePool
+        //     .Exclude("goblin_brass_scale")
+        //     .Include(ModEntry.PackageId + ".treasure.lantern_compass")
+        //     .SetWeight(ModEntry.PackageId + ".treasure.lantern_compass", 2f);
+        public ModPresentation Presentation => ModAssets.Create(
+            (ModPresentationSlot.Icon, "assets/icons/lantern-ranger.png"),
+            (ModPresentationSlot.Portrait, "assets/icons/lantern-ranger.png"),
+            (ModPresentationSlot.Avatar, "assets/portraits/lantern-ranger-avatar.png"));
+    }
+}

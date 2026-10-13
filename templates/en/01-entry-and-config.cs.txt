@@ -1,0 +1,23 @@
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    [MiniHeroMod(PackageId)]
+    public sealed class ModEntry : MiniHeroMod
+    {
+        public const string PackageId = "your.package";
+
+        public override void Load(IModRegistrar registrar)
+        {
+            registrar.AddConfig(new ModConfigDefinition(
+                "shield_per_stage", "Shield per stage", ModConfigValueKind.Integer,
+                "2", "Balance", "Shield gained on stage entry.", 0, 20));
+
+            // Register instances from other fragments here:
+            // registrar.AddContents(new MyTrait(), new MyMove(), new MyCharacter());
+        }
+    }
+}
+
+// Read it with:
+// int shield = ModConfig.GetInt(ModEntry.PackageId, "shield_per_stage", 2, 0, 20);

@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    public static class MusicIds
+    {
+        public const string LanternTheme = ModEntry.PackageId + ".music.lantern_trail";
+    }
+
+    // Put this fragment in ModEntry.Load:
+    // registrar.AddMusicTheme(new ModMusicTheme(
+    //     MusicIds.LanternTheme,
+    //     new Dictionary<ModMusicCue, string>
+    //     {
+    //         [ModMusicCue.StageExplore] = "music/lantern-explore.ogg",
+    //         [ModMusicCue.BossBattle] = "music/lantern-boss.ogg"
+    //     }));
+
+    // Then set these fields in StageDefinition:
+    // music = MusicIds.LanternTheme,
+    // boss = false, // Use true for a boss stage
+}

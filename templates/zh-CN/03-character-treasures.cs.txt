@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace MyFirstMod
+{
+    [System.Serializable]
+    public abstract class LanternTreasure : TreasureContent
+    {
+        protected LanternTreasure(string id) : base(id) { }
+        public override IReadOnlyList<string> PoolTags =>
+            new[] { "treasure_pool.your_package.lantern" };
+    }
+
+    [System.Serializable]
+
+    public sealed class LanternCompass : LanternTreasure, IModPresentationContent
+    {
+        public LanternCompass() : base(ModEntry.PackageId + ".treasure.lantern_compass") { }
+        public override string Name => "星针罗盘";
+        public override TreasureRank Rank => TreasureRank.Rare;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override string Describe(int level) => $"进入场景时获得 {2 * level} 点护盾。";
+        public override void OnStageEntered(StageEnteredEvent e)
+        {
+            e?.Runtime?.AddShield(2 * e.SourceLevel);
+        }
+        public ModPresentation Presentation => ModAssets.Icon("assets/icons/lantern-compass.png");
+    }
+
+    [System.Serializable]
+
+    public sealed class MoonGlassBottle : LanternTreasure
+    {
+        public MoonGlassBottle() : base(ModEntry.PackageId + ".treasure.moon_glass_bottle") { }
+        public override string Name => "月光玻璃瓶";
+        public override TreasureRank Rank => TreasureRank.Rare;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Life };
+        public override string Describe(int level) => $"最大生命增加 {2 * level} 点。";
+        public override void OnTreasureStats(TreasureStatsEvent e)
+        {
+            if (e != null) e.maxHpFlat += 2 * e.SourceLevel;
+        }
+    }
+}
+
+// 入口中注册两件宝物；默认让角色 TreasurePoolTags 与这里的 PoolTags 相同即可进入角色池。
+// 需要少量例外时，角色可覆写 TreasurePool 并使用 Exclude、Include 与 SetWeight。
+// 当前运行时不会在选角时发放 StartingTreasureTypes；不要用它承诺实际开局宝物。
