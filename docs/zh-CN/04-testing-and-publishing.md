@@ -2,7 +2,9 @@
 
 [English](../en/04-testing-and-publishing.md) · [教程目录](README.md)
 
-核对日期：2026-10-13。当前 Mod API：1.8.0。
+教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+
+第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
 本篇用于内容完成后的系统检查。不要只确认“能编译”；还要验证注册、绑定、数值、运行时重置、资源、安装安全和全新环境下的表现。
 
@@ -65,7 +67,7 @@
 
 奇遇专项：分别测 `Action=None` 的直接效果、`Action=Meditation` 的属性候选过滤/数量/选择结算，以及非空 `richEventChoices` 对基础字段的优先级。丰富选项要覆盖可支付与不可支付的属性/金币代价、扣费后属性/宝物奖励、空槽与备用槽；不足以支付时不能发生部分扣费或发奖。确认宝物奖励已注册、两条分支结果互不串用，并验证 `richEventChoices` 路径不意外应用基础 `Effect`、`Choices` 或卡级 `goldCost`。工坊 JSON 富事件还要测：`richChoices` 条件筛选、空匹配时事件仍留在牌列、确认时重新检查条件、`event_condition_changed` 与 `event_cost_unavailable` 都保留待处理选择且无部分结算。`rewardContentId` 与正数 `rewardContentCount` 要同时填写，并确认 ID 对应已注册的宝物、招式或道具；`ItemContent` 奖励会立即执行其恢复/闪避/属性效果，不进入背包，例如 20/30 生命时奖励 1 点恢复应变为 21；招式作为已学招式加入；宝物按实例发放，检查数量和空槽/备用槽。奖励数 101 应确认后端结构化校验器不报上限错误，而运行时只发放 100 个；不完整 ID/count 配对由后端结构化校验器报 `AW_EVENT_CHOICE_REWARD_CONTENT`，但直接 JSON 包目前可能仍注册成功并在运行时静默不发奖。未知 ID 或已注册但类型不支持的引用也要分别验证：包可通过校验、选择可结算、奖励无诊断且不发放。成功的 `nextEventId` 应指向已注册事件并在原列顶部生成明牌；无效 ID 目前会静默跳过。`nextStageId` 要分别测仅注册但未列入当前冒险场景列表、以及确实存在于当前 `GameEngine` 场景列表的目标；有效目标先设置待转换状态，再通过整备界面的进入动作实际加载。结构化 Adventure 的展开关卡 ID 是 `<steps[].id>-round-<从1开始的轮次>`；`sourceStageId` 只是源关卡模板 ID。后端结构化校验器要求每个选项的 `nextEventId` 与 `nextStageId` 只能二选一，但加载运行层不替代引用检查。同一包混合 `contentIndex` 和 `codeAssembly` 时，测试两路内容均注册、ID 无冲突，且 DLL loader 无诊断。
 
-关卡：已注册并进入预期冒险列表；随机牌池数量正确；固定列从底到顶顺序正确；出口存在且可点击。`fixedColumns` 非空时应只生成所给固定列，检查空列仍为空、`appearancePool` 的候选没有混入、运行时总牌数等于固定列牌数总和。即使出口已在固定列，完整工坊注册仍要求 `appearancePool` 至少包含一张 Exit 模板；放入模板后还要确认它不会进入实际固定牌面。若配置 `StageDefinition.victoryConditions`，分别测试条件未满足时点击出口被拒绝、满足后可通过；该条件只在点击出口时检查，不会因敌人死亡自动结束关卡。`defeatedEnemies >= 1` 读取整场累计击败数，不识别具体敌人；普通敌人仍存活不会单独阻止出口，存活 Boss 会阻止。角色限制包含测试角色；敌人卡由注册的 `EnemyContent` 创建。
+关卡：已注册并进入预期冒险列表；随机牌池数量正确；固定列从底到顶顺序正确；出口存在且可点击。`fixedColumns` 非空时应只生成所给固定列，检查空列仍为空、`appearancePool` 的候选没有混入、运行时总牌数等于固定列牌数总和。当前 C# 注册校验在固定布局检查固定列出口，在随机布局检查候选池出口。为兼容较早版本而保留池 Exit 模板时，要确认它不会进入实际固定牌面。若配置 `StageDefinition.victoryConditions`，分别测试条件未满足时点击出口被拒绝、满足后可通过；该条件只在点击出口时检查，不会因敌人死亡自动结束关卡。`defeatedEnemies >= 1` 读取整场累计击败数，不识别具体敌人；普通敌人仍存活不会单独阻止出口，存活 Boss 会阻止。角色限制包含测试角色；敌人卡由注册的 `EnemyContent` 创建。
 
 StageGraph：新游戏的选角前/选角后两次加载都要有可用路径；按角色 `has:` 分流时测 fallback 与选角后重算。预选时 `State.character` 为空且 `has:` 不检查候选角色列表；选角重载先设置所选角色和 `BaseStats`，数值条件读取这一刻的 `State.player`。每次重载都重建 `stageGraphVisitedNodeIds`，并在检查出边前记录当前节点，所以第二次路线不包含预览路线，但 `reach:<当前节点>` 为 true。分别验证 `reach:`/`tag:`/数值比较，检查多个匹配边按正权重抽选而不是按顺序，并用多个 seed 验证结果分布。做一条语法合法、条件始终不匹配的边，静态 registry 仍可能有效；真实 `LoadStage` 会抛 `InvalidOperationException`，指出节点在当前条件下没有可用后继。JSON 循环图应由后端结构化校验器和 registry 报 `AW_STAGE_CYCLE`。节点牌分别验证有 `card` 快照才加入 C# StageDefinition 的图路线、走到后即使 `required=false` 也被设为必出；可选牌应来自随机 `appearancePool`。分别走到 `Victory` 和 `Failure` 节点后再点击实际 Exit；Failure 在出口结算时判负，Victory 仍受出口与 `victoryConditions` 限制。检查 `contentId`：结构化 Workshop stage 会据此创建节点卡，C# `StageContent` 必须自行填 `node.card`。
 
@@ -113,7 +115,7 @@ Boss：首领卡设置 `CardState.isBoss`；首领冒险步骤设置 `AdventureS
 当前 Mod API 为 **1.8.0**，最低兼容版本为 **1.0.0**。只使用旧能力的旧版 Mod 可以继续加载。使用 `AddCharacterToLevel` 把角色加入已有大关卡时，`package.json` 应写：
 
 ```json
-"modApiVersion": "1.7.0"
+{ "modApiVersion": "1.7.0" }
 ```
 
 Mod 声明高于当前游戏的版本会被拒绝，因为运行时可能没有它调用的方法。使用冒险规则、循环、种子或动态续接等 1.8 能力时，声明 `modApiVersion: "1.8.0"`。API 的程序集主版本保持稳定，以减少只增加便捷方法时对旧 Mod 的破坏。

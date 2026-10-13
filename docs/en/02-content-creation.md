@@ -4,6 +4,8 @@
 
 Reviewed: October 13, 2026. Current Mod API: 1.8.0.
 
+Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+
 This chapter covers gameplay content: how definitions connect, which event a treasure should use, how quality differs from level, and how to reset counted effects. Code fragments share the Chinese guide's technical identifiers and formulas; their display strings are translated into English.
 
 ## Contents
@@ -472,7 +474,7 @@ When `Countdown > 0`, the countdown system also advances `enemyTraitCounter` and
 
 With nonempty `fixedColumns`, the core uses the entire fixed layout: column count is `fixedColumns.Count`, cards are cloned in list order, and empty columns stay empty. It does not add random cards from `appearancePool`; configured `columnCount` and `generatedCardCount` do not determine the layout. Runtime total card count becomes the sum of the fixed cards. You currently cannot combine a fixed left column with random remaining columns in one definition. For random dealing, leave `fixedColumns` empty; for a fixed layout, provide every card.
 
-Workshop registration still requires at least one `CardType.Exit` in `appearancePool`, even if the fixed columns already contain an exit; otherwise it reports `AW_STAGE_EXIT_MISSING`. Add an exit template there for validation and verify that it is ignored by the fixed-layout runtime.
+Current C# workshop validation checks for `CardType.Exit` in the fixed columns when `fixedColumns` is nonempty; for random layouts, it checks `appearancePool`. Missing an exit in the applicable layout reports `AW_STAGE_EXIT_MISSING`. A pool Exit template may be retained for earlier-version compatibility; it is ignored by the fixed-layout runtime.
 
 ```csharp
 EnemyContent wolf = registry.Get<EnemyContent>(

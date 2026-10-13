@@ -8,7 +8,7 @@
 
 ## 阅读顺序与事实来源
 
-先读[工程与构建](01-project-and-build.md)，再按目标读[内容制作](02-content-creation.md)和[资源与表现](03-assets-and-presentation.md)；交付前执行[测试与发布](04-testing-and-publishing.md)。
+先读[首课](tutorials/first-mod.md)及目标任务课，再查对应 API／规则参考；进阶细节查完整手册。交付前按[测试与发布](04-testing-and-publishing.md)验收，并说明[实际验证范围](reference/versions.md)。
 
 用户最新要求、适用的项目约束和当前运行代码优先于旧方案或旧译文。MiniHero 是温馨的西式奇幻与童话冒险；瑶光是用户明确指定的中国古代女侠例外，不能扩展为整个世界的风格，也不能从旧技术命名推断题材。
 

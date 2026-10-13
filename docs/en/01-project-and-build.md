@@ -4,6 +4,8 @@
 
 Reviewed: October 13, 2026. Current Mod API: 1.8.0.
 
+Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+
 This chapter takes you from **New C# Project** to a mod running in the game. It explains the creation fields, C# structure, development tools, building and installing, package hashes, and the trust boundary for code mods.
 
 ## Contents
@@ -38,7 +40,7 @@ The creation form generates a clean C# project. Choose treasure, character, enem
 5. Put artwork in `assets`, music in `music`, and localized text in `localization`.
 6. Return to the development page and click **Build and Install**.
 7. Reload after building. If the game process has already loaded this DLL, fully exit and restart for a reliable check.
-8. Check the content in character selection, a treasure chest, or your new stage.
+8. Open the treasure codex, select all characters, and find Wayfarer's Relic. Check its level-1 description; use the fixed-stage lesson for a guaranteed gameplay test.
 
 Start with one treasure that grants shield on stage entry. Once compilation, installation, and loading work, add characters and stages one at a time so failures are easier to locate.
 
@@ -47,10 +49,11 @@ Start with one treasure that grants shield on stage entry. Once compilation, ins
 The executable identifiers and formulas below are shared with the Chinese guide. Display strings are English here; chapter 3 explains how to provide multiple languages without changing identifiers.
 
 ```csharp
+using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace LanternTrailMod
+namespace LocalAliceLanternTrailMod
 {
     [MiniHeroMod(ModEntry.PackageId)]
     public sealed class ModEntry : MiniHeroMod
@@ -59,27 +62,23 @@ namespace LanternTrailMod
 
         public override void Load(IModRegistrar registrar)
         {
-            registrar.AddContent(new CampfireCharm());
+            registrar.AddContent(new StarterRelic());
         }
     }
 
     [System.Serializable]
-
-    public sealed class CampfireCharm : TreasureContent
+    public sealed class StarterRelic : TreasureContent
     {
-        public CampfireCharm()
-            : base(ModEntry.PackageId + ".treasure.campfire_charm") { }
-
-        public override string Name => "Campfire Charm";
+        public StarterRelic() : base(ModEntry.PackageId + ".treasure.starter_relic") { }
+        public override string Name => ModText.Get(
+            ModEntry.PackageId, "content.starter_relic.name", "Wayfarer's Relic");
         public override TreasureRank Rank => TreasureRank.Common;
         public override int BaseValue => 2;
-        public override System.Collections.Generic.IReadOnlyList<string> CategoryTags =>
-            new[] { TreasureCategoryTags.Shield };
-        public override System.Collections.Generic.IReadOnlyList<string> PoolTags =>
-            new[] { CharacterTreasurePoolTags.HealingLifeBuild };
-        public override string Describe(int level) =>
-            $"Gain {BaseValue * level} shield when entering a stage.";
-
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "content.starter_relic.description",
+            "Gain {0} shield when entering a stage.", BaseValue * level);
         public override void OnStageEntered(StageEnteredEvent e)
         {
             e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
@@ -89,7 +88,7 @@ namespace LanternTrailMod
 ```
 
 - `using` makes public Core and Mod API types available to the source file.
-- `namespace` names the C# type namespace. It is separate from the package ID, but should identify your mod to reduce collisions.
+- `namespace` names the C# type namespace. Keep the generated namespace and ensure `package.json.codeEntryPoint` is its fully qualified `ModEntry` name, including exact case.
 - `[MiniHeroMod(...)]` marks the unique entry point. Its ID must exactly match `package.json.packageId`.
 - `Load` registers content, music, and configuration while the content snapshot is built. Do not cache a particular run's `GameState` here.
 - Content classes must be `public`, instantiable, and have a public parameterless constructor.

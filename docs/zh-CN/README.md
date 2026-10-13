@@ -1,18 +1,46 @@
 # 教程目录
 
-[English](../en/README.md) · [仓库首页](../../README.zh-CN.md)
+[English](../en/README.md) · [首页](../../README.zh-CN.md)
 
-第一次制作按顺序阅读；排查具体问题时打开对应章节，使用 GitHub 的文档大纲跳转。
+教程修订 2 · API 1.8.0 · 2026-10-13
 
-1. [工程与构建](01-project-and-build.md)：创建、目录、代码结构、编译安装、重载、哈希与信任。
-2. [内容制作](02-content-creation.md)：事件、品质、状态、角色池、敌人、关卡、道具与奇遇。
-3. [资源与表现](03-assets-and-presentation.md)：图片槽位、音乐、本地化与配置限制。
-4. [测试与发布](04-testing-and-publishing.md)：边界测试、错误诊断、兼容、打包与发布。
+## 学习路径
 
-配套阅读：[功能片段](../../templates/README.zh-CN.md)、[给 AI 的制作入口](ai-authoring.md)、[中英术语](glossary.md)。
+先做首课，随后按目标跳读。每篇列出前置条件、编辑文件和观察结果；实际效果验证不靠随机抽取。
 
-随游戏发布的教程目录是官方只读内容；`Sources/<packageId>` 是个人可编辑工作区。阅读教程不会覆盖个人源码。源码修改应通过 `Sources → Build → Install` 生效。
+| 教程 | 目标 |
+| --- | --- |
+| [运行并修改第一个模组](tutorials/first-mod.md) | 图鉴验证加载，2→4 的数值改变 |
+| [宝物](tutorials/treasure.md) | 品质、等级、候选池和明确奖励 |
+| [角色与初始招式](tutorials/character.md) | 注册组合、选角入口、双目标验收 |
+| [敌人与特性](tutorials/enemy.md) | 实例创建、伤害窗口、独立计数 |
+| [第一个固定关卡](tutorials/stage.md) | 守卫→出口，固定列和玩法验证 |
+| [连接多个场景](tutorials/adventure.md) | 步骤、整备、场景 ID、保存恢复 |
+| [图片、音乐与双语文本](tutorials/assets-and-text.md) | 真实槽位、包内路径、共同参数 |
+| [打包、发布与更新](tutorials/publish.md) | 本地构建和 Steam 交付分别验收 |
 
-![源码构建安装流程](../../images/build-flow.svg)
+<a id="reference"></a>
 
-图中 `Sources` 为源码，`Build` 为构建快照，`Installed` 为安装版本；C# 更新后需完整重启验证。
+## 接口与规则参考
+
+- [入口与注册](reference/entry.md)
+- [宝物](reference/treasures.md)
+- [角色、招式、敌人](reference/actors.md)
+- [关卡与冒险](reference/stages.md)
+- [规则事件](reference/events.md)
+- [生命周期与状态](reference/lifecycle.md)
+- [展示与文本](reference/presentation.md)
+- [兼容与限制](reference/compatibility.md)
+- [版本与验证](reference/versions.md)
+- [公开 API 声明](reference/api-surface.md)
+
+## 查阅总览与进阶
+
+- [工程与构建](01-project-and-build.md)
+- [内容制作与进阶规则](02-content-creation.md)
+- [资源与表现](03-assets-and-presentation.md)
+- [完整测试与发布](04-testing-and-publishing.md)
+
+StageGraph、循环、动态续接、后端 JSON 和复杂富事件放在内容总览；配置兼容有独立页。第一次制作不用先读完这些内容。
+
+[排错](troubleshooting.md) · [AI 制作](ai-authoring.md) · [术语](glossary.md) · [片段](../../templates/README.zh-CN.md)

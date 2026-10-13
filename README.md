@@ -1,44 +1,42 @@
-# MiniHero Workshop Guide
+# MiniHero Workshop Authoring Guide
 
-[简体中文](README.zh-CN.md) · **English**
+**English** · [简体中文](README.zh-CN.md)
 
-Create C# mods for MiniHero: treasures, characters, enemies, items, events, stages, artwork, music, and localization.
+Create treasures, characters, enemies, and stages in C#, then add your own images, music, and bilingual text. Start with a visible result and continue by task.
 
-This repository contains the authoring guide, focused code snippets, and language-neutral reference diagrams. Start with the guide and build your own project in the game's Adventure Workshop.
+Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Versions and validation](docs/en/reference/versions.md)
 
-**Reviewed:** October 13, 2026 · **Current Mod API:** 1.8.0
+## Your first mod
 
-## Read the guide
+Start with [Build and change your first mod](docs/en/tutorials/first-mod.md): create a project, preserve its generated entry, build and install, fully restart, find the relic in the codex, then change one value. Use [A fixed stage](docs/en/tutorials/stage.md) to play through guard and exit, and [Treasures](docs/en/tutorials/treasure.md) for a guaranteed reward and an actual effect check.
 
-| Chapter | What you will learn |
+You need the game, a code editor, and a .NET SDK. Players do not need Unity or the full game project. The game supplies development references; this repository does not replace them.
+
+## Choose a task
+
+| Task | Outcome |
 | --- | --- |
-| [1. Project and build](docs/en/01-project-and-build.md) | Create a project, edit C#, build, install, reload, and understand package hashes |
-| [2. Content creation](docs/en/02-content-creation.md) | Register content, select rule events, manage state, and connect characters, enemies, and adventures |
-| [3. Assets and presentation](docs/en/03-assets-and-presentation.md) | Bind artwork, add stage music, localize text, and understand configuration limits |
-| [4. Testing and publishing](docs/en/04-testing-and-publishing.md) | Verify gameplay, diagnose errors, package a mod, and prepare a Steam upload |
+| [Treasures](docs/en/tutorials/treasure.md) | Quality, levels, pools, and a specific reward |
+| [Characters and initial moves](docs/en/tutorials/character.md) | Registration, selection, and two-target checks |
+| [Enemies and traits](docs/en/tutorials/enemy.md) | Card instances, damage windows, independent state |
+| [Your first fixed stage](docs/en/tutorials/stage.md) | Guard→exit, fixed columns, and playability |
+| [Connect stages](docs/en/tutorials/adventure.md) | Steps, intermissions, stage IDs, save restoration |
+| [Assets, music, and bilingual text](docs/en/tutorials/assets-and-text.md) | Slots, package paths, and shared arguments |
+| [Package, publish, and update](docs/en/tutorials/publish.md) | Verify local builds and Steam delivery separately |
 
-[Guide index](docs/en/README.md) · [Code snippets](templates/README.md) · [Instructions for AI assistants](docs/en/ai-authoring.md) · [Terminology](docs/en/glossary.md)
+## Something broke
 
-## First project
+Open [Troubleshooting](docs/en/troubleshooting.md) for compiler, loading, effect, and asset failures. Use [API and rule references](docs/en/README.md#reference) for signatures, defaults, and state contracts.
 
-1. Open **Adventure Workshop → Develop Mods** in the game and create a C# project.
-2. Open the generated `Sources/<packageId>` folder in your editor. Install the .NET SDK if the development page reports that it is missing.
-3. Read chapter 1, edit `source/ModEntry.cs`, and keep the generated build references and output paths.
-4. Choose a focused snippet when you need another type of content. Follow chapter 3 to add your own art and text.
-5. Use the game's **Build and Install** action. After changing an already loaded C# DLL, fully restart the game and follow chapter 4.
+## Manuals and supporting material
 
-The game supplies `MiniHero.ModApi.dll` and `MiniAdventureWorld.Core.dll` as development references. Tutorial source files are not a replacement for these assemblies. You do not need Unity or the game's full source project to author a mod.
+- [Projects and builds](docs/en/01-project-and-build.md)
+- [Content and advanced rules](docs/en/02-content-creation.md)
+- [Assets and presentation](docs/en/03-assets-and-presentation.md)
+- [Full testing and publishing](docs/en/04-testing-and-publishing.md)
 
-## Repository layout
+[Full index](docs/en/README.md) · [Fragments and dependencies](templates/README.md) · [AI authoring](docs/en/ai-authoring.md) · [Terminology](docs/en/glossary.md) · [Maintenance](CONTRIBUTING.md)
 
-```text
-docs/
-  zh-CN/       Simplified Chinese guide
-  en/          English guide
-templates/     Focused .cs.txt snippets and instructions
-images/        Diagrams shared by both languages
-```
+This repository contains tutorials, focused code fragments, shared diagrams, and relevant UI screenshots. It does not include complete adventure packages or standalone game art assets. Backend configuration and JSON compatibility do not imply player editing pages.
 
-The snippets are reference fragments: replace `your.package`, register the referenced content, and integrate only what you need into your own project. They are not complete installable mods. The current game has no player-facing mod configuration page; use and test the defaults in your source. The JSON backend remains available for compatibility, with no player-facing JSON editor.
-
-If you report a documentation issue, include your game/API version, chapter link, and the error or behavior you observed. Remove personal file paths and private data from any logs you share.
+When reporting a problem, include game/API versions, guide revision, the exact step, and observed error. Remove personal paths, saves, and account data; see [Contributing](CONTRIBUTING.md).

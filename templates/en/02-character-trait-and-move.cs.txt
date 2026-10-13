@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
     public sealed class LanternSight : TraitContent
     {
@@ -40,7 +40,8 @@ namespace MyFirstMod
         public override IReadOnlyList<Type> StartingMoveTypes => new[] { typeof(SilverBolt) };
         // Current runtime limitation: StartingTreasureTypes is validated/stored but not granted on selection.
         // public override IReadOnlyList<Type> StartingTreasureTypes => new[] { typeof(LanternCompass) };
-        public override IReadOnlyList<string> TreasurePoolTags => new[] { "treasure_pool.your_package.lantern" };
+        public override IReadOnlyList<string> TreasurePoolTags => new[]
+        { CharacterTreasurePoolTags.HealingLifeBuild, "treasure_pool.your_package.lantern" };
         // Optional: adjust the tag-derived pool for this character.
         // public override TreasurePoolDefinition TreasurePool => base.TreasurePool
         //     .Exclude("goblin_brass_scale")

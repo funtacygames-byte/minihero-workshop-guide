@@ -1,23 +1,36 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
-    [MiniHeroMod(PackageId)]
+    [MiniHeroMod(ModEntry.PackageId)]
     public sealed class ModEntry : MiniHeroMod
     {
-        public const string PackageId = "your.package";
+        public const string PackageId = "local.alice.lantern-trail";
 
         public override void Load(IModRegistrar registrar)
         {
-            registrar.AddConfig(new ModConfigDefinition(
-                "shield_per_stage", "Shield per stage", ModConfigValueKind.Integer,
-                "2", "Balance", "Shield gained on stage entry.", 0, 20));
+            registrar.AddContent(new StarterRelic());
+        }
+    }
 
-            // Register instances from other fragments here:
-            // registrar.AddContents(new MyTrait(), new MyMove(), new MyCharacter());
+    [System.Serializable]
+    public sealed class StarterRelic : TreasureContent
+    {
+        public StarterRelic() : base(ModEntry.PackageId + ".treasure.starter_relic") { }
+        public override string Name => ModText.Get(
+            ModEntry.PackageId, "content.starter_relic.name", "Wayfarer's Relic");
+        public override TreasureRank Rank => TreasureRank.Common;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "content.starter_relic.description",
+            "Gain {0} shield when entering a stage.", BaseValue * level);
+        public override void OnStageEntered(StageEnteredEvent e)
+        {
+            e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
         }
     }
 }
-
-// Read it with:
-// int shield = ModConfig.GetInt(ModEntry.PackageId, "shield_per_stage", 2, 0, 20);

@@ -1,23 +1,36 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
-    [MiniHeroMod(PackageId)]
+    [MiniHeroMod(ModEntry.PackageId)]
     public sealed class ModEntry : MiniHeroMod
     {
-        public const string PackageId = "your.package";
+        public const string PackageId = "local.alice.lantern-trail";
 
         public override void Load(IModRegistrar registrar)
         {
-            registrar.AddConfig(new ModConfigDefinition(
-                "shield_per_stage", "每场景护盾", ModConfigValueKind.Integer,
-                "2", "平衡", "进入场景时获得的护盾。", 0, 20));
+            registrar.AddContent(new StarterRelic());
+        }
+    }
 
-            // 把其他模板中的实例放在这里：
-            // registrar.AddContents(new MyTrait(), new MyMove(), new MyCharacter());
+    [System.Serializable]
+    public sealed class StarterRelic : TreasureContent
+    {
+        public StarterRelic() : base(ModEntry.PackageId + ".treasure.starter_relic") { }
+        public override string Name => ModText.Get(
+            ModEntry.PackageId, "content.starter_relic.name", "旅者遗物");
+        public override TreasureRank Rank => TreasureRank.Common;
+        public override int BaseValue => 2;
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "content.starter_relic.description",
+            "进入场景时获得 {0} 点护盾。", BaseValue * level);
+        public override void OnStageEntered(StageEnteredEvent e)
+        {
+            e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
         }
     }
 }
-
-// 读取时使用：
-// int shield = ModConfig.GetInt(ModEntry.PackageId, "shield_per_stage", 2, 0, 20);

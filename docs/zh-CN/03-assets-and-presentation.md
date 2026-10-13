@@ -2,7 +2,9 @@
 
 [English](../en/03-assets-and-presentation.md) · [教程目录](README.md)
 
-核对日期：2026-10-13。当前 Mod API：1.8.0。
+教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+
+第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
 本篇说明如何给 Mod 内容绑定图片、怎样为关卡加入或替换音乐，以及如何维护本地化文本和可配置参数。
 
@@ -203,29 +205,6 @@ public override string Describe(int level) => ModText.Format(
 
 第三个参数是找不到翻译时的后备文本，必须能独立阅读。增加英文时创建 `localization/en.json`，并在 `package.json` 的 `supportedLocales` 加入 `en`。
 
-## 七、可配置参数
+## 七、配置兼容入口
 
-在 `Load` 中注册：
-
-```csharp
-registrar.AddConfig(new ModConfigDefinition(
-    "shield_per_level",
-    "每级护盾",
-    ModConfigValueKind.Integer,
-    "3",
-    "宝物",
-    "琥珀提灯每级提供的护盾。",
-    1,
-    10));
-```
-
-运行时读取：
-
-```csharp
-int amount = ModConfig.GetInt(
-    ModEntry.PackageId, "shield_per_level", 3, 1, 10);
-```
-
-还可以使用 `GetBool`、`GetDecimal`、`GetChoice`。当前游戏没有玩家可打开的 Mod 配置页，也没有其他现有界面会写入这些设置；注册配置只会校验并保留定义，读取接口返回已保存值或回退值。新包应把回退值当作实际默认行为，不能宣称玩家能在工坊中编辑 Choice、数值或文本。底层配置 API 仅为现有 Mod 的运行兼容保留。
-
-Choice 的 `choices` 是保存和读取使用的稳定值，例如 `default`、`weighted`；不能随当前语言翻译这些值。`choiceDisplayNames` 与 `choices` 按相同顺序对应，只用于兼容配置界面显示，可通过 `ModText.Get` 提供本地化标签。`ModConfig.GetChoice` 只接受 `choices` 中的值，找不到有效值时返回回退值；回退值本身也应是合法选项。当前没有玩家配置界面，所以不要把显示标签描述为当前会出现的可调菜单。
+当前没有玩家 Mod 配置页。`AddConfig/ModConfig` 仅保留兼容能力，完整字段和限制见[兼容说明](reference/compatibility.md)。新手按源码默认值制作，不需要配置片段。

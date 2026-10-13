@@ -1,0 +1,27 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+
+namespace LocalAliceLanternTrailMod
+{
+    public sealed class RelicGrant : EventContent
+    {
+        public RelicGrant() : base(ModEntry.PackageId + ".event.relic_grant") { }
+        public override string Name => "Claim Relic";
+        public override string Description => "Claim a Wayfarer's Relic for testing.";
+        public override string ImageName => "";
+        public override CardState CreateCard(string instanceId = null)
+        {
+            CardState card = base.CreateCard(instanceId);
+            card.richEventChoices = new List<RichEventChoiceState>
+            {
+                new RichEventChoiceState
+                {
+                    choiceId = Id + ".choice.take", text = "Claim the Wayfarer's Relic.",
+                    rewardContentId = ModEntry.PackageId + ".treasure.starter_relic",
+                    rewardContentCount = 1
+                }
+            };
+            return card;
+        }
+    }
+}

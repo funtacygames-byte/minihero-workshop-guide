@@ -2,7 +2,9 @@
 
 [English](../en/02-content-creation.md) · [教程目录](README.md)
 
-核对日期：2026-10-13。当前 Mod API：1.8.0。
+教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+
+第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
 本篇集中讲所有玩法内容。重点不是背代码，而是理解内容之间怎样绑定、宝物应该选择哪个规则事件、品质和等级怎样表示，以及带计数的效果如何安全重置。
 
@@ -466,7 +468,7 @@ public sealed class ThreefoldRage : EnemyTraitContent
 
 只要 `fixedColumns` 非空，核心就采用完整固定布局：列数取 `fixedColumns.Count`，每列按 `cards` 原顺序克隆，空列保持为空；不会再用 `appearancePool` 随机补牌，`columnCount` 和配置的 `generatedCardCount` 也不会决定布局。运行时的场景卡牌总数改为所有固定列的牌数之和。因此目前不能把左侧固定列与其余随机列混在同一个 `StageDefinition` 中。若需要整场随机发牌，留空 `fixedColumns` 并使用 `appearancePool`；若需要固定布局，就在 `fixedColumns` 中明确提供每张牌。
 
-注意工坊注册校验和运行时的要求不同：即使固定列里已经有出口，当前 `WorkshopContentRuntime` 仍要求 `appearancePool` 至少含一张 `CardType.Exit`，否则完整注册器报 `AW_STAGE_EXIT_MISSING`。固定布局为通过注册所需的出口模板可以放在 `appearancePool`，但运行时会忽略它；它不应被误认为会出现在棋盘上的牌。
+当前 C# 工坊校验在 `fixedColumns` 非空时检查固定列中的 `CardType.Exit`，随机布局则检查 `appearancePool`。对应布局缺少出口时报告 `AW_STAGE_EXIT_MISSING`。池中可以保留出口模板以兼容较早版本，但固定布局运行时会忽略它，不会把它加入实际棋盘。
 
 ```csharp
 EnemyContent wolf = registry.Get<EnemyContent>(

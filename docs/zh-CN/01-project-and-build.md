@@ -2,7 +2,9 @@
 
 [English](../en/01-project-and-build.md) · [教程目录](README.md)
 
-核对日期：2026-10-13。当前 Mod API：1.8.0。
+教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+
+第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
 本篇从第一次点击“新建 C# 项目”讲到 Mod 在游戏中运行。它解释界面字段、C# 工程结构、开发环境、构建与安装的区别、哈希的意义以及 C# Mod 的信任边界。
 
@@ -38,17 +40,18 @@
 5. 图片放入 `assets`，音乐放入 `music`，多语言文本放入 `localization`。
 6. 回到开发页点击“构建并安装”。
 7. 点击“构建后重载”。如果这份 DLL 在本次游戏进程中已经加载过，完整退出并重启最可靠。
-8. 到角色选择、宝箱或新关卡中验证内容。
+8. 在宝物图鉴选择全部角色并搜索旅者遗物，确认加载；再用固定关卡验证实际效果。
 
 第一次不要同时制作十种内容。先注册一个进场加护盾的最小宝物，确认编译、安装和重载链路都通，再逐步加入角色和关卡。这样出错时能快速判断是哪一步造成的。
 
 ## 三、一个 C# Mod 的代码结构
 
 ```csharp
+using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace LanternTrailMod
+namespace LocalAliceLanternTrailMod
 {
     [MiniHeroMod(ModEntry.PackageId)]
     public sealed class ModEntry : MiniHeroMod
@@ -57,27 +60,23 @@ namespace LanternTrailMod
 
         public override void Load(IModRegistrar registrar)
         {
-            registrar.AddContent(new CampfireCharm());
+            registrar.AddContent(new StarterRelic());
         }
     }
 
     [System.Serializable]
-
-    public sealed class CampfireCharm : TreasureContent
+    public sealed class StarterRelic : TreasureContent
     {
-        public CampfireCharm()
-            : base(ModEntry.PackageId + ".treasure.campfire_charm") { }
-
-        public override string Name => "营火护符";
+        public StarterRelic() : base(ModEntry.PackageId + ".treasure.starter_relic") { }
+        public override string Name => ModText.Get(
+            ModEntry.PackageId, "content.starter_relic.name", "旅者遗物");
         public override TreasureRank Rank => TreasureRank.Common;
         public override int BaseValue => 2;
-        public override System.Collections.Generic.IReadOnlyList<string> CategoryTags =>
-            new[] { TreasureCategoryTags.Shield };
-        public override System.Collections.Generic.IReadOnlyList<string> PoolTags =>
-            new[] { CharacterTreasurePoolTags.HealingLifeBuild };
-        public override string Describe(int level) =>
-            $"进入场景时获得 {BaseValue * level} 点护盾。";
-
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "content.starter_relic.description",
+            "进入场景时获得 {0} 点护盾。", BaseValue * level);
         public override void OnStageEntered(StageEnteredEvent e)
         {
             e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
@@ -89,7 +88,7 @@ namespace LanternTrailMod
 逐项解释：
 
 - `using` 让源码能使用游戏 Core 和 Mod API 中公开的类型。
-- `namespace` 是 C# 类型命名空间。它不是包 ID，但建议根据包名命名，避免与其他 Mod 重名。
+- `namespace` 必须与清单 `codeEntryPoint` 的类型命名空间对应。本课 ID 生成 `LocalAliceLanternTrailMod`；其他 ID 保留各自生成值。
 - `[MiniHeroMod(...)]` 标记唯一入口；这里的 ID、`package.json` 的 `packageId` 必须完全一致。
 - `Load` 在建立内容快照时调用，负责注册内容、音乐和配置。不要在这里缓存某一局的 `GameState`。
 - 内容类必须是 `public`，必须可以实例化，并且有公开无参构造函数。

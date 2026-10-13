@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
     // Structure fragment: implement and register the three StageContent classes, then register MyAdventure.
     // Provide your own pools, characters, rounds, card counts, and difficulty; this is not a complete mod.

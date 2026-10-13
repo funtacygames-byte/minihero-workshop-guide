@@ -27,5 +27,10 @@
 | 品质／等级 | quality / level | `TreasureRank` / `SourceLevel`; distinct |
 | 普通／优良／稀有／史诗／传说 | Common / Uncommon / Rare / Epic / Legendary | `Common/Uncommon/Rare/Epic/Legendary` |
 | 构建／安装／重载 | build / install / reload | Separate steps; C# verification also needs restart |
+| 旅者遗物 | Wayfarer's Relic | Generated `content.starter_relic.name` English value; keep this exact search term |
+| 符刃猎手 | Runehunter | Current `character.rune_hunter.name`; technical ID remains `rune_hunter` |
+| 林径练习 | Trail Lab | Teaching stage/adventure in fragment 08; not built-in content |
+| 提灯游侠／银辉箭 | Lantern Ranger / Silver Bolt | Teaching character/move in fragment 02 |
+| 苔背魔狼／负伤狂怒 | Moss Wolf / Wounded Rage | Teaching enemy/trait in fragment 04 |
 
 Keys, IDs, stored Choice values, enum names, and method names are technical contracts. Translate display values rather than renaming those contracts. The built-in character ID `grove_alchemist` is displayed as **Groveheart** in the current English catalog; use the ID for references regardless of its localized name.

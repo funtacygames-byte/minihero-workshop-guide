@@ -8,3 +8,6 @@ Thumbs.db
 *.pdb
 *.user
 *.log
+__pycache__/
+*.pyc
+.local/

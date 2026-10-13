@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="570" viewBox="0 0 960 570" role="img" aria-labelledby="title desc">
+  <title id="title">Content definitions, runtime instances, and stage reset</title>
+  <desc id="desc">Compilation and entry registration create definitions. A run creates separate treasure instances and enemy card states. Preview uses isolated state. New stages reset temporary treasure state. Save restoration preserves recorded progress.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10" fill="#536c67"/></marker></defs>
+  <rect width="960" height="570" rx="24" fill="#f6f3ea"/>
+  <g font-family="Arial, sans-serif" fill="#253d38">
+    <text x="40" y="54" font-size="28" font-weight="700">Definitions are shared. Progress belongs to instances.</text>
+    <rect x="40" y="86" width="880" height="95" rx="14" fill="#e6eee5"/>
+    <text x="62" y="119" font-size="19" font-weight="700">Sources → DLL → entry Load → registry definitions</text>
+    <text x="62" y="150" font-size="17">Stable IDs, formulas, registered traits and moves. Loading is not stage entry.</text>
+    <path d="M480 186V221" stroke="#536c67" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="40" y="234" width="410" height="125" rx="14" fill="#dce6f0"/>
+    <text x="62" y="269" font-size="21" font-weight="700">Run: concrete treasure instances</text>
+    <text x="62" y="302" font-size="17">Counters, stacks, pending effects and uses</text>
+    <text x="62" y="330" font-size="17">Serializable; separate for every copy</text>
+    <rect x="480" y="234" width="440" height="125" rx="14" fill="#f1e1b6"/>
+    <text x="502" y="269" font-size="21" font-weight="700">Run: enemy CardState / e.Owner</text>
+    <text x="502" y="302" font-size="17">One card's counters and stat changes</text>
+    <text x="502" y="330" font-size="17">Keep mutable state off shared trait definitions.</text>
+    <path d="M245 367V401" stroke="#536c67" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M700 367V401" stroke="#536c67" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="40" y="414" width="410" height="105" rx="14" fill="#e6eee5"/>
+    <text x="62" y="450" font-size="20" font-weight="700">New stage: reset temporary state</text>
+    <text x="62" y="479" font-size="17">OnSceneReset → OnStageEntered</text>
+    <text x="62" y="504" font-size="15">Explicit run-long / handoff exceptions retain data.</text>
+    <rect x="480" y="414" width="440" height="105" rx="14" fill="#e6eee5"/>
+    <text x="502" y="450" font-size="20" font-weight="700">Preview and save boundaries</text>
+    <text x="502" y="479" font-size="17">Preview: isolated state, same calculations</text>
+    <text x="502" y="504" font-size="17">Restore: preserve recorded instance progress</text>
+    <text x="40" y="548" font-size="16">Granted HP and gold are run resources, not temporary treasure counters.</text>
+  </g>
+</svg>

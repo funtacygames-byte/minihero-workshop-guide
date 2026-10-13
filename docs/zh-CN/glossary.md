@@ -24,5 +24,10 @@
 | 品质／等级 | quality / level | `TreasureRank/SourceLevel`，不是同一维度 |
 | 普通／优良／稀有／史诗／传说 | Common / Uncommon / Rare / Epic / Legendary | 枚举为 `Common/Uncommon/Rare/Epic/Legendary` |
 | 构建／安装／重载 | build / install / reload | 独立步骤，C# 验收另需重启 |
+| 旅者遗物 | Wayfarer's Relic | 生成的 `content.starter_relic.name` 英文值，搜索时保留准确名称 |
+| 符刃猎手 | Runehunter | 当前 `character.rune_hunter.name`；技术 ID 保持 `rune_hunter` |
+| 林径练习 | Trail Lab | 片段 08 的教学关卡／冒险，不是内建内容 |
+| 提灯游侠／银辉箭 | Lantern Ranger / Silver Bolt | 片段 02 的教学角色／招式 |
+| 苔背魔狼／负伤狂怒 | Moss Wolf / Wounded Rage | 片段 04 的教学敌人／特性 |
 
 本地化键、内容 ID、Choice 保存值、枚举与方法名属于技术契约；翻译显示值，不顺手改技术标识。当前英文目录中 `grove_alchemist` 显示为 **Groveheart**，中文为林地药师，技术引用始终使用稳定 ID。

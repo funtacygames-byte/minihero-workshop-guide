@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
     // 结构片段：先实现并注册这三个 StageContent，再在入口注册 MyAdventure。
     // 这里不提供牌池、角色或完整作品；轮数、牌数和难度须按自己的玩法设计。

@@ -4,11 +4,11 @@
 
 Reviewed: October 13, 2026. Current Mod API: 1.8.0.
 
-Use this document with the four chapters and relevant [code snippets](../../templates/README.md). It does not replace the game assemblies or an actual test environment.
+Use this document with the [task lessons and references](README.md), four manuals, and relevant [code snippets](../../templates/README.md). It does not replace the game assemblies or an actual test environment.
 
 ## Reading order and sources
 
-Read [Project and build](01-project-and-build.md), then [Content creation](02-content-creation.md) and [Assets and presentation](03-assets-and-presentation.md) for the requested feature. Before delivery, follow [Testing and publishing](04-testing-and-publishing.md).
+Start with [the first mod](tutorials/first-mod.md) and the lesson for the requested task. Read the matching API/rule reference; use the manuals for advanced details. Before delivery, follow [Testing and publishing](04-testing-and-publishing.md) and report the [verified scope](reference/versions.md).
 
 The latest user request, applicable project instructions, and current game implementation take priority over old plans or translations. MiniHero uses warm Western fantasy and fairy-tale adventure. Yaoguang is a specifically authorized ancient Chinese heroine exception; do not apply that exception to the whole world or infer the setting from legacy technical names.
 

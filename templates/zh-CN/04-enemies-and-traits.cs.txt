@@ -1,7 +1,7 @@
 using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
     public sealed class WoundedRage : EnemyTraitContent
     {

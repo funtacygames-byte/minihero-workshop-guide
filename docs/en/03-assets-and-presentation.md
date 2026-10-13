@@ -4,6 +4,8 @@
 
 Reviewed: October 13, 2026. Current Mod API: 1.8.0.
 
+Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+
 This chapter explains artwork bindings, stage music, localization, and compatibility configuration.
 
 ## Contents
@@ -217,29 +219,6 @@ For example, the English entries for the same keys are:
 }
 ```
 
-## 7. Configuration parameters
+## 7. Configuration compatibility
 
-Register a definition in `Load`:
-
-```csharp
-registrar.AddConfig(new ModConfigDefinition(
-    "shield_per_level",
-    "Shield per level",
-    ModConfigValueKind.Integer,
-    "3",
-    "Treasures",
-    "Shield granted per level by Amber Lantern.",
-    1,
-    10));
-```
-
-Read it at runtime:
-
-```csharp
-int amount = ModConfig.GetInt(
-    ModEntry.PackageId, "shield_per_level", 3, 1, 10);
-```
-
-`GetBool`, `GetDecimal`, and `GetChoice` are also available. The current game has no player-facing mod configuration page and no other existing UI that writes these values. Registration validates and retains the definitions; getters return saved values or fallbacks. Treat fallbacks as the actual defaults of a new package. Do not promise editable choice, numeric, or text menus in the workshop. The underlying API is retained for compatibility.
-
-Choice `choices` contain stable stored values, such as `default` and `weighted`. Do not translate them. `choiceDisplayNames` correspond in the same order and may use `ModText.Get` for labels in a compatible UI. `ModConfig.GetChoice` accepts only listed values and returns the fallback if there is no valid saved value. The fallback should also be a listed value. These display labels do not imply an available configuration menu.
+There is no player Mod configuration page. `AddConfig/ModConfig` remains for compatibility; see [Compatibility](reference/compatibility.md) for fields and limits. New authors can use source defaults without configuration fragments.

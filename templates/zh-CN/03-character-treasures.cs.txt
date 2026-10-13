@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MiniAdventureWorld.Core;
 using MiniHero.ModApi;
 
-namespace MyFirstMod
+namespace LocalAliceLanternTrailMod
 {
     [System.Serializable]
     public abstract class LanternTreasure : TreasureContent
@@ -22,10 +22,10 @@ namespace MyFirstMod
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
-        public override string Describe(int level) => $"进入场景时获得 {2 * level} 点护盾。";
+        public override string Describe(int level) => $"进入场景时获得 {BaseValue * level} 点护盾。";
         public override void OnStageEntered(StageEnteredEvent e)
         {
-            e?.Runtime?.AddShield(2 * e.SourceLevel);
+            e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
         }
         public ModPresentation Presentation => ModAssets.Icon("assets/icons/lantern-compass.png");
     }
@@ -39,10 +39,10 @@ namespace MyFirstMod
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Life };
-        public override string Describe(int level) => $"最大生命增加 {2 * level} 点。";
+        public override string Describe(int level) => $"最大生命增加 {BaseValue * level} 点。";
         public override void OnTreasureStats(TreasureStatsEvent e)
         {
-            if (e != null) e.maxHpFlat += 2 * e.SourceLevel;
+            if (e != null) e.maxHpFlat += BaseValue * e.SourceLevel;
         }
     }
 }

@@ -2,43 +2,41 @@
 
 **简体中文** · [English](README.md)
 
-学习用 C# 制作 MiniHero 模组：宝物、角色、敌人、道具、奇遇、关卡，以及图片、音乐和多语言文本。
+用 C# 制作宝物、角色、敌人和关卡，并加入自己的图片、音乐和双语文本。教程从一个可观察的成果开始，再按目标扩展。
 
-本仓库提供制作教程、独立功能片段和不含中文文字的通用示意图。先阅读教程，再在游戏的冒险工坊中创建自己的项目。
-
-**核对日期：** 2026-10-13 · **当前 Mod API：** 1.8.0
-
-## 教程
-
-| 章节 | 内容 |
-| --- | --- |
-| [1. 工程与构建](docs/zh-CN/01-project-and-build.md) | 新建工程、C# 结构、编译、安装、重载与哈希 |
-| [2. 内容制作](docs/zh-CN/02-content-creation.md) | 内容注册、规则事件、状态重置、角色与关卡绑定 |
-| [3. 资源与表现](docs/zh-CN/03-assets-and-presentation.md) | 图片槽位、素材规格、音乐、本地化与配置限制 |
-| [4. 测试与发布](docs/zh-CN/04-testing-and-publishing.md) | 玩法验收、故障定位、打包与 Steam 发布准备 |
-
-[教程目录](docs/zh-CN/README.md) · [功能片段](templates/README.zh-CN.md) · [给 AI 的制作入口](docs/zh-CN/ai-authoring.md) · [中英术语](docs/zh-CN/glossary.md)
+教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [版本与验证范围](docs/zh-CN/reference/versions.md)
 
 ## 第一次制作
 
-1. 在游戏里打开「冒险工坊 → 开发模组」，新建 C# 项目。
-2. 在代码编辑器里打开生成的 `Sources/<packageId>`。若开发页提示缺少 .NET SDK，先安装 SDK。
-3. 按第一篇教程修改 `source/ModEntry.cs`，保留生成工程的编译引用与输出路径。
-4. 按制作目标选择功能片段，按第三篇加入自己的图片与文本。
-5. 在游戏里执行「构建并安装」。修改已加载的 C# DLL 后，完整重启游戏，按第四篇验收。
+从[运行并修改第一个模组](docs/zh-CN/tutorials/first-mod.md)开始：创建工程，保留生成入口，构建安装，完整重启，在宝物图鉴查看旅者遗物，再改一次数值。随后用[固定关卡](docs/zh-CN/tutorials/stage.md)走通守卫和出口；[宝物课](docs/zh-CN/tutorials/treasure.md)提供确定奖励以验证真实效果。
 
-游戏会提供 `MiniHero.ModApi.dll` 与 `MiniAdventureWorld.Core.dll` 开发引用。教程源码不能代替这两份程序集；玩家制作模组不需要 Unity 或完整游戏工程。
+需要游戏、代码编辑器与 .NET SDK。玩家不需要 Unity 或完整游戏工程；开发引用由游戏生成，不能从此教程仓库代替取得。
 
-## 目录
+## 按制作目标阅读
 
-```text
-docs/
-  zh-CN/       简体中文教程
-  en/          英文教程
-templates/     .cs.txt 功能片段与使用说明
-images/        双语教程共用的规格示意图
-```
+| 目标 | 本篇完成什么 |
+| --- | --- |
+| [宝物](docs/zh-CN/tutorials/treasure.md) | 品质、等级、候选池和明确奖励 |
+| [角色与初始招式](docs/zh-CN/tutorials/character.md) | 注册组合、选角入口、双目标验收 |
+| [敌人与特性](docs/zh-CN/tutorials/enemy.md) | 实例创建、伤害窗口、独立计数 |
+| [第一个固定关卡](docs/zh-CN/tutorials/stage.md) | 守卫→出口，固定列和玩法验证 |
+| [连接多个场景](docs/zh-CN/tutorials/adventure.md) | 步骤、整备、场景 ID、保存恢复 |
+| [图片、音乐与双语文本](docs/zh-CN/tutorials/assets-and-text.md) | 真实槽位、包内路径、共同参数 |
+| [打包、发布与更新](docs/zh-CN/tutorials/publish.md) | 本地构建和 Steam 交付分别验收 |
 
-片段用于按需整合：替换 `your.package`，注册被引用的内容，再放入自己的工程；它们不是可直接安装的完整模组。当前游戏没有玩家可打开的 Mod 配置页，制作和验收以源码默认值为准。JSON 后端保留兼容能力，当前没有玩家可打开的 JSON 内容编辑器。
+## 模组出了问题
 
-反馈教程问题时，请附游戏/API 版本、章节链接和观察到的错误或行为；分享日志前删去个人磁盘路径与私密信息。
+打开[排错指南](docs/zh-CN/troubleshooting.md)，按“不能编译”“编译后加载失败”“效果没触发”“图片不显示”等症状定位。需要完整签名、默认值与状态语义时查[API 与规则参考](docs/zh-CN/README.md#reference)。
+
+## 手册与辅助资料
+
+- [工程与构建](docs/zh-CN/01-project-and-build.md)
+- [内容制作与进阶规则](docs/zh-CN/02-content-creation.md)
+- [资源与表现](docs/zh-CN/03-assets-and-presentation.md)
+- [完整测试与发布](docs/zh-CN/04-testing-and-publishing.md)
+
+[完整目录](docs/zh-CN/README.md) · [功能片段与依赖](templates/README.zh-CN.md) · [AI 制作入口](docs/zh-CN/ai-authoring.md) · [术语表](docs/zh-CN/glossary.md) · [维护说明](CONTRIBUTING.md)
+
+本仓库收录教程、有限功能片段、共用示意图和必要的界面截图，不附完整冒险包或独立游戏美术素材。配置和 JSON 的后端兼容能力不表示游戏存在对应玩家编辑页。
+
+反馈时附游戏/API 版本、教程修订号、具体步骤和实际错误。提交前移除个人路径、存档和账号信息，见[贡献说明](CONTRIBUTING.md)。

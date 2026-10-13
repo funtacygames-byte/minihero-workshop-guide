@@ -4,6 +4,8 @@
 
 Reviewed: October 13, 2026. Current Mod API: 1.8.0.
 
+Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+
 Compilation is the start of verification. Also check registration, bindings, values, state resets, assets, installation, and behavior in a clean environment.
 
 Fixed `CardColumnState.cards` are stored **bottom to top**, with the last item exposed. Put an exit before its guard in the list to place it beneath the guard. Test actual card clicks as well as registration and list sizes.
@@ -89,7 +91,7 @@ The backend authoring validator makes `nextEventId` and `nextStageId` mutually e
 
 ### Stage layout and victory
 
-Check registration, membership in the intended adventure, random-pool counts, fixed-card order, and a clickable exit. With `fixedColumns`, only those columns should appear: empty columns stay empty, random candidates are not mixed in, and total card count equals the fixed cards. Registration still needs an Exit template in `appearancePool`; verify it does not appear in the fixed board.
+Check registration, membership in the intended adventure, random-pool counts, fixed-card order, and a clickable exit. With `fixedColumns`, only those columns should appear: empty columns stay empty, random candidates are not mixed in, and total card count equals the fixed cards. Current C# validation checks exits in fixed columns for fixed layouts and in `appearancePool` for random layouts. If retaining a pool Exit template for earlier-version compatibility, verify it does not appear in the fixed board.
 
 Test clicking an exit before and after `victoryConditions` becomes true. The condition is checked on the click, not automatically on a kill. `defeatedEnemies >= 1` counts run-wide defeats, not a specific enemy. Living ordinary enemies do not block exits by themselves; a living boss does. Include the test character in restrictions and create enemy cards from registered content.
 
@@ -151,7 +153,7 @@ Check `StageExplore` on ordinary stages and `BossBattle` on boss stages. Missing
 The current API is **1.8.0**, with minimum compatible version **1.0.0**. Older mods using older capabilities can continue to load. For `AddCharacterToLevel`, declare at least 1.7.0:
 
 ```json
-"modApiVersion": "1.7.0"
+{ "modApiVersion": "1.7.0" }
 ```
 
 For 1.8 features such as adventure rules, looping, seed settings, or dynamic continuation, declare `modApiVersion: "1.8.0"`. Declaring a higher version than the game supports is rejected because methods may be unavailable. The assembly's major version stays stable to reduce disruption from additive API changes.

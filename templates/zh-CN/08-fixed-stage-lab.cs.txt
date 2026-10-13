@@ -1,0 +1,64 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+
+namespace LocalAliceLanternTrailMod
+{
+    public sealed class PracticeStage : StageContent
+    {
+        public PracticeStage() : base(ModEntry.PackageId + ".stage.practice") { }
+        public override string Name => "林径练习";
+        public override string Subtitle => "击败守卫，露出出口。";
+        public override bool IncludeInDefaultCampaign => false;
+
+        public override StageDefinition CreateDefinition(GameContentRegistry registry)
+        {
+            CardState exit = ContentCards.Card(Id + ".exit", CardType.Exit, "出口", "离开林径。");
+            CardState guard = ContentCards.Enemy(
+                Id + ".guard", "林径守卫", "挡住出口的练习守卫。",
+                attack: 1, defense: 0, hp: 4, reward: 0,
+                icon: "", tier: 1);
+            var columns = new List<CardColumnState>();
+            for (int i = 0; i < GameRules.ColumnCount; i++)
+                columns.Add(new CardColumnState { cards = new List<CardState>() });
+            columns[0].cards.Add(exit);
+            columns[0].cards.Add(guard);
+            return new StageDefinition
+            {
+                id = Id, name = Name, subtitle = Subtitle,
+                columnCount = GameRules.ColumnCount,
+                generatedCardCount = GameRules.ColumnCount,
+                appearancePool = new List<CardState> { exit.Clone() },
+                fixedColumns = columns,
+                allowedCharacterIds = new List<string> { BuiltInCharacterIds.RuneHunter }
+            };
+        }
+    }
+
+    public sealed class PracticeAdventure : AdventureContent
+    {
+        public PracticeAdventure() : base(ModEntry.PackageId + ".adventure.practice") { }
+        public override string Name => "林径练习";
+        public override string Description => "一个固定守卫和一个出口。";
+        public override string PreviewImageId => "";
+        public override string SourceStageId => ModEntry.PackageId + ".stage.practice";
+        public override int IntermissionInterval => 0;
+        public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
+        {
+            new AdventureStepDefinition
+            {
+                id = Id + ".step.one", displayName = Name,
+                sourceStageId = SourceStageId,
+                columnCount = GameRules.ColumnCount,
+                roundCount = 1, cardsPerRound = GameRules.ColumnCount
+            }
+        };
+        public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
+        {
+            new AdventureDifficultyDefinition
+            {
+                difficulty = 1, maxHeroCount = 1,
+                availableHeroIds = new List<string> { BuiltInCharacterIds.RuneHunter }
+            }
+        };
+    }
+}
