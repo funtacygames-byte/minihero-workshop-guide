@@ -6,8 +6,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class WoundedRage : EnemyTraitContent
     {
         public WoundedRage() : base(ModEntry.PackageId + ".enemy_trait.wounded_rage") { }
-        public override string Name => "Wounded Rage";
-        public override string Description => "After taking damage, gain 1 attack.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "enemy_trait.wounded_rage.name", "Wounded Rage");
+        public override string Description => ModText.Get(ModEntry.PackageId, "enemy_trait.wounded_rage.description", "After taking damage, gain 1 attack.");
         public override void OnAfterDamaged(EnemyTraitEvent e)
         {
             if (e?.Owner != null) e.Owner.enemyTraitAttackDelta += 1;
@@ -17,8 +17,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class MossWolf : EnemyContent, IModPresentationContent
     {
         public MossWolf() : base(ModEntry.PackageId + ".enemy.moss_wolf") { }
-        public override string Name => "Moss Wolf";
-        public override string Description => "A magical wolf lurking in woodland moss.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "enemy.moss_wolf.name", "Moss Wolf");
+        public override string Description => ModText.Get(ModEntry.PackageId, "enemy.moss_wolf.description", "A magical wolf lurking in woodland moss.");
         public override int Attack => 6;
         public override int Defense => 1;
         public override int MaxHp => 18;

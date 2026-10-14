@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/stages.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 4 · Mod API 1.8.0 · 2026-10-13
 
 Baseline: 1.8.0. Start with [A fixed stage](../tutorials/stage.md), then use this field reference and the [API surface](api-surface.md).
 
@@ -22,7 +22,7 @@ public abstract StageDefinition CreateDefinition(GameContentRegistry registry);
 | `appearancePool` | Random candidates; random-layout validation checks this pool for an Exit |
 | `fixedColumns` | Nonempty list fully replaces random layout; complete columns clone bottom-to-top |
 | `columnCount/generatedCardCount` | Random-layout counts; fixed counts come from actual columns/cards |
-| `allowedCharacterIds` | Empty imposes no source restriction; otherwise uses permitted stable IDs |
+| `allowedCharacterIds` | Stored and reference-validated metadata; current C# runtime does not enforce selection through this field |
 | `music` | Registered music theme ID |
 | `boss` | Stage boss flag used for music cue selection |
 | `victoryConditions` | Conditions checked when an exit is used |
@@ -53,6 +53,8 @@ Do not interchange IDs: Adventure identifies selection, Stage identifies source,
 
 
 All steps, including fixed layouts, must pass `columnCount` 1–5, `roundCount >= 1`, and `columnCount <= cardsPerRound <= 100`, or registration reports `AW_ADVENTURE_STEP_RANGE`. The practice fragment uses `cardsPerRound = GameRules.ColumnCount` (5) to pass this metadata check; its fixed board still contains only the two supplied cards. A boss step also requires an enemy with `isBoss` in the source `appearancePool` under the current adventure validator, even when the source uses fixed columns. Check that its actual fixed board also contains the intended boss.
+
+With a nonempty availableHeroIds list, the host resolves those explicit IDs. An empty list uses the first clamp(maxHeroCount, 1, 4) entries of the character catalog; it does not mean every character. AddCharacterToLevel bindings can append characters afterward.
 
 ## Random generation and advanced topics
 

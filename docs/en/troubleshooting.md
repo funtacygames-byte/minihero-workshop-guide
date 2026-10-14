@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/troubleshooting.md) · [Index](README.md)
 
-Guide revision 2 · API 1.8.0 · 2026-10-14
+Guide revision 4 · API 1.8.0 · 2026-10-14
 
-Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.8.0, guide revision 2.
+Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.8.0, guide revision 4.
 
 ## Get the actual error
 
@@ -77,3 +77,8 @@ Registering a Stage alone does not create an Adventure entry. Check adventure re
 ## Minimal reproduction for maintainers
 
 Include game/API/guide versions, package ID, exact lesson/step, expected and observed behavior, first stable code, and necessary source. State names, levels, uses, and targets precisely. Remove private information. Reduce complex mods to a reproducible subset; do not upload game DLLs, entire saves, or credentials. Record entry, loading, gameplay, and online delivery separately; see [Versions and validation](reference/versions.md).
+
+
+## New card choices and pages
+
+Display cards do not execute their original behavior. With a resolver, concrete content owns the reward. See [choice contract](reference/card-choice.md) for errors, source instances, conditions and cancellation. For page rejection, check [tree and asset limits](reference/custom-ui.md). No player settings page is a [current configuration boundary](tutorials/configuration.md), not a reason to edit private files.

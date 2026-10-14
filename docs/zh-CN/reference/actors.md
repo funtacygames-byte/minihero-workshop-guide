@@ -2,7 +2,7 @@
 
 [English](../../en/reference/actors.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 4 · Mod API 1.8.0 · 2026-10-13
 
 当前基准 1.8.0。方法与类型查[API 声明](api-surface.md)；步骤见[角色课](../tutorials/character.md)和[敌人课](../tutorials/enemy.md)。
 

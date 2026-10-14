@@ -18,11 +18,12 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternCompass : LanternTreasure, IModPresentationContent
     {
         public LanternCompass() : base(ModEntry.PackageId + ".treasure.lantern_compass") { }
-        public override string Name => "Starlit Compass";
+        public override string Name => ModText.Get(ModEntry.PackageId, "treasure.lantern_compass.name", "Starlit Compass");
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
-        public override string Describe(int level) => $"Gain {BaseValue * level} shield when entering a stage.";
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "treasure.lantern_compass.description", "Gain {0} shield when entering a stage.", BaseValue * level);
         public override void OnStageEntered(StageEnteredEvent e)
         {
             e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
@@ -35,11 +36,12 @@ namespace LocalAliceLanternTrailMod
     public sealed class MoonGlassBottle : LanternTreasure
     {
         public MoonGlassBottle() : base(ModEntry.PackageId + ".treasure.moon_glass_bottle") { }
-        public override string Name => "Moon Glass Bottle";
+        public override string Name => ModText.Get(ModEntry.PackageId, "treasure.moon_glass_bottle.name", "Moon Glass Bottle");
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Life };
-        public override string Describe(int level) => $"Gain {BaseValue * level} maximum HP.";
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "treasure.moon_glass_bottle.description", "Gain {0} maximum HP.", BaseValue * level);
         public override void OnTreasureStats(TreasureStatsEvent e)
         {
             if (e != null) e.maxHpFlat += BaseValue * e.SourceLevel;

@@ -1,20 +1,21 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
 
 namespace LocalAliceLanternTrailMod
 {
     public sealed class PracticeStage : StageContent
     {
         public PracticeStage() : base(ModEntry.PackageId + ".stage.practice") { }
-        public override string Name => "林径练习";
-        public override string Subtitle => "击败守卫，露出出口。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "stage.practice.name", "林径练习");
+        public override string Subtitle => ModText.Get(ModEntry.PackageId, "stage.practice.subtitle", "击败守卫，露出出口。");
         public override bool IncludeInDefaultCampaign => false;
 
         public override StageDefinition CreateDefinition(GameContentRegistry registry)
         {
-            CardState exit = ContentCards.Card(Id + ".exit", CardType.Exit, "出口", "离开林径。");
+            CardState exit = ContentCards.Card(Id + ".exit", CardType.Exit, ModText.Get(ModEntry.PackageId, "stage.practice.exit.name", "出口"), ModText.Get(ModEntry.PackageId, "stage.practice.exit.description", "离开林径。"));
             CardState guard = ContentCards.Enemy(
-                Id + ".guard", "林径守卫", "挡住出口的练习守卫。",
+                Id + ".guard", ModText.Get(ModEntry.PackageId, "stage.practice.guard.name", "林径守卫"), ModText.Get(ModEntry.PackageId, "stage.practice.guard.description", "挡住出口的练习守卫。"),
                 attack: 1, defense: 0, hp: 4, reward: 0,
                 icon: "", tier: 1);
             var columns = new List<CardColumnState>();
@@ -37,8 +38,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class PracticeAdventure : AdventureContent
     {
         public PracticeAdventure() : base(ModEntry.PackageId + ".adventure.practice") { }
-        public override string Name => "林径练习";
-        public override string Description => "一个固定守卫和一个出口。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "adventure.practice.name", "林径练习");
+        public override string Description => ModText.Get(ModEntry.PackageId, "adventure.practice.description", "一个固定守卫和一个出口。");
         public override string PreviewImageId => "";
         public override string SourceStageId => ModEntry.PackageId + ".stage.practice";
         public override int IntermissionInterval => 0;

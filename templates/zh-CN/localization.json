@@ -1,0 +1,265 @@
+{
+  "locale": "zh-Hans",
+  "entries": [
+    {
+      "key": "adventure.continuation_lab.description",
+      "value": "完成首场景与两个动态续接场景。"
+    },
+    {
+      "key": "adventure.continuation_lab.name",
+      "value": "林径接力"
+    },
+    {
+      "key": "adventure.continuation_lab.stage",
+      "value": "接力场景 {0}"
+    },
+    {
+      "key": "adventure.my_adventure.description",
+      "value": "连接自己制作的三个地区。"
+    },
+    {
+      "key": "adventure.my_adventure.name",
+      "value": "我的冒险"
+    },
+    {
+      "key": "adventure.my_adventure.region.one.name",
+      "value": "第一地区"
+    },
+    {
+      "key": "adventure.my_adventure.region.three.name",
+      "value": "第三地区"
+    },
+    {
+      "key": "adventure.my_adventure.region.two.name",
+      "value": "第二地区"
+    },
+    {
+      "key": "adventure.practice.description",
+      "value": "一个固定守卫和一个出口。"
+    },
+    {
+      "key": "adventure.practice.name",
+      "value": "林径练习"
+    },
+    {
+      "key": "character.lantern_ranger.description",
+      "value": "以提灯与轻弩守护旅队。"
+    },
+    {
+      "key": "character.lantern_ranger.name",
+      "value": "提灯游侠"
+    },
+    {
+      "key": "character.lantern_ranger.role",
+      "value": "猎人"
+    },
+    {
+      "key": "character.lantern_ranger.school",
+      "value": "林地巡守"
+    },
+    {
+      "key": "choice.camp.guard.description",
+      "value": "2 金币换 1 防御。"
+    },
+    {
+      "key": "choice.camp.guard.name",
+      "value": "守卫补给"
+    },
+    {
+      "key": "choice.camp.heal.description",
+      "value": "恢复 5 点生命。"
+    },
+    {
+      "key": "choice.camp.heal.name",
+      "value": "月露补给"
+    },
+    {
+      "key": "choice.supply.coins.description",
+      "value": "获得 3 金币。"
+    },
+    {
+      "key": "choice.supply.coins.name",
+      "value": "散落金币"
+    },
+    {
+      "key": "choice.supply.prepare.description",
+      "value": "获得 2 护盾，再选择追加补给。"
+    },
+    {
+      "key": "choice.supply.prepare.name",
+      "value": "护盾补给"
+    },
+    {
+      "key": "content.starter_relic.description",
+      "value": "进入场景时获得 {0} 点护盾。"
+    },
+    {
+      "key": "content.starter_relic.name",
+      "value": "旅者遗物"
+    },
+    {
+      "key": "enemy.moss_wolf.description",
+      "value": "潜伏在林间苔丛中的魔狼。"
+    },
+    {
+      "key": "enemy.moss_wolf.name",
+      "value": "苔背魔狼"
+    },
+    {
+      "key": "enemy_trait.wounded_rage.description",
+      "value": "受到伤害后，攻击增加 1。"
+    },
+    {
+      "key": "enemy_trait.wounded_rage.name",
+      "value": "负伤狂怒"
+    },
+    {
+      "key": "event.camp_choice.description",
+      "value": "选择治疗或防御补给。"
+    },
+    {
+      "key": "event.camp_choice.name",
+      "value": "营地补给"
+    },
+    {
+      "key": "event.relic_grant.choice.take",
+      "value": "领取旅者遗物。"
+    },
+    {
+      "key": "event.relic_grant.description",
+      "value": "领取一件旅者遗物用于测试。"
+    },
+    {
+      "key": "event.relic_grant.name",
+      "value": "领取遗物"
+    },
+    {
+      "key": "event.two_step_supplies.description",
+      "value": "获得 3 金币，或获得 2 护盾并选择追加补给。"
+    },
+    {
+      "key": "event.two_step_supplies.name",
+      "value": "补给储备"
+    },
+    {
+      "key": "item.ember_vial.description",
+      "value": "对指定敌人造成 5 点伤害。"
+    },
+    {
+      "key": "item.ember_vial.name",
+      "value": "余烬药瓶"
+    },
+    {
+      "key": "item.moon_dew.description",
+      "value": "恢复 6 点生命。"
+    },
+    {
+      "key": "item.moon_dew.name",
+      "value": "月露药剂"
+    },
+    {
+      "key": "move.silver_bolt.description",
+      "value": "对一名敌人造成 2 倍攻击伤害。"
+    },
+    {
+      "key": "move.silver_bolt.name",
+      "value": "银辉箭"
+    },
+    {
+      "key": "stage.lantern_trail.exit.description",
+      "value": "离开这片森林。"
+    },
+    {
+      "key": "stage.lantern_trail.exit.name",
+      "value": "林径出口"
+    },
+    {
+      "key": "stage.lantern_trail.name",
+      "value": "提灯林径"
+    },
+    {
+      "key": "stage.lantern_trail.subtitle",
+      "value": "沿着暖色灯火穿过低语森林。"
+    },
+    {
+      "key": "stage.practice.exit.description",
+      "value": "离开林径。"
+    },
+    {
+      "key": "stage.practice.exit.name",
+      "value": "出口"
+    },
+    {
+      "key": "stage.practice.guard.description",
+      "value": "挡住出口的练习守卫。"
+    },
+    {
+      "key": "stage.practice.guard.name",
+      "value": "林径守卫"
+    },
+    {
+      "key": "stage.practice.name",
+      "value": "林径练习"
+    },
+    {
+      "key": "stage.practice.subtitle",
+      "value": "击败守卫，露出出口。"
+    },
+    {
+      "key": "trait.lantern_sight.description",
+      "value": "普通攻击额外选择一名随机敌人。"
+    },
+    {
+      "key": "trait.lantern_sight.name",
+      "value": "灯辉视野"
+    },
+    {
+      "key": "treasure.lantern_compass.description",
+      "value": "进入场景时获得 {0} 点护盾。"
+    },
+    {
+      "key": "treasure.lantern_compass.name",
+      "value": "星针罗盘"
+    },
+    {
+      "key": "treasure.moon_glass_bottle.description",
+      "value": "最大生命增加 {0} 点。"
+    },
+    {
+      "key": "treasure.moon_glass_bottle.name",
+      "value": "月光玻璃瓶"
+    },
+    {
+      "key": "treasure.practice_counter.description",
+      "value": "治疗后获得治疗量 10% 的护盾，每场景最多 3 次。"
+    },
+    {
+      "key": "treasure.practice_counter.name",
+      "value": "练习量瓶"
+    },
+    {
+      "key": "ui.camp.check",
+      "value": "检查页面"
+    },
+    {
+      "key": "ui.camp.checked",
+      "value": "按钮已响应。"
+    },
+    {
+      "key": "ui.camp.original",
+      "value": "原版菜单"
+    },
+    {
+      "key": "ui.camp.play",
+      "value": "开始冒险"
+    },
+    {
+      "key": "ui.camp.ready",
+      "value": "手册已就绪。"
+    },
+    {
+      "key": "ui.camp.title",
+      "value": "营地手册"
+    }
+  ]
+}

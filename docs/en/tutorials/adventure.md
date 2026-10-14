@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/adventure.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: keep the fixed exercise playable while expanding it to two stages. The first exit starts a transition; the second finishes with victory. Learn the difference between source stage, step, and expanded stage IDs before connecting three regions.
 
@@ -28,7 +28,7 @@ The [three-region structure fragment](../../../templates/en/07-three-region-adve
 
 Each step identifies its source and sets columns, rounds, cards per round, generation profile, and intermission. Complete fixed columns determine fixed-board counts; random boards use configured counts and pools.
 
-Difficulty character lists must agree with source-stage eligibility. Fields such as `attackEnhance` affect generated results. First verify a single difficulty without additional enhancement, then add growth. A default six-round value in an API is not a required pacing plan.
+Configure the actual selection roster through the difficulty's availableHeroIds; source allowedCharacterIds is retained metadata in the current C# path. Fields such as `attackEnhance` affect generated results. First verify a single difficulty without additional enhancement, then add growth. A default six-round value in an API is not a required pacing plan.
 
 ## 4. Add advanced features when needed
 
@@ -43,3 +43,9 @@ These are not prerequisites for a two-stage adventure. After adding a mechanism,
 - New runs and restored saves can reach the ending; difficulty and character lists agree.
 
 Next: [Images, music, and bilingual text](assets-and-text.md).
+
+
+Related extension: [seeds, loops and continuation](adventure-modes.md).
+
+
+Fragment names and descriptions now use ModText. Merge the sample entries as in [bilingual text](assets-and-text.md); without them, source fallbacks remain visible. Existing card/definition snapshots are not guaranteed to translate immediately, so check a fresh run after changing language.

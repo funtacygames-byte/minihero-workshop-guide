@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/publish.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: build an installable package from verified Sources, complete release preparation, and distinguish Steam verification from a local export. This is a workflow; this guide rewrite does not publish a mod for you.
 

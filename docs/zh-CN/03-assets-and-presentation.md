@@ -2,11 +2,11 @@
 
 [English](../en/03-assets-and-presentation.md) · [教程目录](README.md)
 
-教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+教程修订 4 · 核对日期：2026-10-14 · Mod API：1.8.0。
 
 第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
-本篇说明如何给 Mod 内容绑定图片、怎样为关卡加入或替换音乐，以及如何维护本地化文本和可配置参数。
+本篇说明如何给 Mod 内容绑定图片、为关卡注册音乐、维护本地化文本，以及现有配置接口的兼容边界。
 
 ## 目录
 
@@ -156,7 +156,7 @@ Boss 关卡设置 `boss = true`。
 
 ## 五、音乐回退与当前限制
 
-当前真正接通的音乐槽位：
+当前真正接通的关卡音乐槽位：
 
 - `StageExplore`：普通关卡。未提供或 Mod 音频加载失败时，回退游戏内置的游戏内音乐列表。
 - `BossBattle`：Boss 关卡；未提供或 Mod 音频加载失败时，先尝试同主题的 `StageExplore`；探索曲也缺失或加载失败，再回退游戏内置的游戏内音乐列表。
@@ -193,6 +193,8 @@ public override string Describe(int level) => ModText.Format(
 
 对应 `localization/zh-Hans.json`：
 
+这是显示文字表；宝物的触发与护盾公式仍写在 C# 内容类中。
+
 ```json
 {
   "locale": "zh-Hans",
@@ -204,6 +206,18 @@ public override string Describe(int level) => ModText.Format(
 ```
 
 第三个参数是找不到翻译时的后备文本，必须能独立阅读。增加英文时创建 `localization/en.json`，并在 `package.json` 的 `supportedLocales` 加入 `en`。
+
+同一组键的英文条目如下；只合并这些条目，不覆盖已有翻译：
+
+```json
+{
+  "locale": "en",
+  "entries": [
+    { "key": "treasure.amber_lantern.name", "value": "Amber Lantern" },
+    { "key": "treasure.amber_lantern.description", "value": "Gain {0} shield when entering a stage." }
+  ]
+}
+```
 
 ## 七、配置兼容入口
 

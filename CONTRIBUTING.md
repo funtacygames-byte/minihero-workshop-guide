@@ -49,3 +49,10 @@ Use the [reader-trial checklist](docs/en/reference/reader-trial.md) / [试读记
 `.github/workflows/docs.yml` runs these public checks when the revision is eventually pushed. It uses the documented [checkout](https://github.com/actions/checkout) and [setup-python](https://github.com/actions/setup-python) actions with read-only repository permission. This local revision has not run GitHub Actions until published. Game-reference compilation stays in an authorized local environment; do not upload references to public CI.
 
 自动检查不证明玩家语义、界面、编译或线上发布；当前本地修订尚未推送，不把本地命令称为已执行的 GitHub Actions。
+
+
+## Capability and AI routing / 能力与 AI 路由
+
+Keep `docs/capabilities.json`, both feature maps and `llms.txt` aligned with real integration boundaries. The check validates versions, unique capability IDs, statuses, existing language routes and indexed API types. Gameplay examples use C#; the check rejects declarative gameplay JSON recipes. Auxiliary manifest/text examples are compared for keys, stable IDs, numbers and placeholders; locale values intentionally differ. / 同步真实能力、版本与双语路由，玩法示例使用 C#，检查拒绝声明式玩法 JSON；包信息／文本表核对技术契约，locale 值允许按语言变化。
+
+The extractor includes selected enums/structs and protected extension points. Review their semantics before recording new hashes. Current source types, an old installed Core DLL, and a matching version string are separate evidence. / 提取包含枚举、结构体和 protected 扩展点；不要用同版本号推断旧 DLL 已含新接口。

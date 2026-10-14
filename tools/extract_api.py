@@ -22,7 +22,19 @@ TYPES = {
     'ITreasureRuntime', 'TreasureStatsEvent', 'BeforeHealingEvent', 'AfterHealingEvent',
     'StageEnteredEvent', 'ColumnClearedEvent', 'BeforeMoveResolvedEvent',
     'AfterMoveResolvedEvent', 'EnemyKilledEvent', 'BeforeItemEffectEvent',
-    'ItemUsedEvent', 'ItemContent', 'EventContent', 'ContentCards'
+    'ItemUsedEvent', 'ItemContent', 'EventContent', 'ContentCards',
+    'CardChoiceOption', 'CardChoiceRequest', 'ICardChoiceResolver', 'CardChoiceContext',
+    'CardChoiceEventContent', 'CardExecutionContext', 'GameActionResult', 'StatEffect',
+    'RichEventChoiceState', 'DeclarativeConditionEvaluator', 'AdventureRuleContent',
+    'AdventureDefinition', 'AdventureLoopSettings', 'AdventureSeedSettings', 'AdventureSeedMode',
+    'IAdventureContinuationContent', 'AdventureContinuationContext', 'StageGenerationProfiles',
+    'ModScreenDefinition', 'ModScreenController', 'IModUiContext', 'ModUi', 'ModUiElement',
+    'ModUiStyle', 'ModUiThickness', 'ModScreenPlacement', 'ModUiElementKind', 'ModUiAlignment',
+    'ModUiImageFit', 'ModStartScreenAction', 'ModConfigValueKind', 'ModMusicCue',
+    'ModStartScreenDefinition', 'ModStartScreenButton', 'ModPresentationSlot',
+    'MoveCapacityEvent', 'NormalAttackResolvedEvent', 'BeforePlayerDamageEvent',
+    'PlayerDamageTakenEvent', 'TurnEndedEvent', 'PlayerStatusProjectionEvent',
+    'StageGraphNodeKind', 'StageGraphNodeDefinition', 'StageGraphEdgeDefinition'
 }
 
 def mask(source):
@@ -60,7 +72,7 @@ def members(source, masked, start, end, interface):
             if not paren and not bracket and (c in '{;' or masked[i:i+2]=='=>'):break
             i+=1
         header=source[begin:i]; head=clean(header)
-        visible=interface or bool(re.match(r'public\b',head))
+        visible=interface or bool(re.match(r'(?:public|protected)\b',head))
         if masked[i:i+2]=='=>':
             # Skip expression bodies, including initializers with nested braces.
             j=i+2; level=0
@@ -95,7 +107,7 @@ def extract(game):
     # Sources are scanned read-only; only selected declarations are retained.
     for path in sorted(base.rglob('*.cs')):
         source=path.read_text(encoding='utf-8-sig'); masked=mask(source)
-        matches=list(re.finditer(r'\bpublic\s+(?:(?:abstract|sealed|static|partial)\s+)*(class|interface)\s+(\w+)[^{]*\{',masked))
+        matches=list(re.finditer(r'\bpublic\s+(?:(?:abstract|sealed|static|partial|readonly)\s+)*(class|interface|struct|enum)\s+(\w+)[^{]*\{',masked))
         for match in matches:
             kind,name=match[1],match[2]
             if name not in TYPES:continue
@@ -103,17 +115,19 @@ def extract(game):
             relative=path.relative_to(game).as_posix()
             hashes[relative]=hashlib.sha256(path.read_bytes()).hexdigest()
             if name in found:raise ValueError('Duplicate selected type: '+name)
-            found[name]={'declaration':clean(source[match.start():start]),'members':members(source,masked,start,end,kind=='interface'),'source':relative}
+            declarations=([clean(item) for item in source[start+1:end].split(',') if clean(item)]
+                          if kind=='enum' else members(source,masked,start,end,kind=='interface'))
+            found[name]={'declaration':clean(source[match.start():start]),'members':declarations,'source':relative}
     missing=TYPES-set(found)
     if missing:raise ValueError('Missing public declarations: '+', '.join(sorted(missing)))
     version=re.search(r'public const string Version\s*=\s*"([^"]+)"', '\n'.join(found['MiniHeroModApi']['members']))
     if not version:raise ValueError('Missing API version declaration')
-    return {'api':version[1],'reviewDate':'2026-10-13','extraction':'selected source declarations; inherited members listed under their defining base','sources':hashes,'types':dict(sorted(found.items()))}
+    return {'api':version[1],'reviewDate':'2026-10-14','extraction':'selected public declarations and protected extension points; inherited members listed under their defining base','sources':hashes,'types':dict(sorted(found.items()))}
 
 def render(data,lang):
     zh=lang=='zh-CN'; other='en' if zh else 'zh-CN'
     lines=['# 公开 API 声明索引' if zh else '# Public API declaration index','',f'[{"English" if zh else "简体中文"}](../../{other}/reference/api-surface.md) · [{"目录" if zh else "Index"}](../README.md)','',
-        ('教程修订 2' if zh else 'Guide revision 2')+f' · API {data["api"]} · 2026-10-13','',
+        ('教程修订 4' if zh else 'Guide revision 4')+f' · API {data["api"]} · 2026-10-14','',
         '从当前授权工程只读提取的选定公开声明，不包含方法实现；它不是完整 SDK 文档。继承成员在定义它的基类下查询。默认值与调用语义须同时查对应[规则参考](../README.md#reference)。维护者可使用[提取工具](../../../tools/extract_api.py)重新生成。' if zh else 'Selected public declarations extracted read-only from the authorized source, without implementations. This is not the entire SDK. Look up inherited members under their defining base and use the [rule references](../README.md#reference) for defaults and semantics. Maintainers can regenerate it with the [extractor](../../../tools/extract_api.py).','']
     lines += ['| Type | Type | Type |','| --- | --- | --- |']
     names=list(data['types'])
@@ -122,7 +136,8 @@ def render(data,lang):
         lines.append('| '+' | '.join(cells+['']*(3-len(cells)))+' |')
     lines.append('')
     for name,item in data['types'].items():
-        lines += ['## '+name,'','```csharp',item['declaration'],'{']+['    '+m for m in item['members']]+['}','```','']
+        enum=' enum ' in ' '+item['declaration']+' '
+        lines += ['## '+name,'','```csharp',item['declaration'],'{']+['    '+m+(',' if enum else '') for m in item['members']]+['}','```','']
     return '\n'.join(lines)
 
 def main():

@@ -1,5 +1,24 @@
 # Guide revisions / 教程修订
 
+## Guide revision 4 — 2026-10-14
+
+- Kept gameplay authoring in C# and removed declarative gameplay JSON recipes from player/AI routes.
+- Added bounded continuation and complete chained-choice classes, 65 bilingual text keys and 87 selected API types / 773 declarations.
+- Corrected serializable counters, roster metadata, graph-validation limits, build/version/restart instructions and fixed-font text.
+- Ran current-SDK builds, real workshop services, Unity state restoration, loop/chain checks and formal-scene bilingual choice clicks. Verification limits remain on both version pages.
+
+## Revision 3 — 2026-10-14 (local changes / 本地改动)
+
+- Add seven bilingual task lessons for items/events, new card choices, stateful rules, custom pages, configuration, adventure modes and debugging. / 新增七条双语任务路径。
+- Add four fragment pairs and choice/UI/condition contracts with costs, turns, rollback and saves. / 增加四组片段及完整结算契约。
+- Add a feature map, 16-capability machine index and llms.txt; rewrite the AI delivery contract. / 增加功能地图、16 项机器索引和 AI 制作合同。
+- Expand selected declarations from 43 types/415 declarations to 84 types/755 declarations, including protected extension points and enums. / 扩充真实 API 索引。
+- Check bilingual JSON keys/numbers/placeholders and capability routes; fix the missing Chinese asset JSON example. / 加强双语检查并补齐旧手册示例。
+- Compile 26 fragment files plus inline configuration/mode overrides; run 46 pure rule checks per language. / 双语编译与规则验证。
+- Keep prior paths and historical UI evidence; no GitHub push or Steam publication. / 保留旧链接，分开记录本轮与历史验证。
+
+See [current scope](docs/en/reference/versions.md) / [本轮验证范围](docs/zh-CN/reference/versions.md).
+
 ## Revision 2 — 2026-10-14 (local draft / 本地修订)
 
 - Add eight task lessons in English and Simplified Chinese, with prerequisites and observable checks. / 增加八篇双语任务教程。

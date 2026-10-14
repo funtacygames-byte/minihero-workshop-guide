@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/treasure.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 本课沿用首课的 `StarterRelic`，完成品质、等级、候选池与实际效果的检查。它在各品质共用一套教学公式；不应把换名字和数值当成新的成品设计。
 
@@ -57,3 +57,9 @@ columns[0].cards.Add(
 - 不把 `StartingTreasureTypes` 当作选角发奖，也不把分类当作池。
 
 继续[角色与初始招式](character.md)，或查[治疗与事件](../reference/events.md)设计其他触发窗口。
+
+
+相关扩展：[次数状态与重置](rules-and-state.md)。
+
+
+本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。

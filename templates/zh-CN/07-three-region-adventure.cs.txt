@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
 
 namespace LocalAliceLanternTrailMod
 {
@@ -8,15 +9,15 @@ namespace LocalAliceLanternTrailMod
     public sealed class MyAdventure : AdventureContent
     {
         public MyAdventure() : base(ModEntry.PackageId + ".adventure.my_adventure") { }
-        public override string Name => "我的冒险";
-        public override string Description => "连接自己制作的三个地区。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "adventure.my_adventure.name", "我的冒险");
+        public override string Description => ModText.Get(ModEntry.PackageId, "adventure.my_adventure.description", "连接自己制作的三个地区。");
         public override string SourceStageId => ModEntry.PackageId + ".stage.region_one";
         public override string PreviewImageId => SourceStageId;
         public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
         {
-            Step("one", "第一地区", ".stage.region_one"),
-            Step("two", "第二地区", ".stage.region_two"),
-            Step("three", "第三地区", ".stage.region_three")
+            Step("one", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.one.name", "第一地区"), ".stage.region_one"),
+            Step("two", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.two.name", "第二地区"), ".stage.region_two"),
+            Step("three", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.three.name", "第三地区"), ".stage.region_three")
         };
         public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
         {

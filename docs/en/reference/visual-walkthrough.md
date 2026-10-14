@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/visual-walkthrough.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-14
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
 Screenshots show the actual English UI in the official project. Creation and building use an isolated documentation workspace and real services. Buttons, layout, and text are unchanged; the user's existing projects are excluded. These images identify operations and do not replace a full standalone-game restart. Alice is a teaching name; enter your own name as author.
 
@@ -43,3 +43,13 @@ On failure, the game attempts to open the report folder. If that fails, follow t
 ![A contact sheet compared with a single exported icon](../../../images/icon-crop-check.svg)
 
 The six-cell sheet is not one treasure icon. Export the intended image separately in your drawing tool with a reasonable margin. This is a neutral illustration, not a game rendering. After binding, inspect the subject, transparent edges, and proportions in the actual codex and board; see the [assets lesson](../tutorials/assets-and-text.md).
+
+## 6. Compare a real C# card choice
+
+![CampChoice compiled from the lesson, shown in English](../../../images/ui-camp-choice-en.png)
+
+This is [fragment 10's CampChoice](../tutorials/card-choice.md), compiled by the workshop and rendered in the formal battle scene at 1920×1080. Moondew Kit restores 5 HP; Guard Supplies costs 2 gold and grants 1 defense. Displayed artwork is the host fallback for this rules-only example. The native button test checks one cost, one effect and one turn; the source event remains in the background until confirmation.
+
+![The same compiled package showing Chinese card text](../../../images/ui-camp-choice-zh-Hans.png)
+
+The same DLL reads the paired translation catalog; the Chinese paid description fits one line at the original 15-point size. Gameplay construction and settlement remain in the C# class. Fresh requests are used when testing languages because an existing custom card snapshot may retain its original text. These screenshots do not establish readability at every screen ratio.

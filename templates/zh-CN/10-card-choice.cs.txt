@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [Serializable]
+    public sealed class CampChoice : CardChoiceEventContent
+    {
+        public CampChoice() : base(ModEntry.PackageId + ".event.camp_choice") { }
+        public override string Name => ModText.Get(ModEntry.PackageId,
+            "event.camp_choice.name", "营地补给");
+        public override string Description => ModText.Get(ModEntry.PackageId,
+            "event.camp_choice.description", "选择治疗或防御补给。");
+        public override string ImageName => "";
+
+        protected override IReadOnlyList<CardChoiceOption> CreateChoices(CardExecutionContext context)
+        {
+            return new[]
+            {
+                new CardChoiceOption
+                {
+                    id = "heal",
+                    card = ContentCards.Card(Id + ".preview.heal", CardType.Encounter,
+                        ModText.Get(ModEntry.PackageId, "choice.camp.heal.name", "月露补给"),
+                        ModText.Get(ModEntry.PackageId, "choice.camp.heal.description", "恢复 5 点生命。")),
+                    effect = new StatEffect { hp = 5 }
+                },
+                new CardChoiceOption
+                {
+                    id = "guard",
+                    card = ContentCards.Card(Id + ".preview.guard", CardType.Encounter,
+                        ModText.Get(ModEntry.PackageId, "choice.camp.guard.name", "守卫补给"),
+                        ModText.Get(ModEntry.PackageId, "choice.camp.guard.description", "2 金币换 1 防御。")),
+                    effect = new StatEffect { defense = 1 },
+                    cost = new StatEffect { gold = 2 },
+                    conditionExpression = "gold>=2"
+                }
+            };
+        }
+
+        public override GameActionResult ResolveCardChoice(CardChoiceContext context)
+        {
+            if (context.Selected.id != "heal" && context.Selected.id != "guard")
+                return GameActionResult.Failure("unknown_option", "未知选项。");
+            context.ApplyEffect(context.Selected.effect, context.Selected.maxHpGainDoesNotHeal);
+            return GameActionResult.Success("camp_choice_resolved", "补给已结算。");
+        }
+    }
+}

@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [Serializable]
+    public sealed class PracticeCounterRelic : TreasureContent
+    {
+        public int healingTriggers;
+        public PracticeCounterRelic() : base(ModEntry.PackageId + ".treasure.practice_counter") { }
+        public override string Name => ModText.Get(ModEntry.PackageId, "treasure.practice_counter.name", "练习量瓶");
+        public override TreasureRank Rank => TreasureRank.Legendary;
+        public override int MaxLevel => 1;
+        public override IEnumerable<TreasureState> GetStateVariants() => new[] { CreateState() };
+        public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+        public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
+        public override string Describe(int level) => ModText.Get(ModEntry.PackageId,
+            "treasure.practice_counter.description", "治疗后获得治疗量 10% 的护盾，每场景最多 3 次。");
+        public override void OnAfterHealing(AfterHealingEvent e)
+        {
+            if (e == null || e.requested <= 0 || healingTriggers >= 3) return;
+            healingTriggers++;
+            e.Runtime.AddShield(e.Percent(e.requested, 10));
+        }
+        public override void OnSceneReset() => healingTriggers = 0;
+    }
+}

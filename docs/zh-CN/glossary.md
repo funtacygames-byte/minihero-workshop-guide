@@ -12,7 +12,7 @@
 | 招式／角色技能 | move | `MoveContent` 的 API 用语 |
 | 普通攻击 | basic attack | 区分招式回调时使用，普通玩家说明默认 attack |
 | 道具 | item | `ItemContent` |
-| 奇遇 | encounter | `EventContent`；谈接口／JSON 类型时用 event |
+| 奇遇 | encounter | `EventContent`；谈接口类型时用 event |
 | 大关卡／完整冒险 | selectable level / adventure | `AdventureContent`、关卡选择入口 |
 | 素材关卡 | source stage | 冒险步骤引用的 `StageContent` |
 | 场景 | stage | 一次可玩场景／展开后的轮次，也是重置边界 |
@@ -31,3 +31,14 @@
 | 苔背魔狼／负伤狂怒 | Moss Wolf / Wounded Rage | 片段 04 的教学敌人／特性 |
 
 本地化键、内容 ID、Choice 保存值、枚举与方法名属于技术契约；翻译显示值，不顺手改技术标识。当前英文目录中 `grove_alchemist` 显示为 **Groveheart**，中文为林地药师，技术引用始终使用稳定 ID。
+
+
+| 新增概念 | 英文术语 | API / 说明 |
+| --- | --- | --- |
+| 卡牌抉择 | card choice | CardChoiceRequest / CardChoiceEventContent |
+| 选项 ID | option ID | CardChoiceOption.id |
+| 来源实例 ID | source instance ID | sourceCardId / CardState.id |
+| 请求 ID | request ID | pendingChoice.choiceId |
+| 效果处理器 | resolver | ICardChoiceResolver |
+| 连续选择 | chained choices | CardChoiceContext.OpenNext |
+| 每日种子 | daily seed | AdventureSeedSettings, utcOffsetMinutes |

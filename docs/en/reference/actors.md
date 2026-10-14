@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/actors.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 4 · Mod API 1.8.0 · 2026-10-13
 
 Baseline: 1.8.0. See [API declarations](api-surface.md), the [character lesson](../tutorials/character.md), and the [enemy lesson](../tutorials/enemy.md).
 

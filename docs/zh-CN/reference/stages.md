@@ -2,7 +2,7 @@
 
 [English](../../en/reference/stages.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 4 · Mod API 1.8.0 · 2026-10-13
 
 当前基准 1.8.0。先做[固定关卡课](../tutorials/stage.md)，再查字段；公开声明见[API 表面](api-surface.md)。
 
@@ -22,7 +22,7 @@ public abstract StageDefinition CreateDefinition(GameContentRegistry registry);
 | `appearancePool` | 随机候选池；随机布局在此校验出口 |
 | `fixedColumns` | 非空时完全覆盖随机布局，完整列从底到顶克隆 |
 | `columnCount/generatedCardCount` | 随机布局计数；固定布局按实际列与牌数计算 |
-| `allowedCharacterIds` | 空表示素材不限角色，非空只允许给定稳定 ID |
+| `allowedCharacterIds` | 保存并校验引用的元数据；当前 C# 流程不通过此字段限制选人 |
 | `music` | 已注册的音乐主题 ID |
 | `boss` | 场景的首领标记，音乐据此选槽位 |
 | `victoryConditions` | 点击出口时检查的胜利条件 |
@@ -53,6 +53,8 @@ public abstract StageDefinition CreateDefinition(GameContentRegistry registry);
 
 
 包括固定布局在内的所有步骤都必须满足：`columnCount` 为 1～5、`roundCount >= 1`、`columnCount <= cardsPerRound <= 100`；否则注册报告 `AW_ADVENTURE_STEP_RANGE`。练习片段使用 `cardsPerRound = GameRules.ColumnCount`（5）通过元数据校验，实际固定牌场仍只有所给的两张牌。当前冒险校验还要求首领步骤的素材 `appearancePool` 含 `isBoss` 敌人，即使素材使用固定列；同时确认实际固定牌场也放入了预期首领。
+
+availableHeroIds 非空时按显式 ID 解析；为空时取角色目录前 clamp(maxHeroCount, 1, 4) 项，不代表全部角色。AddCharacterToLevel 绑定可在此之后追加角色。
 
 ## 随机生成与进阶入口
 

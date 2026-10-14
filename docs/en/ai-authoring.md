@@ -1,67 +1,65 @@
-# Instructions for AI-assisted mod authoring
+# AI authoring tasks and delivery contract
 
-[简体中文](../zh-CN/ai-authoring.md) · [Guide index](README.md)
+[简体中文](../zh-CN/ai-authoring.md) · [Index](README.md)
 
-Reviewed: October 13, 2026. Current Mod API: 1.8.0.
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
-Use this document with the [task lessons and references](README.md), four manuals, and relevant [code snippets](../../templates/README.md). It does not replace the game assemblies or an actual test environment.
 
-## Reading order and sources
+Give AI this page, the [feature map](feature-map.md), the task lesson, its references and focused fragments together. Offline readers start at root `llms.txt`. Machine indexes are [capabilities.json](../capabilities.json) and selected [api-surface.json](../api-surface.json). The guide does not replace game-generated references.
 
-Start with [the first mod](tutorials/first-mod.md) and the lesson for the requested task. Read the matching API/rule reference; use the manuals for advanced details. Before delivery, follow [Testing and publishing](04-testing-and-publishing.md) and report the [verified scope](reference/versions.md).
+## 1. Route the task before assuming host capabilities
 
-The latest user request, applicable project instructions, and current game implementation take priority over old plans or translations. MiniHero uses warm Western fantasy and fairy-tale adventure. Yaoguang is a specifically authorized ancient Chinese heroine exception; do not apply that exception to the whole world or infer the setting from legacy technical names.
+| Goal | Read first | Required delivery |
+| --- | --- | --- |
+| New treasure/change numbers | [Treasure](tutorials/treasure.md), [state](tutorials/rules-and-state.md) | Fingerprint, quality values, description formula, pool, reset, specified acquisition |
+| New card-face choice | [Choice](tutorials/card-choice.md), [fields](reference/card-choice.md) | Concrete class, option IDs, faces, effects, costs, resolver, stage placement |
+| Item/encounter reward | [Items/events](tutorials/items-and-events.md) | Direct or targeted path, reward type, registration/appearance, turn |
+| New page/start menu | [Pages](tutorials/custom-ui.md) | Tree, controller, AddScreen, actions, fallback, bilingual text |
+| New character/move | [Character](tutorials/character.md) | Referenced classes, selection entry, pool, first initial move, target checks |
+| Random challenge/endless mode | [Modes](tutorials/adventure-modes.md) | Seed, date offset, total loops including first, unique continuation IDs, termination |
+| Configuration change | [Configuration](tutorials/configuration.md) | No player page; definition default, getter fallback, one formula |
 
-## Available capabilities and limits
+Reading declarations without semantics can misuse requested, source IDs or consumeTurn. Report a missing interface rather than inventing fields, menus, hot unloading or ModUi.SetConfig. Before using choices, confirm the actual Core reference contains those types; an API string of 1.8.0 does not prove an older installation includes recent additions.
 
-| Goal | Public entry point and boundary |
-| --- | --- |
-| Characters, traits, treasures, moves, enemies, items, events | Public C# content classes; `registrar.AddContent/AddContents` |
-| Selectable adventure | `AdventureContent` + source `StageContent` + steps/difficulties; registering a Stage alone does not add a level-selection entry |
-| Fixed puzzle layout | `StageDefinition.fixedColumns`; bottom-to-top lists, last card exposed |
-| Daily/fixed challenge | `AdventureSeedSettings`; explicitly set `utcOffsetMinutes` for daily rollover |
-| Looping growth | `AdventureLoopSettings`; `maximumLoops = 3` means 3 loops total, `0` unlimited |
-| Dynamic continuation | `IAdventureContinuationContent.CreateNextStages`; read isolated context, return an empty array to end |
-| Adventure rules | `AdventureRuleContent`, activated by adventure/difficulty `adventureRuleIds` |
-| Custom screen/start screen | `registrar.AddScreen`, `ModUi` tree, `ModScreenController`; the host creates Unity UI |
-| Art and music | Package-local paths, generated asset index, presentation slots, and music themes |
-| Configuration | Compatibility `AddConfig/ModConfig`; no player-facing configuration page |
-| JSON | Retained backend compatibility; no player-facing JSON editor |
-| Starting content | Traits and the first starting move work; `StartingTreasureTypes` and additional starting moves are not granted on selection |
-| DLL updates | Final verification requires a full restart; in-process reload is insufficient proof |
-| Steam | Local validation/export is separate from proven upload, subscription, or download |
+## 2. Record six inputs before editing
 
-Do not invent host methods, event fields, configuration menus, or connected music cues. Check the current public references. If an interface is absent, explain the limit rather than defining a fake replacement just to make compilation pass.
+Package ID and generated namespace; actual reference version and target types; existing files and full entry point; intended player actions; six-part mechanical fingerprint; assets and verification environment. Read package.json and the generated csproj first. Preserve codeEntryPoint and a single ModEntry. Mark missing evidence unassessed rather than reporting a failed scan as zero issues.
 
-## Deliverable structure
+MiniHero is Western fantasy/fairy-tale adventure; Yaoguang is the explicitly authorized ancient Chinese heroine exception. Latest user instructions, applicable AGENTS and current code outrank historical designs. Old Wuxia identifiers do not define genre, and translation does not authorize stable-ID/key migration.
 
-A runtime package contains `package.json`, `mod/<AssemblyName>.dll`, and `localization/<locale>.json`, plus needed assets/index/music. An editable source project also contains `source/*.csproj`, `source/ModEntry.cs`, and game-generated `.tmode-sdk` references.
+## 3. Deliver files and an observable result
 
-- Keep the package ID, folder ID, entry-point attribute, and manifest consistent.
-- `codeEntryPoint` is the namespace-qualified type; `codeAssembly` is the package-relative DLL path. Both must match actual output.
-- Custom content IDs begin with `packageId + "."`. New localization keys use ASCII English semantic identifiers; translations belong in values.
-- Entry/content classes are public with parameterless constructors. Treasures are independently serializable. Keep exclusive behavior in the concrete content class and use shared runtime settlement.
-- Declare `code.execute`; code runs with the current user's permissions rather than in a sandbox.
-- Target `netstandard2.1` and reference current `MiniHero.ModApi.dll` and `MiniAdventureWorld.Core.dll`. Exclude both from the mod payload.
-- Generate and verify distributable hashes through the workshop. Exclude local build reports, references, `bin/obj`, temporary folders, and personal saves from publication.
+Gameplay rules go in C# content classes under source/*.cs. Do not replace them with declarative gameplay JSON or contentIndex recipes. The package manifest is generated metadata, and localization JSON contains only displayed text. Generated projects target netstandard2.1 and C# 9, referencing game-generated API/Core. Runtime packages need package.json, mod/<AssemblyName>.dll, localization/zh-Hans.json and en.json, plus assets actually used. Full codeEntryPoint must match namespace plus class. Content IDs start with package ID plus a dot. Declare code.execute; code runs with user permissions, not in a sandbox.
 
-A machine authoring mods needs both game assemblies. Obtain them by creating a project in the installed game. Public tutorial source cannot replace the Core DLL. Keep game project directories out of temporary projects and do not share them through filesystem links.
+List changed/new files, Load registration, the pool/stage referencing the content, added locale keys, player entry and expected result. Explain where fragment dependencies such as registry/context/nextRequest come from. A class with omitted abstract members or undefined types is not complete. Do not publish game-reference DLLs, bin/obj, .tmode-sdk, private paths or saves. See [project manual](01-project-and-build.md) for source and release output.
 
-## Rule conventions
+## 4. Preserve these rules
 
-- Compare a proposed treasure's trigger, input, benefit, state, scope, and cost with the current catalog before designing it.
-- Keep categories, pool tags, and appearance conditions separate. Character pools match any shared pool tag; weights are numeric rather than extra tags.
-- Quality tiers end at Legendary. Five/four/three/two tiers start at Common/Uncommon/Rare/Epic. Do not supply unspecified tier values.
-- Healing rules read the complete settled healing amount; explicit overflow conversions read only overflow. Normally say “healing amount” in player text.
-- Reset temporary treasure counters, stacks, pending enhancements, and use quotas on new-stage entry. Explicitly state and test cross-stage exceptions and save restoration.
-- Convert from base stats and round down. Combine same-kind percentages before settlement. Share preview and execution rules.
-- Fixed columns are stacks: `{ exit, guard }` requires the guard before the exit. Test card clicks rather than list counts.
-- Use “attack” in player-facing English; use “basic attack” when distinguishing it from moves or other damage. Technical `NormalAttack` identifiers remain unchanged.
+- CategoryTags, PoolTags and RequiredAppearanceTags have separate purposes. Candidate pools match any intersection; weight uses GetPoolWeight.
+- Five/four/three/two quality values begin at Common/Uncommon/Rare/Epic and end at Legendary. Explicitly define a single Legendary variant rather than inheriting the default five.
+- Healing-linked rules use settled AfterHealingEvent.requested. actual is for resources/presentation; explicit overflow rules use overflow. Natural descriptions say “治疗量” / healing amount.
+- A new stage resets temporary treasure counters, stacks, pending effects and quotas, and restores active uses. Preserve handoff data only for explicit cross-stage exceptions.
+- Base-stat conversions round down; shared percentages add before settlement. Preview follows the same rules without consuming real state.
+- Specialized behavior belongs in concrete content, using common core settlement. Display cards do not execute original behavior; resolvers save stable IDs and must not end turns themselves.
+- English uses attack by default and basic attack when distinction is needed; preserve technical NormalAttack identifiers. Shorten translations naturally without changing host UI.
 
-## Evidence before delivery
+## 5. Copyable task prompt
 
-State the player experience, package ID, minimum API, and complete folder structure. Report commands actually run and their results. Verify registration, hashes, installation, enabling/disabling, localization, and loading with the real loader.
+```text
+Use guide revision 4 and the current generated MiniHero references.
+Author the gameplay rules in C# content classes.
+Task: add a two-card choice to my existing fixed test stage.
+Keep the existing package ID, namespace, entry point and unrelated content.
+Branch heal: restore 5 HP, free. Branch guard: pay 2 gold, gain 1 defense.
+Use CardChoiceEventContent; do not execute display-card behavior.
+Deliver the complete concrete class, Load registration, stage placement,
+Chinese/English localization keys, dependencies and expected checks.
+State which compilation, gameplay, saves, UI and Steam checks actually ran.
+Do not invent host APIs. Report missing references or unsupported behavior.
+```
 
-Play through key effects, boundaries, victory/failure, stage resets, continuation/loops, and save restoration. Check images/audio and localized controls at their existing font size and layout; shorten translations naturally rather than resizing UI. Verify C# changes after fully restarting.
+For complex effects, specify trigger, input, reward, state, target and cost before generation. Referencing another game's documentation does not mean copying its APIs or images.
 
-State untested parts accurately. A test file is not evidence that it ran, compilation is not gameplay verification, and a local export is not an online Steam upload. For project-level Unity checks, use the already-open official Editor only; do not start another Editor or open `Temp/PlayerBuildProject`.
+## 6. Evidence before delivery
+
+Use the [debugging lesson](tutorials/debugging.md) to record compilation, loading, deterministic gameplay, boundaries, preview, reset, restore, bilingual UI and publication. Verify new DLLs after a full restart; same-process reload is insufficient. State unexecuted checks; existing tests and link checks are not current runtime evidence. Unity verification uses only the already-open formal Editor, without copies, a second Editor or Temp/PlayerBuildProject.

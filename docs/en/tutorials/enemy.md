@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/enemy.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: replace Trail Lab's generic guard with a registered Moss Wolf. Taking damage increases its attack by 1. With two wolves, only the one actually damaged should grow.
 
@@ -52,3 +52,6 @@ See [Character and enemy reference](../reference/actors.md) and [Lifecycle](../r
 - New cards start from initial state, and save restoration preserves existing-card data.
 
 Continue with [Connecting stages](adventure.md), or add your own battle art through [Assets and text](assets-and-text.md).
+
+
+Fragment names and descriptions now use ModText. Merge the sample entries as in [bilingual text](assets-and-text.md); without them, source fallbacks remain visible. Existing card/definition snapshots are not guaranteed to translate immediately, so check a fresh run after changing language.

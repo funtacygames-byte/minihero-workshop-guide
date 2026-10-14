@@ -18,11 +18,12 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternCompass : LanternTreasure, IModPresentationContent
     {
         public LanternCompass() : base(ModEntry.PackageId + ".treasure.lantern_compass") { }
-        public override string Name => "星针罗盘";
+        public override string Name => ModText.Get(ModEntry.PackageId, "treasure.lantern_compass.name", "星针罗盘");
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
-        public override string Describe(int level) => $"进入场景时获得 {BaseValue * level} 点护盾。";
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "treasure.lantern_compass.description", "进入场景时获得 {0} 点护盾。", BaseValue * level);
         public override void OnStageEntered(StageEnteredEvent e)
         {
             e?.Runtime?.AddShield(BaseValue * e.SourceLevel);
@@ -35,11 +36,12 @@ namespace LocalAliceLanternTrailMod
     public sealed class MoonGlassBottle : LanternTreasure
     {
         public MoonGlassBottle() : base(ModEntry.PackageId + ".treasure.moon_glass_bottle") { }
-        public override string Name => "月光玻璃瓶";
+        public override string Name => ModText.Get(ModEntry.PackageId, "treasure.moon_glass_bottle.name", "月光玻璃瓶");
         public override TreasureRank Rank => TreasureRank.Rare;
         public override int BaseValue => 2;
         public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Life };
-        public override string Describe(int level) => $"最大生命增加 {BaseValue * level} 点。";
+        public override string Describe(int level) => ModText.Format(
+            ModEntry.PackageId, "treasure.moon_glass_bottle.description", "最大生命增加 {0} 点。", BaseValue * level);
         public override void OnTreasureStats(TreasureStatsEvent e)
         {
             if (e != null) e.maxHpFlat += BaseValue * e.SourceLevel;

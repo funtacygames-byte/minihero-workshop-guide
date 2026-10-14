@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/enemy.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 目标：将林径练习的通用守卫替换为已注册的苔狼；受伤后攻击提高 1。摆两只狼时，只有真正受伤的那只增长。
 
@@ -52,3 +52,6 @@ CardState guard = wolf.CreateCard(Id + ".wolf.one");
 - 新建敌人实例初始值正确，存档恢复保留现存实例数据。
 
 继续[连接多个场景](adventure.md)，或按[资源课](assets-and-text.md)加入自己的战斗图。
+
+
+本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。

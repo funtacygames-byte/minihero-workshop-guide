@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/first-mod.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 完成这课后，宝物图鉴里会出现“旅者遗物”，一级说明从 2 点护盾变为 4 点。这个结果证明项目已经构建、安装并加载；实际进场加盾在下一课的固定关卡中验证。
 

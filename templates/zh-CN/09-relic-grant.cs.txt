@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
 
 namespace LocalAliceLanternTrailMod
 {
     public sealed class RelicGrant : EventContent
     {
         public RelicGrant() : base(ModEntry.PackageId + ".event.relic_grant") { }
-        public override string Name => "领取遗物";
-        public override string Description => "领取一件旅者遗物用于测试。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "event.relic_grant.name", "领取遗物");
+        public override string Description => ModText.Get(ModEntry.PackageId, "event.relic_grant.description", "领取一件旅者遗物用于测试。");
         public override string ImageName => "";
         public override CardState CreateCard(string instanceId = null)
         {
@@ -16,7 +17,7 @@ namespace LocalAliceLanternTrailMod
             {
                 new RichEventChoiceState
                 {
-                    choiceId = Id + ".choice.take", text = "领取旅者遗物。",
+                    choiceId = Id + ".choice.take", text = ModText.Get(ModEntry.PackageId, "event.relic_grant.choice.take", "领取旅者遗物。"),
                     rewardContentId = ModEntry.PackageId + ".treasure.starter_relic",
                     rewardContentCount = 1
                 }

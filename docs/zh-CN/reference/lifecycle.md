@@ -2,7 +2,7 @@
 
 [English](../../en/reference/lifecycle.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 4 · Mod API 1.8.0 · 2026-10-13
 
 本页集中解释状态属于谁，以及什么时候初始化、读取和清空。当前基准 1.8.0；[事件](events.md)与[API 声明](api-surface.md)提供字段细节。
 

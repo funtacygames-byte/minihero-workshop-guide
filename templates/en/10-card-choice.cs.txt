@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [Serializable]
+    public sealed class CampChoice : CardChoiceEventContent
+    {
+        public CampChoice() : base(ModEntry.PackageId + ".event.camp_choice") { }
+        public override string Name => ModText.Get(ModEntry.PackageId,
+            "event.camp_choice.name", "Camp Supplies");
+        public override string Description => ModText.Get(ModEntry.PackageId,
+            "event.camp_choice.description", "Choose healing or defensive supplies.");
+        public override string ImageName => "";
+
+        protected override IReadOnlyList<CardChoiceOption> CreateChoices(CardExecutionContext context)
+        {
+            return new[]
+            {
+                new CardChoiceOption
+                {
+                    id = "heal",
+                    card = ContentCards.Card(Id + ".preview.heal", CardType.Encounter,
+                        ModText.Get(ModEntry.PackageId, "choice.camp.heal.name", "Moondew Kit"),
+                        ModText.Get(ModEntry.PackageId, "choice.camp.heal.description", "Restore 5 HP.")),
+                    effect = new StatEffect { hp = 5 }
+                },
+                new CardChoiceOption
+                {
+                    id = "guard",
+                    card = ContentCards.Card(Id + ".preview.guard", CardType.Encounter,
+                        ModText.Get(ModEntry.PackageId, "choice.camp.guard.name", "Guard Supplies"),
+                        ModText.Get(ModEntry.PackageId, "choice.camp.guard.description", "Pay 2 gold to gain 1 defense.")),
+                    effect = new StatEffect { defense = 1 },
+                    cost = new StatEffect { gold = 2 },
+                    conditionExpression = "gold>=2"
+                }
+            };
+        }
+
+        public override GameActionResult ResolveCardChoice(CardChoiceContext context)
+        {
+            if (context.Selected.id != "heal" && context.Selected.id != "guard")
+                return GameActionResult.Failure("unknown_option", "Unknown option.");
+            context.ApplyEffect(context.Selected.effect, context.Selected.maxHpGainDoesNotHeal);
+            return GameActionResult.Success("camp_choice_resolved", "Supplies resolved.");
+        }
+    }
+}

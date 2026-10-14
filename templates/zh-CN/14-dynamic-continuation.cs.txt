@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    // 依赖片段 08 已注册的 PracticeStage。
+    // 测试本片段时用这个冒险替换 PracticeAdventure 的注册。
+    public sealed class ContinuingPracticeAdventure : AdventureContent, IAdventureContinuationContent
+    {
+        public ContinuingPracticeAdventure() : base(ModEntry.PackageId + ".adventure.continuation_lab") { }
+        public override string Name => ModText.Get(ModEntry.PackageId, "adventure.continuation_lab.name", "林径接力");
+        public override string Description => ModText.Get(ModEntry.PackageId,
+            "adventure.continuation_lab.description", "完成首场景与两个动态续接场景。");
+        public override string PreviewImageId => "";
+        public override string SourceStageId => ModEntry.PackageId + ".stage.practice";
+        public override int IntermissionInterval => 1;
+        public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
+        {
+            new AdventureStepDefinition
+            {
+                id = Id + ".step.one", displayName = Name, sourceStageId = SourceStageId,
+                columnCount = GameRules.ColumnCount, roundCount = 1,
+                cardsPerRound = GameRules.ColumnCount
+            }
+        };
+        public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
+        {
+            new AdventureDifficultyDefinition
+            {
+                difficulty = 1, maxHeroCount = 1,
+                availableHeroIds = new List<string> { BuiltInCharacterIds.RuneHunter }
+            }
+        };
+
+        public IReadOnlyList<StageDefinition> CreateNextStages(AdventureContinuationContext context)
+        {
+            if (context.ContinuationIndex >= 3) return Array.Empty<StageDefinition>();
+            StageDefinition next = context.Registry.Get<StageContent>(SourceStageId)
+                .CreateDefinition(context.Registry);
+            next.id = Id + ".continuation." + context.ContinuationIndex;
+            next.name = ModText.Format(ModEntry.PackageId,
+                "adventure.continuation_lab.stage", "接力场景 {0}", context.ContinuationIndex);
+            next.smallStageIndex = checked(context.CompletedStage.smallStageIndex + 1);
+            next.levelIndex = checked(context.CompletedStage.levelIndex + 1);
+            next.intermissionMode = IntermissionMode.Always;
+            return new[] { next };
+        }
+    }
+}

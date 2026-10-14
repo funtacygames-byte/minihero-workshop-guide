@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/first-mod.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 By the end of this lesson, the treasure codex will show **Wayfarer's Relic**, and its level-1 description will change from 2 shield to 4. This verifies building, installation, and loading. The next lesson uses a fixed board to test the actual stage-entry effect.
 

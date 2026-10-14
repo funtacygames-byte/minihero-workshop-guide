@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/treasures.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-14
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
 Purpose: define treasures, create runtime treasure instances, and respond to shared rule events. Baseline: 1.8.0. See [Public declarations](api-surface.md) and [Treasure lesson](../tutorials/treasure.md).
 

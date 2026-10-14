@@ -1,50 +1,57 @@
-# Versions, sources, and validation scope
+# Versions, sources and verification scope
 
 [简体中文](../../zh-CN/reference/versions.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-14
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
-This page separates the guide's evidence from full game or online-release acceptance. Revision 2 is a locally reviewed draft and has not been pushed. Published revision 1 on GitHub does not update automatically.
+Revision 4 is a local change awaiting GitHub submission. Gameplay authoring uses C# content classes; generated manifests, translation catalogs and saves are auxiliary data. Legacy gameplay JSON recipes have been removed from player and AI routes. The guide contains fifteen task lessons, fifteen bilingual source-fragment pairs and 65 paired example text keys.
 
-## Applicable versions
+## Baseline
 
-| Component | Reviewed value/purpose |
+| Item | Evidence |
 | --- | --- |
-| Guide | Revision 2, 2026-10-14, locally reviewed draft; core gameplay checked on 2026-10-13, UI review completed the next day |
-| Mod API | `MiniHero.ModApi` 1.8.0, checked against current declarations and behavior |
-| API export | [43 selected public types](api-surface.md), not a promise of the entire engine surface |
-| Unity Editor | Official project on 6000.3.19f1, matching ProjectVersion |
-| .NET SDK | Tested with 10.0.401; this is the test environment, not a minimum installation requirement |
-| Mod target | Generated `netstandard2.1`, C# 9 project; use its csproj and game references |
+| API and target | Current MiniHero.ModApi.Version 1.8.0; generated netstandard2.1 / C# 9 projects |
+| Declaration index | [87 selected types, 773 declarations](api-surface.md), including graph nodes/edges and protected extension points; not the whole SDK |
+| References | Current compiled API/Core from the formal project, used locally and excluded from this repository |
+| Unity | Already-open formal Editor 6000.3.19f1; temporary verification helpers removed after use; no gameplay or authored scene parameters changed |
+| Compiler | Current local .NET SDK; this record does not set a minimum supported SDK |
+| Capability status | [available/partial/backend-only](../../capabilities.json) describe integration, not passed tests |
 
-The manifest declares `modApiVersion`. The current loader accepts declarations from 1.0.0 through 1.8.0; this accepted range does not guarantee that older games contain every newer member. The first lesson targets the current 1.8.0 API. Check your references before using members such as `AddCharacterToLevel`, introduced in 1.7.0. Do not claim complete backward compatibility without compiling and playing against the older version.
+The loader's accepted API range is 1.0.0–1.8.0. The same version string does not prove that an older Core contains recent choices; check the actual references for CardChoiceRequest, CardChoiceEventContent and ICardChoiceResolver. Update the game and regenerate references when types are missing. Declaration snippets cannot replace SDK assemblies.
 
-The project's internal `bundleVersion = 1.0` does not establish the version released in a store. Report the game and API versions you actually run.
+## Checks executed for revision 4
 
-## Checks performed for this revision
-
-| Check | Scope/result |
+| Check | Result and scope |
 | --- | --- |
-| Source review | Registration, defaults, events, fixed columns, healing, configuration, and music boundaries |
-| Fragment compilation | Public fragments and complete chapter classes against current API/Core references |
-| Real workshop build | Isolated documentation package in the official Editor: SDK build, hash, install, and load |
-| Deterministic gameplay | Fixed columns, a specific encounter reward, enemy combat, exit use, intermission, and 4 shield on the next stage |
-| Save restoration | Next-stage index and shield restored, followed by play through the final exit to victory |
-| Document checks | Local links/anchors, fences, bilingual C# contracts, revision hashes, SVG/JSON, and release artifact boundaries |
-| Screenshots and diagrams | Four English screenshots from the official project: workshop, creation, build success, and codex result; seven neutral diagrams |
-| Codex review | Real loaded relic, All Characters search, level-1 value 4 at each of five qualities; changing quality does not upgrade level |
-| Translation | AI-assisted bilingual meaning review and English cold reading, preserving numbers, conditions, targets, and stable identifiers |
+| Documents | 87 Markdown files; links, anchors, fences, 58 language pairs, C#/auxiliary JSON contracts, hashes, release boundaries and C# authoring policy |
+| Source drift | 87 types / 773 declarations match current source and relative-file hashes |
+| Compilation | 30 source fragments and complete configuration/seed/loop overrides compiled in both languages, zero warnings/errors |
+| .NET rules | 46 checks per language compilation; preview/execution, choices, state, items, fixed/daily seeds and callbacks |
+| Semantic boundaries | Eight current-assembly checks: short-circuit conditions, bare conjunction, roster metadata, parsed-value/fallback behavior, text-format failure and shared rounding |
+| Real workshop services | Generated source, current SDK, C# compilation, package hashes, installation, entry loading and content registration in isolated local workshop-data folders |
+| First lessons | Fixed guard/exit victory, HP 4→8 change, specified reward, two-stage preparation, next-stage 4 shield and restoration |
+| Bilingual DLL | The same English-compiled package resolves Chinese/English character, enemy and stage keys |
+| Stateful treasures | Public counters preserve concrete runtime types through Unity JSON; three-heal cap, no fourth reward; handbook counter survives two item uses and rewards the third |
+| Card-choice interface | Fresh formal-scene regression: 26 EditMode checks and one PlayMode test for two/three/seven cards, paging, optional headers, real clicks, locale refresh and authored layout |
+| Published CampChoice | One additional PlayMode test, 1920×1080, English/Chinese text at authored 15-point sizes; exact two-gold/one-defense/one-turn click and duplicate rejection |
+| Complete C# chain | Fragment 15: paid guard layout, two shield then saved follow-up, source consumed once, one total turn, cancellation retaining shield, immediate three-gold branch |
+| Modes | Fragment 14: three unique stages, appended-stage JSON restoration and restart. Exact loop settings: three total passes, HP 8/10/12, attack 1/2/3, stage reset, JSON restoration, victory and restart |
+| Text capacity | Fixed-font temporary clones of actual card slots; revised English names/rules and new choice texts fit. Other metadata needs its own target controls |
+| Meaning review | All 58 pairs reviewed for rules, terminology, dependencies, actions and readability; generated API declarations separately source-checked. Internal AI review is not independent player acceptance |
 
-Gameplay checks used the core and real workshop loader inside the user's existing official Editor. No second Unity project or Editor was created. Test references, binaries, saves, and private paths are excluded from this repository.
+The local verification harness gave each compiled test update a distinct assembly identity because earlier tutorial DLLs were already loaded in the Editor. This isolates tests; authors should keep their normal project identity and fully restart the game for release verification. Same-process reload does not unload old code.
 
-## Checks still required in the actual environment
+## Historical evidence
 
-- Fully exit and restart the standalone game to verify loading; same-process DLL loading cannot replace this.
-- Inspect your own image cropping, audio playback, and text after language changes. The tutorial screenshots do not verify these assets.
-- Verify Steam submission, item visibility, and subscribed downloads. Local export does not prove any of them.
-- Run an independent beginner and English-reader [trial](reader-trial.md). These have not been conducted; AI review is not independent player acceptance.
-- Test older game/API versions, old-save migration, and complete advanced graph/loop combinations.
+Revision 2's workshop screenshots and neutral diagrams remain instructional references. Revision 3 added task routes, choices/pages/conditions and AI routing. Their older results are distinct from the fresh revision-4 checks above.
 
-## Maintenance
+## Remaining environment checks
 
-`docs/api-surface.json` stores selected declarations, relative source identifiers, and source hashes. `docs/revision.json` stores paired document hashes. Hashes detect edits, not correctness. Follow [Contributing](../../../CONTRIBUTING.md), revise both languages, and rerun checks. Behavioral changes also need the affected task tested again.
+- Standalone game exit/restart and normal installation/enabling/disabling of final release packages; old-save migration and broader provider/loop combinations.
+- Additional screen ratios, custom-page navigation/Escape/original-menu fallback, user artwork cropping, audio playback and global volume.
+- Steam upload/visibility/subscribed downloads and GitHub Actions; this local change has not been pushed or published.
+- Independent Chinese beginner and English [reader trials](reader-trial.md).
+
+## Maintenance evidence
+
+Declarations and source hashes are in [api-surface.json](../../api-surface.json); bilingual hashes are in [revision.json](../../revision.json), and routes in [capabilities.json](../../capabilities.json). Follow [maintenance](../../../CONTRIBUTING.md). Hashes and compilation do not by themselves prove meaning or gameplay.

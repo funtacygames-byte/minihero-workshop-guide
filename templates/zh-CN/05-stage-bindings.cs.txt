@@ -7,8 +7,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternTrail : StageContent, IModPresentationContent
     {
         public LanternTrail() : base(ModEntry.PackageId + ".stage.lantern_trail") { }
-        public override string Name => "提灯林径";
-        public override string Subtitle => "沿着暖色灯火穿过低语森林。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "stage.lantern_trail.name", "提灯林径");
+        public override string Subtitle => ModText.Get(ModEntry.PackageId, "stage.lantern_trail.subtitle", "沿着暖色灯火穿过低语森林。");
         public override int Order => 9000;
 
         public override StageDefinition CreateDefinition(GameContentRegistry registry)
@@ -24,7 +24,7 @@ namespace LocalAliceLanternTrailMod
                 appearancePool = new List<CardState>
                 {
                     wolf.CreateCard(Id + ".moss_wolf"),
-                    ContentCards.Card(Id + ".exit", CardType.Exit, "林径出口", "离开这片森林。")
+                    ContentCards.Card(Id + ".exit", CardType.Exit, ModText.Get(ModEntry.PackageId, "stage.lantern_trail.exit.name", "林径出口"), ModText.Get(ModEntry.PackageId, "stage.lantern_trail.exit.description", "离开这片森林。"))
                 },
                 allowedCharacterIds = new List<string>
                 {

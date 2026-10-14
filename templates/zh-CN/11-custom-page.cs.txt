@@ -1,0 +1,34 @@
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    public static class CampPage
+    {
+        public static ModScreenDefinition Create()
+        {
+            var root = ModUi.Column("camp.root",
+                ModUi.Text("camp.title", "ui.camp.title", "营地手册"),
+                ModUi.Text("camp.status", "ui.camp.ready", "手册已就绪。"),
+                ModUi.Button("camp.check", "ui.camp.check", "检查页面", "camp.check"),
+                ModUi.HostButton("camp.play", "ui.camp.play", "开始冒险", ModStartScreenAction.StartNewGame),
+                ModUi.HostButton("camp.original", "ui.camp.original", "原版菜单", ModStartScreenAction.ShowOriginalMenu));
+            root.Style = new ModUiStyle
+            {
+                Width = 640, Height = 480, Gap = 12,
+                Padding = new ModUiThickness(24), BackgroundColor = "#352D24"
+            };
+            return new ModScreenDefinition(ModEntry.PackageId + ".screen.camp",
+                ModScreenPlacement.StartScreenReplacement, root, new CampPageController());
+        }
+    }
+
+    public sealed class CampPageController : ModScreenController
+    {
+        public override void OnAction(string actionId, IModUiContext context)
+        {
+            if (actionId == "camp.check")
+                context.SetText("camp.status", ModText.Get(context.PackageId,
+                    "ui.camp.checked", "按钮已响应。"));
+        }
+    }
+}

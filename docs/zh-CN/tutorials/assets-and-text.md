@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/assets-and-text.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 目标：给一件已运行的宝物绑定自己的图标；中英文界面都显示名称与同一数值；普通场景播放指定探索曲。按这三个任务分步做，便于定位文件、文本或音频问题。
 
@@ -38,6 +38,18 @@ public ModPresentation Presentation => ModAssets.Icon("assets/icons/starter-reli
 `ModText.Get` 读取名称，`ModText.Format` 将 `BaseValue × level` 填入 `{0}`。不要翻译键名，或把 `{0}` 换成另一个编号。保留 JSON 的 `locale` 字段，并确认清单 `supportedLocales` 含 `zh-Hans` 和 `en`。
 
 改文件后重新构建安装并重载；最终与 C# 改动一起完整重启。分别切换中英文，在图鉴查看一级与其他等级，数字意义相同。格式错误可能把原模板直接显示出来；按[排错](../troubleshooting.md)检查 JSON 和参数。
+
+### 合并专题片段的文本
+
+[中文示例目录](../../../templates/zh-CN/localization.json)与[英文示例目录](../../../templates/en/localization.json)各有 65 个键，覆盖十五组源码片段。合并步骤：
+
+1. 保留已生成文件中的 locale、包名和其他 entries。
+2. 从示例目录取出自己使用片段的条目，按 key 合并进 entries；同一 key 只保留一项，更新 value。
+3. 两种语言使用完全相同的 key、变量与规则数值；不要把示例 JSON 整份覆盖到已有目录。
+4. C# 内使用 ModText.Get 或 Format 查询这些键。仅增加 JSON 条目不会自动翻译仍写死的字符串。
+5. 递增版本，构建安装。涉及源码改变时完整重启；切语言后新开一局，核对 Name、Description、职业与卡面。
+
+示例目录不含全部生成包信息，省略自己未使用的功能键即可。不能同时保留重复键。已创建的 CardState／角色／场景定义可能保存旧文字快照；新读取的 getter 可以变化，不代表整局旧快照全部自动重译。没有回调重建的自定义选项应在当前请求结束后，新开请求检查。
 
 ## 3. 增加关卡探索曲
 

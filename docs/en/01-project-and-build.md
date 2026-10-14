@@ -2,11 +2,25 @@
 
 [简体中文](../zh-CN/01-project-and-build.md) · [Guide index](README.md)
 
-Reviewed: October 13, 2026. Current Mod API: 1.8.0.
+Guide revision 4 · Reviewed: October 14, 2026 · Mod API: 1.8.0.
 
 Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
 
 This chapter takes you from **New C# Project** to a mod running in the game. It explains the creation fields, C# structure, development tools, building and installing, package hashes, and the trust boundary for code mods.
+
+## Which files do I author?
+
+Treasure design is C# authoring: implement a `TreasureContent` subclass, register it in `Load`, and compile it through the workshop. You do not submit a JSON treasure definition in this workflow.
+
+| File | Your task |
+| --- | --- |
+| `source/*.cs` | Write content behavior, formulas, triggers and state; this is the gameplay source |
+| Generated `source/*.csproj` | Preserve target framework and game-reference settings |
+| Generated `package.json` | Maintain package metadata such as version and preview paths; it does not implement treasure behavior |
+| `localization/*.json` | Translate displayed values with stable keys; this is auxiliary text data |
+| Built `mod/*.dll` | Compiler output included in the workshop release; do not write or edit it manually |
+
+Build/install and release preparation package the DLL together with the required metadata, text and assets. For the smallest C# example, follow [the first lesson](tutorials/first-mod.md); for treasure rules, continue with [the treasure lesson](tutorials/treasure.md).
 
 ## Contents
 
@@ -39,7 +53,7 @@ The creation form generates a clean C# project. Choose treasure, character, enem
 4. Edit and save `source/ModEntry.cs`.
 5. Put artwork in `assets`, music in `music`, and localized text in `localization`.
 6. Return to the development page and click **Build and Install**.
-7. Reload after building. If the game process has already loaded this DLL, fully exit and restart for a reliable check.
+7. Confirm the mod is enabled, fully exit and restart, then check C# behavior. Reload after build refreshes the content snapshot without proving that an already-loaded DLL was replaced.
 8. Open the treasure codex, select all characters, and find Wayfarer's Relic. Check its level-1 description; use the fixed-stage lesson for a guaranteed gameplay test.
 
 Start with one treasure that grants shield on stage entry. Once compilation, installation, and loading work, add characters and stages one at a time so failures are easier to locate.
@@ -126,7 +140,7 @@ The workshop has three areas:
 - `Builds`: successful build snapshots, treated as immutable.
 - `Installed`: versions actually installed for the game.
 
-Use `Sources → Build → Install`. To change a value, edit the source, update the version when appropriate, and rebuild.
+Use `Sources → Build → Install`. To change a value, edit the source, increment `package.json.version` before installing changed content, and rebuild.
 
 ## 5. Development environment
 
@@ -148,7 +162,7 @@ If building reports `MH_MODSOURCE_DOTNET`, or you are unsure whether the SDK is 
 dotnet --version
 ```
 
-If no version is printed, install the .NET SDK and reopen the development page. If the workshop builds successfully but the editor reports reference errors, the editor may be holding the reference folder open. Close it and rebuild to refresh the references.
+If no version is printed, install the .NET SDK and reopen the development page. If the game builds successfully but your code editor reports errors, check that it has opened the current source project, that csproj reference paths are correct, and that both DLLs exist in `.tmode-sdk`. Rebuild after a game update to refresh references. If refreshing reports a file lock, close the program holding that file and retry; do not assume every editor error is a lock.
 
 ## 6. Build, install, enable, and reload
 

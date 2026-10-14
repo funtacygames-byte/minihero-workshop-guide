@@ -1,20 +1,21 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
 
 namespace LocalAliceLanternTrailMod
 {
     public sealed class PracticeStage : StageContent
     {
         public PracticeStage() : base(ModEntry.PackageId + ".stage.practice") { }
-        public override string Name => "Trail Lab";
-        public override string Subtitle => "Defeat the guard to reveal the exit.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "stage.practice.name", "Trail Lab");
+        public override string Subtitle => ModText.Get(ModEntry.PackageId, "stage.practice.subtitle", "Defeat the guard to reveal the exit.");
         public override bool IncludeInDefaultCampaign => false;
 
         public override StageDefinition CreateDefinition(GameContentRegistry registry)
         {
-            CardState exit = ContentCards.Card(Id + ".exit", CardType.Exit, "Exit", "Leave the trail.");
+            CardState exit = ContentCards.Card(Id + ".exit", CardType.Exit, ModText.Get(ModEntry.PackageId, "stage.practice.exit.name", "Exit"), ModText.Get(ModEntry.PackageId, "stage.practice.exit.description", "Leave the trail."));
             CardState guard = ContentCards.Enemy(
-                Id + ".guard", "Trail Guard", "A practice guard blocking the exit.",
+                Id + ".guard", ModText.Get(ModEntry.PackageId, "stage.practice.guard.name", "Trail Guard"), ModText.Get(ModEntry.PackageId, "stage.practice.guard.description", "A practice guard blocking the exit."),
                 attack: 1, defense: 0, hp: 4, reward: 0,
                 icon: "", tier: 1);
             var columns = new List<CardColumnState>();
@@ -37,8 +38,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class PracticeAdventure : AdventureContent
     {
         public PracticeAdventure() : base(ModEntry.PackageId + ".adventure.practice") { }
-        public override string Name => "Trail Lab";
-        public override string Description => "One fixed guard and one exit.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "adventure.practice.name", "Trail Lab");
+        public override string Description => ModText.Get(ModEntry.PackageId, "adventure.practice.description", "One fixed guard and one exit.");
         public override string PreviewImageId => "";
         public override string SourceStageId => ModEntry.PackageId + ".stage.practice";
         public override int IntermissionInterval => 0;

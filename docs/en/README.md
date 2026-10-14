@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/README.md) · [Home](../../README.md)
 
-Guide revision 2 · API 1.8.0 · 2026-10-14
+Guide revision 4 · API 1.8.0 · 2026-10-14
 
 ## Learning path
 
@@ -18,6 +18,20 @@ Complete the first lesson, then choose your task. Each lesson lists prerequisite
 | [Connect stages](tutorials/adventure.md) | Steps, intermissions, stage IDs, save restoration |
 | [Assets, music, and bilingual text](tutorials/assets-and-text.md) | Slots, package paths, and shared arguments |
 | [Package, publish, and update](tutorials/publish.md) | Verify local builds and Steam delivery separately |
+
+## Feature expansion and lookup
+
+The [complete feature map](feature-map.md) records integration status and boundaries.
+
+- [Items and encounters](tutorials/items-and-events.md)
+- [New card choices](tutorials/card-choice.md)
+- [Capped stateful rules](tutorials/rules-and-state.md)
+- [Custom pages](tutorials/custom-ui.md)
+- [Configuration compatibility](tutorials/configuration.md)
+- [Seeds, loops and continuation](tutorials/adventure-modes.md)
+- [Debugging and reproducible checks](tutorials/debugging.md)
+
+[Choice contract](reference/card-choice.md) · [Page contract](reference/custom-ui.md) · [Condition grammar](reference/conditions.md) · [Research approach](reference/documentation-design.md)
 
 <a id="reference"></a>
 
@@ -42,6 +56,6 @@ Complete the first lesson, then choose your task. Each lesson lists prerequisite
 - [Assets and presentation](03-assets-and-presentation.md)
 - [Full testing and publishing](04-testing-and-publishing.md)
 
-StageGraph, loops, continuation, backend JSON, and complex rich encounters remain in the content overview. Configuration compatibility has its own page; they are not first-mod prerequisites.
+C# StageGraph and legacy rich encounters remain in the content overview; loops and continuation have a dedicated lesson. Configuration compatibility has its own page; they are not first-mod prerequisites.
 
 [Troubleshooting](troubleshooting.md) · [AI authoring](ai-authoring.md) · [Terminology](glossary.md) · [Fragments](../../templates/README.md)

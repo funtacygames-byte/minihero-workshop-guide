@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/assets-and-text.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: bind your own icon to a working treasure, show its name and the same value in Chinese and English, and play a chosen exploration track. Do these as separate tasks so file, text, and audio problems are easy to locate.
 
@@ -38,6 +38,18 @@ The project generates `localization/zh-Hans.json` and `localization/en.json`. Ed
 `ModText.Get` reads the name; `ModText.Format` supplies `BaseValue × level` as `{0}`. Do not translate keys or change placeholder IDs. Keep each JSON `locale` field and ensure `supportedLocales` includes `zh-Hans` and `en`.
 
 Rebuild, install, and reload. Use a full restart for final checks that also include C# changes. Switch between Chinese and English and inspect level 1 and another level in the codex. The numbers must mean the same thing. A format error can expose the raw template; use [Troubleshooting](../troubleshooting.md) to check JSON and arguments.
+
+### Merge text for topic fragments
+
+The [Chinese sample catalog](../../../templates/zh-CN/localization.json) and [English sample catalog](../../../templates/en/localization.json) contain 65 keys each, covering fifteen source fragments. To merge:
+
+1. Preserve generated locale, package-name and other entries.
+2. Copy entries for the fragments you use into entries by key. Keep one entry per key and update its value.
+3. Use identical keys, placeholders and rule values in both languages. Do not overwrite an existing catalog with the entire sample file.
+4. Read keys with ModText.Get or Format. Adding JSON alone does not translate a string still hardcoded in C#.
+5. Increment version, build/install and fully restart for source changes. Start a fresh run after changing language and inspect Name, Description, role and card text.
+
+The sample collection does not contain all generated package metadata; omit keys for unused features. Avoid duplicate keys. Existing CardState, character and stage definitions can retain text snapshots. A getter reading a new language does not mean every old snapshot is rebuilt. Finish the current custom choice, then open a new one when no refresh callback reconstructs its text.
 
 ## 3. Add stage exploration music
 

@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/stage.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 目标：关卡选择页出现“林径练习”；进场后第一列只有守卫和其下的出口，其他列为空；击败守卫，再点击出口，冒险胜利。第二次把守卫生命由 4 改为 8，重启后看到新值。
 
@@ -36,7 +36,7 @@ registrar.AddContents(new PracticeStage(), new PracticeAdventure());
 
 点击守卫完成攻击，确认其被击败后明牌变成出口；点击出口，检查胜利结算。不同角色强化可能改变击败所需次数，本课不承诺固定攻击次数。图片留空使用宿主后备表现；这用于检查规则流程，正式发布前再补自己的美术。
 
-若入口不出现，检查 Adventure 是否注册、`IncludeInSelection` 是否为 true；若角色不可选，核对 `availableHeroIds` 和 Stage 的 `allowedCharacterIds`。两处都使用公开稳定 ID `BuiltInCharacterIds.RuneHunter`，不要改成显示名称。
+若入口不出现，检查 Adventure 是否注册、`IncludeInSelection` 是否为 true；若角色不可选，核对难度的 `availableHeroIds` 与宿主解锁规则；使用公开稳定 ID `BuiltInCharacterIds.RuneHunter`，不要改成显示名称。素材的 `allowedCharacterIds` 是保留元数据，不是当前 C# 选人过滤器。
 
 ## 4. 改一个可见值
 
@@ -51,3 +51,6 @@ registrar.AddContents(new PracticeStage(), new PracticeAdventure());
 - 出口确实可点击，并完成冒险；4→8 的源码变化生效。
 
 用[宝物课的明确奖励](treasure.md)扩展测试，或进入[连接多个场景](adventure.md)。随机牌池、首领、图路线与循环留在[进阶总览](../02-content-creation.md)。
+
+
+本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。

@@ -2,7 +2,7 @@
 
 [English](../../en/tutorials/publish.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [验证范围](../reference/versions.md)
+教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
 目标：从已验收的 Sources 构建一份可安装包，完成发布准备，并理解 Steam 上线验证与本地导出的区别。这篇是操作流程，本次教程重写不替你发布任何模组。
 

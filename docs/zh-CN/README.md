@@ -2,7 +2,7 @@
 
 [English](../en/README.md) · [首页](../../README.zh-CN.md)
 
-教程修订 2 · API 1.8.0 · 2026-10-14
+教程修订 4 · API 1.8.0 · 2026-10-14
 
 ## 学习路径
 
@@ -18,6 +18,20 @@
 | [连接多个场景](tutorials/adventure.md) | 步骤、整备、场景 ID、保存恢复 |
 | [图片、音乐与双语文本](tutorials/assets-and-text.md) | 真实槽位、包内路径、共同参数 |
 | [打包、发布与更新](tutorials/publish.md) | 本地构建和 Steam 交付分别验收 |
+
+## 功能扩展与查找
+
+[完整功能地图](feature-map.md)按接入状态标明能力与边界。
+
+- [道具与奇遇](tutorials/items-and-events.md)
+- [新卡牌选择](tutorials/card-choice.md)
+- [有上限的状态规则](tutorials/rules-and-state.md)
+- [自定义页面](tutorials/custom-ui.md)
+- [配置兼容](tutorials/configuration.md)
+- [种子、循环与续接](tutorials/adventure-modes.md)
+- [调试与可复现测试](tutorials/debugging.md)
+
+[卡牌选择契约](reference/card-choice.md) · [页面契约](reference/custom-ui.md) · [条件语法](reference/conditions.md) · [对标方法](reference/documentation-design.md)
 
 <a id="reference"></a>
 
@@ -42,6 +56,6 @@
 - [资源与表现](03-assets-and-presentation.md)
 - [完整测试与发布](04-testing-and-publishing.md)
 
-StageGraph、循环、动态续接、后端 JSON 和复杂富事件放在内容总览；配置兼容有独立页。第一次制作不用先读完这些内容。
+C# StageGraph 和旧富事件放在内容总览；循环与动态续接有独立教程；配置兼容有独立页。第一次制作不用先读完这些内容。
 
 [排错](troubleshooting.md) · [AI 制作](ai-authoring.md) · [术语](glossary.md) · [片段](../../templates/README.zh-CN.md)

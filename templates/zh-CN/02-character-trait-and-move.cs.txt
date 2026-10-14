@@ -8,8 +8,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternSight : TraitContent
     {
         public LanternSight() : base(ModEntry.PackageId + ".trait.lantern_sight") { }
-        public override string Name => "灯辉视野";
-        public override string Description => "普通攻击额外选择一名随机敌人。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "trait.lantern_sight.name", "灯辉视野");
+        public override string Description => ModText.Get(ModEntry.PackageId, "trait.lantern_sight.description", "普通攻击额外选择一名随机敌人。");
         public override void OnBeforeNormalAttackTargets(BeforeNormalAttackTargetsEvent e)
         {
             if (e != null) e.additionalRandomTargets += 1;
@@ -19,8 +19,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class SilverBolt : MoveContent, IModPresentationContent
     {
         public SilverBolt() : base(ModEntry.PackageId + ".move.silver_bolt") { }
-        public override string Name => "银辉箭";
-        public override string Description => "对一名敌人造成 2 倍攻击伤害。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "move.silver_bolt.name", "银辉箭");
+        public override string Description => ModText.Get(ModEntry.PackageId, "move.silver_bolt.description", "对一名敌人造成 2 倍攻击伤害。");
         public override MoveTargetKind TargetKind => MoveTargetKind.Enemy;
         public override int MaxUses => 2;
         public override int AttackMultiplier => 2;
@@ -30,10 +30,10 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternRanger : CharacterContent, IModPresentationContent
     {
         public LanternRanger() : base(ModEntry.PackageId + ".character.lantern_ranger") { }
-        public override string Name => "提灯游侠";
-        public override string Role => "猎人";
-        public override string School => "林地巡守";
-        public override string Description => "以提灯与轻弩守护旅队。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.name", "提灯游侠");
+        public override string Role => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.role", "猎人");
+        public override string School => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.school", "林地巡守");
+        public override string Description => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.description", "以提灯与轻弩守护旅队。");
         public override PlayerState BaseStats => new PlayerState
         { hp = 24, maxHp = 24, attack = 6, defense = 1, wisdom = 2 };
         public override IReadOnlyList<Type> TraitTypes => new[] { typeof(LanternSight) };

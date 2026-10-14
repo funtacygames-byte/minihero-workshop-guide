@@ -1,0 +1,35 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    public sealed class MoonDewPotion : ItemContent
+    {
+        public MoonDewPotion() : base(ModEntry.PackageId + ".item.moon_dew_potion") { }
+        public override string Name => ModText.Get(ModEntry.PackageId, "item.moon_dew.name", "月露药剂");
+        public override string Description => ModText.Get(ModEntry.PackageId, "item.moon_dew.description", "恢复 6 点生命。");
+        public override CardType CardType => CardType.Medicine;
+        public override int Heal => 6;
+        public override int SellGold => 2;
+    }
+
+    public sealed class EmberVial : ItemContent
+    {
+        public EmberVial() : base(ModEntry.PackageId + ".item.ember_vial") { }
+        public override string Name => ModText.Get(ModEntry.PackageId, "item.ember_vial.name", "余烬药瓶");
+        public override string Description => ModText.Get(ModEntry.PackageId, "item.ember_vial.description", "对指定敌人造成 5 点伤害。");
+        public override CardType CardType => CardType.Elixir;
+        public override CardState CreateCard(string instanceId = null)
+        {
+            CardState card = base.CreateCard(instanceId);
+            card.activationKind = CardActivationKind.Targeted;
+            card.targetKind = CardTargetKind.Enemy;
+            card.effects = new List<CardEffectData>
+            {
+                new CardEffectData { effectType = CardEffectType.Damage, value = 5 }
+            };
+            return card;
+        }
+    }
+}

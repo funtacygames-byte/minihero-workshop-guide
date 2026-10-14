@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/04-testing-and-publishing.md) · [Guide index](README.md)
 
-Reviewed: October 13, 2026. Current Mod API: 1.8.0.
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
 Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
 
@@ -79,21 +79,13 @@ A targeted item's `CardEffectType.Damage` hits only its selected enemy. A direct
 
 Test `Action=None` direct effects, `Action=Meditation` stat filtering/count/selection, and nonempty `richEventChoices` taking precedence. Cover payable and unpayable stat/gold costs, post-cost rewards, free and reserve treasure slots, and separation between branches. An unaffordable choice must not charge partially or grant a reward. Rich choices should not accidentally apply basic `Effect`, `Choices`, or card-level `goldCost`.
 
-For JSON rich events, check condition filtering, no-match events remaining in the column, and condition checks repeated on confirmation. `event_condition_changed` and `event_cost_unavailable` must preserve the pending choice with no partial settlement.
-
-Pair `rewardContentId` with positive `rewardContentCount`, pointing to registered treasures, moves, or items. Item rewards immediately execute rather than enter inventory: healing 1 at 20/30 HP should yield 21. Moves are learned; treasures are awarded as instances. Test quantity, empty slots, and reserve slots.
-
-For count 101, the backend structured authoring validator allows the number, while runtime awards at most 100. An incomplete pair reports `AW_EVENT_CHOICE_REWARD_CONTENT` in that validator, but direct JSON registration may accept it and silently skip the reward. Test unknown IDs and registered unsupported types separately: registration and choice settlement may succeed with no reward diagnostic and no reward.
-
-A valid `nextEventId` creates an exposed event on top of the original column; an invalid ID is currently silently skipped. Test a `nextStageId` that is only registered as content versus one actually present in the engine's current adventure list. Valid transitions first become pending and are entered through the intermission action. Expanded structured adventure IDs use `<steps[].id>-round-<roundNumberStartingAt1>`; `sourceStageId` is only the source template ID.
-
-The backend authoring validator makes `nextEventId` and `nextStageId` mutually exclusive, but loading does not replace reference checks. For a manifest combining `contentIndex` and `codeAssembly`, verify both registration paths, no duplicate IDs, and no DLL-loader diagnostics.
+For legacy C# rich events, check conditions again at confirmation, keep failures free of partial costs/rewards, and verify registered reward types and counts. Test follow-up event placement and use actual expanded stage IDs for stage transitions. New card-face choices use the [C# choice checklist](tutorials/card-choice.md).
 
 ### Stage layout and victory
 
 Check registration, membership in the intended adventure, random-pool counts, fixed-card order, and a clickable exit. With `fixedColumns`, only those columns should appear: empty columns stay empty, random candidates are not mixed in, and total card count equals the fixed cards. Current C# validation checks exits in fixed columns for fixed layouts and in `appearancePool` for random layouts. If retaining a pool Exit template for earlier-version compatibility, verify it does not appear in the fixed board.
 
-Test clicking an exit before and after `victoryConditions` becomes true. The condition is checked on the click, not automatically on a kill. `defeatedEnemies >= 1` counts run-wide defeats, not a specific enemy. Living ordinary enemies do not block exits by themselves; a living boss does. Include the test character in restrictions and create enemy cards from registered content.
+Test clicking an exit before and after `victoryConditions` becomes true. The condition is checked on the click, not automatically on a kill. `defeatedEnemies >= 1` counts run-wide defeats, not a specific enemy. Living ordinary enemies do not block exits by themselves; a living boss does. Include the test character in the difficulty roster and create enemy cards from registered content.
 
 ### StageGraph
 
@@ -101,13 +93,9 @@ Both preselection and postselection loads need a usable route. For `has:` charac
 
 Every load rebuilds `stageGraphVisitedNodeIds` and records the current node before outgoing conditions. The selected route does not inherit preview visits, while `reach:<currentNode>` is true. Test `reach:`, `tag:`, and numeric comparisons. Multiple matching edges must use positive weights rather than list priority; use several seeds to check selection.
 
-A syntactically valid, always-false edge can pass static registration but fail `LoadStage` with `InvalidOperationException` naming a node with no usable successor. JSON cycles should report `AW_STAGE_CYCLE`. A C# node needs its `card` snapshot; a visited card is guaranteed even with `required=false`. Use the random pool for optional cards.
+A syntactically valid, always-false edge can pass static registration but fail `LoadStage` with `InvalidOperationException` naming a node with no usable successor. Graph cycles should report `AW_STAGE_CYCLE`. A C# node needs its `card` snapshot; a visited card is guaranteed even with `required=false`. Use the random pool for optional cards.
 
-Traverse Victory and Failure, then click the physical exit. Failure loses on exit settlement; Victory still requires an exit and any configured victory condition. Structured stages create node cards from `contentId`; direct C# stages supply `node.card` themselves.
-
-For structured JSON, match `contentIndex`'s stage ID with root `id`, map `cards` to the runtime pool, and include a guaranteed Exit with `kind:2`. Pool enum values are `Content=0/TreasureChest=1/Exit=2/Intermission=3`; node values are `Start=0/Encounter=1/Event=2/Camp=3/Exit=4/Victory=5/Failure=6`. Test event and treasure nodes created through their IDs, without duplicate entries in `cards`, and their guaranteed appearance despite `required:false`. Missing references should report `AW_STAGE_REFERENCE`. An adventure's `steps[].sourceStageId` should expand and load the JSON stage. Click the physical exit to verify final settlement.
-
-There is currently no player-facing JSON content editor; these checks describe the retained backend and package runtime.
+Traverse Victory and Failure, then click the physical exit. Failure loses on exit settlement; Victory still requires an exit and any configured victory condition. C# stages supply `node.card` explicitly; `contentId` alone does not create the snapshot.
 
 ### Bosses
 

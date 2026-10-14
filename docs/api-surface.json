@@ -1,11 +1,14 @@
 {
   "api": "1.8.0",
-  "reviewDate": "2026-10-13",
-  "extraction": "selected source declarations; inherited members listed under their defining base",
+  "reviewDate": "2026-10-14",
+  "extraction": "selected public declarations and protected extension points; inherited members listed under their defining base",
   "sources": {
     "Assets/Game/脚本/ModApi/MiniHeroModApi.cs": "3a0ed15a46010eccde46f1e5d83dfb9e06a3e658388fd7151bcaa8d7b47891a5",
     "Assets/Game/脚本/核心/内容系统/AdventureContent.cs": "73b76b8aad6523bf6a9590ce2a350f2a7bcc8be1dc2dbb7958d90d2cd55c11da",
+    "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs": "28ea3635cabdeebdf0e1395fe8f67546c679354cc0f4af1ba83b7b56eb893451",
+    "Assets/Game/脚本/核心/内容系统/AdventureRuleContent.cs": "aee39cbb100d0b3cb4a0726c2ac835011dfc16a5c0655ce247eddc8d86a67112",
     "Assets/Game/脚本/核心/内容系统/BuiltInStageModules.cs": "cbb3b52124cd0fe0bee3082582c29e4e7b844908398c28e58a741050211ef515",
+    "Assets/Game/脚本/核心/内容系统/CardChoiceEventContent.cs": "7b19548b7fa35dcc05fc3eebc079e6440e5cbbb23ba71f90cfa6554cef92ec7a",
     "Assets/Game/脚本/核心/内容系统/CardContent.cs": "911c6f91081850a3893970d09346dd1b01be3fcf4fba7fe21aa2022a19078fa8",
     "Assets/Game/脚本/核心/内容系统/CharacterContent.cs": "fccbc57eed718943a42bdbe7c349b8d2d8e2b34394c73cf5ab69e750dad9ff58",
     "Assets/Game/脚本/核心/内容系统/ContentFramework.cs": "53651734d75d1e30dcc84b2a7e5c75481fd3acaa14024693c6e3988eba160962",
@@ -13,12 +16,19 @@
     "Assets/Game/脚本/核心/内容系统/ShopContent.cs": "2b918fef89c0080490c1509230f3d34bb6f712c93b9c3a55a2834e7c84634aac",
     "Assets/Game/脚本/核心/内容系统/TreasureContent.cs": "6a4cb4d04af3218a3ca7226e161df6befc950a7d1c51b73cfea50d0aedb442b3",
     "Assets/Game/脚本/核心/内容系统/敌人特性/EnemyTraitEvents.cs": "1c1b64990e7c35ff3f6e9cb8382a12313eecfc3be9c1c5c3a21c69a88acffd66",
-    "Assets/Game/脚本/核心/运行逻辑/GameModels.cs": "57fbea4b6c33bae9afa479a7b9e8da2b09a3d27536e7ac5c3d025f92adaa6a7c"
+    "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs": "1cdd5ea2ac948e12fafdb59cd533ce1f3bcf35d91d822ebed2ce3f36f884a122",
+    "Assets/Game/脚本/核心/运行逻辑/DeclarativeConditionEvaluator.cs": "b43ebf3a916d44631f8a01b73c4ca82ff64d92a32c52f0b45dc3d00726674668",
+    "Assets/Game/脚本/核心/运行逻辑/GameActionModels.cs": "11a737250fb80fd194f9391971abca9d9acaade53392219892fd187028c2037f",
+    "Assets/Game/脚本/核心/运行逻辑/GameModels.cs": "57fbea4b6c33bae9afa479a7b9e8da2b09a3d27536e7ac5c3d025f92adaa6a7c",
+    "Assets/Game/脚本/核心/运行逻辑/GamePrimitives.cs": "ba420e0fe5034b81e2ea8a8eacdcdafc2f59f28f4a3d985878adca1dd5040d3d",
+    "Assets/Game/脚本/核心/运行逻辑/卡牌执行/CardExecutionContext.cs": "3ba8562f3b1187a68eb22d86b3f88b72a7cd9795d1eb0943ce5c1e429a7d46a8"
   },
   "types": {
     "AdventureContent": {
       "declaration": "public abstract class AdventureContent : GameContentModule",
       "members": [
+        "protected AdventureContent();",
+        "protected AdventureContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public abstract string PreviewImageId { get; }",
         "public abstract string SourceStageId { get; }",
@@ -30,6 +40,36 @@
         "public abstract IReadOnlyList<AdventureStepDefinition> Steps { get; }",
         "public abstract IReadOnlyList<AdventureDifficultyDefinition> Difficulties { get; }",
         "public virtual AdventureDefinition CreateDefinition();"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureContent.cs"
+    },
+    "AdventureContinuationContext": {
+      "declaration": "public sealed class AdventureContinuationContext",
+      "members": [
+        "public GameState State { get; }",
+        "public StageDefinition CompletedStage { get; }",
+        "public IReadOnlyList<StageDefinition> CampaignStages { get; }",
+        "public GameContentRegistry Registry { get; }",
+        "public string Seed { get; }",
+        "public int ContinuationIndex { get; }"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs"
+    },
+    "AdventureDefinition": {
+      "declaration": "public sealed class AdventureDefinition",
+      "members": [
+        "public string id = string.Empty;",
+        "public string name = string.Empty;",
+        "public string description = string.Empty;",
+        "public string previewImageId = string.Empty;",
+        "public string sourceStageId = string.Empty;",
+        "public int intermissionInterval = 2;",
+        "public List<string> adventureRuleIds = new List<string>();",
+        "public AdventureLoopSettings loop;",
+        "public AdventureSeedSettings seedSettings;",
+        "public List<AdventureStepDefinition> steps = new List<AdventureStepDefinition>();",
+        "public List<AdventureDifficultyDefinition> difficulties = new List<AdventureDifficultyDefinition>();",
+        "public AdventureDefinition Clone();"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/AdventureContent.cs"
     },
@@ -55,6 +95,60 @@
         "public AdventureDifficultyDefinition Clone();"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/AdventureContent.cs"
+    },
+    "AdventureLoopSettings": {
+      "declaration": "public sealed class AdventureLoopSettings",
+      "members": [
+        "public bool enabled;",
+        "public int startStepIndex;",
+        "public int maximumLoops;",
+        "public int attackIncreasePerLoop;",
+        "public int defenseIncreasePerLoop;",
+        "public int healthIncreasePerLoop;",
+        "public int rewardIncreasePerLoop;",
+        "public AdventureLoopSettings Clone();",
+        "public void Validate(int stepCount);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs"
+    },
+    "AdventureRuleContent": {
+      "declaration": "public abstract class AdventureRuleContent : GameContentModule",
+      "members": [
+        "public abstract string Description { get; }",
+        "public abstract string IconId { get; }",
+        "public virtual IReadOnlyList<int> RuleAttackGrowth { get; }",
+        "public virtual IReadOnlyList<int> RuleDefenseGrowth { get; }",
+        "public virtual IReadOnlyList<int> RuleHealthGrowth { get; }",
+        "public virtual int ItemFrequencyBonusPercent { get; }",
+        "public virtual int ChestQualitySteps { get; }",
+        "public virtual bool BlocksFusion(TreasureRank rank);",
+        "public virtual int StatusCount(GameState state);",
+        "public virtual string StatusDescription(GameState state);",
+        "public void PublishStatus(GameState state);",
+        "public override void OnStageEntered(StageEnteredEvent e);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureRuleContent.cs"
+    },
+    "AdventureSeedMode": {
+      "declaration": "public enum AdventureSeedMode",
+      "members": [
+        "None",
+        "Fixed",
+        "Daily"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs"
+    },
+    "AdventureSeedSettings": {
+      "declaration": "public sealed class AdventureSeedSettings",
+      "members": [
+        "public AdventureSeedMode mode;",
+        "public string seed = string.Empty;",
+        "public int utcOffsetMinutes;",
+        "public AdventureSeedSettings Clone();",
+        "public void Validate();",
+        "public string Resolve(string adventureId, int difficulty, string fallback, DateTimeOffset utcNow);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs"
     },
     "AdventureStepDefinition": {
       "declaration": "public sealed class AdventureStepDefinition",
@@ -129,9 +223,87 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
     },
+    "BeforePlayerDamageEvent": {
+      "declaration": "public sealed class BeforePlayerDamageEvent : GameRuleEvent",
+      "members": [
+        "public int baseDamage;",
+        "public int bonusFlat;",
+        "public int bonusPercent;"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
+    "CardChoiceContext": {
+      "declaration": "public sealed class CardChoiceContext",
+      "members": [
+        "public GameEngine Engine { get; }",
+        "public GameState State { get; }",
+        "public ITreasureRuntime Runtime { get; }",
+        "public CardChoiceRequest Request { get; }",
+        "public CardChoiceOption Selected { get; }",
+        "public void ApplyEffect(StatEffect effect, bool maxHpGainDoesNotHeal = false);",
+        "public GameActionResult OpenNext(CardChoiceRequest request);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs"
+    },
+    "CardChoiceEventContent": {
+      "declaration": "public abstract class CardChoiceEventContent : EventContent, ICardChoiceResolver",
+      "members": [
+        "protected CardChoiceEventContent();",
+        "protected CardChoiceEventContent(string id) : base(id);",
+        "protected abstract IReadOnlyList<CardChoiceOption> CreateChoices(CardExecutionContext context);",
+        "public abstract GameActionResult ResolveCardChoice(CardChoiceContext context);",
+        "public override GameActionResult Execute(CardExecutionContext context);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/CardChoiceEventContent.cs"
+    },
+    "CardChoiceOption": {
+      "declaration": "public sealed class CardChoiceOption",
+      "members": [
+        "public string id = string.Empty;",
+        "public CardState card;",
+        "public StatEffect effect;",
+        "public StatEffect cost;",
+        "public string conditionExpression = string.Empty;",
+        "public bool enabled = true;",
+        "public bool maxHpGainDoesNotHeal;",
+        "public CardChoiceOption Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs"
+    },
+    "CardChoiceRequest": {
+      "declaration": "public sealed class CardChoiceRequest",
+      "members": [
+        "public string title = string.Empty;",
+        "public string titleLocalizationKey = string.Empty;",
+        "public string titleContentId = string.Empty;",
+        "public List<CardChoiceOption> options = new List<CardChoiceOption>();",
+        "public string resolverContentId = string.Empty;",
+        "public int sourceColumn = -1;",
+        "public string sourceCardId = string.Empty;",
+        "public bool consumeSource;",
+        "public bool consumeTurn;",
+        "public bool allowCancel;",
+        "public bool commitTurnOnCancel;",
+        "public CardChoiceRequest Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs"
+    },
+    "CardExecutionContext": {
+      "declaration": "public sealed class CardExecutionContext",
+      "members": [
+        "public GameEngine Engine { get; }",
+        "public CardState Card { get; }",
+        "public int ColumnIndex { get; }",
+        "public int TargetColumn { get; }",
+        "public CardExecutionContext( GameEngine engine, CardState card, int columnIndex = -1, int targetColumn = -1);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/卡牌执行/CardExecutionContext.cs"
+    },
     "CharacterContent": {
       "declaration": "public abstract class CharacterContent : GameContentModule",
       "members": [
+        "protected CharacterContent();",
+        "protected CharacterContent(string id) : base(id);",
         "public abstract string Role { get; }",
         "public abstract string School { get; }",
         "public virtual string Description { get; }",
@@ -170,9 +342,19 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/BuiltInStageModules.cs"
     },
+    "DeclarativeConditionEvaluator": {
+      "declaration": "public static class DeclarativeConditionEvaluator",
+      "members": [
+        "public static bool Evaluate(string expression, GameState state);",
+        "public static bool TryEvaluate(string expression, GameState state, out bool result);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/DeclarativeConditionEvaluator.cs"
+    },
     "EnemyContent": {
       "declaration": "public abstract class EnemyContent : GameContentModule",
       "members": [
+        "protected EnemyContent();",
+        "protected EnemyContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public abstract int Attack { get; }",
         "public abstract int Defense { get; }",
@@ -203,6 +385,8 @@
     "EnemyTraitContent": {
       "declaration": "public abstract class EnemyTraitContent : GameContentModule",
       "members": [
+        "protected EnemyTraitContent();",
+        "protected EnemyTraitContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public virtual string Icon { get; }",
         "public virtual int Countdown { get; }",
@@ -253,6 +437,8 @@
     "EventContent": {
       "declaration": "public abstract class EventContent : GameContentModule",
       "members": [
+        "protected EventContent();",
+        "protected EventContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public abstract string ImageName { get; }",
         "public virtual PendingChoiceKind Action { get; }",
@@ -265,9 +451,59 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/CardContent.cs"
     },
+    "GameActionResult": {
+      "declaration": "public sealed class GameActionResult",
+      "members": [
+        "public bool ok;",
+        "public string code;",
+        "public string message;",
+        "public object[] messageLocalizationArguments;",
+        "public string messageLocalizationContentId;",
+        "public string action;",
+        "public int amount;",
+        "public int slot = -1;",
+        "public int columnIndex = -1;",
+        "public int sourceColumn = -1;",
+        "public int presentationCasterColumn = -1;",
+        "public int targetColumn = -1;",
+        "public int damageDealt;",
+        "public int retaliationDamage;",
+        "public int recoveredAfterHit;",
+        "public int recoveredAfterKill;",
+        "public int rewardGold;",
+        "public int hpRecovered;",
+        "public int playerHpBefore;",
+        "public int playerHpAfter;",
+        "public int enemyHpBefore;",
+        "public int enemyHpAfter;",
+        "public int enemyHpAfterAttack = -1;",
+        "public bool dodged;",
+        "public bool defeated;",
+        "public CardState usedItem;",
+        "public CardState enemy;",
+        "public TreasureState treasure;",
+        "public string presentationSourceContentId = string.Empty;",
+        "public List<MoveHitResult> moveHits = new List<MoveHitResult>();",
+        "public List<EnemyTraitPresentationRecord> enemyTraitPresentations = new List<EnemyTraitPresentationRecord>();",
+        "public List<EnemyStatusPresentationRecord> enemyStatusPresentations = new List<EnemyStatusPresentationRecord>();",
+        "public bool playHealingEffect;",
+        "public bool playStrengtheningEffect;",
+        "public bool playShieldGainedEffect;",
+        "public bool playHealingSound;",
+        "public bool playPlayerDamagedSound;",
+        "public bool playBlockSound;",
+        "public List<CardShuffleRecord> shuffledCards = new List<CardShuffleRecord>();",
+        "public static GameActionResult Success(string code, string message = \"\");",
+        "public static GameActionResult Failure(string code, string message, params object[] localizationArguments);",
+        "public static GameActionResult FailureForContent(string code, string message, string contentId);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GameActionModels.cs"
+    },
     "GameContentModule": {
       "declaration": "public abstract class GameContentModule : IGameContent, IAppearanceContent",
       "members": [
+        "protected GameContentModule();",
+        "protected GameContentModule(string id);",
         "public string Id { get; }",
         "public abstract string Name { get; }",
         "public virtual int Order { get; }",
@@ -334,6 +570,20 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
     },
+    "IAdventureContinuationContent": {
+      "declaration": "public interface IAdventureContinuationContent",
+      "members": [
+        "IReadOnlyList<StageDefinition> CreateNextStages(AdventureContinuationContext context);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs"
+    },
+    "ICardChoiceResolver": {
+      "declaration": "public interface ICardChoiceResolver : IGameContent",
+      "members": [
+        "GameActionResult ResolveCardChoice(CardChoiceContext context);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs"
+    },
     "IModPresentationContent": {
       "declaration": "public interface IModPresentationContent",
       "members": [
@@ -352,6 +602,21 @@
         "void AddConfig(ModConfigDefinition definition);",
         "void AddStartScreen(ModStartScreenDefinition definition);",
         "void AddScreen(ModScreenDefinition definition);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "IModUiContext": {
+      "declaration": "public interface IModUiContext",
+      "members": [
+        "string PackageId { get; }",
+        "string ScreenId { get; }",
+        "void OpenScreen(string screenId);",
+        "void CloseScreen();",
+        "void ExecuteHostAction(ModStartScreenAction action);",
+        "void SetText(string elementId, string value);",
+        "void SetVisible(string elementId, bool visible);",
+        "void SetInteractable(string elementId, bool interactable);",
+        "void SetImage(string elementId, string packageRelativeAsset);"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
@@ -397,6 +662,8 @@
     "ItemContent": {
       "declaration": "public abstract class ItemContent : GameContentModule, IUseCardContent",
       "members": [
+        "protected ItemContent();",
+        "protected ItemContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public abstract CardType CardType { get; }",
         "public virtual int Heal { get; }",
@@ -484,6 +751,27 @@
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
+    "ModConfigValueKind": {
+      "declaration": "public enum ModConfigValueKind",
+      "members": [
+        "Toggle",
+        "Integer",
+        "Decimal",
+        "Choice",
+        "Text"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModMusicCue": {
+      "declaration": "public enum ModMusicCue",
+      "members": [
+        "MainMenu",
+        "StageExplore",
+        "BossBattle",
+        "Victory"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
     "ModMusicTheme": {
       "declaration": "public sealed class ModMusicTheme",
       "members": [
@@ -502,10 +790,99 @@
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
+    "ModPresentationSlot": {
+      "declaration": "public enum ModPresentationSlot",
+      "members": [
+        "Icon",
+        "Portrait",
+        "Avatar",
+        "BattleArt",
+        "IntentIcon",
+        "StageBackground",
+        "StageMapThumbnail",
+        "StageArrivalArt"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
     "ModRegistrarExtensions": {
       "declaration": "public static class ModRegistrarExtensions",
       "members": [
         "public static void AddContents(this IModRegistrar registrar, params IGameContent[] contents);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModScreenController": {
+      "declaration": "public abstract class ModScreenController",
+      "members": [
+        "public virtual void OnOpen(IModUiContext context);",
+        "public virtual void OnClose(IModUiContext context);",
+        "public virtual void OnAction(string actionId, IModUiContext context);",
+        "public virtual void OnUpdate(float unscaledDeltaTime, IModUiContext context);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModScreenDefinition": {
+      "declaration": "public sealed class ModScreenDefinition",
+      "members": [
+        "public ModScreenDefinition(string id, ModScreenPlacement placement, ModUiElement root, ModScreenController controller = null, int priority = 0, bool closeOnEscape = true, string musicThemeId = \"\");",
+        "public string Id { get; }",
+        "public ModScreenPlacement Placement { get; }",
+        "public ModUiElement Root { get; }",
+        "public ModScreenController Controller { get; }",
+        "public int Priority { get; }",
+        "public bool CloseOnEscape { get; }",
+        "public string MusicThemeId { get; }"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModScreenPlacement": {
+      "declaration": "public enum ModScreenPlacement",
+      "members": [
+        "StartScreenReplacement",
+        "MainMenuPage",
+        "Overlay"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModStartScreenAction": {
+      "declaration": "public enum ModStartScreenAction",
+      "members": [
+        "StartNewGame",
+        "ContinueGame",
+        "OpenSettings",
+        "OpenAbout",
+        "ShowOriginalMenu",
+        "QuitGame"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModStartScreenButton": {
+      "declaration": "public sealed class ModStartScreenButton",
+      "members": [
+        "public ModStartScreenButton(string id, string labelKey, string labelFallback, ModStartScreenAction action);",
+        "public string Id { get; }",
+        "public string LabelKey { get; }",
+        "public string LabelFallback { get; }",
+        "public ModStartScreenAction Action { get; }"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModStartScreenDefinition": {
+      "declaration": "public sealed class ModStartScreenDefinition",
+      "members": [
+        "public ModStartScreenDefinition( string id, string titleKey, string titleFallback, string subtitleKey, string subtitleFallback, IReadOnlyList<ModStartScreenButton> buttons, string footerKey = \"\", string footerFallback = \"\", string backgroundColor = \"#102A2A\", string panelColor = \"#F0D7A5F2\", string accentColor = \"#D79A45\", string textColor = \"#2E190F\");",
+        "public string Id { get; }",
+        "public string TitleKey { get; }",
+        "public string TitleFallback { get; }",
+        "public string SubtitleKey { get; }",
+        "public string SubtitleFallback { get; }",
+        "public IReadOnlyList<ModStartScreenButton> Buttons { get; }",
+        "public string FooterKey { get; }",
+        "public string FooterFallback { get; }",
+        "public string BackgroundColor { get; }",
+        "public string PanelColor { get; }",
+        "public string AccentColor { get; }",
+        "public string TextColor { get; }"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
@@ -518,9 +895,122 @@
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
+    "ModUi": {
+      "declaration": "public static class ModUi",
+      "members": [
+        "public static ModUiElement Column(string id, params ModUiElement[] children);",
+        "public static ModUiElement Row(string id, params ModUiElement[] children);",
+        "public static ModUiElement Panel(string id, params ModUiElement[] children);",
+        "public static ModUiElement Scroll(string id, params ModUiElement[] children);",
+        "public static ModUiElement Text(string id, string key, string fallback);",
+        "public static ModUiElement Image(string id, string packageRelativeAsset);",
+        "public static ModUiElement Button(string id, string key, string fallback, string actionId);",
+        "public static ModUiElement HostButton(string id, string key, string fallback, ModStartScreenAction action);",
+        "public static ModUiElement Spacer(string id, float size);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiAlignment": {
+      "declaration": "public enum ModUiAlignment",
+      "members": [
+        "Start",
+        "Center",
+        "End",
+        "Stretch"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiElement": {
+      "declaration": "public sealed class ModUiElement",
+      "members": [
+        "public ModUiElement(string id, ModUiElementKind kind, IReadOnlyList<ModUiElement> children = null);",
+        "public string Id { get; }",
+        "public ModUiElementKind Kind { get; }",
+        "public IReadOnlyList<ModUiElement> Children { get; }",
+        "public ModUiStyle Style { get; set; }",
+        "public string TextKey { get; set; }",
+        "public string TextFallback { get; set; }",
+        "public string ImageAsset { get; set; }",
+        "public string ActionId { get; set; }",
+        "public bool UsesHostAction { get; set; }",
+        "public ModStartScreenAction HostAction { get; set; }",
+        "public bool Visible { get; set; }",
+        "public bool Interactable { get; set; }"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiElementKind": {
+      "declaration": "public enum ModUiElementKind",
+      "members": [
+        "Column",
+        "Row",
+        "Panel",
+        "Text",
+        "Image",
+        "Button",
+        "Spacer",
+        "Scroll"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiImageFit": {
+      "declaration": "public enum ModUiImageFit",
+      "members": [
+        "Stretch",
+        "Contain",
+        "Cover"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiStyle": {
+      "declaration": "public sealed class ModUiStyle",
+      "members": [
+        "public float Width { get; set; }",
+        "public float Height { get; set; }",
+        "public float MinWidth { get; set; }",
+        "public float MinHeight { get; set; }",
+        "public float FlexibleWidth { get; set; }",
+        "public float FlexibleHeight { get; set; }",
+        "public float Gap { get; set; }",
+        "public ModUiThickness Padding { get; set; }",
+        "public ModUiAlignment HorizontalAlignment { get; set; }",
+        "public ModUiAlignment VerticalAlignment { get; set; }",
+        "public string BackgroundColor { get; set; }",
+        "public string TextColor { get; set; }",
+        "public float FontSize { get; set; }",
+        "public bool Bold { get; set; }",
+        "public bool RaycastTarget { get; set; }",
+        "public ModUiImageFit ImageFit { get; set; }"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModUiThickness": {
+      "declaration": "public readonly struct ModUiThickness",
+      "members": [
+        "public ModUiThickness(int all) : this(all, all, all, all);",
+        "public ModUiThickness(int horizontal, int vertical) : this(horizontal, horizontal, vertical, vertical);",
+        "public ModUiThickness(int left, int right, int top, int bottom);",
+        "public int Left { get; }",
+        "public int Right { get; }",
+        "public int Top { get; }",
+        "public int Bottom { get; }"
+      ],
+      "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "MoveCapacityEvent": {
+      "declaration": "public sealed class MoveCapacityEvent : GameRuleEvent",
+      "members": [
+        "public MoveState move;",
+        "public int baseMaxUses;",
+        "public int bonusMaxUses;"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
     "MoveContent": {
       "declaration": "public abstract class MoveContent : GameContentModule, IUseCardContent",
       "members": [
+        "protected MoveContent();",
+        "protected MoveContent(string id) : base(id);",
         "public abstract string Description { get; }",
         "public virtual MoveTargetKind TargetKind { get; }",
         "public virtual MoveActivationKind ActivationKind { get; }",
@@ -541,9 +1031,64 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/CardContent.cs"
     },
+    "NormalAttackResolvedEvent": {
+      "declaration": "public sealed class NormalAttackResolvedEvent : GameRuleEvent",
+      "members": [
+        "public bool tookDamage;",
+        "public int damageDealt;",
+        "public int restoreMoveUses;",
+        "public IReadOnlyList<MoveHitResult> hits = Array.Empty<MoveHitResult>();",
+        "public long healingPercentDamage;",
+        "public string healingSourceContentId = string.Empty;",
+        "public MoveHitResult healingSourceHit;",
+        "public void RegisterHealingPresentation(string sourceContentId, MoveHitResult hit);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
+    "PlayerDamageTakenEvent": {
+      "declaration": "public sealed class PlayerDamageTakenEvent : GameRuleEvent",
+      "members": [
+        "public int damage;",
+        "public int absorbed;",
+        "public int hpDamage;",
+        "public int TotalDamageTaken { get; }",
+        "public string enemyAttackerId = string.Empty;",
+        "public int enemyAttackerColumnIndex = -1;",
+        "public int requestedReflectionDamage { get; private set; }",
+        "public void ReflectDamageToAttacker(int amount);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
+    "PlayerStatusProjectionEvent": {
+      "declaration": "public sealed class PlayerStatusProjectionEvent : GameRuleEvent",
+      "members": [
+        "public PlayerAttackEmpoweredStatus attackDamage { get; private set; }",
+        "public PlayerMultiAttackStatus multiAttack { get; private set; }",
+        "public PlayerLifestealStatus lifesteal { get; private set; }"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
+    "RichEventChoiceState": {
+      "declaration": "public sealed class RichEventChoiceState",
+      "members": [
+        "public string choiceId = string.Empty;",
+        "public string text = string.Empty;",
+        "public string conditionExpression = string.Empty;",
+        "public StatEffect cost;",
+        "public StatEffect reward;",
+        "public string rewardContentId = string.Empty;",
+        "public int rewardContentCount;",
+        "public string nextStageId = string.Empty;",
+        "public string nextEventId = string.Empty;",
+        "public RichEventChoiceState Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GameModels.cs"
+    },
     "StageContent": {
       "declaration": "public abstract class StageContent : GameContentModule",
       "members": [
+        "protected StageContent();",
+        "protected StageContent(string id) : base(id);",
         "public abstract string Subtitle { get; }",
         "public virtual bool IncludeInDefaultCampaign { get; }",
         "public abstract StageDefinition CreateDefinition(GameContentRegistry registry);"
@@ -614,9 +1159,76 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
     },
+    "StageGenerationProfiles": {
+      "declaration": "public static class StageGenerationProfiles",
+      "members": [
+        "public const string Default = \"workshop.default\";",
+        "public const string Weighted = \"workshop.weighted.v1\";",
+        "public const string Layered = \"workshop.layered.v1\";",
+        "public const string Branching = \"workshop.branching.v1\";",
+        "public const string LayeredBranching = \"workshop.layered-branching.v1\";"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/AdventureContent.cs"
+    },
+    "StageGraphEdgeDefinition": {
+      "declaration": "public sealed class StageGraphEdgeDefinition",
+      "members": [
+        "public string fromNodeId = string.Empty;",
+        "public string toNodeId = string.Empty;",
+        "public string conditionExpression = string.Empty;",
+        "public float weight = 1f;",
+        "public StageGraphEdgeDefinition Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GameModels.cs"
+    },
+    "StageGraphNodeDefinition": {
+      "declaration": "public sealed class StageGraphNodeDefinition",
+      "members": [
+        "public string nodeId = string.Empty;",
+        "public StageGraphNodeKind kind;",
+        "public string contentId = string.Empty;",
+        "public bool required;",
+        "public CardState card;",
+        "public StageGraphNodeDefinition Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GameModels.cs"
+    },
+    "StageGraphNodeKind": {
+      "declaration": "public enum StageGraphNodeKind",
+      "members": [
+        "Start",
+        "Encounter",
+        "Event",
+        "Camp",
+        "Exit",
+        "Victory",
+        "Failure"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GameModels.cs"
+    },
+    "StatEffect": {
+      "declaration": "public sealed class StatEffect",
+      "members": [
+        "public string blessingType = string.Empty;",
+        "public TreasureRank appearanceQuality = TreasureRank.Common;",
+        "public float appearanceWeight = 1f;",
+        "public List<string> requiredAppearanceTags = new List<string>();",
+        "public int hp;",
+        "public int maxHp;",
+        "public int attack;",
+        "public int defense;",
+        "public int wisdom;",
+        "public int dodgeCharges;",
+        "public int gold;",
+        "public StatEffect Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/GamePrimitives.cs"
+    },
     "TraitContent": {
       "declaration": "public abstract class TraitContent : GameContentModule",
       "members": [
+        "protected TraitContent();",
+        "protected TraitContent(string id) : base(id);",
         "public abstract string Description { get; }"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentFramework.cs"
@@ -624,6 +1236,9 @@
     "TreasureContent": {
       "declaration": "public abstract class TreasureContent : GameContentModule",
       "members": [
+        "protected TreasureContent();",
+        "protected TreasureContent(string id) : base(id);",
+        "protected TreasureContent(string displayName, TreasureRank maximumRank);",
         "public TreasureRank Quality { get; }",
         "public int EffectValue { get; }",
         "public override string Name { get; }",
@@ -641,12 +1256,20 @@
         "public virtual float GetPoolWeight(string poolTag);",
         "public virtual TreasureActivationKind ActivationKind { get; }",
         "public virtual int MaxUses { get; }",
+        "protected virtual void SynchronizeRuntimeConfiguration();",
+        "protected void SynchronizeLinearQualityValues(TreasureRank minimumRank, int firstValue);",
         "public abstract string Describe(int level);",
         "public virtual GameActionResult Execute(TreasureState treasure, TreasureActivationContext context);",
         "public TreasureDefinition CreateDefinition();",
         "public virtual TreasureState CreateState(int level = 1);",
         "public TreasureContent CloneRuntime();",
-        "public virtual IEnumerable<TreasureState> GetStateVariants();"
+        "protected virtual string DescribeVariant(int value, int level);",
+        "public virtual IEnumerable<TreasureState> GetStateVariants();",
+        "protected TreasureState CreateVariant(TreasureRank rank, int level = 1);",
+        "protected static string ChanceText(int value);",
+        "protected static string ChancePrefix(int value);",
+        "protected static void CountFrequency( ref int accumulatedTriggers, ref int sceneRewards, int threshold, int sceneCap, Action reward);",
+        "protected static void CountAmount( ref int accumulatedAmount, ref int sceneRewards, int amount, int threshold, int sceneCap, Action reward);"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/TreasureContent.cs"
     },
@@ -686,6 +1309,13 @@
         "public int attackPercent;",
         "public int defensePercent;",
         "public int maxHpPercent;"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
+    },
+    "TurnEndedEvent": {
+      "declaration": "public sealed class TurnEndedEvent : GameRuleEvent",
+      "members": [
+        "public int turn;"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
     }

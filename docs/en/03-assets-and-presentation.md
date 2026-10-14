@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/03-assets-and-presentation.md) · [Guide index](README.md)
 
-Reviewed: October 13, 2026. Current Mod API: 1.8.0.
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
 Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
 
@@ -156,7 +156,7 @@ Set `boss = true` for a boss stage.
 
 ## 5. Music fallback and current limits
 
-Two cues are currently connected:
+Two stage cues are currently connected:
 
 - `StageExplore`: ordinary stages. A missing or failed mod track falls back to the game's built-in in-game playlist.
 - `BossBattle`: boss stages. A missing or failed boss track first falls back to the same theme's `StageExplore`, then to the built-in playlist if that also fails or is absent.
@@ -195,6 +195,8 @@ public override string Describe(int level) => ModText.Format(
 
 Corresponding `localization/zh-Hans.json`:
 
+This is a display-text catalog. The treasure's trigger and shield formula remain in its C# class.
+
 ```json
 {
   "locale": "zh-Hans",
@@ -207,7 +209,7 @@ Corresponding `localization/zh-Hans.json`:
 
 The third argument is fallback text when a translation cannot be found. Add `localization/en.json` and add `en` to `package.json.supportedLocales` for English. Keep keys and placeholders unchanged; translate their values.
 
-For example, the English entries for the same keys are:
+The English entries for the same keys are below. Merge these entries without replacing existing translations:
 
 ```json
 {

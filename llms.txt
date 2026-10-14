@@ -1,0 +1,35 @@
+# MiniHero workshop guide
+
+> Bilingual mod-authoring documentation. Guide revision 4; reviewed API 1.8.0; 2026-10-14.
+
+Author gameplay in C# content classes, compiled into a mod DLL. Generated manifests, localization catalogs and saves are auxiliary data; do not propose gameplay JSON submissions.
+
+Read AGENTS.md, then the task contract and one target lesson. Use current game-generated references to compile. This repository does not provide the SDK DLLs.
+
+## Start
+
+- [English task contract](docs/en/ai-authoring.md)
+- [中文制作合同](docs/zh-CN/ai-authoring.md)
+- [English feature map](docs/en/feature-map.md)
+- [中文功能地图](docs/zh-CN/feature-map.md)
+- [Capability status and routes](docs/capabilities.json)
+- [Selected declarations, relative sources and hashes](docs/api-surface.json)
+
+## New card choices
+
+- [English lesson](docs/en/tutorials/card-choice.md)
+- [中文教程](docs/zh-CN/tutorials/card-choice.md)
+- [English settlement/save contract](docs/en/reference/card-choice.md)
+- [中文结算与存档契约](docs/zh-CN/reference/card-choice.md)
+- [English focused class](templates/en/10-card-choice.cs.txt)
+- [中文完整类片段](templates/zh-CN/10-card-choice.cs.txt)
+
+## Other routes
+
+- [English index](docs/en/README.md)
+- [中文目录](docs/zh-CN/README.md)
+- [Fragment dependencies](templates/README.md)
+- [Testing/report format](docs/en/tutorials/debugging.md)
+- [Verified scope and remaining checks](docs/en/reference/versions.md)
+
+Preserve stable IDs and keys. Healing-linked rules read settled requested, not actual HP gain. Temporary treasure state resets per stage. Display cards do not execute their original behavior. Register resolvers by stable content ID. No player Mod configuration page, public config writer, or genuine DLL hot unloading is promised. Explain unsupported behavior instead of inventing APIs. available/partial/backend-only are capability statuses, not evidence that every example was tested.

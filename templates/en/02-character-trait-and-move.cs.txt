@@ -8,8 +8,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternSight : TraitContent
     {
         public LanternSight() : base(ModEntry.PackageId + ".trait.lantern_sight") { }
-        public override string Name => "Lantern Sight";
-        public override string Description => "Basic attacks select one additional random enemy.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "trait.lantern_sight.name", "Lantern Sight");
+        public override string Description => ModText.Get(ModEntry.PackageId, "trait.lantern_sight.description", "Basic attacks select one additional random enemy.");
         public override void OnBeforeNormalAttackTargets(BeforeNormalAttackTargetsEvent e)
         {
             if (e != null) e.additionalRandomTargets += 1;
@@ -19,8 +19,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class SilverBolt : MoveContent, IModPresentationContent
     {
         public SilverBolt() : base(ModEntry.PackageId + ".move.silver_bolt") { }
-        public override string Name => "Silver Bolt";
-        public override string Description => "Deal damage equal to 2 times attack to one enemy.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "move.silver_bolt.name", "Silver Bolt");
+        public override string Description => ModText.Get(ModEntry.PackageId, "move.silver_bolt.description", "Deal damage equal to 2 times attack to one enemy.");
         public override MoveTargetKind TargetKind => MoveTargetKind.Enemy;
         public override int MaxUses => 2;
         public override int AttackMultiplier => 2;
@@ -30,10 +30,10 @@ namespace LocalAliceLanternTrailMod
     public sealed class LanternRanger : CharacterContent, IModPresentationContent
     {
         public LanternRanger() : base(ModEntry.PackageId + ".character.lantern_ranger") { }
-        public override string Name => "Lantern Ranger";
-        public override string Role => "Hunter";
-        public override string School => "Woodland Watch";
-        public override string Description => "Protects travelers with a lantern and light crossbow.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.name", "Lantern Ranger");
+        public override string Role => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.role", "Hunter");
+        public override string School => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.school", "Woodland Watch");
+        public override string Description => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.description", "Protects travelers with a lantern and light crossbow.");
         public override PlayerState BaseStats => new PlayerState
         { hp = 24, maxHp = 24, attack = 6, defense = 1, wisdom = 2 };
         public override IReadOnlyList<Type> TraitTypes => new[] { typeof(LanternSight) };

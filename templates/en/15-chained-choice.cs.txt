@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [Serializable]
+    public sealed class TwoStepSupplies : CardChoiceEventContent
+    {
+        public TwoStepSupplies() : base(ModEntry.PackageId + ".event.two_step_supplies") { }
+        public override string Name => ModText.Get(ModEntry.PackageId,
+            "event.two_step_supplies.name", "Supply Cache");
+        public override string Description => ModText.Get(ModEntry.PackageId,
+            "event.two_step_supplies.description", "Take 3 gold, or gain 2 shield and choose extra supplies.");
+        public override string ImageName => "";
+
+        protected override IReadOnlyList<CardChoiceOption> CreateChoices(CardExecutionContext context) => new[]
+        {
+            Option("prepare", "choice.supply.prepare.name", "Shield Kit",
+                "choice.supply.prepare.description", "Gain 2 shield, then choose extra supplies."),
+            Option("coins", "choice.supply.coins.name", "Loose Coins",
+                "choice.supply.coins.description", "Gain 3 gold.", new StatEffect { gold = 3 })
+        };
+
+        public override GameActionResult ResolveCardChoice(CardChoiceContext context)
+        {
+            switch (context.Selected.id)
+            {
+                case "prepare":
+                    context.Runtime.AddShield(2);
+                    return context.OpenNext(new CardChoiceRequest
+                    {
+                        title = Name, titleContentId = Id, resolverContentId = Id,
+                        allowCancel = true,
+                        // The first step already consumed the event. This request has no source.
+                        consumeSource = false, consumeTurn = false,
+                        options = new List<CardChoiceOption>
+                        {
+                            Option("heal", "choice.camp.heal.name", "Moondew Kit",
+                                "choice.camp.heal.description", "Restore 5 HP.", new StatEffect { hp = 5 }),
+                            Option("guard", "choice.camp.guard.name", "Guard Supplies",
+                                "choice.camp.guard.description", "Pay 2 gold to gain 1 defense.",
+                                new StatEffect { defense = 1 }, new StatEffect { gold = 2 }, "gold>=2")
+                        }
+                    });
+                case "coins":
+                case "heal":
+                case "guard":
+                    context.ApplyEffect(context.Selected.effect, context.Selected.maxHpGainDoesNotHeal);
+                    return GameActionResult.Success("supplies_resolved", "Supplies resolved.");
+                default:
+                    return GameActionResult.Failure("unknown_option", "Unknown option.");
+            }
+        }
+
+        private CardChoiceOption Option(string branch, string nameKey, string nameFallback,
+            string descriptionKey, string descriptionFallback, StatEffect effect = null,
+            StatEffect cost = null, string condition = "") => new CardChoiceOption
+        {
+            id = branch,
+            card = ContentCards.Card(Id + ".preview." + branch, CardType.Encounter,
+                ModText.Get(ModEntry.PackageId, nameKey, nameFallback),
+                ModText.Get(ModEntry.PackageId, descriptionKey, descriptionFallback)),
+            effect = effect, cost = cost, conditionExpression = condition
+        };
+    }
+}

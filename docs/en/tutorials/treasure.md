@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/treasure.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Use the first lesson's `StarterRelic` to check quality, level, eligibility, and its actual effect. It shares one teaching formula across qualities; changing its name and values alone does not constitute a new finished design.
 
@@ -57,3 +57,9 @@ This treasure has no temporary counter. Granted shield is a player resource, not
 - `StartingTreasureTypes` is not used as a selection reward, and category is not treated as pool membership.
 
 Continue with [Characters and initial moves](character.md), or use [Healing and events](../reference/events.md) to design another trigger.
+
+
+Related extension: [counters and reset](rules-and-state.md).
+
+
+Fragment names and descriptions now use ModText. Merge the sample entries as in [bilingual text](assets-and-text.md); without them, source fallbacks remain visible. Existing card/definition snapshots are not guaranteed to translate immediately, so check a fresh run after changing language.

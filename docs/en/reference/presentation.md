@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/presentation.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 4 · Mod API 1.8.0 · 2026-10-13
 
 Baseline: 1.8.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
 
@@ -48,6 +48,6 @@ Workshop packages use JSON `locale` and `entries[{key,value}]` in `localization/
 
 `ModMusicTheme(string id, IReadOnlyDictionary<ModMusicCue, string> tracks)` registers a unique theme whose ID begins with the package ID plus a dot. Tracks are package-contained OGG/WAV files. `StageDefinition.music` references a registered theme; unknown themes report `MH_MOD_STAGE_MUSIC_MISSING`.
 
-Ordinary stages use StageExplore. Boss stages try BossBattle, then that theme's StageExplore, then the built-in in-game list. Decode failures also follow fallback. Custom screens use MainMenu through `ModScreenDefinition.musicThemeId`; Victory is not connected to mod victory-page music. Stage boss status chooses the cue; one enemy card alone does not.
+Ordinary stages use StageExplore. Boss stages try BossBattle, then that theme's StageExplore, then the built-in in-game list. Decode failures also follow fallback. Custom screens use MainMenu through `ModScreenDefinition.MusicThemeId`; Victory is not connected to mod victory-page music. Stage boss status chooses the cue; one enemy card alone does not.
 
-See [Compatibility](compatibility.md) for configuration and JSON-editor limits. Registering configuration does not create a player-editable menu.
+See [Compatibility](compatibility.md) for configuration limits. Registering configuration does not create a player-editable menu.

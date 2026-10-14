@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [Serializable]
+    public sealed class TwoStepSupplies : CardChoiceEventContent
+    {
+        public TwoStepSupplies() : base(ModEntry.PackageId + ".event.two_step_supplies") { }
+        public override string Name => ModText.Get(ModEntry.PackageId,
+            "event.two_step_supplies.name", "补给储备");
+        public override string Description => ModText.Get(ModEntry.PackageId,
+            "event.two_step_supplies.description", "获得 3 金币，或获得 2 护盾并选择追加补给。");
+        public override string ImageName => "";
+
+        protected override IReadOnlyList<CardChoiceOption> CreateChoices(CardExecutionContext context) => new[]
+        {
+            Option("prepare", "choice.supply.prepare.name", "护盾补给",
+                "choice.supply.prepare.description", "获得 2 护盾，再选择追加补给。"),
+            Option("coins", "choice.supply.coins.name", "散落金币",
+                "choice.supply.coins.description", "获得 3 金币。", new StatEffect { gold = 3 })
+        };
+
+        public override GameActionResult ResolveCardChoice(CardChoiceContext context)
+        {
+            switch (context.Selected.id)
+            {
+                case "prepare":
+                    context.Runtime.AddShield(2);
+                    return context.OpenNext(new CardChoiceRequest
+                    {
+                        title = Name, titleContentId = Id, resolverContentId = Id,
+                        allowCancel = true,
+                        // 第一步已消费事件，后续请求不再绑定来源。
+                        consumeSource = false, consumeTurn = false,
+                        options = new List<CardChoiceOption>
+                        {
+                            Option("heal", "choice.camp.heal.name", "月露补给",
+                                "choice.camp.heal.description", "恢复 5 点生命。", new StatEffect { hp = 5 }),
+                            Option("guard", "choice.camp.guard.name", "守卫补给",
+                                "choice.camp.guard.description", "2 金币换 1 防御。",
+                                new StatEffect { defense = 1 }, new StatEffect { gold = 2 }, "gold>=2")
+                        }
+                    });
+                case "coins":
+                case "heal":
+                case "guard":
+                    context.ApplyEffect(context.Selected.effect, context.Selected.maxHpGainDoesNotHeal);
+                    return GameActionResult.Success("supplies_resolved", "Supplies resolved.");
+                default:
+                    return GameActionResult.Failure("unknown_option", "Unknown option.");
+            }
+        }
+
+        private CardChoiceOption Option(string branch, string nameKey, string nameFallback,
+            string descriptionKey, string descriptionFallback, StatEffect effect = null,
+            StatEffect cost = null, string condition = "") => new CardChoiceOption
+        {
+            id = branch,
+            card = ContentCards.Card(Id + ".preview." + branch, CardType.Encounter,
+                ModText.Get(ModEntry.PackageId, nameKey, nameFallback),
+                ModText.Get(ModEntry.PackageId, descriptionKey, descriptionFallback)),
+            effect = effect, cost = cost, conditionExpression = condition
+        };
+    }
+}

@@ -2,11 +2,13 @@
 
 [English](../en/02-content-creation.md) · [教程目录](README.md)
 
-教程修订 2 · 核对日期：2026-10-13 · Mod API：1.8.0。
+教程修订 4 · 核对日期：2026-10-14 · Mod API：1.8.0。
 
 第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
 
 本篇集中讲所有玩法内容。重点不是背代码，而是理解内容之间怎样绑定、宝物应该选择哪个规则事件、品质和等级怎样表示，以及带计数的效果如何安全重置。
+
+**玩法用 C# 编写。** 宝物、角色、关卡与事件是具体内容类，在 `Load` 中注册，由工坊编译成自己的 Mod DLL。自动生成的 `package.json` 是包信息，翻译文件提供显示文字，存档保存进度；这些辅助文件不代替 C# 行为，玩家制作路线不要求提交玩法 JSON。
 
 ## 目录
 
@@ -218,14 +220,16 @@ public override void OnStageEntered(StageEnteredEvent e)
 [System.Serializable]
 public sealed class TinkerAbacus : TreasureContent
 {
-    private int itemUses;
-    private int rewardsThisScene;
+    public int itemUses;
+    public int rewardsThisScene;
 
     public TinkerAbacus()
         : base(ModEntry.PackageId + ".treasure.tinker_abacus") { }
     public override string Name => "工匠算珠";
     public override TreasureRank Rank => TreasureRank.Rare;
     public override int BaseValue => 4;
+    public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+    public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
     public override string Describe(int level) =>
         $"每使用 3 次道具，获得 {BaseValue * level} 点护盾；每场景最多触发 2 次。";
 
@@ -246,13 +250,13 @@ public sealed class TinkerAbacus : TreasureContent
 }
 ```
 
-局内计数存放在运行时宝物实例字段。需要每场景重置的字段必须在 `OnSceneReset` 清零。真正的整局永久属性使用 `Runtime.AddPermanentAttack`、`AddPermanentDefense`、`AddPermanentMaxHp`；不能靠“忘记重置计数”模拟永久效果。
+局内计数存放在运行时宝物实例字段。本例使用 public 字段让 Unity JSON 保存进度；类上的 `[Serializable]` 不会自动保存未标记的 private 字段。使用游戏生成的两份开发引用时，public 简单字段无需新增 Unity 引用。需要每场景重置的字段必须在 `OnSceneReset` 清零。真正的整局永久属性使用 `Runtime.AddPermanentAttack`、`AddPermanentDefense`、`AddPermanentMaxHp`；不能靠“忘记重置计数”模拟永久效果。
 
 累计治疗量的写法：
 
 ```csharp
-private int accumulatedHealing;
-private int rewardsThisScene;
+public int accumulatedHealing;
+public int rewardsThisScene;
 
 public override void OnAfterHealing(AfterHealingEvent e)
 {
@@ -503,7 +507,7 @@ return new StageDefinition
 };
 ```
 
-列表首项位于列底部，最后一项最先显露；上例中先击败魔狼，再查看祭坛，最后抵达出口。若要让守卫挡住出口，出口必须写在守卫之前。核心没有单列最大牌数限制，界面会按需要创建额外卡牌层；仍应在实际目标分辨率检查超高牌列是否便于操作。`allowedCharacterIds` 为空表示不限角色，非空表示只允许指定角色。
+列表首项位于列底部，最后一项最先显露；上例中先击败魔狼，再查看祭坛，最后抵达出口。若要让守卫挡住出口，出口必须写在守卫之前。核心没有单列最大牌数限制，界面会按需要创建额外卡牌层；仍应在实际目标分辨率检查超高牌列是否便于操作。`allowedCharacterIds` 会保存并校验引用，但当前 C# 运行流程不靠它限制选人；实际选关名单使用冒险难度的 `availableHeroIds`。
 
 ### 把 Mod 角色加入正式关卡
 
@@ -527,7 +531,7 @@ registrar.AddCharacterToLevel(
 这三个 `boss` 标记分别描述敌人卡、素材关卡和冒险步骤，不能互相代替：
 
 - 敌人牌的 `CardState.isBoss = true` 标识首领敌人本身；战斗目标规则、首领击败流程和首领牌筛选读取这个字段。仅提高 `enemyTier` 不会把敌人变成首领。`enemyTier = 5` 是与高阶内容相符的推荐值，但 boss 回合筛选看 `isBoss`，不靠 tier 判断。
-- `StageContent.CreateDefinition()` 返回的 `StageDefinition.boss = true` 表示这个素材关卡单独作为首领关使用。它要求 `appearancePool` 中包含 `isBoss` 敌人，否则加载校验报 `AW_STAGE_BOSS_MISSING`；单独模拟时也会统计是否真的抽到首领。
+- `StageContent.CreateDefinition()` 返回的 `StageDefinition.boss = true` 表示这个素材关卡单独作为首领关使用。校验检查当前实际布局：有固定列时检查固定列，否则检查 `appearancePool`。缺少 `isBoss` 敌人报 `AW_STAGE_BOSS_MISSING`；单独模拟时也会统计是否真的抽到首领。
 - `AdventureStepDefinition.boss = true` 表示完整冒险的该步骤以最后一轮作为首领轮。`LevelStageBuilder` 会把展开后的每轮 `StageDefinition.boss` 按步骤值重设，因此只把素材 Stage 标成 boss、却把 Adventure step 设为 false，不会得到首领轮。步骤为 true 时，素材关卡牌池也必须含 `isBoss` 敌人，否则加载校验报 `AW_ADVENTURE_BOSS_MISSING`。
 
 自定义 `EnemyContent.CreateCard()` 需要显式标记 boss 卡；基类不会自动设置这些字段：
@@ -544,6 +548,8 @@ public override CardState CreateCard(string instanceId = null)
 ```
 
 把这张卡放进素材关卡的 `appearancePool`。若素材关本身也要作为独立首领关使用，将它的 `StageDefinition.boss` 设为 `true`；若完整冒险也要在该步骤生成首领轮，再将对应 `AdventureStepDefinition.boss` 设为 `true`。为避免独立模拟、冒险生成和音乐标记彼此矛盾，通常让这两个场景标记与设计意图一致。`guaranteedInStage` 确保首领卡实际进入生成牌组；仅通过加载校验不代表随机牌池每次都抽得到首领。
+
+当前冒险步骤校验仍检查素材 `appearancePool` 中是否有首领，即使素材使用固定列。固定首领冒险应在固定列放入真实首领，同时在池中保留首领模板供该校验使用；固定布局运行时忽略池模板。必须分别核对注册结果与实际展开牌场。
 
 常用生成预设：
 
@@ -619,11 +625,11 @@ public override StageDefinition CreateDefinition(GameContentRegistry registry)
 
 `StageDefinition.graphNodes` 的类型是 `List<StageGraphNodeDefinition>`；节点字段为 `nodeId`、`kind`、`contentId`、`required` 和 `card`。`kind` 使用 `StageGraphNodeKind`：`Start`、`Encounter`、`Event`、`Camp`、`Exit`、`Victory`、`Failure`。`StageDefinition.graphEdges` 的类型是 `List<StageGraphEdgeDefinition>`；边字段为 `fromNodeId`、`toNodeId`、`conditionExpression` 和 `weight`。这些类型和字段可用对象初始化构造。
 
-StageGraph 是关卡装载时遍历的一次性有向路线；它不是玩家操作的地图界面。遍历从唯一 `Start` 节点开始，每到一个节点就把它写入 `stageGraphVisitedNodeIds`。若该节点有 `card`，核心会克隆它、设为必出并加入 `appearancePool`。直接使用 `StageDefinition` 时要为内容节点同时创建 `card` 快照；工坊结构化关卡则会根据非空 `contentId` 从已注册内容创建卡（敌人、道具、招式、事件或宝物），其他内容类型不能作为节点卡。`contentId` 只标识卡的来源，不会由 `kind` 自动推断。当前核心保留 `required` 字段但不读取它；走到的节点只要有卡就必出，即使 `required = false`。要做真正的可选随机卡，请放入 `appearancePool`，将它设为非必出并用正权重控制。
+StageGraph 是关卡装载时遍历的一次性有向路线；它不是玩家操作的地图界面。遍历从唯一 `Start` 节点开始，每到一个节点就把它写入 `stageGraphVisitedNodeIds`。若该节点有 `card`，核心会克隆它、设为必出并加入 `appearancePool`。直接使用 `StageDefinition` 时要为内容节点同时创建 `card` 快照。`contentId` 只标识卡的来源，不会由 `kind` 自动推断。当前核心保留 `required` 字段但不读取它；走到的节点只要有卡就必出，即使 `required = false`。要做真正的可选随机卡，请放入 `appearancePool`，将它设为非必出并用正权重控制。
 
 每条出边都在遍历到来源节点时按当前 `GameState` 求值。支持 `&&`、每项开头可选一个 `!`、`tag:<tag>`、`has:<id>`、`reach:<nodeId>`，以及数值比较 `==`、`!=`、`>`、`>=`、`<`、`<=`；不支持 `||` 或括号。数值键包括 `hp`、`maxHp`、`attack`、`defense`、`wisdom`、`gold`、`dodge`、`turn`、`stageIndex`、`defeatedEnemies`、`stagesCleared`，也可以使用 `player.hp` 等带前缀写法。`tag:` 检查状态外观 Tag 与角色池 Tag/角色 ID；`has:` 检查当前关卡、角色、已装备宝物、招式、初始招式和牌列中的卡；`reach:` 检查本次图遍历已访问过的节点。当前节点先加入访问列表，再求它的后继边。
 
-所有条件为真的出边都会参加抽选，并按正的有限 `weight` 加权抽取一条；不会按列表顺序择优，也不保证多次加载走同一条。C# 和 JSON StageGraph 共用同一运行时抽选器。没有可用边时，`LoadStage` 会抛出 `InvalidOperationException`，消息包含关卡与节点 ID，并说明当前条件下没有可用后继；异常会从构造或选角重载处冒出。工坊静态校验检查条件语法、节点 ID、边端点、图连通、循环、死端和可达胜利/出口节点，但不会证明运行时每种状态都至少有一条条件为真的边；循环图报 `AW_STAGE_CYCLE`，始终不满足的条件边仍可能静态通过，必须为可能出现的状态留好后继。
+所有条件为真的出边都会参加抽选，并按正的有限 `weight` 加权抽取一条；不会按列表顺序择优，也不保证多次加载走同一条。没有可用边时，`LoadStage` 会抛出 `InvalidOperationException`，消息包含关卡与节点 ID，并说明当前条件下没有可用后继；异常会从构造或选角重载处冒出。工坊静态校验尝试条件求值，并检查节点 ID、边端点、图连通、循环、死端和可达胜利/出口节点；条件求值会短路，静态通过不能证明每个子句都已解析，见[条件参考](reference/conditions.md)，但不会证明运行时每种状态都至少有一条条件为真的边；循环图报 `AW_STAGE_CYCLE`，始终不满足的条件边仍可能静态通过，必须为可能出现的状态留好后继。
 
 注意新游戏构造时会先在角色选择前加载一次关卡，选择角色后再加载一次。第一次 `LoadStage` 时状态仍为 `ChoosingCharacter` 且 `State.character` 为空；`has:<角色ID>` 不检查 `startingCharacterChoices`，所以未选中的角色条件为 false。选角时核心先写入所选角色及其 `BaseStats`（包括金币），再第二次 `LoadStage`；`gold >= ...` 等数值条件读这次装载时的当前 `State.player`。起点必须为预选加载留一条有效后继，例如 `!has:<角色ID>` fallback。每次 `LoadStage` 都新建 `stageGraphVisitedNodeIds`，路线历史不会跨装载保留；遍历时当前节点先加入访问列表，再判断出边，因此 `reach:<当前节点>` 为 true。
 
@@ -681,43 +687,6 @@ return new StageDefinition
 ```
 
 示例中的 fallback 只为第一次无角色的预览加载保留可走路径；`required=false` 不会让走到的狼牌变成随机牌。若把 fallback 条件删掉，构造器在选角前就可能遇到无匹配出边并抛异常。
-
-#### 结构化 JSON StageGraph
-
-不用写 `StageContent` 时，可把关卡作为 `contentIndex` 中的 `contentType: "stage"` 内容。索引里的 `contentId` 必须与 JSON 根部 `id` 相同；`sourceStageId` 再引用这个稳定 ID。结构化 Stage 的 `cards` 字段就是运行时 `StageDefinition.appearancePool`，JSON 中不叫 `appearancePool`。
-
-结构化字段中的 `kind` 是 Unity `JsonUtility` 序列化的枚举数字：卡池 `Content=0`、`TreasureChest=1`、`Exit=2`、`Intermission=3`；节点 `Start=0`、`Encounter=1`、`Event=2`、`Camp=3`、`Exit=4`、`Victory=5`、`Failure=6`。下面的 ID 代表同包里已注册的事件和宝物：
-
-```json
-{
-  "schemaVersion": 1,
-  "contentType": "stage",
-  "id": "local.alice.lantern-trail.stage.starlit-grove",
-  "nameKey": "stage.starlit_grove.name",
-  "subtitleKey": "stage.starlit_grove.subtitle",
-  "difficultyDescriptionKey": "stage.starlit_grove.difficulty",
-  "columnCount": 5,
-  "rowCount": 5,
-  "generatedCardCount": 5,
-  "cards": [
-    { "kind": 0, "contentId": "local.alice.lantern-trail.event.grove_note", "copies": 1, "weight": 1, "guaranteed": false },
-    { "kind": 2, "copies": 1, "weight": 1, "guaranteed": true, "branchId": "" }
-  ],
-  "nodes": [
-    { "nodeId": "start", "kind": 0, "required": true },
-    { "nodeId": "story", "kind": 2, "contentId": "local.alice.lantern-trail.event.starlit_note", "required": false },
-    { "nodeId": "token", "kind": 3, "contentId": "local.alice.lantern-trail.treasure.silverleaf_token", "required": false },
-    { "nodeId": "victory", "kind": 5, "required": true }
-  ],
-  "edges": [
-    { "fromNodeId": "start", "toNodeId": "story", "conditionExpression": "hp >= 0", "weight": 1 },
-    { "fromNodeId": "story", "toNodeId": "token", "conditionExpression": "hp >= 0", "weight": 1 },
-    { "fromNodeId": "token", "toNodeId": "victory", "conditionExpression": "hp >= 0", "weight": 1 }
-  ]
-}
-```
-
-至少提供一个 `cards` 出口项并设 `guaranteed: true`，否则结构化 Stage 校验会报 `AW_STAGE_EXIT_REQUIRED`。带内容的节点通过 `contentId` 从注册表创建节点卡，不必再把同一张卡放进 `cards`；目前支持敌人、道具、招式、事件和宝物，找不到 ID 或引用了其他类型时包会报 `AW_STAGE_REFERENCE`。走到的节点卡会加入本轮卡池并保证出现，`required` 当前只被保存，不控制节点是否可选；可选随机卡应放在 `cards` 中并设 `guaranteed: false`。Victory/Failure 图节点也不会取代 `cards` 中的实体出口。图形状静态通过后仍要按可能的条件状态验证每个运行时节点都有可用后继。
 
 ## 九、道具与奇遇事件
 
@@ -815,49 +784,21 @@ public sealed class BriarShrineEvent : EventContent
 
 `RichEventChoiceState.cost` 可扣当前生命、最大生命、攻击、防御、智慧、闪避或金币；核心会先检查能否支付（生命和最大生命至少保留 1），再扣代价、应用可选的 `reward` 属性并发放 `rewardContentId`。宝物奖励必须是已注册的 `TreasureContent`；有空槽时立即装备，没有空槽时存入备用宝物。`rewardContentCount` 是发放数量。基础 Meditation 路径的卡片级 `goldCost` 是所有选项共用的金币门槛，并在选择时扣除；`EventContent` 没有对应属性，可在覆写 `CreateCard` 后设置 `card.goldCost`。`richEventChoices` 路径优先处理，绕过卡片级 `goldCost` 和基础奖励字段；要给每个分支单独收金币，应写入该分支的 `cost.gold`。两种选择路径不要混用。
 
-若以工坊结构化内容 JSON 创建富事件，`package.json` 的 `contentIndex` 需要登记事件 ID、类型和相对文件路径：
+新制作的卡面选择请使用完整的 C# [卡牌选择教程](tutorials/card-choice.md)。维护已有事件时才沿用 `RichEventChoiceState`。它的 `conditionExpression` 使用[有限条件语法](reference/conditions.md)；打开时按条件筛选快照，确认时再次检查条件与代价。条件变化返回 `event_condition_changed`，代价不足返回 `event_cost_unavailable`，均保留选择且不扣费、不发奖。
 
-```json
-{
-  "contentType": "event",
-  "contentId": "example.forest.event.briar_shrine",
-  "relativePath": "content/events/briar-shrine.json"
-}
-```
+旧 C# 富事件分支的 `rewardContentId` 必须配正数 `rewardContentCount`，并检查引用类型。运行时最多结算 100 次；缺失或不支持的奖励可能被静默跳过。道具立即执行配置效果，招式加入已学招式，宝物装备到空槽或存入备用槽。
 
-事件文件的 `contentType` 必须为 `event`，且 `id` 与索引里的 `contentId` 相同。选项放在事件定义顶层 `richChoices`，选项文本通过 `textKey` 本地化；字段名及位置如下：
-
-```json
-{
-  "schemaVersion": 1,
-  "contentType": "event",
-  "id": "example.forest.event.briar_shrine",
-  "nameKey": "event.briar_shrine.name",
-  "descriptionKey": "event.briar_shrine.description",
-  "richChoices": [
-    {
-      "choiceId": "example.forest.event.briar_shrine.choice.gold",
-      "textKey": "event.briar_shrine.choice.gold",
-      "conditionExpression": "gold >= 5",
-      "cost": { "gold": 5 },
-      "reward": { "hp": 2 },
-      "nextEventId": "example.forest.event.followup",
-      "nextStageId": ""
-    }
-  ]
-}
-```
-
-`cost` 與 `reward` 都是 `StatEffect`，可填 `hp`、`maxHp`、`attack`、`defense`、`wisdom`、`dodgeCharges`、`gold`。`richChoices` 最多三个分支；分支条件与 StageGraph 使用相同条件语法，例如 `gold >= 5` 或 `player.gold >= 5`，支持 `&&`、项目前缀 `!`、`tag:`、`has:`、`reach:` 和数值比较，不支持 `||` 或括号。条件只在打开事件时筛选选项；代价能否支付不会隐藏选项，确认时会再检查条件和代价。条件刚打开后若已变为 false，会返回 `event_condition_changed`；代价不足会返回 `event_cost_unavailable`。这两类失败都不扣费、不发奖并保留待处理选择；待处理列表是打开时的快照，不会自动重筛。
-
-分支还可设置 `rewardContentId` 与 `rewardContentCount` 发放已注册的 `TreasureContent`、`MoveContent` 或 `ItemContent`；后端结构化内容校验器要求 ID 与正数量同时填写，但不拒绝大于 100 的数值。运行时将实际结算次数限制在 0～100。`ItemContent` 会立即按内容配置结算恢复、闪避或属性效果，不会变成背包道具卡；`MoveContent` 会加入招式，当前没有空槽时不会装备；`TreasureContent` 没有空槽时存入备用宝物。注意，直接编写 JSON 包时，注册器不会代替后端结构化校验器检查 ID/count 配对，也不会验证奖励引用是否存在或属于支持的类型；这类 JSON 仍可能通过包注册，但选择结算时奖励会被静默跳过。编写后应在包级验证中检查配对、引用与数量。当前没有玩家可打开的 JSON 内容编辑器。
-
-成功分支可设置 `nextEventId` 或 `nextStageId`。两者在后端结构化校验器中互斥。`nextEventId` 必须指向已注册的 `EventContent`；成功结算后原事件被移除，后续事件卡追加到原列顶部并成为新的明牌，然后提交回合。`nextStageId` 必须匹配当前冒险场景列表中的 `StageDefinition.id`；只注册 Stage 内容但未加入当前场景列表不足以跳转。结构化冒险的 `steps[].id` 会成为展开场景的 ID 前缀：每轮 ID 是 `<step.id>-round-<轮次>`，轮次从 1 开始。例如 `step.id = "grove-second"`、`roundCount = 1` 时，目标 ID 是 `grove-second-round-1`；`steps[].sourceStageId` 是生成牌组的素材 Stage ID，不能代替这个目标 ID。它只会创建待进入场景状态，玩家还需完成整备界面的「进入下一场景」动作。后端结构化校验器目前不校验这两个引用是否存在，因此应在包级验证中逐个检查。同一个 `package.json` 可以同时声明 JSON `contentIndex` 与 C# `codeAssembly`；两路注册结果合并进同一内容注册表，因此务必避免 ID 重复。
+`nextEventId` 必须引用已注册的 `EventContent`，结算后其卡片进入原列顶部。`nextStageId` 必须是当前冒险展开场景列表中的 ID，不能只引用已注册的素材关卡。C# 冒险步骤每轮展开为 `<step.id>-round-<轮次>`，从 1 开始。成功跳转仍等待整备界面的进入动作。只选择一种后续路径，并实际点击牌面验证。
 
 奇遇卡也要通过 `CreateCard` 加入关卡牌池。完全自定义执行时才覆写 `Execute`，仍应使用公开上下文，不直接控制 UI 或场景对象。
 
 ## 十、完整内容的注册检查
 
-完成一组“角色＋技能＋专属宝物＋敌人＋素材关卡＋完整冒险”时，逐项检查：所有类已注册；角色引用的类型存在；宝物池 Tag 完全相同；敌人的 `EnemyTraitId` 存在；素材关卡通过注册表取得敌人并创建卡牌；首领步骤引用的素材池内存在首领；冒险步骤与难度 ID 唯一；角色限制包含测试角色；描述公式与执行公式一致；所有运行时计数都有明确的重置规则。
+完成一组“角色＋技能＋专属宝物＋敌人＋素材关卡＋完整冒险”时，逐项检查：所有类已注册；角色引用的类型存在；角色与宝物池 Tag 至少有一个交集；敌人的 `EnemyTraitId` 存在；素材关卡通过注册表取得敌人并创建卡牌；首领步骤引用的素材池内存在首领；冒险步骤与难度 ID 唯一；角色限制包含测试角色；描述公式与执行公式一致；所有运行时计数都有明确的重置规则。
 
 配套代码见 [功能片段](../../templates/README.zh-CN.md)。本仓库提供教程与独立功能片段，不附完整冒险样例包。
+
+
+## 新卡牌选择与专属效果
+
+当前新增接口使用 CardChoiceRequest／CardChoiceOption 和注册 ICardChoiceResolver；显示卡仅预览，任意数量单选由正式卡面弹层分页。请从[完整任务课](tutorials/card-choice.md)开始，再查[字段、回滚与存档契约](reference/card-choice.md)。不要将旧 richEventChoices 的三分支限制或发奖励方式直接套用到新接口。

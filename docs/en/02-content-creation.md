@@ -2,11 +2,13 @@
 
 [简体中文](../zh-CN/02-content-creation.md) · [Guide index](README.md)
 
-Reviewed: October 13, 2026. Current Mod API: 1.8.0.
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14
 
 Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
 
 This chapter covers gameplay content: how definitions connect, which event a treasure should use, how quality differs from level, and how to reset counted effects. Code fragments share the Chinese guide's technical identifiers and formulas; their display strings are translated into English.
+
+**Author gameplay in C#.** Treasures, characters, stages and events are concrete content classes registered in `Load`; the workshop compiles them into your mod DLL. The generated `package.json` describes the package, localization files supply displayed text, and save files store progress. These auxiliary files do not replace C# behavior, and the player workflow does not ask you to submit gameplay JSON.
 
 ## Contents
 
@@ -102,7 +104,7 @@ public sealed class AmberLantern : TreasureContent, IModPresentationContent
 
 Before implementing a treasure, define its functional fingerprint:
 
-1. **Trigger:** stage entry, damage taken, healing, a kill, clearing a column, using an item, or using a move?
+1. **Trigger:** stage entry, damage taken, healing, defeating an enemy, clearing a column, using an item, or using a move?
 2. **Input:** base stats, healing amount, damage actually dealt, column position, or a counter?
 3. **Main benefit:** healing, shield, stats, gold, move uses, or damage?
 4. **State:** immediate, ongoing, accumulated within a stage, reset on stage entry, or permanent for the run?
@@ -125,7 +127,7 @@ This specifies the trigger, input, benefit, state, cap, and pool. Compare all si
 | After healing settles | `OnAfterHealing` | `requested/actual/overflow/potion` |
 | Modify incoming damage | `OnBeforePlayerDamage` | `bonusPercent` |
 | Damage-taken result | `OnPlayerDamageTaken` | `damage/absorbed/hpDamage` |
-| Kill | `OnEnemyKilled` | `columnIndex/allEnemiesDefeated/restoreMoveUses` |
+| Enemy defeat | `OnEnemyKilled` | `columnIndex/allEnemiesDefeated/restoreMoveUses` |
 | Move capacity | `OnMoveCapacity` | `baseMaxUses/bonusMaxUses` |
 | Before a move resolves | `OnBeforeMoveResolved` | `targetCount/damagePercent/damageFlat/preferHighestHp` |
 | After a move resolves | `OnAfterMoveResolved` | `automatic/totalDamage/defeatedEnemies/shield` |
@@ -154,7 +156,7 @@ public override void OnBeforeHealing(BeforeHealingEvent e)
 
 Percentages of the same kind add together before the base value is settled. Do not repeatedly multiply them in individual treasure classes.
 
-Restore move uses on a kill:
+Restore move uses after defeating an enemy:
 
 ```csharp
 public override void OnEnemyKilled(EnemyKilledEvent e)
@@ -211,7 +213,7 @@ For healing, `requested` is the complete healing amount after modifiers settle, 
 | Epic | `Epic` |
 | Legendary | `Legendary` |
 
-Quality selects rarity and the base-value variant. Level is the within-run upgrade, usually read through `SourceLevel`. A fixed formula with no quality tiers can be a single Legendary version. Five tiers start at Common, four at Uncommon, three at Rare, and two at Epic; all end at Legendary. Implement `IMultipleVariantEffect` only when the design specifies multiple values, and do not invent missing tiers.
+Quality identifies the treasure's tier and base-value variant. Level is the within-run upgrade, usually read through `SourceLevel`. A fixed formula with no quality tiers can be a single Legendary version. Five tiers start at Common, four at Uncommon, three at Rare, and two at Epic; all end at Legendary. Implement `IMultipleVariantEffect` only when the design specifies multiple values, and do not invent missing tiers.
 
 Descriptions should state the input, level relationship, cap, duration, and trigger count. Temporary treasure state resets on entering a new stage by default; descriptions need not repeat that default. State any cross-stage retention explicitly. Share the value source between descriptions and execution so a preview of 6 does not grant only 3.
 
@@ -221,14 +223,16 @@ Descriptions should state the input, level relationship, cap, duration, and trig
 [System.Serializable]
 public sealed class TinkerAbacus : TreasureContent
 {
-    private int itemUses;
-    private int rewardsThisScene;
+    public int itemUses;
+    public int rewardsThisScene;
 
     public TinkerAbacus()
         : base(ModEntry.PackageId + ".treasure.tinker_abacus") { }
     public override string Name => "Tinker Abacus";
     public override TreasureRank Rank => TreasureRank.Rare;
     public override int BaseValue => 4;
+    public override IReadOnlyList<string> CategoryTags => new[] { TreasureCategoryTags.Shield };
+    public override IReadOnlyList<string> PoolTags => new[] { CharacterTreasurePoolTags.HealingLifeBuild };
     public override string Describe(int level) =>
         $"Every 3 item uses, gain {BaseValue * level} shield; at most 2 triggers per stage.";
 
@@ -249,13 +253,13 @@ public sealed class TinkerAbacus : TreasureContent
 }
 ```
 
-Store counters in the runtime treasure instance and clear stage-local fields in `OnSceneReset`. For permanent run stats, use `Runtime.AddPermanentAttack`, `AddPermanentDefense`, or `AddPermanentMaxHp`. Leaving a temporary counter unreset is not a permanent-stat mechanism.
+Store counters in the runtime treasure instance. Public fields let Unity JSON save this example's progress; `[Serializable]` does not save unmarked private fields automatically. Simple public fields work with the two generated game references without adding a Unity reference. Clear stage-local fields in `OnSceneReset`. For permanent run stats, use `Runtime.AddPermanentAttack`, `AddPermanentDefense`, or `AddPermanentMaxHp`. Leaving a temporary counter unreset is not a permanent-stat mechanism.
 
 Accumulating healing amount:
 
 ```csharp
-private int accumulatedHealing;
-private int rewardsThisScene;
+public int accumulatedHealing;
+public int rewardsThisScene;
 
 public override void OnAfterHealing(AfterHealingEvent e)
 {
@@ -509,7 +513,7 @@ return new StageDefinition
 };
 ```
 
-The first list item is at the bottom, and the last is exposed first. In this fragment, defeat the wolf first, then inspect the altar, and finally reach the exit. Put the exit earlier in the list than its guard to require combat before leaving. The core has no per-column card cap, and the UI can create additional layers; test very tall columns at the actual resolution. Empty `allowedCharacterIds` means unrestricted; a nonempty list limits selection to those characters.
+The first list item is at the bottom, and the last is exposed first. In this fragment, defeat the wolf first, then inspect the altar, and finally reach the exit. Put the exit earlier in the list than its guard to require combat before leaving. The core has no per-column card cap, and the UI can create additional layers; test very tall columns at the actual resolution. `allowedCharacterIds` is retained and its references are validated, but the current C# runtime does not use it to restrict selection. Configure the adventure difficulty's `availableHeroIds` for the actual selection roster.
 
 ### Adding a mod character to a built-in level
 
@@ -533,7 +537,7 @@ You can thus add a character to a built-in level and independently create an adv
 Three distinct boss flags have separate roles:
 
 - `CardState.isBoss = true` marks the enemy itself for targeting, boss defeat, and card filtering. A higher `enemyTier` alone does not make a boss. Tier 5 is a suggested value for high-tier content; boss-round filtering reads `isBoss`.
-- `StageDefinition.boss = true` marks a source stage used independently as a boss stage. Its `appearancePool` must include an `isBoss` enemy or validation reports `AW_STAGE_BOSS_MISSING`. Independent simulation also checks whether one was generated.
+- `StageDefinition.boss = true` marks a source stage used independently as a boss stage. Validation checks an `isBoss` enemy in the active layout: fixed columns when present, otherwise `appearancePool`. Missing one reports `AW_STAGE_BOSS_MISSING`. Independent simulation also checks whether one was generated.
 - `AdventureStepDefinition.boss = true` makes the last round of that adventure step a boss round. `LevelStageBuilder` resets each expanded round's stage flag from the step, so marking only the source stage does not produce a boss round. A boss step's source pool must contain a boss or validation reports `AW_ADVENTURE_BOSS_MISSING`.
 
 Explicitly mark boss cards in `EnemyContent.CreateCard`; the base implementation does not do this:
@@ -550,6 +554,8 @@ public override CardState CreateCard(string instanceId = null)
 ```
 
 Add the card to the source stage's pool. Set the source stage flag when it must also work independently, and the step flag when the adventure should generate a boss round. Keep those flags consistent with the intended stage and music behavior. `guaranteedInStage` ensures the boss actually appears; passing pool validation alone does not guarantee a random draw.
+
+The current adventure-step validator still checks the source `appearancePool` for a boss even when that source uses fixed columns. For a fixed boss adventure, put the real boss in the fixed layout and retain a boss template in the pool for that validator. The fixed runtime ignores the pool template. Test both registration and the actual expanded board.
 
 ### Generation profiles
 
@@ -627,15 +633,15 @@ public override StageDefinition CreateDefinition(GameContentRegistry registry)
 
 StageGraph traverses a directed route once when the stage loads; it is not an interactive map. Starting at the unique `Start`, it records each visited node in `stageGraphVisitedNodeIds`. A visited node's `card` is cloned, marked guaranteed, and added to `appearancePool`.
 
-For direct C# `StageDefinition`, supply the content node's `card` snapshot yourself. Structured workshop stages create cards from nonempty `contentId` references to registered enemies, items, moves, events, or treasures. Other content types cannot create node cards, and `kind` does not infer the source. `required` is retained but currently ignored: visited cards are guaranteed even when it is false. For genuinely optional random cards, use non-guaranteed positive-weight entries in the random pool.
+For direct C# `StageDefinition`, supply the content node's `card` snapshot yourself. `contentId` identifies the source; `kind` does not create a card for you. `required` is retained but currently ignored: visited cards are guaranteed even when it is false. For genuinely optional random cards, use non-guaranteed positive-weight entries in the random pool.
 
 Each outgoing edge is evaluated against the current `GameState` on reaching its source. Supported syntax is `&&`, one optional leading `!` per term, `tag:<tag>`, `has:<id>`, `reach:<nodeId>`, and numeric comparisons `==`, `!=`, `>`, `>=`, `<`, `<=`. `||` and parentheses are unsupported.
 
 Numeric keys are `hp`, `maxHp`, `attack`, `defense`, `wisdom`, `gold`, `dodge`, `turn`, `stageIndex`, `defeatedEnemies`, and `stagesCleared`; prefixes such as `player.hp` are also accepted. `tag:` checks appearance tags and character pool tags/ID. `has:` checks the current stage, character, equipped treasures, moves, starting move, and cards in columns. `reach:` checks nodes visited in this traversal. The current node is recorded before its outgoing edges are evaluated.
 
-All matching edges participate in selection; one is drawn using positive finite `weight`. List order does not establish priority, and repeated loads need not take the same route. C# and JSON graphs share this selector. With no usable edge, `LoadStage` throws `InvalidOperationException` naming the stage and node; the exception can emerge during construction or character-selection reload.
+All matching edges participate in selection; one is drawn using positive finite `weight`. List order does not establish priority, and repeated loads need not take the same route. With no usable edge, `LoadStage` throws `InvalidOperationException` naming the stage and node; the exception can emerge during construction or character-selection reload.
 
-Static validation checks expression syntax, node IDs, edge endpoints, connectivity, cycles, dead ends, and reachable Victory/Exit nodes. A cycle reports `AW_STAGE_CYCLE`. It does not prove that every runtime state has a matching edge; a syntactically valid but always-false condition can pass. Provide successors for all states you allow.
+Static validation attempts condition evaluation and checks node IDs, edge endpoints, connectivity, cycles, dead ends, and reachable Victory/Exit nodes. Condition evaluation short-circuits, so passing validation does not prove every clause was parsed; see the [condition reference](reference/conditions.md). A cycle reports `AW_STAGE_CYCLE`. It does not prove that every runtime state has a matching edge; a syntactically valid but always-false condition can pass. Provide successors for all states you allow.
 
 A new game loads the stage before character selection, then again afterward. Initially the phase is `ChoosingCharacter` and `State.character` is null; `has:<characterId>` does not inspect `startingCharacterChoices`. Selection writes the character and `BaseStats`, including gold, before reloading; numeric conditions read that moment's `State.player`. Provide a preselection fallback such as `!has:<characterId>`.
 
@@ -695,45 +701,6 @@ return new StageDefinition
 ```
 
 The fallback allows the first, characterless preview load to traverse a route. `required = false` does not make the visited wolf optional. Removing the fallback can leave the constructor with no matching edge before character selection.
-
-#### Structured JSON StageGraph
-
-The JSON compatibility backend can register `contentType: "stage"` through `contentIndex`. Its `contentId` must match the JSON root `id`; `sourceStageId` references that stable ID. Structured `cards` maps to runtime `appearancePool`; the JSON field is called `cards`.
-
-Unity `JsonUtility` serializes `kind` as numbers. Pool entries use `Content=0`, `TreasureChest=1`, `Exit=2`, `Intermission=3`. Nodes use `Start=0`, `Encounter=1`, `Event=2`, `Camp=3`, `Exit=4`, `Victory=5`, `Failure=6`. The content IDs below represent registered events and a treasure in the package:
-
-```json
-{
-  "schemaVersion": 1,
-  "contentType": "stage",
-  "id": "local.alice.lantern-trail.stage.starlit-grove",
-  "nameKey": "stage.starlit_grove.name",
-  "subtitleKey": "stage.starlit_grove.subtitle",
-  "difficultyDescriptionKey": "stage.starlit_grove.difficulty",
-  "columnCount": 5,
-  "rowCount": 5,
-  "generatedCardCount": 5,
-  "cards": [
-    { "kind": 0, "contentId": "local.alice.lantern-trail.event.grove_note", "copies": 1, "weight": 1, "guaranteed": false },
-    { "kind": 2, "copies": 1, "weight": 1, "guaranteed": true, "branchId": "" }
-  ],
-  "nodes": [
-    { "nodeId": "start", "kind": 0, "required": true },
-    { "nodeId": "story", "kind": 2, "contentId": "local.alice.lantern-trail.event.starlit_note", "required": false },
-    { "nodeId": "token", "kind": 3, "contentId": "local.alice.lantern-trail.treasure.silverleaf_token", "required": false },
-    { "nodeId": "victory", "kind": 5, "required": true }
-  ],
-  "edges": [
-    { "fromNodeId": "start", "toNodeId": "story", "conditionExpression": "hp >= 0", "weight": 1 },
-    { "fromNodeId": "story", "toNodeId": "token", "conditionExpression": "hp >= 0", "weight": 1 },
-    { "fromNodeId": "token", "toNodeId": "victory", "conditionExpression": "hp >= 0", "weight": 1 }
-  ]
-}
-```
-
-Include at least one guaranteed exit in `cards`, or structured validation reports `AW_STAGE_EXIT_REQUIRED`. Content nodes create cards through registered `contentId`; do not also duplicate the same node card in `cards`. Supported types are enemies, items, moves, events, and treasures; a missing or unsupported reference reports `AW_STAGE_REFERENCE`. Visited node cards are guaranteed even with `required: false`. Use `cards` with `guaranteed: false` for optional random entries. Victory/Failure nodes still require the physical exit. After static validation, test that every possible visited node has a usable successor for the expected states.
-
-There is currently no player-facing JSON content editor. These formats and validations describe the retained backend.
 
 ## 9. Items and encounters
 
@@ -833,55 +800,21 @@ public sealed class BriarShrineEvent : EventContent
 
 The basic Meditation path's card-level `goldCost` is shared by all options and charged on selection. `EventContent` has no corresponding property; set `card.goldCost` in an overridden `CreateCard`. Rich choices bypass this field and basic rewards. Use each branch's `cost.gold` for individual gold costs. Keep the two choice paths distinct.
 
-For a structured JSON event, register its type, ID, and relative file path in `package.json.contentIndex`:
+For new card-face choices, use the complete C# [card-choice lesson](tutorials/card-choice.md). Keep the old `RichEventChoiceState` path only when maintaining existing events. Its `conditionExpression` uses the [limited condition grammar](reference/conditions.md). Conditions filter the opening snapshot and are checked again at confirmation; a changed condition returns `event_condition_changed`, and unaffordable costs return `event_cost_unavailable`. Both retain the choice without charging or rewarding.
 
-```json
-{
-  "contentType": "event",
-  "contentId": "example.forest.event.briar_shrine",
-  "relativePath": "content/events/briar-shrine.json"
-}
-```
+For legacy C# rich branches, pair `rewardContentId` with a positive `rewardContentCount` and verify the referenced content type. Runtime caps repetitions at 100; missing or unsupported rewards may be silently skipped. Items apply their configured effects immediately, moves become learned moves, and treasures are equipped or placed in reserve.
 
-The file's `contentType` must be `event`, and root `id` must match the index's `contentId`. Put options in top-level `richChoices` and localize their text through `textKey`:
+`nextEventId` must resolve to registered `EventContent`: after settlement its card appears on top of the original column. `nextStageId` must name a stage in the current adventure's expanded stage list, not merely a registered source template. A C# adventure step expands to `<step.id>-round-<roundNumber>`, starting at 1. A successful transition waits for the intermission entry action. Choose one follow-up path and test it by clicking the actual cards.
 
-```json
-{
-  "schemaVersion": 1,
-  "contentType": "event",
-  "id": "example.forest.event.briar_shrine",
-  "nameKey": "event.briar_shrine.name",
-  "descriptionKey": "event.briar_shrine.description",
-  "richChoices": [
-    {
-      "choiceId": "example.forest.event.briar_shrine.choice.gold",
-      "textKey": "event.briar_shrine.choice.gold",
-      "conditionExpression": "gold >= 5",
-      "cost": { "gold": 5 },
-      "reward": { "hp": 2 },
-      "nextEventId": "example.forest.event.followup",
-      "nextStageId": ""
-    }
-  ]
-}
-```
-
-Both `cost` and `reward` are `StatEffect` and accept `hp`, `maxHp`, `attack`, `defense`, `wisdom`, `dodgeCharges`, and `gold`. `richChoices` allows at most 3 branches. Conditions use the same limited syntax as StageGraph, including `&&`, a leading `!`, `tag:`, `has:`, `reach:`, and numeric comparisons; `||` and parentheses are unsupported.
-
-Conditions filter options when the event opens. Unaffordable costs do not hide a choice. Confirmation checks both condition and cost again: a changed condition returns `event_condition_changed`; insufficient resources return `event_cost_unavailable`. Neither failure charges or rewards anything, and both retain the pending choice. The list is the snapshot from opening and is not automatically filtered again.
-
-`rewardContentId` and `rewardContentCount` can grant registered `TreasureContent`, `MoveContent`, or `ItemContent`. The backend structured authoring validator requires an ID paired with a positive count, but allows counts above 100; runtime clamps settlement repetitions to 0–100. Item rewards immediately apply healing/dodge/stats rather than becoming inventory cards. Move rewards add a learned move, but cannot equip it without a free slot. Treasures go to reserve when there is no slot.
-
-Direct JSON package registration does not perform all of that authoring validation: an incomplete ID/count pair, missing reward, or unsupported reward type may pass registration and be silently skipped during selection. Validate pairing, references, and quantity at package level.
-
-Successful branches may set `nextEventId` or `nextStageId`; the backend structured authoring validator requires choosing only one. `nextEventId` must be registered `EventContent`. After successful settlement, the original is removed, the next event is added on top of the same column as its exposed card, then the turn is committed.
-
-`nextStageId` must match a `StageDefinition.id` in the current adventure's stage list. Registering a source stage alone is insufficient. In a structured adventure, expanded round IDs are `<steps[].id>-round-<roundNumber>`, starting at 1. For `step.id = "grove-second"` with one round, use `grove-second-round-1`, not `sourceStageId`. This creates a pending transition; the player still enters through the intermission screen. The backend authoring validator does not check both transition references for existence, so validate each at package level.
-
-One manifest may declare both JSON `contentIndex` and C# `codeAssembly`. Both register into the same registry; avoid duplicate IDs. Add event cards to stage pools through `CreateCard`. Override `Execute` only for custom execution, use public context, and keep game UI/scene objects out of settlement code.
+Add event cards to stage pools through `CreateCard`. Override `Execute` only for custom execution, use public context, and keep game UI/scene objects out of settlement code.
 
 ## 10. Registration checklist
 
 For a character, move, treasures, enemies, source stages, and adventure, check every class is registered, referenced types exist, pool tags match as intended, `EnemyTraitId` resolves, and stage cards are created from registered enemies. Boss steps need bosses in their source pools. Step and difficulty IDs must be unique, character restrictions must include the test character, descriptions must share execution formulas, and counters must have reset rules.
 
 Use the [focused code snippets](../../templates/README.md) for individual parts. This repository does not include a complete adventure package.
+
+
+## New card choices and specialized effects
+
+The current addition uses CardChoiceRequest/CardChoiceOption with registered ICardChoiceResolver. Display cards are previews; any-size single choices use the formal paged overlay. Begin with the [task lesson](tutorials/card-choice.md), then [fields, rollback and saves](reference/card-choice.md). Legacy richEventChoices limits and reward handling do not carry over to the new path.

@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/character.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: Trail Lab offers **Lantern Ranger** with base HP 24, attack 6, defense 1, and wisdom 2. Its only initial move is **Silver Bolt**. Combine three content types, then make the character eligible for a specific selection entry.
 
@@ -35,7 +35,7 @@ availableHeroIds = new List<string>
 }
 ```
 
-Use the same ID in `PracticeStage.allowedCharacterIds`. Both lists must allow the character. `maxHeroCount = 1` is sufficient when this level offers one character.
+Set `availableHeroIds` to the intended roster. You may keep the same ID in `PracticeStage.allowedCharacterIds` for consistent metadata, but that field does not enforce selection in the current C# runtime. `maxHeroCount = 1` is sufficient when this level offers one character.
 
 To add a character to a built-in selectable level, use `AddCharacterToLevel`, available from API 1.7.0. See [Registration](../reference/entry.md). A source-stage pool ID is not a selectable level ID.
 
@@ -58,3 +58,11 @@ The fragment includes `CharacterTreasurePoolTags.HealingLifeBuild` so the first 
 - Extra targeting is tested with two exposed enemies, and unsupported starting grants are not promised.
 
 Continue with [Enemies and instance state](enemy.md). See [Character and enemy reference](../reference/actors.md) for defaults and state boundaries.
+
+
+Related extension: [custom page entry](custom-ui.md).
+
+
+## Let one source file follow the selected language
+
+The fragment now reads character, trait, move and role text with ModText. Merge entries from the [Chinese example catalog](../../../templates/zh-CN/localization.json) and [English example catalog](../../../templates/en/localization.json) into your existing files without replacing generated entries. Rules and IDs remain in one source file. Start a fresh test run after changing language and check names, descriptions and role text; see [assets and text](assets-and-text.md).

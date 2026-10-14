@@ -1,67 +1,64 @@
-# 给 AI 的模组制作入口
+# 给 AI 的制作任务与交付合同
 
-[English](../en/ai-authoring.md) · [教程目录](README.md)
+[English](../en/ai-authoring.md) · [Index](README.md)
 
-核对日期：2026-10-13。当前 Mod API：1.8.0。
+教程修订 4 · Mod API 1.8.0 · 2026-10-14
 
-本文须与四篇教程和需要的[功能片段](../../templates/README.zh-CN.md)一起阅读，不能代替游戏编译引用或实际测试环境。
 
-## 阅读顺序与事实来源
+把本页、[功能地图](feature-map.md)、目标任务课、对应参考和代码片段一起交给 AI。离线读取从仓库根 `llms.txt` 开始；机器索引是 [capabilities.json](../capabilities.json)，选定声明是 [api-surface.json](../api-surface.json)。教程不能代替游戏生成的开发引用。
 
-先读[首课](tutorials/first-mod.md)及目标任务课，再查对应 API／规则参考；进阶细节查完整手册。交付前按[测试与发布](04-testing-and-publishing.md)验收，并说明[实际验证范围](reference/versions.md)。
+## 1. 先识别任务，不猜宿主能力
 
-用户最新要求、适用的项目约束和当前运行代码优先于旧方案或旧译文。MiniHero 是温馨的西式奇幻与童话冒险；瑶光是用户明确指定的中国古代女侠例外，不能扩展为整个世界的风格，也不能从旧技术命名推断题材。
+| 用户目标 | 优先阅读 | 交付必须补齐 |
+| --- | --- | --- |
+| 新宝物／改数值 | [宝物](tutorials/treasure.md)、[状态](tutorials/rules-and-state.md) | 功能指纹、品质档位、描述公式、池、重置、指定获取 |
+| 新卡牌抉择 | [卡牌选择](tutorials/card-choice.md)、[字段](reference/card-choice.md) | 具体类、选项 ID、卡面、收益、代价、处理器、牌场放置 |
+| 道具／事件奖励 | [道具事件](tutorials/items-and-events.md) | 直接或目标路径、奖励类型、注册与出现、回合 |
+| 新页面／开始菜单 | [页面](tutorials/custom-ui.md) | 控件树、控制器、AddScreen、动作、回退入口、双语 |
+| 新角色／招式 | [角色](tutorials/character.md) | 引用类注册、角色入口、池、第一初始招式、实测目标 |
+| 随机挑战／无限模式 | [冒险模式](tutorials/adventure-modes.md) | 种子、日期偏移、包含首轮的轮数、唯一续接 ID、终止 |
+| 修改配置 | [配置](tutorials/configuration.md) | 当前没有玩家页；定义默认、getter fallback、同一公式 |
 
-## 当前能力与限制
+只读签名而不读语义参考容易误用 requested、来源 ID 或 consumeTurn。缺接口时说明限制，不能自己发明字段、菜单、热重载或 ModUi.SetConfig。使用卡牌选择先核对实际 Core 引用含这些类型；API 字符串同为 1.8.0 不证明旧安装已带最近新增接口。
 
-| 目标 | 公开入口与边界 |
-| --- | --- |
-| 角色、特性、宝物、招式、敌人、道具、事件 | C# 公开内容类，通过 `registrar.AddContent/AddContents` 注册 |
-| 可选择的完整冒险 | `AdventureContent`＋素材 `StageContent`＋步骤与难度；只注册 Stage 不会创建大关卡入口 |
-| 固定布局谜题 | `StageDefinition.fixedColumns`，按底部到顶部存储，最后一张为明牌 |
-| 每日／固定挑战 | `AdventureSeedSettings`；每日换种子明确指定 `utcOffsetMinutes` |
-| 循环成长 | `AdventureLoopSettings`；`maximumLoops = 3` 总共三轮，`0` 无上限 |
-| 动态续接 | `IAdventureContinuationContent.CreateNextStages`；读取隔离 context，空数组结束冒险 |
-| 冒险规则 | `AdventureRuleContent`，由冒险／难度的 `adventureRuleIds` 激活 |
-| 自定义页面／开始页 | `registrar.AddScreen`、`ModUi` 控件树与 `ModScreenController`，宿主生成 Unity UI |
-| 图片与音乐 | 包内路径、自动素材索引、展示槽位与音乐主题 |
-| 配置 | `AddConfig/ModConfig` 保留兼容接口，当前没有玩家配置页 |
-| JSON | 后端保留兼容，当前没有玩家 JSON 编辑器 |
-| 开局内容 | 特性与第一项初始招式可用；选角不发 `StartingTreasureTypes` 或后续初始招式 |
-| DLL 更新 | 最终验收必须完整重启，同进程重载不足以证明新 DLL 生效 |
-| Steam | 本地校验／导出与实际上传、订阅、下载分别验收 |
+## 2. 开始前记录六项输入
 
-不要虚构宿主方法、事件字段、配置菜单或已接通的音乐位置。查当前公开引用；接口不存在时说明限制，不补一个假接口让编译表面通过。
+包 ID 与生成命名空间；实际 API 引用版本及是否含目标类型；已有文件与入口全名；玩家操作目标；机制六项指纹；可用素材与验证环境。先读 package.json 和生成 csproj，保留 codeEntryPoint 与唯一 ModEntry。资料缺失标未核，不把扫描失败写成零问题。
 
-## 交付目录
+MiniHero 是西式奇幻／童话冒险；瑶光是用户明确的古代中国女侠例外。用户最近要求、适用 AGENTS 和当前运行代码优先于历史方案。不要从旧 Wuxia 类型名推断题材，不为了翻译迁移稳定 ID 或键。
 
-运行包含 `package.json`、`mod/<AssemblyName>.dll`、`localization/<locale>.json`，以及需要的素材、索引和音乐。源码项目另含 `source/*.csproj`、`source/ModEntry.cs` 和游戏生成的 `.tmode-sdk` 引用。
+## 3. 交付文件和可操作结果
 
-- 包 ID、目录 ID、入口特性与清单保持一致。
-- `codeEntryPoint` 是含命名空间的类型名，`codeAssembly` 是包内 DLL 相对路径，均须对应真实输出。
-- 内容 ID 以 `packageId + "."` 开头；新本地化键用 ASCII 英文语义标识，译文放值中。
-- 入口与内容类公开并有公开无参构造函数；宝物独立、可序列化，专属行为写在具体类中，调用通用结算。
-- 声明 `code.execute`；代码以当前用户权限运行，不是沙箱。
-- 目标框架为 `netstandard2.1`，引用当前游戏 API/Core DLL，发布包不包含这两份引用。
-- 工坊生成并校验发布哈希；不发布本机报告、开发引用、`bin/obj`、临时目录或个人存档。
+玩法规则写在 C# 内容类中，不改成声明式玩法 JSON 或 contentIndex 配方。包清单是自动生成的元数据，本地化 JSON 只承载显示文字。源码在 source/*.cs，生成项目目标 netstandard2.1、C# 9；引用游戏生成的 API/Core。运行包需要 package.json、mod/<AssemblyName>.dll、localization/zh-Hans.json 与 en.json，以及真正使用的包内素材。完整 codeEntryPoint 必须对应 namespace＋类名，内容 ID 以包 ID 加点号开头。声明 code.execute；代码以用户权限执行，不是沙箱。
 
-制作电脑必须获得两份游戏程序集，可从已安装游戏新建项目取得。教程源码不能代替 Core DLL。不要将正式工程目录复制或链接到临时工程用于编译。
+交付时列出新增／修改文件、Load 注册片段、被哪个角色池／关卡引用、两个 locale 的新增键、具体玩家入口和预期结果。片段中依赖的 registry/context/nextRequest 必须说明由哪里得到；不提交省略抽象成员或未定义类型的假完整类。不要发布游戏 DLL 引用、bin/obj、.tmode-sdk、个人路径或存档。源包和发布输出区别见[工程课](01-project-and-build.md)。
 
-## 规则口径
+## 4. 必须保持的规则
 
-- 新宝物先与当前目录比较触发、输入、收益、状态、范围、代价，避免换皮。
-- 分类、池 Tag 与出场条件分开；角色池按任意交集匹配，权重用数值，不用额外 Tag。
-- 品质均到传说；五／四／三／两档分别从普通／优良／稀有／史诗开始，不补未给的数值。
-- 治疗关联读取完整结算治疗量；仅溢出转换读取溢出，玩家文案默认简称“治疗量”。
-- 进入新场景重置宝物临时计数、叠层、待用强化与额度；跨场景例外明确写出并验证读档。
-- 基础属性换算向下取整，同类百分比相加后结算；预览与执行复用规则。
-- 固定列是牌堆：`{ exit, guard }` 才表示先打守卫；必须点击牌面验收。
-- 英文默认用 `attack`，确需区分招式等伤害时用 `basic attack`；技术 `NormalAttack` 标识保留。
+- CategoryTags、PoolTags、RequiredAppearanceTags 各司其职；角色候选池按任意交集匹配，权重使用 GetPoolWeight。
+- 五／四／三／两档从普通／优良／稀有／史诗到传说；固定公式只有传说时明确变体，不让默认五品质误扩展。
+- 治疗关联用 AfterHealingEvent.requested 的完整结算量；actual 仅资源和表现，显式溢出用 overflow。自然描述“治疗量”／healing amount。
+- 默认新场景清空宝物临时次数、层数、待用效果与额度；主动使用次数恢复。明确跨场景例外才保留交接数据。
+- 基础属性换算向下取整，共同百分比先相加统一结算。预览与实战同规则，不提前推进真实状态。
+- 专属行为在具体内容类；引擎只用共同结算。新选择的显示卡不执行原行为，resolver 存稳定 ID；成功返回前不自行结束回合。
+- 英文默认 attack，需区分时 basic attack；保留 NormalAttack 等技术名。自然缩短译文，不擅自改宿主 UI。
 
-## 交付前证据
+## 5. 可直接复制的任务提示
 
-说明玩家玩法、包 ID、最低 API 和完整目录；报告真正执行过的构建命令与结果。通过实际加载器验证注册、哈希、安装、启用／停用、本地化和加载。
+```text
+使用教程修订 4 和当前游戏生成的 MiniHero 开发引用。
+玩法规则写成 C# 内容类。
+任务：给我现有的固定测试关卡增加双卡单选。
+保留包 ID、生成命名空间、现有唯一入口和无关内容。
+治疗分支：免费恢复 5 生命；守卫分支：支付 2 金币，防御增加 1。
+使用 CardChoiceEventContent；显示卡不执行原卡行为。
+交付完整具体类、Load 注册、关卡放牌、中英文文本键、依赖及预期检查。
+分别记录实际执行的编译、玩法、存档、界面和 Steam 检查。
+不发明宿主接口；引用缺失或行为不支持时说明限制。
+```
 
-实际运行关键效果、边界、通关／失败、重置、续接／循环与存档恢复。检查图片、声音及文本控件，使用原字号和原版面，自然缩短译文。C# 修改在完整重启后验收。
+若要求复杂效果，先把触发、输入、收益、状态、目标、代价写全，再生成。不要把“参考其他游戏”解释成复制其 API 或图片。
 
-准确列出未验证部分。测试文件存在不表示已经执行，能编译不表示玩法正确，本地导出不表示 Steam 在线上传成功。项目级 Unity 验证只用已打开的正式 Editor，不启动第二个 Editor，不打开 `Temp/PlayerBuildProject`。
+## 6. 交付证据
+
+按[调试课](tutorials/debugging.md)记录编译、加载、确定性玩法、边界、预览、重置、恢复、双语画面与在线发布。新 DLL 完整重启后验收；同进程重载不足。明确未执行项，不把已有测试或文档检查当本轮跑过。Unity 验证只用已打开的正式 Editor，不创建副本、不启动第二个 Editor、不打开 Temp/PlayerBuildProject。

@@ -2,7 +2,7 @@
 
 [English](../../en/reference/entry.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 4 · Mod API 1.8.0 · 2026-10-13
 
 用途：从包清单定位一个公开入口，注册内容定义、展示和音乐。本文按当前 1.8.0 核对；跨版本最低要求查[版本页](versions.md)，公开声明见[API 表面](api-surface.md)。
 
@@ -49,7 +49,7 @@ public interface IModRegistrar
 
 `AddCharacterToLevel` 自 1.7.0 可用。`levelId` 是关卡选择页的大关卡稳定 ID，例如 `challenge_wild_corruption_nest`；`characterId` 是已注册的本包角色。`difficulty = 0` 表示该关卡所有难度，其他值只加入对应难度，不覆盖原角色名单。
 
-`Stage.allowedCharacterIds` 仍需允许该角色，或为空表示该素材不限角色。把角色加到 Adventure 入口，不等于清除素材的限制。
+实际选关名单使用难度的 `availableHeroIds`。`Stage.allowedCharacterIds` 是保存并校验引用的元数据；当前 C# 流程不通过它额外限制角色名单。
 
 ## 生命周期和最小用法
 

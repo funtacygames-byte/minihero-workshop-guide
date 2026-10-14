@@ -2,7 +2,7 @@
 
 [English](../../en/reference/presentation.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 4 · Mod API 1.8.0 · 2026-10-13
 
 当前基准 1.8.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
 
@@ -50,4 +50,4 @@ public static string Format(string packageId, string key, string fallback, param
 
 普通场景用 StageExplore，Boss 场景优先 BossBattle，再同主题 StageExplore，再内置游戏内列表。文件存在但解码失败也走回退。自定义页面通过 `ModScreenDefinition` 的 `musicThemeId` 使用 MainMenu；Victory 未接为 Mod 胜利页音乐。槽位由场景 boss 标记决定，不由一张敌人卡单独决定。
 
-`AddConfig/ModConfig` 与 JSON 编辑限制统一放在[兼容页](compatibility.md)。配置声明不生成当前玩家可编辑菜单。
+`AddConfig/ModConfig` 的兼容限制统一放在[兼容页](compatibility.md)。配置声明不生成当前玩家可编辑菜单。

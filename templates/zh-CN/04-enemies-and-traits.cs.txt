@@ -6,8 +6,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class WoundedRage : EnemyTraitContent
     {
         public WoundedRage() : base(ModEntry.PackageId + ".enemy_trait.wounded_rage") { }
-        public override string Name => "负伤狂怒";
-        public override string Description => "受到伤害后，攻击增加 1。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "enemy_trait.wounded_rage.name", "负伤狂怒");
+        public override string Description => ModText.Get(ModEntry.PackageId, "enemy_trait.wounded_rage.description", "受到伤害后，攻击增加 1。");
         public override void OnAfterDamaged(EnemyTraitEvent e)
         {
             if (e?.Owner != null) e.Owner.enemyTraitAttackDelta += 1;
@@ -17,8 +17,8 @@ namespace LocalAliceLanternTrailMod
     public sealed class MossWolf : EnemyContent, IModPresentationContent
     {
         public MossWolf() : base(ModEntry.PackageId + ".enemy.moss_wolf") { }
-        public override string Name => "苔背魔狼";
-        public override string Description => "潜伏在林间苔丛中的魔狼。";
+        public override string Name => ModText.Get(ModEntry.PackageId, "enemy.moss_wolf.name", "苔背魔狼");
+        public override string Description => ModText.Get(ModEntry.PackageId, "enemy.moss_wolf.description", "潜伏在林间苔丛中的魔狼。");
         public override int Attack => 6;
         public override int Defense => 1;
         public override int MaxHp => 18;

@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/tutorials/stage.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 Goal: **Trail Lab** appears in level selection. Its first column contains a guard above an exit; all other columns are empty. Defeat the guard, use the revealed exit, and finish with victory. Then change guard HP from 4 to 8 and see the new value after restarting.
 
@@ -36,7 +36,7 @@ Build and install, then fully exit and restart. Page through level selection to 
 
 Attack the guard. Once it is defeated, the exposed card should become the exit. Use the exit and check the victory result. Character upgrades can change the number of attacks needed; this lesson does not prescribe an exact count. Empty art fields use host fallback presentation for checking the rules. Add your own art before a finished release.
 
-If the entry is absent, check adventure registration and `IncludeInSelection`. If the character cannot be selected, check `availableHeroIds` and the stage's `allowedCharacterIds`. Both use the stable public ID `BuiltInCharacterIds.RuneHunter`, not a localized name.
+If the entry is absent, check adventure registration and `IncludeInSelection`. If the character cannot be selected, check the difficulty's `availableHeroIds` and host unlock rules. Use the stable public ID `BuiltInCharacterIds.RuneHunter`, not a localized name. The source's `allowedCharacterIds` is retained metadata rather than an enforced C# selection filter.
 
 ## 4. Change a visible value
 
@@ -51,3 +51,6 @@ This proves the new DLL's content reaches the board. A successful build or regis
 - The revealed exit can be used to finish the adventure, and the 4→8 source change takes effect.
 
 Add the [treasure lesson's guaranteed reward](treasure.md), or continue with [Connecting stages](adventure.md). Random pools, bosses, graph routes, and loops remain in the [advanced overview](../02-content-creation.md).
+
+
+Fragment names and descriptions now use ModText. Merge the sample entries as in [bilingual text](assets-and-text.md); without them, source fallbacks remain visible. Existing card/definition snapshots are not guaranteed to translate immediately, so check a fresh run after changing language.

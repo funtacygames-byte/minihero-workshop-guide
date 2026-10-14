@@ -1,0 +1,265 @@
+{
+  "locale": "en",
+  "entries": [
+    {
+      "key": "adventure.continuation_lab.description",
+      "value": "Complete the first stage and two generated follow-ups."
+    },
+    {
+      "key": "adventure.continuation_lab.name",
+      "value": "Trail Relay"
+    },
+    {
+      "key": "adventure.continuation_lab.stage",
+      "value": "Relay stage {0}"
+    },
+    {
+      "key": "adventure.my_adventure.description",
+      "value": "Connect three regions of your own."
+    },
+    {
+      "key": "adventure.my_adventure.name",
+      "value": "My Adventure"
+    },
+    {
+      "key": "adventure.my_adventure.region.one.name",
+      "value": "First Region"
+    },
+    {
+      "key": "adventure.my_adventure.region.three.name",
+      "value": "Third Region"
+    },
+    {
+      "key": "adventure.my_adventure.region.two.name",
+      "value": "Second Region"
+    },
+    {
+      "key": "adventure.practice.description",
+      "value": "One fixed guard and one exit."
+    },
+    {
+      "key": "adventure.practice.name",
+      "value": "Trail Lab"
+    },
+    {
+      "key": "character.lantern_ranger.description",
+      "value": "Protects travelers with a lantern and light crossbow."
+    },
+    {
+      "key": "character.lantern_ranger.name",
+      "value": "Lantern Ranger"
+    },
+    {
+      "key": "character.lantern_ranger.role",
+      "value": "Hunter"
+    },
+    {
+      "key": "character.lantern_ranger.school",
+      "value": "Woodland Watch"
+    },
+    {
+      "key": "choice.camp.guard.description",
+      "value": "Pay 2 gold to gain 1 defense."
+    },
+    {
+      "key": "choice.camp.guard.name",
+      "value": "Guard Supplies"
+    },
+    {
+      "key": "choice.camp.heal.description",
+      "value": "Restore 5 HP."
+    },
+    {
+      "key": "choice.camp.heal.name",
+      "value": "Moondew Kit"
+    },
+    {
+      "key": "choice.supply.coins.description",
+      "value": "Gain 3 gold."
+    },
+    {
+      "key": "choice.supply.coins.name",
+      "value": "Loose Coins"
+    },
+    {
+      "key": "choice.supply.prepare.description",
+      "value": "Gain 2 shield, then choose extra supplies."
+    },
+    {
+      "key": "choice.supply.prepare.name",
+      "value": "Shield Kit"
+    },
+    {
+      "key": "content.starter_relic.description",
+      "value": "Gain {0} shield when entering a stage."
+    },
+    {
+      "key": "content.starter_relic.name",
+      "value": "Wayfarer's Relic"
+    },
+    {
+      "key": "enemy.moss_wolf.description",
+      "value": "A magical wolf lurking in woodland moss."
+    },
+    {
+      "key": "enemy.moss_wolf.name",
+      "value": "Moss Wolf"
+    },
+    {
+      "key": "enemy_trait.wounded_rage.description",
+      "value": "After taking damage, gain 1 attack."
+    },
+    {
+      "key": "enemy_trait.wounded_rage.name",
+      "value": "Wounded Rage"
+    },
+    {
+      "key": "event.camp_choice.description",
+      "value": "Choose healing or defensive supplies."
+    },
+    {
+      "key": "event.camp_choice.name",
+      "value": "Camp Supplies"
+    },
+    {
+      "key": "event.relic_grant.choice.take",
+      "value": "Claim the Wayfarer's Relic."
+    },
+    {
+      "key": "event.relic_grant.description",
+      "value": "Claim a Wayfarer's Relic for testing."
+    },
+    {
+      "key": "event.relic_grant.name",
+      "value": "Claim Relic"
+    },
+    {
+      "key": "event.two_step_supplies.description",
+      "value": "Take 3 gold, or gain 2 shield and choose extra supplies."
+    },
+    {
+      "key": "event.two_step_supplies.name",
+      "value": "Supply Cache"
+    },
+    {
+      "key": "item.ember_vial.description",
+      "value": "Deal 5 damage to a selected enemy."
+    },
+    {
+      "key": "item.ember_vial.name",
+      "value": "Ember Vial"
+    },
+    {
+      "key": "item.moon_dew.description",
+      "value": "Restore 6 HP."
+    },
+    {
+      "key": "item.moon_dew.name",
+      "value": "Moondew Potion"
+    },
+    {
+      "key": "move.silver_bolt.description",
+      "value": "Deal damage equal to 2 times attack to one enemy."
+    },
+    {
+      "key": "move.silver_bolt.name",
+      "value": "Silver Bolt"
+    },
+    {
+      "key": "stage.lantern_trail.exit.description",
+      "value": "Leave this forest."
+    },
+    {
+      "key": "stage.lantern_trail.exit.name",
+      "value": "Forest Exit"
+    },
+    {
+      "key": "stage.lantern_trail.name",
+      "value": "Lantern Trail"
+    },
+    {
+      "key": "stage.lantern_trail.subtitle",
+      "value": "Follow warm lantern light through the whispering forest."
+    },
+    {
+      "key": "stage.practice.exit.description",
+      "value": "Leave the trail."
+    },
+    {
+      "key": "stage.practice.exit.name",
+      "value": "Exit"
+    },
+    {
+      "key": "stage.practice.guard.description",
+      "value": "A practice guard blocking the exit."
+    },
+    {
+      "key": "stage.practice.guard.name",
+      "value": "Trail Guard"
+    },
+    {
+      "key": "stage.practice.name",
+      "value": "Trail Lab"
+    },
+    {
+      "key": "stage.practice.subtitle",
+      "value": "Defeat the guard to reveal the exit."
+    },
+    {
+      "key": "trait.lantern_sight.description",
+      "value": "Basic attacks select one additional random enemy."
+    },
+    {
+      "key": "trait.lantern_sight.name",
+      "value": "Lantern Sight"
+    },
+    {
+      "key": "treasure.lantern_compass.description",
+      "value": "Gain {0} shield when entering a stage."
+    },
+    {
+      "key": "treasure.lantern_compass.name",
+      "value": "Starlit Compass"
+    },
+    {
+      "key": "treasure.moon_glass_bottle.description",
+      "value": "Gain {0} maximum HP."
+    },
+    {
+      "key": "treasure.moon_glass_bottle.name",
+      "value": "Moon Glass Bottle"
+    },
+    {
+      "key": "treasure.practice_counter.description",
+      "value": "Gain 10% of each heal as shield, up to 3 times per stage."
+    },
+    {
+      "key": "treasure.practice_counter.name",
+      "value": "Practice Flask"
+    },
+    {
+      "key": "ui.camp.check",
+      "value": "Check Page"
+    },
+    {
+      "key": "ui.camp.checked",
+      "value": "Button responded."
+    },
+    {
+      "key": "ui.camp.original",
+      "value": "Original Menu"
+    },
+    {
+      "key": "ui.camp.play",
+      "value": "Start Adventure"
+    },
+    {
+      "key": "ui.camp.ready",
+      "value": "Guide ready."
+    },
+    {
+      "key": "ui.camp.title",
+      "value": "Camp Guide"
+    }
+  ]
+}

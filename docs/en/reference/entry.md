@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/entry.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 4 · Mod API 1.8.0 · 2026-10-13
 
 Purpose: locate one public entry from a package manifest and register content definitions, presentation, and music. This reference is checked against 1.8.0. See [Versions](versions.md) for compatibility and [API surface](api-surface.md) for declarations.
 
@@ -49,7 +49,7 @@ These are reference declarations; do not copy the types into a mod. `Load` runs 
 
 `AddCharacterToLevel` is available from 1.7.0. `levelId` identifies a selectable level, such as `challenge_wild_corruption_nest`; `characterId` identifies a registered character from this package. `difficulty = 0` adds it to all difficulties; another value affects only that difficulty and preserves existing characters.
 
-`Stage.allowedCharacterIds` must still allow it, or be empty to impose no source-stage restriction. Adding selection eligibility does not remove source-stage restrictions.
+Actual selection rosters use the level difficulty's `availableHeroIds`. `Stage.allowedCharacterIds` is stored and reference-validated metadata; the current C# runtime does not enforce an additional roster restriction through it.
 
 ## Lifecycle and minimal use
 

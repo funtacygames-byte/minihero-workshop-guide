@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "guideRevision": 4,
+  "reviewedApi": "1.8.0",
+  "reviewDate": "2026-10-14",
+  "statusMeaning": {
+    "available": "Current authoring entry exists; not a claim that every example was playtested.",
+    "backend-only": "Backend/compatibility capability without a player-facing authoring or settings page.",
+    "partial": "Available entry with the explicit limitations in its boundary field."
+  },
+  "capabilities": [
+    {
+      "id": "first-mod",
+      "status": "available",
+      "apiTypes": [
+        "MiniHeroMod",
+        "IModRegistrar"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/first-mod.md",
+        "en": "docs/en/tutorials/first-mod.md"
+      },
+      "boundary": {
+        "zh-CN": "生成工程、完整入口、构建安装、重启",
+        "en": "Generated project, full entry, build/install, restart"
+      }
+    },
+    {
+      "id": "treasures",
+      "status": "available",
+      "apiTypes": [
+        "TreasureContent",
+        "IMultipleVariantEffect"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/treasure.md",
+        "en": "docs/en/tutorials/treasure.md"
+      },
+      "boundary": {
+        "zh-CN": "独立实例、品质和等级、池、指定奖励",
+        "en": "Independent instances, rarity/level, pools, specified rewards"
+      }
+    },
+    {
+      "id": "characters",
+      "status": "partial",
+      "apiTypes": [
+        "CharacterContent",
+        "TraitContent",
+        "MoveContent"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/character.md",
+        "en": "docs/en/tutorials/character.md"
+      },
+      "boundary": {
+        "zh-CN": "第一项初始招式与特性；后续招式和初始宝物不自动发放",
+        "en": "First initial move and trait; later moves and starting treasures not auto-granted"
+      }
+    },
+    {
+      "id": "enemies",
+      "status": "available",
+      "apiTypes": [
+        "EnemyContent",
+        "EnemyTraitContent"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/enemy.md",
+        "en": "docs/en/tutorials/enemy.md"
+      },
+      "boundary": {
+        "zh-CN": "实例状态、真实伤害与回调窗口",
+        "en": "Instance state, real damage, callback timing"
+      }
+    },
+    {
+      "id": "items-events",
+      "status": "available",
+      "apiTypes": [
+        "ItemContent",
+        "EventContent",
+        "RichEventChoiceState"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/items-and-events.md",
+        "en": "docs/en/tutorials/items-and-events.md"
+      },
+      "boundary": {
+        "zh-CN": "直接／目标使用；旧富事件最多三分支",
+        "en": "Direct/targeted use; legacy rich events have at most three branches"
+      }
+    },
+    {
+      "id": "card-choice",
+      "status": "available",
+      "apiTypes": [
+        "CardChoiceEventContent",
+        "CardChoiceRequest",
+        "CardChoiceOption",
+        "ICardChoiceResolver"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/card-choice.md",
+        "en": "docs/en/tutorials/card-choice.md"
+      },
+      "boundary": {
+        "zh-CN": "任意数量单选、条件代价、专属处理、续接、回滚与存档",
+        "en": "Any-size single choice, conditions/costs, resolver, chains, rollback and saves"
+      }
+    },
+    {
+      "id": "fixed-stages",
+      "status": "available",
+      "apiTypes": [
+        "StageContent",
+        "StageDefinition",
+        "ContentCards"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/stage.md",
+        "en": "docs/en/tutorials/stage.md"
+      },
+      "boundary": {
+        "zh-CN": "底到顶完整列；不混合固定列与随机补牌",
+        "en": "Complete bottom-to-top columns; no mixed fixed/random fill"
+      }
+    },
+    {
+      "id": "adventures",
+      "status": "available",
+      "apiTypes": [
+        "AdventureContent",
+        "AdventureStepDefinition",
+        "AdventureDifficultyDefinition"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/adventure.md",
+        "en": "docs/en/tutorials/adventure.md"
+      },
+      "boundary": {
+        "zh-CN": "入口、素材 Stage、步骤、角色名单、整备",
+        "en": "Entry, source Stage, steps, character list, preparation"
+      }
+    },
+    {
+      "id": "adventure-modes",
+      "status": "available",
+      "apiTypes": [
+        "AdventureSeedSettings",
+        "AdventureLoopSettings",
+        "IAdventureContinuationContent"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/adventure-modes.md",
+        "en": "docs/en/tutorials/adventure-modes.md"
+      },
+      "boundary": {
+        "zh-CN": "每日偏移、总轮数上限、独立续接上下文",
+        "en": "Daily offset, total loop cap, isolated continuation context"
+      }
+    },
+    {
+      "id": "rules-state",
+      "status": "available",
+      "apiTypes": [
+        "AdventureRuleContent",
+        "AfterHealingEvent",
+        "TreasureStatsEvent"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/rules-and-state.md",
+        "en": "docs/en/tutorials/rules-and-state.md"
+      },
+      "boundary": {
+        "zh-CN": "次数、预览、换场景重置、激活冒险规则",
+        "en": "Counters, preview, stage reset, adventure-rule activation"
+      }
+    },
+    {
+      "id": "custom-ui",
+      "status": "available",
+      "apiTypes": [
+        "ModScreenDefinition",
+        "ModUi",
+        "ModScreenController",
+        "IModUiContext"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/custom-ui.md",
+        "en": "docs/en/tutorials/custom-ui.md"
+      },
+      "boundary": {
+        "zh-CN": "宿主控件树、动作与本包导航；没有配置写入",
+        "en": "Host UI tree, actions, same-package navigation; no configuration writes"
+      }
+    },
+    {
+      "id": "configuration",
+      "status": "backend-only",
+      "apiTypes": [
+        "ModConfigDefinition",
+        "ModConfig"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/configuration.md",
+        "en": "docs/en/tutorials/configuration.md"
+      },
+      "boundary": {
+        "zh-CN": "可声明读取默认／历史值；没有玩家配置页或公开写入",
+        "en": "Declare/read defaults or legacy values; no player page or public writer"
+      }
+    },
+    {
+      "id": "assets-text",
+      "status": "partial",
+      "apiTypes": [
+        "ModAssets",
+        "ModText",
+        "ModMusicTheme"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/assets-and-text.md",
+        "en": "docs/en/tutorials/assets-and-text.md"
+      },
+      "boundary": {
+        "zh-CN": "包内路径与槽位；Victory cue 未接 Mod 胜利页",
+        "en": "Package paths and slots; Victory cue not connected to Mod victory page"
+      }
+    },
+    {
+      "id": "stage-graph-csharp",
+      "status": "available",
+      "apiTypes": [
+        "StageDefinition",
+        "StageGraphNodeKind",
+        "StageGraphNodeDefinition",
+        "StageGraphEdgeDefinition",
+        "DeclarativeConditionEvaluator"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/02-content-creation.md",
+        "en": "docs/en/02-content-creation.md"
+      },
+      "boundary": {
+        "zh-CN": "装载时路线；C# 显式卡快照与条件后继",
+        "en": "Load-time route; explicit C# card snapshots and conditional fallbacks"
+      }
+    },
+    {
+      "id": "debugging",
+      "status": "available",
+      "apiTypes": [
+        "GameActionResult"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/debugging.md",
+        "en": "docs/en/tutorials/debugging.md"
+      },
+      "boundary": {
+        "zh-CN": "固定输入、差值、错误报告与验证层次",
+        "en": "Fixed inputs, deltas, reports, verification layers"
+      }
+    },
+    {
+      "id": "publish",
+      "status": "partial",
+      "apiTypes": [
+        "MiniHeroModApi"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/publish.md",
+        "en": "docs/en/tutorials/publish.md"
+      },
+      "boundary": {
+        "zh-CN": "本地构建导出可验；Steam 在线须实际账号环境",
+        "en": "Local build/export verifiable; online Steam needs account environment"
+      }
+    }
+  ]
+}

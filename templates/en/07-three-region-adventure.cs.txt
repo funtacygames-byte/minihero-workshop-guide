@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
 
 namespace LocalAliceLanternTrailMod
 {
@@ -8,15 +9,15 @@ namespace LocalAliceLanternTrailMod
     public sealed class MyAdventure : AdventureContent
     {
         public MyAdventure() : base(ModEntry.PackageId + ".adventure.my_adventure") { }
-        public override string Name => "My Adventure";
-        public override string Description => "Connect three regions of your own.";
+        public override string Name => ModText.Get(ModEntry.PackageId, "adventure.my_adventure.name", "My Adventure");
+        public override string Description => ModText.Get(ModEntry.PackageId, "adventure.my_adventure.description", "Connect three regions of your own.");
         public override string SourceStageId => ModEntry.PackageId + ".stage.region_one";
         public override string PreviewImageId => SourceStageId;
         public override IReadOnlyList<AdventureStepDefinition> Steps => new[]
         {
-            Step("one", "First Region", ".stage.region_one"),
-            Step("two", "Second Region", ".stage.region_two"),
-            Step("three", "Third Region", ".stage.region_three")
+            Step("one", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.one.name", "First Region"), ".stage.region_one"),
+            Step("two", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.two.name", "Second Region"), ".stage.region_two"),
+            Step("three", ModText.Get(ModEntry.PackageId, "adventure.my_adventure.region.three.name", "Third Region"), ".stage.region_three")
         };
         public override IReadOnlyList<AdventureDifficultyDefinition> Difficulties => new[]
         {
