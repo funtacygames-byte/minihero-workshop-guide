@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/visual-walkthrough.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
-Screenshots show the actual English UI in the official project. Creation and building use an isolated documentation workspace and real services. Buttons, layout, and text are unchanged; the user's existing projects are excluded. These images identify operations and do not replace a full standalone-game restart. Alice is a teaching name; enter your own name as author.
+Use these images to find buttons and files. Workshop screenshots use English; the Chinese interface has the same layout. Alice is an example name, so enter your own name or nickname. Folder and cropping diagrams help you compare your files.
 
 ## 1. Open the workshop
 
@@ -48,8 +48,8 @@ The six-cell sheet is not one treasure icon. Export the intended image separatel
 
 ![CampChoice compiled from the lesson, shown in English](../../../images/ui-camp-choice-en.png)
 
-This is [fragment 10's CampChoice](../tutorials/card-choice.md), compiled by the workshop and rendered in the formal battle scene at 1920×1080. Moondew Kit restores 5 HP; Guard Supplies costs 2 gold and grants 1 defense. Displayed artwork is the host fallback for this rules-only example. The native button test checks one cost, one effect and one turn; the source event remains in the background until confirmation.
+This is [fragment 10's CampChoice](../tutorials/card-choice.md), compiled by the workshop and rendered at 1920×1080. Moondew Kit restores 5 HP; Guard Supplies costs 2 gold and grants 1 defense. Displayed artwork is the host fallback for this rules-only example. Choosing Guard Supplies costs 2 gold, grants 1 defense and consumes one turn. The source event remains on the board until confirmation.
 
 ![The same compiled package showing Chinese card text](../../../images/ui-camp-choice-zh-Hans.png)
 
-The same DLL reads the paired translation catalog; the Chinese paid description fits one line at the original 15-point size. Gameplay construction and settlement remain in the C# class. Fresh requests are used when testing languages because an existing custom card snapshot may retain its original text. These screenshots do not establish readability at every screen ratio.
+After merging both translation catalogs, the same mod can show the corresponding names and descriptions. Switch languages and open a new choice to check that your text fits. An existing card may retain the text it had when opened.

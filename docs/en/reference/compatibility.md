@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/compatibility.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-13
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
 Baseline: 1.8.0. Use this page to maintain older mods and inspect limits. These features are not prerequisites for a first mod.
 
@@ -23,7 +23,7 @@ There is no player Mod configuration page or existing player UI that writes thes
 
 Keep stable Choice values such as `default` and `weighted`. `choiceDisplayNames` supplies translated labels in the same order without translating stored values. GetChoice validates saved values against the allowed list. Supply a fallback that is itself in that list; the API does not validate the fallback for you. See [API surface](api-surface.md) for full constructors.
 
-Older Wayfarer's Relic scaffolds described `level * 2` while reading `shield_per_stage` during execution, allowing a mismatch after configuration changes. The locally revised generator and first lesson share BaseValue and move configuration out of the starting path. Existing source projects are not automatically rewritten; follow the first lesson or maintain their compatibility yourself.
+Older Wayfarer's Relic scaffolds described `level * 2` while reading `shield_per_stage` during execution, allowing a mismatch after configuration changes. The current first lesson shares `BaseValue` between description and effect, and changes that value directly. Existing source projects are not automatically rewritten; follow the first lesson or maintain their compatibility yourself.
 
 ## Declaration versus active behavior
 

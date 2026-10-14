@@ -56,3 +56,13 @@ Use the [reader-trial checklist](docs/en/reference/reader-trial.md) / [试读记
 Keep `docs/capabilities.json`, both feature maps and `llms.txt` aligned with real integration boundaries. The check validates versions, unique capability IDs, statuses, existing language routes and indexed API types. Gameplay examples use C#; the check rejects declarative gameplay JSON recipes. Auxiliary manifest/text examples are compared for keys, stable IDs, numbers and placeholders; locale values intentionally differ. / 同步真实能力、版本与双语路由，玩法示例使用 C#，检查拒绝声明式玩法 JSON；包信息／文本表核对技术契约，locale 值允许按语言变化。
 
 The extractor includes selected enums/structs and protected extension points. Review their semantics before recording new hashes. Current source types, an old installed Core DLL, and a matching version string are separate evidence. / 提取包含枚举、结构体和 protected 扩展点；不要用同版本号推断旧 DLL 已含新接口。
+
+## Write for players / 面向玩家写作
+
+A lesson's reader has the installed game and their own mod project. Give them an outcome, prerequisites, exact destination files, edits, game actions and visible results. Keep development reports and test infrastructure out of that route. / 教程读者只有游戏和自己的模组项目。按结果、前置、文件、修改、游戏操作和观察结果组织；开发汇报与内部验证工具留在维护资料中。
+
+Use the real English UI labels and example-catalog names. Read the English independently before comparing it with Chinese. Then check formulas, caps, targets, costs, stage resets, stable identifiers and which file is replaced or added. Preserve useful detail when simplifying. / 英文按实际界面和示例文本命名，先独立冷读，再核对中英文公式、上限、目标、代价、重置、标识和文件操作；精简不删规则。
+
+For AI help, teach the reader what to provide, what to ask and how to try the answer. Keep machine routing in llms.txt. / AI 页面说明玩家提供什么、怎样提问、怎么用结果；工具索引放在 llms.txt。
+
+Historical research and earlier test records: [English maintenance notes](docs/en/reference/documentation-design.md) / [中文维护记录](docs/zh-CN/reference/documentation-design.md). Reader-trial checklists are for contributors, not prerequisites for following a lesson. / 历史研究、旧检查与试读清单供维护者查阅，不作为玩家制作前置。

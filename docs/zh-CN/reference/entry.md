@@ -2,7 +2,7 @@
 
 [English](../../en/reference/entry.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-13
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 用途：从包清单定位一个公开入口，注册内容定义、展示和音乐。本文按当前 1.8.0 核对；跨版本最低要求查[版本页](versions.md)，公开声明见[API 表面](api-surface.md)。
 

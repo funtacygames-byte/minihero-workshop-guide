@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/api-surface.md) · [Index](../README.md)
 
-Guide revision 4 · API 1.8.0 · 2026-10-14
+Guide revision 5 · API 1.8.0 · 2026-10-14
 
 Selected public declarations extracted read-only from the authorized source, without implementations. This is not the entire SDK. Look up inherited members under their defining base and use the [rule references](../README.md#reference) for defaults and semantics. Maintainers can regenerate it with the [extractor](../../../tools/extract_api.py).
 

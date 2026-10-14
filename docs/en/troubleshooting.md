@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/troubleshooting.md) · [Index](README.md)
 
-Guide revision 4 · API 1.8.0 · 2026-10-14
+Guide revision 5 · API 1.8.0 · 2026-10-14
 
 Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.8.0, guide revision 4.
 

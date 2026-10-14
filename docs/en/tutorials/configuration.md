@@ -1,11 +1,10 @@
-# Maintain configuration defaults and legacy mods
+# Maintain defaults in a mod with older configuration code
 
 [简体中文](../../zh-CN/tutorials/configuration.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+This page is for authors working with existing `AddConfig` code. **To change the starter treasure's value, edit `BaseValue` in [the first lesson](first-mod.md) and skip this page.** The game currently has no player-facing mod configuration menu.
 
-
-Goal: declare a bounded integer setting and read the same value in rules and descriptions. The current game has neither a player Mod settings page nor a public configuration-write API. Prerequisite: [first mod](first-mod.md). This lesson supports legacy settings and valid defaults, not in-game player tuning.
+The example defines an integer with a default of 2 and a range of 1–10, then uses the same setting for the treasure's description and effect. You need the first lesson's `source/ModEntry.cs`: register the setting inside `Load` and read it inside `StarterRelic`.
 
 ## 1. Separate declaration from reading
 
@@ -31,8 +30,8 @@ Toggle, Integer, Decimal, Choice and Text are definition kinds, not five availab
 
 `RequiresReload` is metadata, not DLL unloading. Code changes still require a full restart. Mods must not call ConfigureResolver or write private settings files; custom pages have no SetConfig method.
 
-## 3. Bilingual text and acceptance
+## 3. Check defaults and descriptions
 
-For release, resolve displayName/description with ModText keys, keeping default 2, bounds 1–10 and reload requirement identical. In an environment with no stored value, check level-one 2 and level-two 4 in both description and effect. Check valid and invalid legacy values only in an authorized historical configuration environment. Otherwise report that coverage as unverified; do not alter a player's save to manufacture results.
+For release, resolve displayName/description with ModText keys, keeping default 2, bounds 1–10 and reload requirement identical. In an environment with no stored value, check level-one 2 and level-two 4 in both description and effect. If you have settings saved by an older version of your mod, check how those values are read. Without old settings, start by learning the defaults. You do not need to edit a save file for this step.
 
 When changing default 2 to 3, update definition defaultValue, caller fallback, both descriptions and version. A fresh run with no stored value should show level-one 3. A valid historical setting may still override the new default; that alone does not mean compilation failed. See the [compatibility page](../reference/compatibility.md) for diagnostics and other limits.

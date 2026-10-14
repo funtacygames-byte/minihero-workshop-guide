@@ -14,7 +14,7 @@ namespace LocalAliceLanternTrailMod
         }
     }
 
-    public sealed class MossWolf : EnemyContent, IModPresentationContent
+    public sealed class MossWolf : EnemyContent
     {
         public MossWolf() : base(ModEntry.PackageId + ".enemy.moss_wolf") { }
         public override string Name => ModText.Get(ModEntry.PackageId, "enemy.moss_wolf.name", "Moss Wolf");
@@ -24,6 +24,5 @@ namespace LocalAliceLanternTrailMod
         public override int MaxHp => 18;
         public override int RewardGold => 5;
         public override string EnemyTraitId => ModEntry.PackageId + ".enemy_trait.wounded_rage";
-        public ModPresentation Presentation => ModAssets.Enemy("assets/portraits/moss-wolf.png");
     }
 }

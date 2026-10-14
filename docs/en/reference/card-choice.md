@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/card-choice.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
 
 This contract follows current `CardChoiceModels.cs`, `CardChoiceEventContent.cs` and `GameEngine.CardChoices.cs` for the formal battle scene with the new card-choice overlay. Start with the [two-branch lesson](../tutorials/card-choice.md); declarations are in the [API index](api-surface.md).
@@ -92,4 +92,4 @@ A replaced source, a missing resolver after restore or all branches becoming una
 | `card_choice_effect_failed` | Exception/null resolver result; verify snapshot restoration |
 | `card_choice_cannot_cancel` | Valid mandatory request or stale request ID |
 
-Check two and seven cards; free and paid branches; insufficient resources; repeated clicks; blank and content titles; mid-choice save/restore; missing-resolver escape; failure/exception rollback; and two-step confirmation/cancellation committing one turn each. Reading existing tests is not executing them in this revision; see the [version page](versions.md).
+Check two and seven cards; free and paid branches; insufficient resources; repeated clicks; blank and content titles; mid-choice save/restore; missing-resolver escape; failure/exception rollback; and two-step confirmation/cancellation committing one turn each. Choose checks relevant to your changes and try them in the game. See [versions](versions.md) for current limitations.

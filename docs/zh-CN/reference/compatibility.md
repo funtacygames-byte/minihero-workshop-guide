@@ -2,7 +2,7 @@
 
 [English](../../en/reference/compatibility.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-13
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 当前基准 1.8.0。本页用于维护旧模组和查边界；第一次制作不依赖这些能力。
 
@@ -23,7 +23,7 @@ public static double GetDecimal(string packageId, string id, double fallback = 0
 
 旧配置中保留稳定 Choice values，例如 `default`、`weighted`。`choiceDisplayNames` 按同序提供翻译标签，不能把保存值翻译掉；GetChoice 按允许列表校验保存值；调用方应保证回退值本身也在列表中，接口不会替你校验回退值。完整构造函数查[API 表面](api-surface.md)。
 
-早期旅者遗物脚手架描述写 `level * 2`，执行读 `shield_per_stage`，配置变化时可能不一致。本地修订的生成器与首课共用 BaseValue 公式，并把配置移出起点。已有源项目不会自动被改写；按首课统一或自行维护兼容。
+早期旅者遗物脚手架描述写 `level * 2`，执行读 `shield_per_stage`，配置变化时可能不一致。当前首课的说明和效果共用 `BaseValue`，入门时直接修改这个值。已有源项目不会自动被改写；按首课统一或自行维护兼容。
 
 ## 已声明不等于已发放或已播放
 

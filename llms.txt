@@ -1,35 +1,35 @@
-# MiniHero workshop guide
+# MiniHero mod-making guide
 
-> Bilingual mod-authoring documentation. Guide revision 4; reviewed API 1.8.0; 2026-10-14.
+> Bilingual C# mod tutorials for players. Guide revision 5; Mod API 1.8.0; 2026-10-14.
 
-Author gameplay in C# content classes, compiled into a mod DLL. Generated manifests, localization catalogs and saves are auxiliary data; do not propose gameplay JSON submissions.
+Help the player change their existing game-generated mod project. Ask for the relevant source and package.json when needed. Follow one lesson at a time, keep the package ID, namespace, single entry point and localization keys, and explain where edits go and how the player can see the result.
 
-Read AGENTS.md, then the task contract and one target lesson. Use current game-generated references to compile. This repository does not provide the SDK DLLs.
+## Player starting points
 
-## Start
+- [English home](README.md)
+- [中文首页](README.zh-CN.md)
+- [Making mods with AI](docs/en/ai-authoring.md)
+- [用 AI 帮你制作模组](docs/zh-CN/ai-authoring.md)
+- [English first mod](docs/en/tutorials/first-mod.md)
+- [中文首课](docs/zh-CN/tutorials/first-mod.md)
+- [English lesson index](docs/en/README.md)
+- [中文教程目录](docs/zh-CN/README.md)
 
-- [English task contract](docs/en/ai-authoring.md)
-- [中文制作合同](docs/zh-CN/ai-authoring.md)
-- [English feature map](docs/en/feature-map.md)
-- [中文功能地图](docs/zh-CN/feature-map.md)
-- [Capability status and routes](docs/capabilities.json)
-- [Selected declarations, relative sources and hashes](docs/api-surface.json)
+## Look up the task
 
-## New card choices
+- [English supported features](docs/en/feature-map.md)
+- [中文可用功能](docs/zh-CN/feature-map.md)
+- [English source files and dependencies](templates/README.md)
+- [中文源码与依赖](templates/README.zh-CN.md)
+- [Capability routes and limitations](docs/capabilities.json)
+- [Selected API declarations](docs/api-surface.json)
+- [Troubleshooting](docs/en/troubleshooting.md)
+- [排错指南](docs/zh-CN/troubleshooting.md)
 
-- [English lesson](docs/en/tutorials/card-choice.md)
-- [中文教程](docs/zh-CN/tutorials/card-choice.md)
-- [English settlement/save contract](docs/en/reference/card-choice.md)
-- [中文结算与存档契约](docs/zh-CN/reference/card-choice.md)
-- [English focused class](templates/en/10-card-choice.cs.txt)
-- [中文完整类片段](templates/zh-CN/10-card-choice.cs.txt)
+Gameplay is written in C# content classes and compiled with the player's game-generated API/Core references. package.json is package metadata; localization JSON holds displayed text. These are not gameplay recipes. The repository does not contain SDK DLLs.
 
-## Other routes
+Use the semantic reference as well as signatures. Healing-linked rules read settled AfterHealingEvent.requested; actual is HP-bar gain. Temporary treasure state resets per stage by default. Pool matching uses any shared tag. Card faces are previews, not executable item behaviors; choice resolvers use stable IDs. The game has no player mod-settings menu or public configuration writer. Loaded C# changes need a full restart.
 
-- [English index](docs/en/README.md)
-- [中文目录](docs/zh-CN/README.md)
-- [Fragment dependencies](templates/README.md)
-- [Testing/report format](docs/en/tutorials/debugging.md)
-- [Verified scope and remaining checks](docs/en/reference/versions.md)
+Deliver complete files or clearly bounded edits, required registrations, a way for content to appear and corresponding text entries. Do not invent missing APIs or claim tests that did not run. Keep the player's work intact and start without custom image bindings when artwork is not available.
 
-Preserve stable IDs and keys. Healing-linked rules read settled requested, not actual HP gain. Temporary treasure state resets per stage. Display cards do not execute their original behavior. Register resolvers by stable content ID. No player Mod configuration page, public config writer, or genuine DLL hot unloading is promised. Explain unsupported behavior instead of inventing APIs. available/partial/backend-only are capability statuses, not evidence that every example was tested.
+Documentation contributors should also read [AGENTS.md](AGENTS.md) and [CONTRIBUTING.md](CONTRIBUTING.md). Players following lessons do not need documentation-maintenance scripts, Unity or the game's source project.

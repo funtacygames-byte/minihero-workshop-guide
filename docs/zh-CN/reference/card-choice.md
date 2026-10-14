@@ -2,7 +2,7 @@
 
 [English](../../en/reference/card-choice.md) · [Index](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 
 本页依据当前 `CardChoiceModels.cs`、`CardChoiceEventContent.cs` 和 `GameEngine.CardChoices.cs`，适用于已接入“新卡牌选择”的正式战斗场景。先做[双分支课](../tutorials/card-choice.md)，完整声明查[API 索引](api-surface.md)。
@@ -92,4 +92,4 @@ return context.OpenNext(nextRequest);
 | `card_choice_effect_failed` | 处理器异常／null；确认快照已恢复 |
 | `card_choice_cannot_cancel` | 必选有效请求，或旧请求 ID |
 
-逐项验收：两张与七张卡；免费和付费分支；不足资源；重复点击；空标题及内容标题；中途保存恢复；处理器失效逃生；返回失败／抛异常回滚；二阶段确认和取消各一次回合。阅读已有测试不等于本轮跑过测试；实际状态见[版本页](versions.md)。
+逐项验收：两张与七张卡；免费和付费分支；不足资源；重复点击；空标题及内容标题；中途保存恢复；处理器失效逃生；返回失败／抛异常回滚；二阶段确认和取消各一次回合。选择与自己的改动相关的项目，在游戏里操作检查；当前限制见[版本页](versions.md)。

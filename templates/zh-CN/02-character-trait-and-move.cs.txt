@@ -16,7 +16,7 @@ namespace LocalAliceLanternTrailMod
         }
     }
 
-    public sealed class SilverBolt : MoveContent, IModPresentationContent
+    public sealed class SilverBolt : MoveContent
     {
         public SilverBolt() : base(ModEntry.PackageId + ".move.silver_bolt") { }
         public override string Name => ModText.Get(ModEntry.PackageId, "move.silver_bolt.name", "银辉箭");
@@ -24,10 +24,9 @@ namespace LocalAliceLanternTrailMod
         public override MoveTargetKind TargetKind => MoveTargetKind.Enemy;
         public override int MaxUses => 2;
         public override int AttackMultiplier => 2;
-        public ModPresentation Presentation => ModAssets.Icon("assets/icons/silver-bolt.png");
     }
 
-    public sealed class LanternRanger : CharacterContent, IModPresentationContent
+    public sealed class LanternRanger : CharacterContent
     {
         public LanternRanger() : base(ModEntry.PackageId + ".character.lantern_ranger") { }
         public override string Name => ModText.Get(ModEntry.PackageId, "character.lantern_ranger.name", "提灯游侠");
@@ -38,7 +37,7 @@ namespace LocalAliceLanternTrailMod
         { hp = 24, maxHp = 24, attack = 6, defense = 1, wisdom = 2 };
         public override IReadOnlyList<Type> TraitTypes => new[] { typeof(LanternSight) };
         public override IReadOnlyList<Type> StartingMoveTypes => new[] { typeof(SilverBolt) };
-        // Current runtime limitation: StartingTreasureTypes is validated/stored but not granted on selection.
+        // 当前限制：StartingTreasureTypes 会被保存和校验，但选角时不会发放。
         // public override IReadOnlyList<Type> StartingTreasureTypes => new[] { typeof(LanternCompass) };
         public override IReadOnlyList<string> TreasurePoolTags => new[]
         { CharacterTreasurePoolTags.HealingLifeBuild, "treasure_pool.your_package.lantern" };
@@ -47,9 +46,5 @@ namespace LocalAliceLanternTrailMod
         //     .Exclude("goblin_brass_scale")
         //     .Include(ModEntry.PackageId + ".treasure.lantern_compass")
         //     .SetWeight(ModEntry.PackageId + ".treasure.lantern_compass", 2f);
-        public ModPresentation Presentation => ModAssets.Create(
-            (ModPresentationSlot.Icon, "assets/icons/lantern-ranger.png"),
-            (ModPresentationSlot.Portrait, "assets/icons/lantern-ranger.png"),
-            (ModPresentationSlot.Avatar, "assets/portraits/lantern-ranger-avatar.png"));
     }
 }

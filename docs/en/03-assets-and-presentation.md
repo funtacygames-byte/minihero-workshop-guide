@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/03-assets-and-presentation.md) · [Guide index](README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
-Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+This manual groups fields and rules by system. For guided steps, [add artwork and text to a working mod](tutorials/assets-and-text.md), then return here when you need a reference.
 
 This chapter explains artwork bindings, stage music, localization, and compatibility configuration.
 

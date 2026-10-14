@@ -2,9 +2,9 @@
 
 [English](../en/03-assets-and-presentation.md) · [教程目录](README.md)
 
-教程修订 4 · 核对日期：2026-10-14 · Mod API：1.8.0。
+教程修订 5 · 核对日期：2026-10-14 · Mod API：1.8.0。
 
-第一次制作先读[首课](tutorials/first-mod.md)。本文是工程手册；按目标制作见[任务目录](README.md)。
+这篇按系统查字段和规则。想一步步操作，先[跟着教程：先给宝物加图和文本](tutorials/assets-and-text.md)；做完后再回来查需要的部分。
 
 本篇说明如何给 Mod 内容绑定图片、为关卡注册音乐、维护本地化文本，以及现有配置接口的兼容边界。
 

@@ -2,7 +2,7 @@
 
 [English](../../en/reference/treasures.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 用途：定义宝物、创建运行时宝物实例，并响应统一规则事件。当前基准 1.8.0；[完整公开声明](api-surface.md)，[实际制作步骤](../tutorials/treasure.md)。
 

@@ -2,7 +2,7 @@
 
 [English](../../en/reference/presentation.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-13
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 当前基准 1.8.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
 
@@ -20,7 +20,7 @@ public static ModPresentation Stage(string background, string mapThumbnail = "",
 public static ModPresentation Create(params (ModPresentationSlot slot, string path)[] assets);
 ```
 
-这些是接口与 `ModAssets` 静态方法摘录。工厂返回展示映射，不自行加载图片。`Character` 使用 Portrait／Avatar 兼容槽位；当前角色主图应明确 `Create` 绑定 `Icon`，见角色片段。路径相对于包根，构建生成索引；空可选路径会跳过，非空路径必须存在且符合槽位类型。
+这些是接口与 `ModAssets` 静态方法摘录。工厂返回展示映射，不自行加载图片。`Character` 使用 Portrait／Avatar 兼容槽位；当前角色主图应明确用 `Create` 绑定 `Icon`，见[添加角色图片](../tutorials/assets-and-text.md#角色和敌人也想换图)。路径相对于包根，构建生成索引；空可选路径会跳过，非空路径必须存在且符合槽位类型。
 
 | 槽位 | 制作规格／用途 |
 | --- | --- |

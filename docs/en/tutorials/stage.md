@@ -1,56 +1,75 @@
-# Make your first fixed stage
+# Build a small adventure you can finish
 
 [简体中文](../../zh-CN/tutorials/stage.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
+Add **Trail Lab** to your mod. It has one guard with an exit hidden underneath. Defeat the guard, use the exit, then change the guard's HP from 4 to 8 to see your stage update.
 
-Goal: **Trail Lab** appears in level selection. Its first column contains a guard above an exit; all other columns are empty. Defeat the guard, use the revealed exit, and finish with victory. Then change guard HP from 4 to 8 and see the new value after restarting.
+**Before this lesson:** finish [Your first mod](first-mod.md) and keep its `ModEntry` and `StarterRelic`. You need no artwork or music.
 
-Prerequisite: [Your first mod](first-mod.md). Add two complete content classes for this exercise; no finished adventure package is supplied. Edit `source/ModEntry.cs` and add `source/PracticeStage.cs`. No external classes, images, or music are needed.
+| File | What you do |
+| --- | --- |
+| `source/PracticeStage.cs` | Create it and add the stage source |
+| `source/ModEntry.cs` | Add a registration line inside `Load` |
+| `package.json` | Increment the version before each changed installation |
 
-Before installing a changed build, increment `package.json.version` as in [the first lesson](first-mod.md#4-change-one-value-and-verify-again). Different contents cannot replace an installed package under the same version.
+## 1. Add the stage source
 
-## 1. Add the source stage and selection entry
+Use **Open Source** on your project's Workshop row. Create **`PracticeStage.cs`** inside `source` and paste all of [the fixed-stage source](../../../templates/en/08-fixed-stage-lab.cs.txt) into it.
 
-Copy the [fixed-stage fragment](../../../templates/en/08-fixed-stage-lab.cs.txt) to `source/PracticeStage.cs`. Keep your generated namespace. It contains `PracticeStage` and `PracticeAdventure`, without a second mod entry.
+If you used a different package ID from the first lesson, replace `namespace LocalAliceLanternTrailMod` with the namespace in your own `ModEntry.cs`. Keep `ModEntry.PackageId` elsewhere. You do not need a new entry class or a new project.
 
-Keep the relic registration in `ModEntry.Load` and add:
+This file contains two classes: `PracticeStage` places cards on the board, and `PracticeAdventure` gives you an entry in level selection. Keep both.
+
+In `source/ModEntry.cs`, find the existing `Load` method. Add the stage registration after the relic registration. The method should now be:
 
 ```csharp
-registrar.AddContents(new PracticeStage(), new PracticeAdventure());
+public override void Load(IModRegistrar registrar)
+{
+    registrar.AddContent(new StarterRelic());
+    registrar.AddContents(new PracticeStage(), new PracticeAdventure());
+}
 ```
 
-`StageContent` defines the board; `AdventureContent` creates its level-selection entry. Registering only the stage does not create that entry. This guard uses the public `ContentCards.Enemy` factory directly. After the [enemy lesson](enemy.md), you can register an `EnemyContent` and call its `CreateCard` instead.
+Replace only the existing `Load` method. Keep the rest of `ModEntry.cs`, including the `StarterRelic` class below it. Make sure the new file ends in `.cs`, not `.cs.txt`.
 
-## 2. Connect storage order to play order
+## 2. See why the guard covers the exit
 
-![Fixed-column storage and exposure order](../../../images/fixed-column-order.svg)
+Find these lines in `PracticeStage.cs`:
 
-`cards` stores cards from bottom to top. The last card is exposed. Adding the exit before the guard puts the guard in front of the player first. The loop creates the normal number of columns and adds cards only to the first; empty columns remain empty.
+```csharp
+columns[0].cards.Add(exit);
+columns[0].cards.Add(guard);
+```
 
-`appearancePool` includes an Exit template for compatibility with earlier validators. In the current C# validator, a fixed layout is checked for an exit in its fixed columns; a random layout is checked in its pool. With nonempty `fixedColumns`, runtime clones only the fixed columns and does not add random pool cards. That pool template will not create a second exit. See [Stage reference](../reference/stages.md).
+The code places the exit first, then the guard. Cards are stored **bottom to top**, so the guard added last is exposed first. Defeat it to reveal the exit. `columns[0]` is the first column; `columns[1]` is the second.
 
-## 3. Verify through player actions
+![Cards are stored bottom to top; the guard is exposed before the exit](../../../images/fixed-column-order.svg)
 
-Build and install, then fully exit and restart. Page through level selection to find Trail Lab, choose its only difficulty, and select Runehunter. The first column should expose the guard; the others should be empty.
+The source already creates the full column structure and leaves the other columns empty. You do not need to fill them or change `appearancePool` or `cardsPerRound` yet. After playing the stage, you can look up those fields in the [stage reference](../reference/stages.md).
 
-Attack the guard. Once it is defeated, the exposed card should become the exit. Use the exit and check the victory result. Character upgrades can change the number of attacks needed; this lesson does not prescribe an exact count. Empty art fields use host fallback presentation for checking the rules. Add your own art before a finished release.
+## 3. Play through it
 
-If the entry is absent, check adventure registration and `IncludeInSelection`. If the character cannot be selected, check the difficulty's `availableHeroIds` and host unlock rules. Use the stable public ID `BuiltInCharacterIds.RuneHunter`, not a localized name. The source's `allowedCharacterIds` is retained metadata rather than an enforced C# selection filter.
+1. Save both source files and increment the version in `package.json`.
+2. Return to Workshop, choose **Build and Install**, and check that installation succeeds and the mod is enabled.
+3. Fully exit and restart. From the main menu, open level selection and page through to **Trail Lab** (林径练习 in Chinese).
+4. Choose its only difficulty and **Runehunter** (符刃猎手), then start.
+5. The first column should expose a guard; the others should be empty. Click the guard to attack until it is defeated.
+6. Click the revealed exit. The adventure should end in victory.
 
-## 4. Change a visible value
+Existing character upgrades can change how many attacks defeat the guard. Check that the guard is defeated and the exit completes the adventure. The game's fallback artwork is enough for now; you can add your own later.
 
-In `ContentCards.Enemy`, change `hp: 4` to `hp: 8`. Rebuild, fully restart, and begin a new run. Guard maximum HP should become 8; card order and exit count should stay the same.
+**No level-selection entry?** Check that `Load` registers both `PracticeStage` and `PracticeAdventure`. A board definition alone does not add a selectable adventure. Then check `IncludeInSelection` and the difficulty's `availableHeroIds` in [Troubleshooting](../troubleshooting.md). Keep `BuiltInCharacterIds.RuneHunter` as a code identifier rather than replacing it with a displayed name.
 
-This proves the new DLL's content reaches the board. A successful build or registration count alone does not replace this check.
+## 4. Give the guard 8 HP
 
-## Checks and next step
+In `PracticeStage.cs`, find `hp: 4` in the `ContentCards.Enemy(...)` call and change it to `hp: 8`. This changes HP without moving cards or exits.
 
-- The entry, its difficulty, and its permitted character are selectable.
-- Normal column structure remains, only the first column is populated, and the guard is exposed first.
-- The revealed exit can be used to finish the adventure, and the 4→8 source change takes effect.
+Save, increment the version, build and install, fully restart and **start a new** Trail Lab run. The guard should now have 8 maximum HP. An old run already contains generated cards, so use a new run to check this change.
 
-Add the [treasure lesson's guaranteed reward](treasure.md), or continue with [Connecting stages](adventure.md). Random pools, bosses, graph routes, and loops remain in the [advanced overview](../02-content-creation.md).
+You can now create and modify a playable adventure. Continue with [Put your treasure in the stage](treasure.md) to see the starter shield take effect, or try [Connecting stages](adventure.md).
 
+### Look this up later
 
-Fragment names and descriptions now use ModText. Merge the sample entries as in [bilingual text](assets-and-text.md); without them, source fallbacks remain visible. Existing card/definition snapshots are not guaranteed to translate immediately, so check a fresh run after changing language.
+The source keeps an exit template in `appearancePool` for older validators. A fixed layout does not add that template to the board, so you still have only one exit. See the [reference](../reference/stages.md) for fixed-column and random-pool constraints.
+
+Names already use `ModText`. English source provides English fallback text. To display the corresponding Chinese names, follow [the text-merging steps](assets-and-text.md#merge-text-for-topic-fragments) for `stage.practice.*` and `adventure.practice.*`, then start a new run.

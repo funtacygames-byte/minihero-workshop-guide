@@ -41,7 +41,7 @@ namespace LocalAliceLanternTrailMod
 }
 
 // appearancePool 决定随机牌池；需要固定数量和列位置时改用 StageDefinition.fixedColumns。
-// allowedCharacterIds 为空表示不限角色；非空时必须包含要测试的角色 ID。
+// allowedCharacterIds 是保留元数据；实际选关名单由冒险难度的 availableHeroIds 设置。
 // 从 Mod API 1.7.0 开始，可以把本包角色追加到正式大关卡：
 // registrar.AddCharacterToLevel("challenge_wild_corruption_nest",
 //     ModEntry.PackageId + ".character.lantern_ranger");

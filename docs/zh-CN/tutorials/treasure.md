@@ -1,32 +1,33 @@
-# 制作与测试宝物
+# 把宝物放进自己的关卡
 
 [English](../../en/tutorials/treasure.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
+图鉴里已经有旅者遗物了。现在加一张“领取遗物”奇遇，让角色拿到它，再进入下一场景，看到 4 点护盾真正加上来。
 
-本课沿用首课的 `StarterRelic`，完成品质、等级、候选池与实际效果的检查。它在各品质共用一套教学公式；不应把换名字和数值当成新的成品设计。
+**从这里接着做：**完成[首课](first-mod.md)和[固定关卡](stage.md)。`StarterRelic.BaseValue` 保持为 4，守卫生命用 4 或 8 都可以。本课不需要图片和音乐。
 
-前置：[首个模组](first-mod.md)。实际效果部分还需完成[固定关卡](stage.md)。修改 `source/ModEntry.cs`，新增 `source/RelicGrant.cs`；不需要任何图片或音乐。
+| 文件 | 本课操作 |
+| --- | --- |
+| `source/RelicGrant.cs` | 新建一张奖励旅者遗物的奇遇 |
+| `source/ModEntry.cs` | 在原 `Load` 中注册奇遇 |
+| `source/PracticeStage.cs` | 在守卫上放奇遇，并让冒险包含两个场景 |
+| `package.json` | 递增版本后构建安装 |
 
-安装修改后的构建前，按[首课](first-mod.md#4-修改一次并重新验证)递增 `package.json.version`；同一已安装版本不能对应不同内容。
+## 1. 新建领取遗物的奇遇
 
-## 1. 先分清品质、等级与池
+将[领取遗物源码](../../../templates/zh-CN/09-relic-grant.cs.txt)完整复制到新文件 `source/RelicGrant.cs`。命名空间与自己的 `ModEntry.cs` 保持一致。这个文件只增加 `RelicGrant`，不要重新复制首课入口。
 
-`Rank = Common` 设置默认品质，不会限制默认 `GetStateVariants()` 只返回普通。首课没有覆写该方法或实现 `IMultipleVariantEffect`，因此图鉴提供五档品质，但不会自动生成不同效果数值。`BaseValue` 是每级护盾，本课沿用修改后的 4。`Describe(level)` 与 `OnStageEntered` 都计算 `BaseValue × level`；一级 4，二级 8。品质切换不改变等级。
-
-`CategoryTags` 使用 `TreasureCategoryTags.Shield`，表达生命体系中的护盾用途。`PoolTags` 使用 `CharacterTreasurePoolTags.HealingLifeBuild`，决定角色候选；分类本身不控制宝箱。林地药师（`grove_alchemist`）允许这个池，但随机抽取仍不保证出现。
-
-完整属性和多品质写法见[宝物参考](../reference/treasures.md)。带临时计数的效果应保存在本件运行时实例并在 `OnSceneReset()` 清空，见[生命周期](../reference/lifecycle.md)。
-
-## 2. 用明确奖励取代等待随机宝箱
-
-将[领取遗物片段](../../../templates/zh-CN/09-relic-grant.cs.txt)复制为 `source/RelicGrant.cs`，核对命名空间。它只定义一张测试奇遇，唯一选项奖励本包的 `StarterRelic`。在 `Load` 增加：
+在 `ModEntry.cs` 的 `Load` 方法里，保留原注册，再添加：
 
 ```csharp
 registrar.AddContent(new RelicGrant());
 ```
 
-在 `PracticeStage.CreateDefinition` 中，紧接 `columns[0].cards.Add(guard);` 后添加：
+现在入口应该注册 `StarterRelic`、`PracticeStage`、`PracticeAdventure` 和 `RelicGrant`。注册奇遇后，还要把它放到牌列上才能遇见它。
+
+## 2. 把奇遇放在守卫上面
+
+打开 `source/PracticeStage.cs`，在 `PracticeStage.CreateDefinition` 中找到 `columns[0].cards.Add(guard);`，**紧接在它后面**加入：
 
 ```csharp
 columns[0].cards.Add(
@@ -34,32 +35,41 @@ columns[0].cards.Add(
         .CreateCard(Id + ".grant"));
 ```
 
-现在第一列从底到顶是出口、守卫、领取遗物。事件先暴露，选择后发奖并移除。全部注册包括 `StarterRelic`、`RelicGrant`、`PracticeStage` 和 `PracticeAdventure`。确认只有一个 `ModEntry`。
+第一列从底到顶变成出口、守卫、领取遗物。最后放的奇遇最先露出来。它有一个奖励选项，选择后会把旅者遗物放入宝物栏，并移除奇遇卡。
 
-## 3. 让进场事件有下一次触发机会
+## 3. 给进场效果安排下一个场景
 
-进场奖励发生在进入场景时。场景已经进入后才领到的宝物，不能用当前护盾是否立刻增加来判断本效果。
+旅者遗物在**进入场景时**加盾。你是在第一场进场后才领到它，所以要进入下一场才能看到效果。
 
-在 `PracticeAdventure` 的唯一 step 将 `roundCount = 1` 改为 `roundCount = 2`，`IntermissionInterval` 改为 1。构建安装，完整重启，选择林径练习。先完成事件选项，确认宝物栏有旅者遗物；打败守卫后点击出口，通过整备页进入第二场景。
+在同一个 `PracticeStage.cs` 文件中找到 `PracticeAdventure` 类，只改这两项：
 
-第二场景进场应获得 4 点护盾（宝物一级、`BaseValue = 4`）。先观察护盾再攻击，避免受伤消耗护盾影响判断。测试时不要再领取第二件同名宝物；多件会分别生效。点击第一场景出口通常进入过渡流程，最后一场景的出口才结算整个冒险胜利。
+- 把 `Steps` 中唯一一步的 `roundCount = 1` 改为 `roundCount = 2`，让同一牌场生成两次。
+- 把 `public override int IntermissionInterval => 0;` 中的 `0` 改为 `1`，两个场景之间就有整备。
 
-## 4. 用边界检查确认公式与重置
+如果已经在多场景课做过这两处修改，保持 2 和 1 即可，不要再加一份 `Steps` 或第二个冒险类。
 
-将 `BaseValue` 临时改回 2，重新构建并完整重启，新开一局后第二场景应获得 2。图鉴一级也显示 2。恢复到自己选择的值，再做一次检查。不要只改描述字符串中的数字。
+## 4. 领取、通关，再看护盾
 
-本件没有临时计数，护盾是已经兑现的玩家资源，不是宝物内部待清空的计数。为其他宝物加入层数时，使用自己的可序列化实例字段；静态字段和共享定义会串到其他实例。默认新场景重置临时状态，跨场景例外必须明确声明。
+1. 保存源码、递增包版本，回游戏构建安装并完整重启。
+2. 新开“林径练习”。先点击“领取遗物”，选择奖励，确认宝物栏出现旅者遗物。
+3. 击败守卫，点击出口。第一场出口会带你进入整备流程；继续到第二场景。
+4. **先不要攻击。**看角色护盾，应比这件宝物触发前增加 4 点（一级、`BaseValue = 4`）。
+5. 观察完护盾后，处理第二场的领取奇遇，再打守卫、点击最后出口，完成冒险。重复牌场也会重复放这张奇遇；第二次领取发生在进场之后，不改变刚才已观察的进场收益。
 
-## 验收与下一步
+建议在没有其他进场加盾效果的情况下试。先记录进场收益，再处理其他牌。重复领取会增加后续效果来源，受伤也可能消耗护盾，都会使之后的总量变复杂。第一场出口没有立刻胜利是正常的，第二场才是结局。
 
-- 图鉴品质与等级正确，描述和进场护盾走同一公式。
-- 固定事件能明确授予宝物，下一场景能观察效果。
-- 不把 `StartingTreasureTypes` 当作选角发奖，也不把分类当作池。
+**有宝物却没加盾？**先确认自己已进入第二场；领取瞬间不是进场事件。再核对一级、`BaseValue`、同名宝物数量和其他加盾或消耗来源。不要只凭总护盾值猜效果。
 
-继续[角色与初始招式](character.md)，或查[治疗与事件](../reference/events.md)设计其他触发窗口。
+## 5. 再试一次数值变化
 
+把 `StarterRelic.BaseValue` 从 4 临时改为 2，保存、递增版本、构建安装、完整重启并新开局。现在图鉴一级应为 2，第二场进场也应加 2 护盾。试完恢复成自己想保留的值，再构建一次。
 
-相关扩展：[次数状态与重置](rules-and-state.md)。
+这个练习让你看到：**说明和效果应该用同一个公式**。不要只改说明字符串。宝物品质箭头也不会把一级升成二级；本例一级 4、二级 8，是等级倍率，各品质没有另外一套数值。
 
+### 想让随机宝箱也出现它？
 
-本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。
+`CategoryTags` 说明它是什么类型：本例是 `TreasureCategoryTags.Shield`。`PoolTags` 决定哪些角色可以抽到它：本例是 `CharacterTreasurePoolTags.HealingLifeBuild`，林地药师允许这个池。允许入池仍不保证每次抽到，所以本课用明确奖励先试效果。完整写法见[宝物参考](../reference/treasures.md)。
+
+以后做带次数或层数的宝物时，将状态保存在每件运行时宝物里，默认换场景重置。已经加给玩家的护盾是资源，不是宝物内部计数。可以接着做[三次上限的练习量瓶](rules-and-state.md)。
+
+想在两种语言下显示对应名称，按[文本合并步骤](assets-and-text.md#合并专题片段的文本)加入 `event.relic_grant.*` 条目。首课的 `content.starter_relic.*` 已在生成项目中。

@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/04-testing-and-publishing.md) · [Guide index](README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
-Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+This manual groups fields and rules by system. For guided steps, [follow the publishing steps](tutorials/publish.md), then return here when you need a reference.
 
 Compilation is the start of verification. Also check registration, bindings, values, state resets, assets, installation, and behavior in a clean environment.
 
@@ -165,7 +165,7 @@ Hashes detect changes and do not certify authorship. The author field is not pla
 
 ## 10. Publishing and updating in the game
 
-1. Select your source project in **Develop Mods**. Use **Open source** to edit version, cover, and preview paths in `package.json`. The shipped guide is read-only; your Sources is editable.
+1. Select your source project in **Develop Mods**. Use **Open source** to edit version, cover, and preview paths in `package.json`. Open Complete Guide opens the GitHub tutorial in your browser; edit your mod in Sources.
 2. Open release preparation and enter title, description, comma-separated tags, and version notes. Visibility defaults to private.
 3. Save a draft to retain incomplete metadata in workshop-root `State/Publication/<packageId>.json`.
 4. Validation/upload checks required metadata, compiles C#, validates the package, image paths, and hashes, then exports to `Exports/<packageId>/<version>-<uniqueId>/`. This publishing flow does not install or execute that DLL. After validation, Steam creates an item or updates the locally bound item.

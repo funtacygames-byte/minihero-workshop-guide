@@ -1,49 +1,67 @@
-# Build reproducible gameplay checks and reports
+# Find out why your mod is not working
 
 [简体中文](../../zh-CN/tutorials/debugging.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+“It builds, but nothing happens in the game” can have several causes. Find the earliest failed step before changing source, artwork and stage layout all at once.
 
+This page uses [Your first mod](first-mod.md), [the fixed stage](stage.md) and [the relic reward](treasure.md) as examples. You only need your mod project and the game.
 
-Goal: split “build succeeds but nothing happens” into six checks: registration, appearance, trigger, measurement, settlement and reset. Prerequisite: [first mod](first-mod.md). Use a [fixed stage](stage.md) and [specified reward](treasure.md) with only necessary content. This is a test in your workshop source project; no Unity project is required.
+## 1. Start with what you can see
 
-## 1. Fix inputs and record deltas
+| Symptom | Check first | Next step |
+| --- | --- | --- |
+| The build fails | The first compiler error's file and line | Fix it, then build again |
+| The relic is missing from the codex | Successful installation, enabled mod, full restart and search language | Use [loading diagnostics](../troubleshooting.md) |
+| The relic is in the codex but not in chests | Character pool eligibility, or simply a random draw | Grant it directly with the encounter |
+| You collect the relic but gain no shield | Whether you have entered the next stage | A relic collected after entry triggers on the next entry |
+| You changed 2 to 4 but still see 2 | Saved source, incremented version and successful new installation | Fully exit, restart and start a new run |
+| Hurting one wolf also strengthens the other | Shared objects or `static` fields storing state | Use each card's own state |
 
-Choose a fixed character, board, reward, level and quality. Remove unrelated treasures. Record HP, shield, attributes, gold, turn, columns and counters before and after. Separate display results from actual state. “Total shield is 10” cannot show whether this treasure added 3.
+Find specific diagnostic codes in [Troubleshooting](../troubleshooting.md). Fix the first failure, then move on.
 
-## 2. Minimum coverage by content
+## 2. Isolate it in a small practice run
 
-| Content | Cover at least |
-| --- | --- |
-| Treasure | Acquisition, level, quality values, repeated preview, stacking, cap, new stage, restore |
-| Move | Uses 0/1/cap, no target, multiple targets, automatic activation, restored uses |
-| Enemy | Independent counters for two instances, defense, zero HP damage, death and boss reward |
-| Item | Direct/targeted use, exposed target, healing modifiers, removal and notification |
-| Choice | No effects on opening, payment, repeated clicks, rollback, chained cancellation, restore |
-| Adventure | Selection entry, character list, every exit, preparation, final victory, loop termination/continuation failure |
-| Page/assets | Original-menu fallback, missing files, language switch, original font/layout, cropping, global audio settings |
-
-Minimums, caps and exact affordability versus one short often reveal more than ten additional normal cases. Fix seeds and record actions for random content; the same seed with different actions need not yield the same result.
-
-## 3. Locate the first failed layer
-
-For compilation, inspect the first compiler error. For loading, inspect package ID, full entry point, API, hashes and duplicates. For appearance, check pool/stage placement after registration. For triggers, check the event and real action. For numbers, check requested, shared accumulators and rounding. For a second-attempt failure, inspect instance state, caps and resets. Use [troubleshooting](../troubleshooting.md) for symptoms.
-
-## 4. Copyable report
+Use one character, one reward and one effect to check. Place the content in fixed columns instead of waiting for random draws. Record values before and after, for example:
 
 ```text
-Guide revision / API / package version:
-Lesson and step:
-Seed / character / difficulty / quality / level:
-Files changed and registered IDs:
-Action sequence:
-Before -> expected -> actual:
-First diagnostic code and location:
-Build / load / gameplay / save / UI / Steam: passed, failed, or not run
+Before: 0 shield; one level-1 Wayfarer's Relic collected; BaseValue is 4.
+Action: defeat the first guard, use the exit and enter stage two through preparation.
+Expected: gain 4 shield on entry.
+Actual: shield remains 0.
 ```
 
-Share only relevant source and diagnostics, removing private paths, accounts, saves and development references. Include the code, not just the final “failed” line. Local installation, same-process reload, full restart and Steam submission require separate results.
+That narrows the question to the stage-entry effect. “Shield is wrong” leaves out whether you collected the relic, entered another stage or took damage that consumed shield.
 
-## 5. Recheck according to the change
+For random stages, keep the seed, difficulty and action sequence too. The same seed with different actions need not produce the same later random results.
 
-Text changes need bilingual and layout checks. Number changes need descriptions, boundaries and effects. Event/state changes need preview, reset and restoration. Entry/reference changes need full restart and registration. Increment the version for each rebuilt installation. Maintainers may run documentation tools, but link checks do not verify gameplay. Unity checks use only the already-open formal Editor; guide readers need neither Unity installation nor project copies.
+## 3. Choose checks that match the edit
+
+| You changed… | Try in the game |
+| --- | --- |
+| A name or description | Both languages are readable, placeholders become numbers and text is not cut off |
+| A value or formula | Description and effect agree; minimums and caps work |
+| A counter or trigger | First trigger, last trigger, beyond the cap and entry to another stage |
+| Enemy state | Two enemies change independently; new cards start from initial values |
+| A paid option | Exactly enough gold, one gold short and no duplicate payment |
+| A multi-stage route | Every exit is reachable, the adventure can end in victory and Continue Game resumes it |
+| A page or assets | Buttons work, the original menu is reachable, images and sound work in the game |
+
+You do not need to repeat the entire table for a name change. Pick the relevant checks. Increment the version before installing changed content, and fully restart for C# changes.
+
+## 4. Ask another person or AI for help
+
+Copy this short template:
+
+```text
+Lesson page and step:
+Game/API version, mod package ID and version:
+Files and code I changed:
+Steps to reproduce:
+Expected result:
+Actual result, including values before and after:
+First error with file and line, or "none":
+```
+
+Share only relevant source and necessary errors. Remove private paths, account details and other personal content. Do not send whole game DLLs or saves. For a failed build, the first `error CS...` is usually more useful than the final “build failed” line.
+
+When asking AI to fix it, request an explanation followed by the smallest relevant edit. Check each fix in the game before moving on, rather than having it rebuild a project that already works. See [Making mods with AI](../ai-authoring.md) for prompts.

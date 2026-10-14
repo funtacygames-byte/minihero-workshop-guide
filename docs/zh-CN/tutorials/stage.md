@@ -1,56 +1,75 @@
-# 制作第一个固定关卡
+# 做一场能通关的小冒险
 
 [English](../../en/tutorials/stage.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
+现在给你的模组做一个“林径练习”入口。进入后只有一名守卫，出口藏在它下面。你会亲手击败守卫、点击出口，再把守卫生命从 4 改到 8，确认自己的关卡也能修改。
 
-目标：关卡选择页出现“林径练习”；进场后第一列只有守卫和其下的出口，其他列为空；击败守卫，再点击出口，冒险胜利。第二次把守卫生命由 4 改为 8，重启后看到新值。
+**接着哪一步做：**完成[首课](first-mod.md)，保留其中的 `ModEntry` 和 `StarterRelic`。本课不需要图片和音乐。
 
-前置：[首个模组](first-mod.md)。这里只增加两个完整内容类，不提供成品冒险包。修改 `source/ModEntry.cs` 并新增 `source/PracticeStage.cs`，无需外部类、图片或音乐。
+| 文件 | 本课操作 |
+| --- | --- |
+| `source/PracticeStage.cs` | 新建，放入关卡源码 |
+| `source/ModEntry.cs` | 在 `Load` 中增加一行注册 |
+| `package.json` | 每次安装修改后的内容前递增版本 |
 
-安装修改后的构建前，按[首课](first-mod.md#4-修改一次并重新验证)递增 `package.json.version`；同一已安装版本不能对应不同内容。
+## 1. 把关卡代码加入项目
 
-## 1. 增加素材关卡与选择入口
+通过工坊项目行的“打开源码”进入自己的项目。在 `source` 文件夹新建 **`PracticeStage.cs`**，将[固定关卡源码](../../../templates/zh-CN/08-fixed-stage-lab.cs.txt)的全部内容复制进去。
 
-把[固定关卡片段](../../../templates/zh-CN/08-fixed-stage-lab.cs.txt)复制为 `source/PracticeStage.cs`。保留自己的生成命名空间。它包含 `PracticeStage` 与 `PracticeAdventure`，不包含第二个 Mod 入口。
+如果你的项目没有使用首课的默认包 ID，把新文件的 `namespace LocalAliceLanternTrailMod` 换成自己 `ModEntry.cs` 中的命名空间。其他地方继续使用 `ModEntry.PackageId`，不用重新创建入口或项目。
 
-在现有 `ModEntry.Load` 里保留旅者遗物注册，再添加：
+这个文件包含两个类：`PracticeStage` 决定桌面摆哪些牌，`PracticeAdventure` 让你能从关卡选择页进入这场冒险。保留两者。
+
+打开 `source/ModEntry.cs`，找到原来的 `Load` 方法，在旅者遗物注册后面加一行。修改后这个方法是：
 
 ```csharp
-registrar.AddContents(new PracticeStage(), new PracticeAdventure());
+public override void Load(IModRegistrar registrar)
+{
+    registrar.AddContent(new StarterRelic());
+    registrar.AddContents(new PracticeStage(), new PracticeAdventure());
+}
 ```
 
-`StageContent` 定义牌场，`AdventureContent` 创建关卡选择页入口。只注册 Stage 不足以创建这个入口。固定布局的 guard 直接用公开的 `ContentCards.Enemy` 创建；学习[敌人课](enemy.md)后可改为注册 `EnemyContent` 并调用它的 `CreateCard`。
+这里只替换原 `Load` 方法。`ModEntry.cs` 中的其他代码保留，尤其是后面的 `StarterRelic` 类。新文件保存后应叫 `.cs`，而不是 `.cs.txt`。
 
-## 2. 理解代码顺序与点击顺序
+## 2. 看懂守卫为什么在出口上面
 
-![固定列存储与暴露顺序](../../../images/fixed-column-order.svg)
+在 `PracticeStage.cs` 中找到这两行：
 
-`cards` 从底到顶存储，最后一张是明牌。本课先加入出口，再加入守卫，所以玩家先遇见守卫。循环创建正常数量的列，只在第一个列表加牌；空列会保留为空。
+```csharp
+columns[0].cards.Add(exit);
+columns[0].cards.Add(guard);
+```
 
-`appearancePool` 中保留一个 Exit 模板，便于兼容较早的校验器。当前 C# 校验器在固定布局检查固定列中的出口，在随机布局检查候选池中的出口。因为 `fixedColumns` 非空，运行时只克隆固定牌列，不从随机池补牌；这个池中模板不会变成第二个出口。完整字段约束见[关卡参考](../reference/stages.md)。
+代码先放出口，再放守卫。牌列按**从底到顶**的顺序保存，最后放进去的守卫露在最上面，所以玩家先打它，打完才看到出口。`columns[0]` 是第一列，`columns[1]` 才是第二列。
 
-## 3. 构建并按玩家动作验证
+![牌列在代码中从底到顶保存，游戏先显示最上方的守卫](../../../images/fixed-column-order.svg)
 
-构建安装，完整退出并重启。在关卡选择页翻页找到“林径练习”，选择唯一难度和符刃猎手。进入后应看到第一列守卫，其余列为空。
+这份代码已经创建了完整的列结构，其他列为空。不需要向空列补牌，也先不要改 `appearancePool` 或 `cardsPerRound`。这些字段的区别可以等做完后查[关卡参考](../reference/stages.md)。
 
-点击守卫完成攻击，确认其被击败后明牌变成出口；点击出口，检查胜利结算。不同角色强化可能改变击败所需次数，本课不承诺固定攻击次数。图片留空使用宿主后备表现；这用于检查规则流程，正式发布前再补自己的美术。
+## 3. 进游戏玩一遍
 
-若入口不出现，检查 Adventure 是否注册、`IncludeInSelection` 是否为 true；若角色不可选，核对难度的 `availableHeroIds` 与宿主解锁规则；使用公开稳定 ID `BuiltInCharacterIds.RuneHunter`，不要改成显示名称。素材的 `allowedCharacterIds` 是保留元数据，不是当前 C# 选人过滤器。
+1. 保存两个源码文件，在 `package.json` 中把版本提高一次。
+2. 回工坊点击“构建并安装”，确认成功并启用这份模组。
+3. 完整退出并重启游戏，从主菜单进入关卡选择，翻页找到“林径练习”（英文 **Trail Lab**）。
+4. 选择唯一的难度和“符刃猎手”（英文 **Runehunter**），开始游戏。
+5. 第一列应该露出守卫，其余列为空。点击守卫攻击，直到它被击败。
+6. 守卫消失后，点击露出的出口，应该进入冒险胜利结算。
 
-## 4. 改一个可见值
+角色已有强化可能改变打败守卫需要的攻击次数；判断结果时看守卫是否被击败、出口能否通关。现在使用游戏的后备图片也可以完成流程，自己的美术以后再加。
 
-在 `ContentCards.Enemy` 调用中将 `hp: 4` 改成 `hp: 8`，重新构建、完整重启并新开一局。守卫最大生命应变为 8，列顺序与出口数量保持不变。
+**找不到入口？**先看 `Load` 中是否同时注册了 `PracticeStage` 和 `PracticeAdventure`。只有关卡牌面定义，没有冒险入口，选关页不会多出这一项。再检查 `IncludeInSelection` 和难度的 `availableHeroIds`，详见[关卡排错](../troubleshooting.md)。不要把 `BuiltInCharacterIds.RuneHunter` 换成中文显示名。
 
-这一步验证新 DLL 的内容确实进入牌场。只看构建成功或注册数量，不能代替这一步。
+## 4. 把守卫生命改为 8
 
-## 验收与下一步
+回到 `PracticeStage.cs`，在 `ContentCards.Enemy(...)` 中找到 `hp: 4`，改为 `hp: 8`。这只改变守卫的生命，不移动牌列或出口。
 
-- 入口存在，唯一难度和允许角色可选。
-- 正常列结构保留，只有第一列非空，守卫先暴露。
-- 出口确实可点击，并完成冒险；4→8 的源码变化生效。
+保存、递增版本、构建安装、完整重启，然后**新开**一局林径练习。现在守卫最大生命应为 8。旧局的牌已经生成，所以不要用旧存档判断这次修改是否生效。
 
-用[宝物课的明确奖励](treasure.md)扩展测试，或进入[连接多个场景](adventure.md)。随机牌池、首领、图路线与循环留在[进阶总览](../02-content-creation.md)。
+你已经能创建一场可玩的冒险并修改其中的敌人。接着做[把宝物放进关卡](treasure.md)，让首课的护盾真正生效；也可以先看[连接多个场景](adventure.md)。
 
+### 之后需要时再看
 
-本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。
+这份代码的 `appearancePool` 留有一个出口模板，用于兼容较早校验器；固定列运行时不会把它补进牌场，因此仍只有一个出口。固定列和随机牌池的完整约束在[参考页](../reference/stages.md)。
+
+本课名称已使用 `ModText`。使用中文源码时默认显示中文；要在英文界面看到对应名称，按[文本合并步骤](assets-and-text.md#合并专题片段的文本)加入 `stage.practice.*` 和 `adventure.practice.*` 条目，再新开一局检查。

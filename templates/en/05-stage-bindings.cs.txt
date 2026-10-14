@@ -41,7 +41,7 @@ namespace LocalAliceLanternTrailMod
 }
 
 // appearancePool supplies random candidates; use StageDefinition.fixedColumns for exact counts and positions.
-// Empty allowedCharacterIds is unrestricted; otherwise include the test character ID.
+// allowedCharacterIds is retained metadata; the adventure difficulty's availableHeroIds sets the selection roster.
 // Since Mod API 1.7.0, append a package character to a built-in selectable level:
 // registrar.AddCharacterToLevel("challenge_wild_corruption_nest",
 //     ModEntry.PackageId + ".character.lantern_ranger");

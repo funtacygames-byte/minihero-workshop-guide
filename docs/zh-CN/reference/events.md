@@ -2,7 +2,7 @@
 
 [English](../../en/reference/events.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-13
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 当前基准 1.8.0。公共内容类覆写事件方法，例如 `public override void OnAfterHealing(AfterHealingEvent e)`；字段定义查[API 表面](api-surface.md)，运行顺序查[生命周期](lifecycle.md)。不在 Mod 中自己派发宿主事件。
 

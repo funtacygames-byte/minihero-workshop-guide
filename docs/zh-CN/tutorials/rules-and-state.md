@@ -1,41 +1,79 @@
-# 为有次数上限的规则保存独立状态
+# 给宝物加一个三次上限
 
-[English](../../en/tutorials/rules-and-state.md) · [Index](../README.md)
+[English](../../en/tutorials/rules-and-state.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14
+做一件“练习量瓶”：治疗后获得治疗量 10% 的护盾，每场景最多 3 次。你会用四瓶药剂看到前三次加盾、第四次停止，再进入下一场检查次数重置。
 
+**需要已有：**[宝物课](treasure.md)的领取奇遇和两场景练习。暂时只保留本课的加盾来源，避免把其他宝物的收益算进来。
 
-目标：练习量瓶按治疗量的 10% 加盾，每场景最多三次，换场景重置；预览与实际执行一致。前置：[宝物课](treasure.md)、[事件参考](../reference/events.md)；[片段 13](../../../templates/zh-CN/13-stateful-relic.cs.txt)是状态教学片段，不是推荐新增的正式宝物。正式设计仍须对当前宝物目录写功能指纹去重。
+| 文件 | 本课操作 |
+| --- | --- |
+| `source/PracticeCounterRelic.cs` | 新建，复制量瓶源码 |
+| `source/RelicGrant.cs` | 将奖励改为练习量瓶 |
+| `source/PracticeItems.cs` | 新建或复用月露药剂，改为恢复 10 |
+| `source/ModEntry.cs` | 注册量瓶和药剂 |
+| `source/PracticeStage.cs` | 放四瓶药剂，保留奇遇、守卫和出口 |
 
-## 1. 先写可验证的规则
+## 1. 领取这件量瓶
 
-触发=正治疗结算后；输入=`requested`；收益=护盾；状态=实例次数 0～3、场景重置；目标=玩家；限制=三次、无消耗、单传说品质、一级。护盾归生命构筑池及 Shield 分类，两者用途仍不同。
+把[量瓶源码](../../../templates/zh-CN/13-stateful-relic.cs.txt)复制到 `source/PracticeCounterRelic.cs`，命名空间与入口一致。在原 `Load` 里注册：
 
-新增 `source/PracticeCounterRelic.cs` 并在 Load 注册。为了确定获得，沿用[指定奖励片段 09](../../../templates/zh-CN/09-relic-grant.cs.txt)，将其 rewardContentId 改为 `.treasure.practice_counter` 并同步奇遇说明。不要依赖默认宝箱抽中单传说版本。新设计没有给其他品质数值，因此不自行补四档。
+```csharp
+registrar.AddContent(new PracticeCounterRelic());
+```
 
-## 2. 状态放哪里
+打开 `RelicGrant.cs`，将 `rewardContentId` 改为 `ModEntry.PackageId + ".treasure.practice_counter"`。保留领取奇遇的放牌代码，只替换奖励，不再同时奖励首课宝物。对应名称和说明也改为领取练习量瓶。
 
-`healingTriggers` 是具体运行时宝物对象上的 public int，随可序列化类保留。不能 static，不能存在 UI 上，不能让两件宝物共用同一个 List。`OnAfterHealing` 先检查治疗量与次数，再增加计数并用 Runtime 加盾；`OnSceneReset` 归零。不要在每次 OnTreasureStats 重算时推进计数。
+量瓶只有传说品质、一级：源码用 `GetStateVariants()` 明确只返回这一种。你不用为它再补四档数值。它的护盾分类和生命构筑池与前课一样，获取仍用明确奖励。
 
-预览运行在隔离状态与运行时内容副本上，应走同一公式；不通过 `if (IsPreview) return` 删除预览收益，也不让预览推进真实计数。引用型可变字段要检查克隆隔离，此片段只使用整数。保存恢复和运行时实例复制是不同步骤，分别验收。
+## 2. 摆四瓶恢复 10 的药剂
 
-## 3. 测试三种生命情况
+如果还没做[道具课](items-and-events.md)，把[道具源码](../../../templates/zh-CN/12-items.cs.txt)复制为 `source/PracticeItems.cs`，使用相同命名空间。已有该文件就直接修改，不再复制同名类。
 
-| 条件 | 结算治疗量 | 预期计数和护盾 |
-| --- | ---: | --- |
-| 缺血充足、无修正 | 10 | +1 次，+1 护盾 |
-| 只缺 2 生命 | 10 | 仍 +1 次、+1 护盾 |
-| 满血 | 10 | 仍 +1 次、+1 护盾 |
-| 已触发三次 | 10 | 无第四次护盾 |
+将 `MoonDewPotion` 的 `Heal => 6` 改为 `Heal => 10`。把源码默认说明及两语言 `item.moon_dew.description` 的 6 一并改为 10。在 `Load` 中注册一次：
 
-这不是读取 `actual` 的条件。共同 Percent 取整见事件参考；不要把“基础属性换算向下取整”套在所有共享百分比上。加治疗修正时以修正后 requested 为输入。测试之前移除其他加盾来源，记录差值，不把总护盾误当本宝物收益。
+```csharp
+registrar.AddContent(new MoonDewPotion());
+```
 
-## 4. 重置、读档和双语
+在 `PracticeStage.CreateDefinition` 的列创建完毕后、返回定义之前，加入：
 
-在第三次后保存恢复，第四次仍不可触发；进下一场景再治疗，第一次应可触发。装两件时计数各自独立。连续预览不改变实战剩余额度。描述使用“治疗量”／“healing amount”，保留 10% 与每场景三次，不逐条加溢出括注。
+```csharp
+columns[1].cards.Clear();
+for (int i = 0; i < 4; i++)
+{
+    columns[1].cards.Add(registry.Get<ItemContent>(
+        ModEntry.PackageId + ".item.moon_dew_potion").CreateCard(Id + ".heal." + i));
+}
+```
 
-需要整局永久成长时明确保存对象、兑现资源、离场交接和读档规则；默认临时强化不跨场景。以共享 Runtime 兑现生命／金币不等于必须在场景重置时撤回这些已兑现资源。
+这会让第二列从上到下依次露出四瓶药剂，每张都有独立实例 ID。第一列仍是领取奇遇、守卫和出口。按[文本合并步骤](assets-and-text.md#合并专题片段的文本)加入量瓶和药剂的中英文条目。
 
-## 5. 不占宝物槽的冒险规则
+## 3. 回游戏喝四次
 
-全关规则继承 `AdventureRuleContent`，在具体类实现 Description、IconId 和事件。Load 注册后由 AdventureRuleIds 或难度 adventureRuleIds 激活；它不会作为宝物奖励。覆盖 OnStageEntered 时调用 base 才保留默认状态投影。难度成长数组 null／空数组继承规则，[0] 明确关闭该属性成长。不要把“已注册”误写成“已激活”。扩展种子与循环见[冒险模式课](adventure-modes.md)。
+保存、递增包版本、构建安装、完整重启。新开林径练习，先领量瓶，再依次点击第二列的药剂。没有其他治疗修正时，记录每次的护盾变化：
+
+| 第几瓶 | 本次新增护盾 | 已触发次数 |
+| --- | ---: | ---: |
+| 1 | 1 | 1 |
+| 2 | 1 | 2 |
+| 3 | 1 | 3 |
+| 4 | 0 | 仍为 3 |
+
+满血也能用于这项检查：治疗量为 10，即使生命条没有增加，仍应按 10 计算护盾。只缺 2 点生命时也是同样的 1 点护盾。加治疗增减效果后，改用修正后的治疗量计算。
+
+打败守卫，通过出口和整备进入第二场。先不要点新场景的领取奇遇，直接喝第一瓶药剂，应再次加 1 护盾。这一步先确认单件的次数重置；要继续通关时再处理奇遇。观察新增量，不把上一场留下的其他资源当作本次触发。
+
+## 4. 代码如何记住次数
+
+量瓶的 `healingTriggers` 是这件运行时宝物自己的计数。`OnAfterHealing` 先检查治疗量和上限，再增加计数并加盾；`OnSceneReset` 在换场景时归零。
+
+如果用 `static` 字段，两件量瓶可能共用次数；如果存在 UI 对象上，保存恢复也会失去正确来源。这个例子使用可序列化类中的公开整数，便于保存每件宝物各自的状态。
+
+这里读取 `AfterHealingEvent.requested`，表示结算后的治疗量；`actual` 只是生命条真正增加的部分。字段名容易让人误会，具体含义见[治疗事件](../reference/events.md)。
+
+### 准备分享前，再多试几步
+
+触发三次后保存并继续游戏，第四次仍不应加盾。两件量瓶应各算各的次数。连续查看操作预览不能消耗真正的次数，预览和执行要走同一个公式。修改规则时一起检查上限、换场景和保存恢复，详见[生命周期](../reference/lifecycle.md)。
+
+想让整场冒险都受同一规则影响、又不占宝物槽，可以继续查 `AdventureRuleContent`：它需要注册，并通过 `AdventureRuleIds` 或难度的 `adventureRuleIds` 激活。字段与默认值见[规则参考](../02-content-creation.md)。这不是完成量瓶的前置步骤。

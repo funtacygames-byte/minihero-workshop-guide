@@ -2,65 +2,98 @@
 
 [简体中文](../../zh-CN/tutorials/first-mod.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
+Start with one small change: load a treasure called **Wayfarer's Relic**, then change its stage-entry shield from 2 to 4. You will see your edit in the codex. In the next lesson, you will build a playable stage for it.
 
-By the end of this lesson, the treasure codex will show **Wayfarer's Relic**, and its level-1 description will change from 2 shield to 4. This verifies building, installation, and loading. The next lesson uses a fixed board to test the actual stage-entry effect.
+## Before you start
 
-You need the installed game, a code editor, and a .NET SDK that runs `dotnet --version` in a terminal. You do not need Unity or the game's source. Start without images, music, or configuration.
+- **MiniHero:** use the Windows game build with C# mod support. This guide covers API 1.8.0. Update before starting; see [versions](../reference/versions.md) for build limitations.
+- **A code editor:** use an editor you are comfortable with that can edit C# files. Source files are plain text; do not save them using Word.
+- **The .NET SDK:** this compiles C# into a DLL the game can load. If you need it, choose the **SDK** for your system from [Microsoft's download page](https://dotnet.microsoft.com/download). Installing only the Runtime is not enough.
 
-## 1. Create a project and check its names
+After installation, open a new terminal or PowerShell window and enter:
 
-Use the crossed-tools button at the lower left of the main menu to open **Adventure Workshop → Develop Mods → New C# Project…**. Use package ID `local.alice.lantern-trail`, display name **Lantern Trail**, and your own author name. If that ID already exists, choose a different one and keep the namespace generated for it.
+```powershell
+dotnet --version
+```
 
-![English Adventure Workshop screen; Develop Mods is the middle row](../../../images/ui-workshop-overview-en.png)
+If an SDK version appears, you are ready. If `dotnet` is not found, close and reopen the terminal, then check the SDK installation if necessary. You do not need Unity, the game's source code, the repository's Python tools, or any artwork and music yet.
 
-Actual English game UI, captured on 2026-10-13 with API 1.8.0. Choose **Open** on the middle **Develop Mods** row. Other languages use the same layout and entry point. This screenshot identifies the tutorial's starting point.
+## 1. Create a practice project
 
-Use Open Source on the project row. You should find `package.json`, `source/ModEntry.cs`, `source/*.csproj`, and `localization`. A new project normally has no mod DLL until its first build.
+1. Launch the game and use the crossed-tools button at the lower left of the main menu to open **Adventure Workshop**.
+2. Open **Develop Mods**, then choose **New C# Project…**.
+3. Fill in the fields below and create the project.
 
-If you cannot locate a button or file, see the [creation dialog, source layout, and build-result images](../reference/visual-walkthrough.md).
-
-| Name | Value in this lesson | How to handle it |
+| Field | Use for this lesson | Meaning |
 | --- | --- | --- |
-| Package ID | `local.alice.lantern-trail` | Match the directory and entry attribute; keep stable after release |
-| Namespace | `LocalAliceLanternTrailMod` | Keep the generated value |
-| Full entry type | `LocalAliceLanternTrailMod.ModEntry` | Match `package.json.codeEntryPoint` |
-| Display name | Lantern Trail | Edit localized values without renaming these identifiers |
+| Package ID | `local.alice.lantern-trail` | The mod's technical identity; the following code uses this value |
+| Display name | Lantern Trail | The project name shown in the game |
+| Author | Your name or nickname | The author shown in the mod's details |
 
-`codeAssembly` should point to `mod/LocalAliceLanternTrailMod.dll`. These values are case-sensitive. A different package ID generates a different entry; do not copy this table unchanged. See [Entry and registration](../reference/entry.md).
+If that ID already exists, check whether it is your earlier practice project. You can reuse it or choose a different ID. Do not overwrite an unfamiliar project. With a different ID, you will adapt two code values in the next step.
 
-## 2. Use the same starter code
+![Adventure Workshop in English; Develop Mods is the middle row](../../../images/ui-workshop-overview-en.png)
 
-Open the [minimal entry and Wayfarer's Relic fragment](../../../templates/en/01-entry-and-config.cs.txt) and copy it into `source/ModEntry.cs`. Replace the entire file only when your package ID matches this lesson. Otherwise, first change the fragment's namespace and `PackageId` to the generated values and check the manifest. Keep the generated `.csproj` and `package.json`.
+In Chinese, the same route is 冒险工坊 → 开发模组 → 新建 C# 项目…. The middle **Develop Mods** row opens your projects.
 
-The fragment registers one treasure that grants `BaseValue × level` shield on stage entry. Its name and description use the generated `content.starter_relic.*` localization keys. `BaseValue` starts at 2 and is shared by the description and execution. The filename still contains `config` to preserve old links; the fragment no longer registers configuration.
+Choose **Open Source** on your new project's row. The folder that opens is your **mod project root**, also called `Sources/<packageId>`. Look for:
 
-Older game scaffolds may contain a `shield_per_stage` configuration or `gameplay.general` tags. Replacing the source in this lesson makes the shield category and life-build pool consistent. See [Compatibility](../reference/compatibility.md) for the retained configuration API.
+```text
+package.json             Mod information and version
+source/
+  ModEntry.cs            The C# file you edit in this lesson
+  … .csproj              Build settings generated by the game
+localization/
+  zh-Hans.json           Chinese names and descriptions
+  en.json                English names and descriptions
+```
 
-## 3. Build and check loading
+Paths such as `source/ModEntry.cs` are relative to this folder, not the game's installation folder. It is normal to have no `mod/*.dll` yet; the first build creates it. For help finding files, see the [visual walkthrough](../reference/visual-walkthrough.md).
 
-Save the file and use Build and Install on the project row. Confirm the mod is enabled in mod management. Fully exit and restart the game, then open the treasure codex. Select **all characters** in the character filter and search for `Wayfarer's Relic`; in Chinese, search for `旅者遗物`.
+## 2. Add the lesson's starter code
 
-You should find Wayfarer's Relic. The codex may select its highest available quality by default; use the lower-left arrows to switch quality, not level. This starter does not supply different values per quality, so every quality's level-1 description grants 2 shield on stage entry. This check needs no random chest draw and does not grant the treasure.
+The game already generates a working starter treasure. Here you will use the guide's version so later character and stage fragments can share `ModEntry.PackageId`.
 
-If there is no result, use [Loading diagnostics](../troubleshooting.md) to check enabled state, entry, and language. Changing chest weights will not fix a loading failure.
+1. Open your project's `source/ModEntry.cs` in your code editor.
+2. Open [the lesson source](../../../templates/en/01-entry-and-config.cs.txt). Copy **all of the code** and replace the contents of `ModEntry.cs`. Do not keep the old entry class below the new one.
+3. If your package ID is `local.alice.lantern-trail`, save the file. With another ID, first replace the `PackageId` string with your ID and replace `namespace LocalAliceLanternTrailMod` with your project's generated namespace.
+
+Find your namespace in the original `ModEntry.cs`, or in `package.json`: it is the part of `codeEntryPoint` before the final `.ModEntry`. Keep your generated `.csproj`, `codeEntryPoint` and `codeAssembly`; no manual build setup is needed. This lesson's full entry name is `LocalAliceLanternTrailMod.ModEntry`.
+
+The linked file ends in `.cs.txt` so you can read it in a browser. Your destination is still `ModEntry.cs` in your project. Do not save it as `ModEntry.cs.txt` or include the webpage's title and links when copying.
+
+The code contains one entry class, `ModEntry`, and one treasure, `StarterRelic`. The treasure's name comes from the project's translation files. Its description and effect both use `BaseValue × level`. `BaseValue` starts at 2, so level 1 shows 2 shield.
+
+## 3. Find the treasure in the game
+
+1. Save the file and return to **Develop Mods**.
+2. Choose **Build and Install** on your project's row and wait for a successful installation. If it fails, use the report that opens and fix the first error with [Troubleshooting](../troubleshooting.md).
+3. In **Manage Mods**, check that the mod is enabled. If a code-trust prompt appears, check that it identifies the package you just created before continuing.
+4. Fully exit and restart the game, then open the treasure codex.
+5. Set the character filter to **all characters** and search for **Wayfarer's Relic**. In Chinese, search for 旅者遗物.
+
+Its level-1 description should grant 2 shield on stage entry. Your project is now loaded by the game. The codex displays content; it has not given the relic to your character. You will collect it in [the treasure lesson](treasure.md).
+
+The lower-left arrows switch **quality**, not level. All qualities use the same values in this lesson, so level 1 shows 2 at each quality. You can leave the current quality selected.
+
+No search result? Check that the mod is enabled, installation succeeded and your search matches the game's language. You do not need to wait for a random chest to find this treasure.
 
 ## 4. Change one value and verify again
 
-Change the `2` in this line to `4`:
+Return to the same `source/ModEntry.cs` and find:
 
 ```csharp
 public override int BaseValue => 2;
 ```
 
-Save the source and increase `package.json.version` from the generated `0.1.0` to `0.1.1` (or increment your current version). Build and install again, then fully exit and restart. The installer rejects different content under the same installed version. Apply this version increment before each later changed build you install; keep `packageId` unchanged. The level-1 codex description should now show 4 shield at every quality. Runtime effects still use `4 × level`; the codex quality arrows do not increase level. Keep `{0}` in both localized descriptions: the shared formula supplies it.
+Change `2` to `4` and save. Open `package.json` in the **project root** and change `version` from `0.1.0` to `0.1.1`. Keep the quotation marks and existing commas. If you have already used `0.1.1`, increment your current version instead. Leave the package ID unchanged.
 
-If the old value remains, confirm you edited `Sources`, check that the build succeeded, and verify every game process exited. Reloading within one process does not prove the new C# DLL ran.
+Use **Build and Install** again. After a successful installation, fully exit and restart the game. Find the relic in the codex: the level-1 description should now grant 4 shield on stage entry. Leave `{0}` in the localized description; the code fills it using the shared formula.
 
-## Checks and next step
+For later edits, increment the package version before installing changed content. “Different content under the same version” means installation was rejected. Change the version and build again; restarting alone will not fix that error.
 
-- The initial build succeeds, the mod is enabled, and the codex finds the treasure by name.
-- The level-1 value changes from 2 to 4 after rebuilding and fully restarting.
-- Package ID, content ID, entry type, and text keys stay unchanged when display text changes.
+Still seeing 2? Check these in order: did you edit the project opened by **Open Source**, save the file, install the new version successfully and exit every game process? **Reload Content** within the same process does not unload an already loaded C# DLL.
 
-Continue with [Creating and testing a treasure](treasure.md). To play your own board first, complete [A fixed stage](stage.md), then return to the treasure lesson to add a guaranteed reward.
+## What you have made
+
+You have created a mod, compiled and installed its source, and changed a treasure description through code. Keep this project and continue with [Your first fixed stage](stage.md), where you will play through a small adventure of your own.

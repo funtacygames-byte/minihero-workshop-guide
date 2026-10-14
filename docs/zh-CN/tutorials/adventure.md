@@ -1,18 +1,16 @@
-# 连接多个场景与整备
+# 把两个场景连成冒险
 
 [English](../../en/tutorials/adventure.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
+让“林径练习”延长为两场：第一场打完经过整备，第二场打完才胜利。先复用同一份牌场，之后再换成不同地区。
 
-目标：保留固定练习的可玩流程，扩展成两场景；第一场出口进入过渡，第二场出口胜利。理解素材关卡、步骤和实际场景 ID 的区别后，再扩展三个地区。
+**需要已有：**[固定关卡](stage.md)。这次只编辑 `source/PracticeStage.cs` 里的 `PracticeAdventure` 类，不用新建文件或准备图片。如果已经做过[宝物课](treasure.md)，两场景和整备已经设置好了，可以直接试第 2 节。
 
-前置：[固定关卡](stage.md)。只编辑 `PracticeAdventure`；不需要新美术或外部源 Stage。
+每次安装修改后的内容前，递增 `package.json.version`，构建安装并完整重启。
 
-安装修改后的构建前，按[首课](first-mod.md#4-修改一次并重新验证)递增 `package.json.version`；同一已安装版本不能对应不同内容。
+## 1. 让同一个牌场再出现一次
 
-## 1. 先用一个素材展开两次
-
-把唯一 step 的 `roundCount = 1` 改为 2，`IntermissionInterval` 改为 1。`sourceStageId` 继续指向 `.stage.practice`。每一轮会从同一个 Stage 定义重新创建牌场，因此两场都有守卫和出口。
+在 `PracticeAdventure.Steps` 中，把唯一一步的 `roundCount = 1` 改为 2，再把类中的 `IntermissionInterval => 0` 改为 `IntermissionInterval => 1`。`sourceStageId` 继续指向 `.stage.practice`。每一轮会从同一个 Stage 定义重新创建牌场，因此两场都有守卫和出口。
 
 素材 ID 是 `local.alice.lantern-trail.stage.practice`；步骤 ID 是 `local.alice.lantern-trail.adventure.practice.step.one`；实际场景 ID 在此步骤 ID 后追加 `-round-1` 和 `-round-2`。事件跳场景时必须引用本局展开后的 ID，不能用素材 ID代替。
 
@@ -24,7 +22,7 @@
 
 ## 3. 再连接不同的素材地区
 
-[三个地区结构片段](../../../templates/zh-CN/07-three-region-adventure.cs.txt)仅定义 Adventure，明确依赖已注册的 `.stage.region_one`、`.stage.region_two`、`.stage.region_three`。先实现这三份 Stage，再注册 `MyAdventure`。也可以从 `PracticeStage` 逐份建立不同类和 ID，但不能同时保留重复类名或内容 ID。
+[三个地区结构片段](../../../templates/zh-CN/07-three-region-adventure.cs.txt)仅定义 Adventure，明确依赖已注册的 `.stage.region_one`、`.stage.region_two`、`.stage.region_three`。先实现这三份 Stage，再注册 `MyAdventure`。可以只复制 `PracticeStage` 类，分别保存成三个地区文件，再给它们不同的类名和内容 ID；不要每份都连同 `PracticeAdventure` 一起复制。
 
 每个 step 指向自己的素材，并明确 `columnCount`、`roundCount`、`cardsPerRound`、生成预设和整备。固定布局用完整列定义决定牌数；随机布局才用每轮牌数和候选池生成。
 
@@ -36,7 +34,7 @@
 
 这些能力不是制作两场景冒险的前置条件。每新增一个机制，重新测入口、合法操作、必需内容、出口、胜负、重置与读档。
 
-## 验收与下一步
+## 回游戏检查，然后继续
 
 - 第一场出口可达并进入第二场；第二场可胜利。
 - 步骤、素材和实际场景 ID 区分清楚，各 ID 唯一。
@@ -44,8 +42,4 @@
 
 下一步[加入图片、音乐和双语文本](assets-and-text.md)。
 
-
-相关扩展：[种子、循环与续接](adventure-modes.md)。
-
-
-本课使用的片段名称与说明已接入 ModText。按[双语文本课](assets-and-text.md)合并示例 entries；不合并时仍显示源码 fallback。已有牌／定义快照不保证即时重译，切语言后新开局检查。
+想让名称和说明随中英文切换，请按[文本合并步骤](assets-and-text.md#合并专题片段的文本)加入本课所用的条目。未合并时会显示源码中的默认文字。切换语言后新开一局检查。

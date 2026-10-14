@@ -1,32 +1,28 @@
-# Create a character, trait, and initial move
+# Create a character with a starting move
 
 [简体中文](../../zh-CN/tutorials/character.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
+Replace the selectable character with **Lantern Ranger**: base HP 24, attack 6, defense 1 and wisdom 2, with the Lantern Sight trait and 2 uses of Silver Bolt. Get the character and move working first, then add your own artwork.
 
-Goal: Trail Lab offers **Lantern Ranger** with base HP 24, attack 6, defense 1, and wisdom 2. Its only initial move is **Silver Bolt**. Combine three content types, then make the character eligible for a specific selection entry.
+**You need:** the project from [Your first mod](first-mod.md) and [A fixed stage](stage.md). The source uses the game's fallback artwork, so you can start without image files.
 
-Prerequisites: [Your first mod](first-mod.md) and [A fixed stage](stage.md). Add `source/LanternRanger.cs`. Supply the three image files yourself, or first use the rules-only route below.
-
-Before installing a changed build, increment `package.json.version` as in [the first lesson](first-mod.md#4-change-one-value-and-verify-again). Different contents cannot replace an installed package under the same version.
+**Files:** create `source/LanternRanger.cs`; edit `source/ModEntry.cs` and `source/PracticeStage.cs`. After saving, increment `package.json.version`, build and install, then fully restart.
 
 ## 1. Register three classes
 
-Copy the [character, trait, and initial-move fragment](../../../templates/en/02-character-trait-and-move.cs.txt), check the namespace, and add this to `Load`:
+Copy the [character, trait, and initial-move source](../../../templates/en/02-character-trait-and-move.cs.txt) into `source/LanternRanger.cs`. Add this inside the existing `Load` in `ModEntry.cs`:
 
 ```csharp
 registrar.AddContents(new LanternSight(), new SilverBolt(), new LanternRanger());
 ```
 
-`LanternSight` is a separate trait; `SilverBolt` is a move; `LanternRanger` combines them through type lists. A class that exists in source but is not registered can cause a loading failure.
+`LanternSight` defines the trait, `SilverBolt` the move and `LanternRanger` the character. Register all three so the character can find its trait and move.
 
-The fragment binds image paths. Supply `assets/icons/silver-bolt.png` (1:1), `assets/icons/lantern-ranger.png` (284×512 or that ratio), and `assets/portraits/lantern-ranger-avatar.png` (1:1). See [Assets and text](assets-and-text.md).
-
-To check rules first, remove `, IModPresentationContent` from the `SilverBolt` and `LanternRanger` declarations and delete each entire `Presentation` property. This removes only custom art bindings. Do not leave bindings to missing files. Add your own art back afterward.
+The source has no custom image bindings, so it can build as copied. Once the character works, follow [Assets and text](assets-and-text.md#add-character-and-enemy-artwork) to add a move icon, character art and avatar. Leave out paths to files you have not added yet.
 
 ## 2. Add the character to the practice entry
 
-In `PracticeAdventure.Difficulties`, use this `availableHeroIds` list:
+Open `source/PracticeStage.cs` and find the `Difficulties` property in `PracticeAdventure`. Replace its `availableHeroIds` list, which currently contains only Runehunter, with:
 
 ```csharp
 availableHeroIds = new List<string>
@@ -39,11 +35,17 @@ Set `availableHeroIds` to the intended roster. You may keep the same ID in `Prac
 
 To add a character to a built-in selectable level, use `AddCharacterToLevel`, available from API 1.7.0. See [Registration](../reference/entry.md). A source-stage pool ID is not a selectable level ID.
 
-## 3. Verify through actions
+## 3. Select the character and try the move
 
-Build and install, fully restart, and select Trail Lab. Check the character's name and base stats. On entering the board, confirm Silver Bolt is the initial move with 2 uses. Target the exposed guard and check damage and remaining uses.
+Build and install, fully restart, and select Trail Lab. Check the character's name and base stats. On entering the board, confirm Silver Bolt is the initial move with 2 uses. Hold it, drag it onto the exposed guard and release. Check the damage and that its uses decrease from 2 to 1.
 
-Silver Bolt reads twice the current attack for its single hit; enemy damage still follows shared settlement. To test Lantern Sight's extra target, expose a second enemy. A one-enemy board cannot verify additional random targeting.
+Silver Bolt deals damage equal to twice your current attack to one target; the game then applies its usual damage rules. To test Lantern Sight's extra target, add the block below before `PracticeStage.CreateDefinition` returns. It exposes another guard in column two. Use an attack on either guard and check damage to both; Silver Bolt should still hit only one target.
+
+```csharp
+CardState secondGuard = guard.Clone();
+secondGuard.id = Id + ".guard.two";
+columns[1].cards.Add(secondGuard);
+```
 
 ## 4. Check current starting-content limits
 
@@ -51,17 +53,13 @@ Only the first `StartingMoveTypes` entry becomes the initial move. Later entries
 
 The fragment includes `CharacterTreasurePoolTags.HealingLifeBuild` so the first character has an eligible treasure pool before custom treasures are added. Its additional tag `treasure_pool.your_package.lantern` matches the [character-treasure fragment](../../../templates/en/03-character-treasures.cs.txt). Pool matching uses any shared tag. If you later remove the life-build tag, first register eligible treasures for the remaining custom tag; an empty pool reports `AW_CHARACTER_EMPTY_TREASURE_POOL`. Change both sides when changing a custom tag. Use `GetPoolWeight` or character `SetWeight` for weights.
 
-## Checks and next step
+## Try it in the game, then continue
 
-- All three content classes are registered, and difficulty and stage eligibility agree.
-- The name and stats appear; the initial move hits and consumes a use.
-- Extra targeting is tested with two exposed enemies, and unsupported starting grants are not promised.
+- Lantern Ranger is selectable in Trail Lab with base HP 24, attack 6, defense 1 and wisdom 2.
+- Silver Bolt hits the selected enemy and goes from 2 uses to 1.
+- With two exposed enemies, an attack also hits the other; Silver Bolt still has one target.
 
 Continue with [Enemies and instance state](enemy.md). See [Character and enemy reference](../reference/actors.md) for defaults and state boundaries.
-
-
-Related extension: [custom page entry](custom-ui.md).
-
 
 ## Let one source file follow the selected language
 

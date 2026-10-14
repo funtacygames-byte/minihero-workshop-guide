@@ -1,5 +1,13 @@
 # Guide revisions / 教程修订
 
+## Guide revision 5 — 2026-10-14
+
+- Rewrote the home pages and introductory route around making, playing and changing a mod. / 首页和入门三课按玩家能做出的结果组织。
+- Reworked AI help into optional prompts, file-sharing guidance and steps for using the answer. / AI 页改为玩家如何提问和使用结果。
+- Clarified copy destinations, registration, text merging, paid-choice testing and four-potion counter checks. / 补清文件、注册、文本合并、付费选择和四瓶药剂的操作。
+- Character and enemy fragments now start with fallback artwork; custom images are added in the asset lesson. / 角色和敌人默认使用后备图片，美术绑定放入素材课。
+- Moved earlier verification records to contributor notes and kept existing tutorial and fragment URLs. / 历史检查归入维护资料，保留原页面和片段链接。
+
 ## Guide revision 4 — 2026-10-14
 
 - Kept gameplay authoring in C# and removed declarative gameplay JSON recipes from player/AI routes.

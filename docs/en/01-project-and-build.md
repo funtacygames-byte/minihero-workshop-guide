@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/01-project-and-build.md) · [Guide index](README.md)
 
-Guide revision 4 · Reviewed: October 14, 2026 · Mod API: 1.8.0.
+Guide revision 5 · Reviewed: October 14, 2026 · Mod API: 1.8.0.
 
-Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+This manual groups fields and rules by system. For guided steps, [make your first mod](tutorials/first-mod.md), then return here when you need a reference.
 
 This chapter takes you from **New C# Project** to a mod running in the game. It explains the creation fields, C# structure, development tools, building and installing, package hashes, and the trust boundary for code mods.
 

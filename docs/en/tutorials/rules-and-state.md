@@ -1,41 +1,79 @@
-# Keep independent state for capped rules
+# Give a treasure a three-trigger limit
 
 [简体中文](../../zh-CN/tutorials/rules-and-state.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Make a **Practice Flask**: after healing, gain shield equal to 10% of the healing amount, up to 3 times per stage. Four potions let you see three shield gains followed by none. Then enter the next stage to check that the counter resets.
 
+**You need:** the reward encounter and two-stage adventure from [the treasure lesson](treasure.md). Use only this lesson's shield source for now, so other treasures do not obscure the result.
 
-Goal: Practice Flask grants shield equal to 10% of the healing amount, at most three times per stage, resetting on a new stage with matching preview and execution. Prerequisites: [treasure lesson](treasure.md) and [event reference](../reference/events.md). [Fragment 13](../../../templates/en/13-stateful-relic.cs.txt) teaches state management; it is not a proposed new built-in treasure. Actual designs still require fingerprint comparison against the current treasure catalog.
+| File | What you do |
+| --- | --- |
+| `source/PracticeCounterRelic.cs` | Create it and copy the flask source |
+| `source/RelicGrant.cs` | Change the reward to Practice Flask |
+| `source/PracticeItems.cs` | Add or reuse Moondew Potion, changing its healing to 10 |
+| `source/ModEntry.cs` | Register the flask and potion |
+| `source/PracticeStage.cs` | Place four potions; keep the encounter, guard and exit |
 
-## 1. Write a testable rule first
+## 1. Collect the flask
 
-Trigger: positive settled healing. Input: `requested`. Reward: shield. State: per-instance count 0–3, reset by stage. Target: player. Limits: three triggers, no cost, one Legendary variant, level one. Shield classification and the life-build pool retain separate roles.
+Copy [the flask source](../../../templates/en/13-stateful-relic.cs.txt) into `source/PracticeCounterRelic.cs`, matching your entry's namespace. Register it inside the existing `Load`:
 
-Add `source/PracticeCounterRelic.cs` and register it in Load. For deterministic acquisition, reuse [grant fragment 09](../../../templates/en/09-relic-grant.cs.txt), change rewardContentId to `.treasure.practice_counter`, and update encounter text. Do not rely on drawing a single Legendary variant from default chests. No other quality values were specified, so do not invent four more variants.
+```csharp
+registrar.AddContent(new PracticeCounterRelic());
+```
 
-## 2. Where state belongs
+In `RelicGrant.cs`, change `rewardContentId` to `ModEntry.PackageId + ".treasure.practice_counter"`. Keep the code that places the encounter. Replace its reward rather than also granting the starter relic, and change its displayed name and description to refer to the flask.
 
-`healingTriggers` is a public int on the concrete runtime treasure, retained by its serializable class. It must not be static, stored in UI or share a mutable List between treasures. `OnAfterHealing` checks healing and the cap before advancing the count and granting shield through Runtime. `OnSceneReset` clears it. Repeated OnTreasureStats recalculation must not advance counters.
+The flask has one Legendary, level-1 variant. Its `GetStateVariants()` explicitly returns only that variant; you do not need four more quality values. It uses the same shield category and life-build pool as before, and you still obtain it through a specified reward.
 
-Preview uses isolated state and runtime-content copies and should execute the same formula. An `if (IsPreview) return` must not remove the preview reward, and preview must not consume real triggers. Check cloning isolation for mutable reference fields; this fragment uses only an integer. Save restoration and runtime-instance copying are separate checks.
+## 2. Place four potions that heal for 10
 
-## 3. Test health states
+If you have not done [the item lesson](items-and-events.md), copy [the item source](../../../templates/en/12-items.cs.txt) to `source/PracticeItems.cs` with the same namespace. If that file already exists, edit it rather than adding duplicate classes.
 
-| Condition | Settled healing | Expected count and shield |
-| --- | ---: | --- |
-| Sufficient missing HP, no modifiers | 10 | +1 trigger, +1 shield |
-| Only 2 HP missing | 10 | Still +1 trigger, +1 shield |
-| Full health | 10 | Still +1 trigger, +1 shield |
-| Three triggers already used | 10 | No fourth shield reward |
+Change `MoonDewPotion` from `Heal => 6` to `Heal => 10`. Change 6 to 10 in its source fallback description and in both languages' `item.moon_dew.description`. Register it once in `Load`:
 
-This condition does not read `actual`. See shared Percent rounding in the event reference; base-stat conversion rounding does not apply to every shared percentage. Healing modifiers change requested before this rule reads it. Remove other shield sources before testing and record deltas rather than treating total shield as this treasure's reward.
+```csharp
+registrar.AddContent(new MoonDewPotion());
+```
 
-## 4. Reset, restore and bilingual text
+After the columns are created in `PracticeStage.CreateDefinition`, but before it returns, add:
 
-Save and restore after trigger three; a fourth still gives no shield. Enter the next stage and heal; the first trigger should work again. Two equipped copies keep independent counts. Repeated previews must not reduce real remaining triggers. Use “治疗量” / “healing amount”, preserving 10% and three triggers per stage without repeating overflow parentheticals.
+```csharp
+columns[1].cards.Clear();
+for (int i = 0; i < 4; i++)
+{
+    columns[1].cards.Add(registry.Get<ItemContent>(
+        ModEntry.PackageId + ".item.moon_dew_potion").CreateCard(Id + ".heal." + i));
+}
+```
 
-For run-persistent growth, specify the saved object, settled resources, stage handoff and restore rules. Temporary bonuses reset by default. HP or gold already granted through shared Runtime does not have to be reversed on reset.
+Column two now exposes four potions in sequence, each with its own instance ID. Keep the reward encounter, guard and exit in column one. Use [the text-merging steps](assets-and-text.md#merge-text-for-topic-fragments) to add the flask and potion entries in both languages.
 
-## 5. Adventure rules without treasure slots
+## 3. Drink all four in the game
 
-Global adventure rules inherit `AdventureRuleContent` and implement Description, IconId and events in their own class. After Load registration, activate them through AdventureRuleIds or difficulty adventureRuleIds; they are not treasure rewards. Call base when overriding OnStageEntered to retain default status projection. Difficulty growth arrays inherit rules when null/empty; [0] explicitly disables that attribute's growth. Registration is not activation. Continue with [adventure modes](adventure-modes.md) for seeds and loops.
+Save, increment the package version, build and install, then fully restart. Start a new Trail Lab run, collect the flask and use the potions in column two. Without other healing modifiers, record the shield change each time:
+
+| Potion | Shield gained this time | Triggers used |
+| --- | ---: | ---: |
+| 1 | 1 | 1 |
+| 2 | 1 | 2 |
+| 3 | 1 | 3 |
+| 4 | 0 | Still 3 |
+
+You can check this at full health: the healing amount is 10, so the flask still uses 10 even though the HP bar does not increase. With only 2 HP missing, it also grants 1 shield. With healing modifiers, use the healing amount after those modifiers instead.
+
+Defeat the guard, use the exit and pass through preparation to stage two. Leave the new reward encounter unopened while checking the first potion: it should grant 1 shield again. This checks one flask's reset. Resolve the encounter afterward if you want to finish the run. Check the gain from that action rather than treating existing resources as a new trigger.
+
+## 4. How the code remembers uses
+
+`healingTriggers` belongs to this runtime treasure. `OnAfterHealing` checks the healing amount and cap, then increments the counter and grants shield. `OnSceneReset` clears the counter when stages change.
+
+A `static` field could make two flasks share a counter. Storing it on a UI object would also give saves the wrong source of state. This example uses a public integer in a serializable class to preserve each treasure's own count.
+
+It reads `AfterHealingEvent.requested`, which means settled healing. `actual` is only the amount added to the HP bar. The field name can be misleading; see [healing events](../reference/events.md) for the exact meaning.
+
+### Before sharing, try a few more checks
+
+After three triggers, save and continue the game; a fourth heal should still grant no shield. Two flasks should keep separate counts. Repeated action previews must not consume real uses, and preview and execution should use the same formula. For rule changes, check caps, stage changes and saves together; see [Lifecycle](../reference/lifecycle.md).
+
+For an adventure-wide rule that does not occupy a treasure slot, look up `AdventureRuleContent`. Register it, then activate it through `AdventureRuleIds` or a difficulty's `adventureRuleIds`. Fields and defaults are in [the content reference](../02-content-creation.md). You do not need this to finish the flask.

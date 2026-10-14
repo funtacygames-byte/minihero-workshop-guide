@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/lifecycle.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-13
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
 This page explains who owns state and when it is created, read, and cleared. Baseline: 1.8.0. See [Events](events.md) and [API declarations](api-surface.md) for member details.
 

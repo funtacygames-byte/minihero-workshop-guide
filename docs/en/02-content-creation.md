@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/02-content-creation.md) · [Guide index](README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-14
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
-Start with [Your first mod](tutorials/first-mod.md). This page is a manual; use the [task index](README.md) for guided steps.
+This manual groups fields and rules by system. For guided steps, [choose a lesson for your content](README.md), then return here when you need a reference.
 
 This chapter covers gameplay content: how definitions connect, which event a treasure should use, how quality differs from level, and how to reset counted effects. Code fragments share the Chinese guide's technical identifiers and formulas; their display strings are translated into English.
 

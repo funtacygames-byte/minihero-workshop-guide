@@ -2,7 +2,7 @@
 
 [English](../../en/reference/reader-trial.md) · [目录](../README.md)
 
-教程修订 4 · Mod API 1.8.0 · 2026-10-13
+教程修订 5 · Mod API 1.8.0 · 2026-10-14
 
 状态：待执行。本次源码核对、编译与 AI 自审不属于独立读者试读。
 

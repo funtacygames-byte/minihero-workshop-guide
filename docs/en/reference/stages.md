@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/stages.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-13
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
 Baseline: 1.8.0. Start with [A fixed stage](../tutorials/stage.md), then use this field reference and the [API surface](api-surface.md).
 

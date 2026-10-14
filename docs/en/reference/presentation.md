@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/presentation.md) · [Index](../README.md)
 
-Guide revision 4 · Mod API 1.8.0 · 2026-10-13
+Guide revision 5 · Mod API 1.8.0 · 2026-10-14
 
 Baseline: 1.8.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
 
@@ -20,7 +20,7 @@ public static ModPresentation Stage(string background, string mapThumbnail = "",
 public static ModPresentation Create(params (ModPresentationSlot slot, string path)[] assets);
 ```
 
-These are reference declarations for the interface and `ModAssets` factories. Factories return mappings without loading images themselves. `Character` uses the compatibility Portrait/Avatar slots. Explicitly bind current character main art to `Icon` with `Create`, as in the character fragment. Paths are package-relative and indexed at build time. Empty optional paths are skipped; nonempty paths must exist and match slot kinds.
+These are reference declarations for the interface and `ModAssets` factories. Factories return mappings without loading images themselves. `Character` uses the compatibility Portrait/Avatar slots. Explicitly bind current character main art to `Icon` with `Create`, as in [adding character artwork](../tutorials/assets-and-text.md#add-character-and-enemy-artwork). Paths are package-relative and indexed at build time. Empty optional paths are skipped; nonempty paths must exist and match slot kinds.
 
 | Slot | Specification/purpose |
 | --- | --- |
