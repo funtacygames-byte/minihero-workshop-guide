@@ -133,7 +133,7 @@ Sources/<packageId>/
 “开发环境”只有三部分：
 
 1. 代码编辑器：Visual Studio、Rider 或 VS Code，任选其一，只负责编辑 `.cs`。
-2. `.NET SDK`：负责把 C# 编译成 DLL。冒险工坊会执行 `dotnet build` 并在开发页显示检测结果。
+2. `.NET SDK`：负责把 C# 编译成 DLL。冒险工坊会执行 `dotnet build`；先在终端用 `dotnet --version` 确认本机可调用。
 3. 游戏开发引用：`MiniHero.ModApi.dll` 与 `MiniAdventureWorld.Core.dll`。
 
 不需要 Unity、本游戏的完整工程或开发者源码。只有游戏成品的玩家，也可以先在“开发模组”中创建项目，再让 Codex 或其他能读写本地文件的 AI 工具打开 `Sources/<packageId>` 目录。AI 工具应先阅读项目 `README.md`、工坊教程和功能模板，并且只修改这个源项目；最终构建仍由冒险工坊调用本机 `.NET SDK` 完成。
@@ -142,7 +142,7 @@ Sources/<packageId>/
 
 不要把两个游戏引用复制到 `mod/`。`mod/` 只放你自己的 DLL；运行时由游戏提供 API/Core。游戏更新后再次构建，开发引用目录会自动刷新。
 
-如果开发页显示“.NET SDK 未检测到”，先在终端执行：
+若构建报告 `MH_MODSOURCE_DOTNET`，或不确定 SDK 是否可调用，先在终端执行：
 
 ```powershell
 dotnet --version

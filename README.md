@@ -4,7 +4,7 @@
 
 Create treasures, characters, enemies, and stages in C#, then add your own images, music, and bilingual text. Start with a visible result and continue by task.
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Versions and validation](docs/en/reference/versions.md)
+Guide revision 2 · Mod API 1.8.0 · 2026-10-14 · [Versions and validation](docs/en/reference/versions.md)
 
 ## Your first mod
 

@@ -133,7 +133,7 @@ Use `Sources → Build → Install`. To change a value, edit the source, update 
 The environment has three parts:
 
 1. **Code editor:** Visual Studio, Rider, or VS Code edits `.cs` files.
-2. **.NET SDK:** compiles C# into a DLL. The workshop runs `dotnet build` and displays the detection result.
+2. **.NET SDK:** compiles C# into a DLL. The workshop runs `dotnet build`; first check `dotnet --version` in a terminal.
 3. **Game references:** `MiniHero.ModApi.dll` and `MiniAdventureWorld.Core.dll`.
 
 You do not need Unity, the full game project, or developer source. With an installed copy of the game, create a project in **Develop Mods**, then open `Sources/<packageId>` in an AI tool that can read and edit local files. Have it read the project README, this guide, and the relevant snippets. Keep edits inside that source project. The workshop still performs the final build using your local .NET SDK.
@@ -142,7 +142,7 @@ The workshop automatically places editor and command-line compilation references
 
 Keep the two game references out of `mod/`. That folder contains only your mod's DLL; the game supplies API/Core at runtime. Rebuilding after a game update refreshes the development references.
 
-If the development page reports that the .NET SDK is missing, run:
+If building reports `MH_MODSOURCE_DOTNET`, or you are unsure whether the SDK is available, run:
 
 ```powershell
 dotnet --version

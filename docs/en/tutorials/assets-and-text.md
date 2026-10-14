@@ -20,6 +20,8 @@ public ModPresentation Presentation => ModAssets.Icon("assets/icons/starter-reli
 
 Rebuilding validates the image and generates `assets/asset-index.json`. Do not edit the index or bind an uncut 3×2 source sheet as one icon. After installation, inspect cropping, transparent edges, and subject scale in the codex.
 
+See the [export illustration](../reference/visual-walkthrough.md#5-export-only-the-intended-icon) for the difference between a single image and a contact sheet.
+
 ![Asset ratio reference](../../../images/asset-dimensions.svg)
 
 Character main art uses `Icon` at 284×512 (71:128). `Avatar`, enemy `BattleArt`, and treasure icons use 1:1. Character `Portrait` is a compatibility fallback, not a substitute for checking the main slot. All paths are relative to the package root. See [Presentation reference](../reference/presentation.md).

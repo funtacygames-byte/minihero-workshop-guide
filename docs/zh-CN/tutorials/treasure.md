@@ -2,9 +2,9 @@
 
 [English](../../en/tutorials/treasure.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [验证范围](../reference/versions.md)
+教程修订 2 · Mod API 1.8.0 · 2026-10-14 · [验证范围](../reference/versions.md)
 
-本课沿用首课的 `StarterRelic`，完成品质、等级、候选池与实际效果的检查。它是教学用单品质宝物；不应把换名字和数值当成新的成品设计。
+本课沿用首课的 `StarterRelic`，完成品质、等级、候选池与实际效果的检查。它在各品质共用一套教学公式；不应把换名字和数值当成新的成品设计。
 
 前置：[首个模组](first-mod.md)。实际效果部分还需完成[固定关卡](stage.md)。修改 `source/ModEntry.cs`，新增 `source/RelicGrant.cs`；不需要任何图片或音乐。
 
@@ -12,7 +12,7 @@
 
 ## 1. 先分清品质、等级与池
 
-`Rank = Common` 只提供普通品质；没有实现多品质时，不会自动生成五个版本。`BaseValue` 是每级护盾，本课沿用修改后的 4。`Describe(level)` 与 `OnStageEntered` 都计算 `BaseValue × level`；一级 4，二级 8。
+`Rank = Common` 设置默认品质，不会限制默认 `GetStateVariants()` 只返回普通。首课没有覆写该方法或实现 `IMultipleVariantEffect`，因此图鉴提供五档品质，但不会自动生成不同效果数值。`BaseValue` 是每级护盾，本课沿用修改后的 4。`Describe(level)` 与 `OnStageEntered` 都计算 `BaseValue × level`；一级 4，二级 8。品质切换不改变等级。
 
 `CategoryTags` 使用 `TreasureCategoryTags.Shield`，表达生命体系中的护盾用途。`PoolTags` 使用 `CharacterTreasurePoolTags.HealingLifeBuild`，决定角色候选；分类本身不控制宝箱。林地药师（`grove_alchemist`）允许这个池，但随机抽取仍不保证出现。
 

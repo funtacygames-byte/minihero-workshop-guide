@@ -2,13 +2,13 @@
 
 [English](../en/troubleshooting.md) · [目录](README.md)
 
-教程修订 2 · API 1.8.0 · 2026-10-13
+教程修订 2 · API 1.8.0 · 2026-10-14
 
 先定位失败阶段，再修复对应文件。保留 Sources，不在 Builds 或 Installed 直接改文件。当前基准 API 1.8.0，教程修订 2。
 
 ## 先取得真实错误
 
-开发页查看 `.NET SDK / Mod API / 游戏引用` 状态，再执行构建。构建或安装失败时，当前界面会自动打开诊断文件夹；打开其中的 `install-failure.txt`。若自动打开失败，工坊根目录的 `InstallFailures/<packageId>/<时间戳>/` 保存同一报告。
+先在终端执行 `dotnet --version`，回开发页执行构建。项目行“可构建”表示源项目满足构建入口条件，并不是 SDK 检测结果；当前界面没有独立的 SDK/API 状态面板。构建或安装失败时，当前界面会自动打开诊断文件夹；打开其中的 `install-failure.txt`。若自动打开失败，工坊根目录的 `InstallFailures/<packageId>/<时间戳>/` 保存同一报告。
 
 报告包含操作、包 ID、源码/构建位置、稳定错误码、字段路径和内容 ID。先找第一条 C# `.cs(行,列): error CS...`，修复其位置，再重新构建；后续报错可能是连锁结果。管理页的包详情也显示加载诊断。报告中的个人路径在分享前替换为 `<project>`。
 
@@ -20,7 +20,8 @@
 
 | 观察／错误码 | 下一步 | 修好后应看到 |
 | --- | --- | --- |
-| `MH_MODSOURCE_DOTNET` | 终端 `dotnet --version`；安装 SDK 后重进开发页 | SDK 状态就绪 |
+| `MH_MODSOURCE_DOTNET` | 终端 `dotnet --version`；安装 SDK 后重进开发页 | 命令输出版本，重新构建能启动编译 |
+| `MH_MODSOURCE_SDK` | 使用支持 C# 模组的 Windows Mono 游戏版本并重新生成开发引用 | 当前 API/Core 可用于编译 |
 | `MH_MODSOURCE_BUILD` / CS 错误 | 从第一处文件与行号修复；检查漏 using、括号、抽象属性 | 生成本包 DLL |
 | ID 目录与清单不同 | 核对源目录、packageId、入口特性；不任意重命名发布 ID | `MH_MODSOURCE_ID_MISMATCH` 消失 |
 | 编辑器标红但游戏能构建 | 保留生成 csproj，刷新开发引用；检查编辑器占用 | 编辑器与游戏使用同份引用 |

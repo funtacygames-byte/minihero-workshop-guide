@@ -29,7 +29,7 @@ def pairs():
     return result
 
 def record():
-    return {'guideRevision':2, 'reviewedApi':'1.8.0', 'reviewDate':'2026-10-13',
+    return {'guideRevision':2, 'reviewedApi':'1.8.0', 'reviewDate':'2026-10-14',
             'status':'local-reviewed-draft', 'hashAlgorithm':'SHA-256, UTF-8 with LF line endings',
             'meaningReview':'AI-assisted bilingual review; independent reader trial pending',
             'pairs':pairs()}

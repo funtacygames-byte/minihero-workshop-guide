@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/versions.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 2 · Mod API 1.8.0 · 2026-10-14
 
 This page separates the guide's evidence from full game or online-release acceptance. Revision 2 is a locally reviewed draft and has not been pushed. Published revision 1 on GitHub does not update automatically.
 
@@ -10,7 +10,7 @@ This page separates the guide's evidence from full game or online-release accept
 
 | Component | Reviewed value/purpose |
 | --- | --- |
-| Guide | Revision 2, 2026-10-13, locally reviewed draft |
+| Guide | Revision 2, 2026-10-14, locally reviewed draft; core gameplay checked on 2026-10-13, UI review completed the next day |
 | Mod API | `MiniHero.ModApi` 1.8.0, checked against current declarations and behavior |
 | API export | [43 selected public types](api-surface.md), not a promise of the entire engine surface |
 | Unity Editor | Official project on 6000.3.19f1, matching ProjectVersion |
@@ -31,7 +31,8 @@ The project's internal `bundleVersion = 1.0` does not establish the version rele
 | Deterministic gameplay | Fixed columns, a specific encounter reward, enemy combat, exit use, intermission, and 4 shield on the next stage |
 | Save restoration | Next-stage index and shield restored, followed by play through the final exit to victory |
 | Document checks | Local links/anchors, fences, bilingual C# contracts, revision hashes, SVG/JSON, and release artifact boundaries |
-| Screenshots and diagrams | English Adventure Workshop screen from the official project; four neutral rule/flow diagrams checked in the browser |
+| Screenshots and diagrams | Four English screenshots from the official project: workshop, creation, build success, and codex result; seven neutral diagrams |
+| Codex review | Real loaded relic, All Characters search, level-1 value 4 at each of five qualities; changing quality does not upgrade level |
 | Translation | AI-assisted bilingual meaning review and English cold reading, preserving numbers, conditions, targets, and stable identifiers |
 
 Gameplay checks used the core and real workshop loader inside the user's existing official Editor. No second Unity project or Editor was created. Test references, binaries, saves, and private paths are excluded from this repository.
@@ -39,7 +40,7 @@ Gameplay checks used the core and real workshop loader inside the user's existin
 ## Checks still required in the actual environment
 
 - Fully exit and restart the standalone game to verify loading; same-process DLL loading cannot replace this.
-- Inspect your own image cropping, audio playback, and text after language changes. The workshop overview screenshot does not verify these assets.
+- Inspect your own image cropping, audio playback, and text after language changes. The tutorial screenshots do not verify these assets.
 - Verify Steam submission, item visibility, and subscribed downloads. Local export does not prove any of them.
 - Run an independent beginner and English-reader [trial](reader-trial.md). These have not been conducted; AI review is not independent player acceptance.
 - Test older game/API versions, old-save migration, and complete advanced graph/loop combinations.

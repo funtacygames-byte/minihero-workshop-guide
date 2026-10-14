@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="640" viewBox="0 0 1080 640" role="img" aria-labelledby="title desc">
+<title id="title">Generated source project</title><desc id="desc">The source project contains package.json, source code and its csproj, localization, assets, and music. The mod DLL is produced by building. Development references and snapshots are local only.</desc>
+<rect width="1080" height="640" rx="18" fill="#f7f3e9"/>
+<text x="40" y="48" fill="#31443c" font-family="sans-serif" font-size="27">Sources/local.alice.lantern-trail/</text>
+<g stroke="#8c9c87" stroke-width="2" fill="none"><path d="M60 78v446M60 110h24M60 190h24M60 290h24M60 365h24M60 410h24M60 460h24M60 510h24"/></g>
+<g font-family="monospace" font-size="20" fill="#31443c">
+<text x="94" y="116">package.json</text><text x="94" y="181">source/</text><text x="125" y="211">ModEntry.cs</text><text x="125" y="241">LocalAliceLanternTrailMod.csproj</text>
+<text x="94" y="281">localization/</text><text x="125" y="311">en.json + zh-Hans.json</text>
+<text x="94" y="371">assets/</text><text x="94" y="416">music/</text><text x="94" y="466">mod/</text><text x="94" y="516">.tmode-sdk/ + .snapshots/</text></g>
+<g font-family="sans-serif" font-size="19" fill="#685c49">
+<text x="600" y="116">1  Stable package ID, version, full entry</text><text x="600" y="211">2  Edit C# here</text><text x="600" y="241">   Keep the generated build project</text>
+<text x="600" y="311">3  Same keys, translated values</text><text x="600" y="371">4  Your images</text><text x="600" y="416">   Your audio</text><text x="600" y="466">5  Your DLL appears after a build</text><text x="600" y="516">   Local references/backups; do not ship</text></g>
+<rect x="40" y="559" width="1000" height="53" rx="8" fill="#e5edde"/>
+<text x="59" y="592" font-family="sans-serif" font-size="20" fill="#31443c">Edit Sources. Rebuild to update Builds and Installed.</text>
+</svg>

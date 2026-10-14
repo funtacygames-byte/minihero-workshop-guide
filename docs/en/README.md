@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/README.md) · [Home](../../README.md)
 
-Guide revision 2 · API 1.8.0 · 2026-10-13
+Guide revision 2 · API 1.8.0 · 2026-10-14
 
 ## Learning path
 
@@ -33,6 +33,7 @@ Complete the first lesson, then choose your task. Each lesson lists prerequisite
 - [Compatibility and limits](reference/compatibility.md)
 - [Versions and validation](reference/versions.md)
 - [Public API declarations](reference/api-surface.md)
+- [Screenshots and file locations](reference/visual-walkthrough.md)
 
 ## Manuals and advanced topics
 

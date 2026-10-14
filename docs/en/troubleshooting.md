@@ -2,13 +2,13 @@
 
 [简体中文](../zh-CN/troubleshooting.md) · [Index](README.md)
 
-Guide revision 2 · API 1.8.0 · 2026-10-13
+Guide revision 2 · API 1.8.0 · 2026-10-14
 
 Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.8.0, guide revision 2.
 
 ## Get the actual error
 
-Check `.NET SDK / Mod API / game references` on the development page, then build. Current build/install failures automatically open a diagnostic folder containing `install-failure.txt`. If opening fails, the same report remains under workshop root `InstallFailures/<packageId>/<timestamp>/`.
+Run `dotnet --version` in a terminal, then build from the development page. **Ready to build** means the source project meets the build-entry conditions; it is not an SDK detection result. The current UI has no separate SDK/API status panel. Current build/install failures automatically open a diagnostic folder containing `install-failure.txt`. If opening fails, the same report remains under workshop root `InstallFailures/<packageId>/<timestamp>/`.
 
 The report records operation, package ID, source/build locations, stable error codes, field paths, and content IDs. Find the first C# `.cs(line,column): error CS...`, fix it, then build again. Later errors can be consequences. Package details in management also show loading diagnostics. Replace personal paths with `<project>` before sharing.
 
@@ -20,7 +20,8 @@ The final “build failed” line alone cannot identify an environment, syntax, 
 
 | Observation/code | Next action | Expected result |
 | --- | --- | --- |
-| `MH_MODSOURCE_DOTNET` | Run `dotnet --version` in a terminal; install SDK and reopen development | SDK ready |
+| `MH_MODSOURCE_DOTNET` | Run `dotnet --version` in a terminal; install SDK and reopen development | The command prints a version and rebuilding starts compilation |
+| `MH_MODSOURCE_SDK` | Use a Windows Mono game build supporting C# mods and regenerate development references | Current API/Core can be used for compilation |
 | `MH_MODSOURCE_BUILD` / CS error | Fix first file/line; check imports, braces, and abstract properties | Your DLL is produced |
 | Directory ID differs from manifest | Match directory, packageId, and attribute; preserve released IDs | `MH_MODSOURCE_ID_MISMATCH` resolved |
 | Editor shows errors, game builds | Keep generated csproj; refresh references and check editor file locks | Same references in both environments |

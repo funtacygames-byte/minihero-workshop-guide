@@ -2,11 +2,11 @@
 
 [简体中文](../../zh-CN/tutorials/first-mod.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 2 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
 By the end of this lesson, the treasure codex will show **Wayfarer's Relic**, and its level-1 description will change from 2 shield to 4. This verifies building, installation, and loading. The next lesson uses a fixed board to test the actual stage-entry effect.
 
-You need the installed game, a code editor, and a .NET SDK detected by the development page. You do not need Unity or the game's source. Start without images, music, or configuration.
+You need the installed game, a code editor, and a .NET SDK that runs `dotnet --version` in a terminal. You do not need Unity or the game's source. Start without images, music, or configuration.
 
 ## 1. Create a project and check its names
 
@@ -17,6 +17,8 @@ Use the crossed-tools button at the lower left of the main menu to open **Advent
 Actual English game UI, captured on 2026-10-13 with API 1.8.0. Choose **Open** on the middle **Develop Mods** row. Other languages use the same layout and entry point. This screenshot identifies the tutorial's starting point.
 
 Use Open Source on the project row. You should find `package.json`, `source/ModEntry.cs`, `source/*.csproj`, and `localization`. A new project normally has no mod DLL until its first build.
+
+If you cannot locate a button or file, see the [creation dialog, source layout, and build-result images](../reference/visual-walkthrough.md).
 
 | Name | Value in this lesson | How to handle it |
 | --- | --- | --- |
@@ -39,7 +41,7 @@ Older game scaffolds may contain a `shield_per_stage` configuration or `gameplay
 
 Save the file and use Build and Install on the project row. Confirm the mod is enabled in mod management. Fully exit and restart the game, then open the treasure codex. Select **all characters** in the character filter and search for `Wayfarer's Relic`; in Chinese, search for `旅者遗物`.
 
-You should see the Common treasure. At level 1, its description grants 2 shield on stage entry. At another displayed level, the amount is `2 × level`. This check needs no random chest draw and does not grant the treasure.
+You should find Wayfarer's Relic. The codex may select its highest available quality by default; use the lower-left arrows to switch quality, not level. This starter does not supply different values per quality, so every quality's level-1 description grants 2 shield on stage entry. This check needs no random chest draw and does not grant the treasure.
 
 If there is no result, use [Loading diagnostics](../troubleshooting.md) to check enabled state, entry, and language. Changing chest weights will not fix a loading failure.
 
@@ -51,7 +53,7 @@ Change the `2` in this line to `4`:
 public override int BaseValue => 2;
 ```
 
-Save the source and increase `package.json.version` from the generated `0.1.0` to `0.1.1` (or increment your current version). Build and install again, then fully exit and restart. The installer rejects different content under the same installed version. Apply this version increment before each later changed build you install; keep `packageId` unchanged. The level-1 codex description should now show 4 shield; other levels show `4 × level`. Keep `{0}` in both localized descriptions: the shared formula supplies it.
+Save the source and increase `package.json.version` from the generated `0.1.0` to `0.1.1` (or increment your current version). Build and install again, then fully exit and restart. The installer rejects different content under the same installed version. Apply this version increment before each later changed build you install; keep `packageId` unchanged. The level-1 codex description should now show 4 shield at every quality. Runtime effects still use `4 × level`; the codex quality arrows do not increase level. Keep `{0}` in both localized descriptions: the shared formula supplies it.
 
 If the old value remains, confirm you edited `Sources`, check that the build succeeded, and verify every game process exited. Reloading within one process does not prove the new C# DLL ran.
 

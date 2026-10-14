@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/treasures.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13
+Guide revision 2 · Mod API 1.8.0 · 2026-10-14
 
 Purpose: define treasures, create runtime treasure instances, and respond to shared rule events. Baseline: 1.8.0. See [Public declarations](api-surface.md) and [Treasure lesson](../tutorials/treasure.md).
 
@@ -28,6 +28,8 @@ Purpose: define treasures, create runtime treasure instances, and respond to sha
 | `CreateState(int level = 1)` | `TreasureState` | Clamp level and create runtime state |
 
 `Quality` and `EffectValue` belong to multi-quality runtime instances and have protected setters. Do not confuse maximum `Rank` with current instance quality. `IMultipleVariantEffect.GetVariants()` returns the variants actually supplied. Five/four/three/two values start at Common/Uncommon/Rare/Epic respectively and end at Legendary. Do not invent missing values. See the [content overview](../02-content-creation.md).
+
+Ordinary content that neither implements `IMultipleVariantEffect` nor overrides `GetStateVariants()` supplies all five qualities by default; `Exclusive` content defaults to Legendary only. Writing `Rank => Common` alone does not limit that list to Common or generate different effect values per quality. The first lesson therefore shares one formula across qualities. The codex initially selects the highest available quality, and its quality arrows do not change treasure level. Supply explicit variants to restrict qualities or assign separate values.
 
 ## Events and state
 

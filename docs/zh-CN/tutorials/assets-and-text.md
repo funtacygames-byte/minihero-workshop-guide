@@ -20,6 +20,8 @@ public ModPresentation Presentation => ModAssets.Icon("assets/icons/starter-reli
 
 重新构建会验证图片并生成 `assets/asset-index.json`。不要手改索引，也不要把未裁切的 3×2 素材表当一张图标。构建安装后在图鉴看实际裁切、透明边缘和主体尺寸。
 
+单张图与素材表的区别见[裁切示意](../reference/visual-walkthrough.md#5-只导出目标图标)。
+
 ![资源比例示意](../../../images/asset-dimensions.svg)
 
 角色主图用 `Icon`，284×512（71:128）；头像 `Avatar`、敌人 `BattleArt` 与宝物图标用 1:1。角色 `Portrait` 是兼容回退，不能替代检查主槽位。所有路径相对于包根，详见[展示参考](../reference/presentation.md)。

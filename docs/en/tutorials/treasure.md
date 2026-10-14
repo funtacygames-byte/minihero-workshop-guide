@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/tutorials/treasure.md) · [Index](../README.md)
 
-Guide revision 2 · Mod API 1.8.0 · 2026-10-13 · [Validation scope](../reference/versions.md)
+Guide revision 2 · Mod API 1.8.0 · 2026-10-14 · [Validation scope](../reference/versions.md)
 
-Use the first lesson's `StarterRelic` to check quality, level, eligibility, and its actual effect. This single-quality teaching treasure illustrates implementation; changing its name and values alone does not constitute a new finished design.
+Use the first lesson's `StarterRelic` to check quality, level, eligibility, and its actual effect. It shares one teaching formula across qualities; changing its name and values alone does not constitute a new finished design.
 
 Prerequisite: [Your first mod](first-mod.md). The gameplay section also needs [A fixed stage](stage.md). Edit `source/ModEntry.cs` and add `source/RelicGrant.cs`. No image or music files are required.
 
@@ -12,7 +12,7 @@ Before installing a changed build, increment `package.json.version` as in [the f
 
 ## 1. Separate quality, level, and pools
 
-`Rank = Common` provides only Common quality. Five versions are not generated automatically without a multi-quality implementation. Keep the edited `BaseValue` at 4 in this lesson. Both `Describe(level)` and `OnStageEntered` calculate `BaseValue × level`: 4 at level 1 and 8 at level 2.
+`Rank = Common` sets the default quality; it does not restrict the default `GetStateVariants()` to Common. The starter neither overrides that method nor implements `IMultipleVariantEffect`, so the codex offers five qualities without generating separate effect values. Keep the edited `BaseValue` at 4 in this lesson. Both `Describe(level)` and `OnStageEntered` calculate `BaseValue × level`: 4 at level 1 and 8 at level 2. Changing quality does not change level.
 
 `CategoryTags` uses `TreasureCategoryTags.Shield` for its shield role in the life system. `PoolTags` uses `CharacterTreasurePoolTags.HealingLifeBuild` for character eligibility; category does not control chest draws. Groveheart (`grove_alchemist`) allows this pool, but a random draw still does not guarantee the treasure.
 

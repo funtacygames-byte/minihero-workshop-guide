@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="450" viewBox="0 0 1080 450" role="img" aria-labelledby="title desc">
+<title id="title">Find the build failure report</title><desc id="desc">A failed build opens a diagnostic folder. Under workshop root, InstallFailures, package ID and timestamp contain install-failure.txt. Read the first CS error, edit Sources, increase version after changing installed content, and rebuild.</desc>
+<rect width="1080" height="450" rx="18" fill="#f7f3e9"/>
+<text x="40" y="47" font-family="sans-serif" font-size="27" fill="#31443c">Build or install failed: find the report</text>
+<rect x="40" y="79" width="1000" height="184" rx="10" fill="#e5edde"/>
+<g font-family="monospace" font-size="21" fill="#31443c"><text x="60" y="116">AdventureWorkshop/</text><text x="89" y="151">InstallFailures/</text><text x="119" y="186">local.alice.lantern-trail/</text><text x="149" y="221">&lt;timestamp&gt;/install-failure.txt</text></g>
+<g font-family="sans-serif" font-size="20" fill="#685c49"><text x="590" y="116">Failure opens this report folder.</text><text x="590" y="151">If not, follow this path.</text><text x="590" y="186">Use your actual package ID.</text><text x="590" y="221">Reports are not source files.</text></g>
+<text x="40" y="310" font-family="monospace" font-size="21" fill="#31443c">ModEntry.cs(12,34): error CS1002: ; expected</text>
+<g font-family="sans-serif" font-size="19" fill="#685c49"><text x="40" y="350">File + line/column → fix the first error in Sources → rebuild</text><text x="40" y="388">Example diagnostic only. Remove personal paths before sharing your actual report.</text><text x="40" y="426">A failed build does not update the installed mod.</text></g>
+</svg>

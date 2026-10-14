@@ -123,7 +123,7 @@ Check `StageExplore` on ordinary stages and `BossBattle` on boss stages. Missing
 
 ## 5. Troubleshooting order
 
-1. Check .NET SDK, Mod API, and game references on the development page.
+1. Run `dotnet --version` in a terminal; keep the generated csproj and game references, then build. A row marked **Ready to build** does not replace the SDK check.
 2. For compilation, find the first `.cs(line,column)` error; later errors may follow from it.
 3. For installation, inspect hash diagnostics rather than editing Builds.
 4. For installed but absent content, check package ID, entry type, `codeEntryPoint`, enabled state, and reload.

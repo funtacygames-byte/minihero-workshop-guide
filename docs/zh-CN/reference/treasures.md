@@ -2,7 +2,7 @@
 
 [English](../../en/reference/treasures.md) · [目录](../README.md)
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13
+教程修订 2 · Mod API 1.8.0 · 2026-10-14
 
 用途：定义宝物、创建运行时宝物实例，并响应统一规则事件。当前基准 1.8.0；[完整公开声明](api-surface.md)，[实际制作步骤](../tutorials/treasure.md)。
 
@@ -28,6 +28,8 @@
 | `CreateState(int level = 1)` | `TreasureState` | 限制等级范围，创建独立运行时状态 |
 
 `Quality`、`EffectValue` 是多品质运行时实例数据，setter 为 protected；不要把最高品质 `Rank` 当成每个实例的当前品质。`IMultipleVariantEffect.GetVariants()` 返回实际提供的品质版本。五／四／三／两档分别从普通／优良／稀有／史诗到传说，不补缺失数值。完整实现见[内容总览](../02-content-creation.md)。
+
+不实现 `IMultipleVariantEffect` 且不覆写 `GetStateVariants()` 的普通内容，默认提供五档品质；`Exclusive` 内容默认只提供传说。仅写 `Rank => Common` 不会把默认品质列表限制为普通，也不会自动为不同品质生成不同效果值。首课因此在各品质共用同一公式。图鉴默认选最高可用品质，品质箭头不改变宝物等级；想限定档位或配置分档数值，要显式提供实际版本。
 
 ## 事件与状态契约
 

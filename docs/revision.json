@@ -1,7 +1,7 @@
 {
   "guideRevision": 2,
   "reviewedApi": "1.8.0",
-  "reviewDate": "2026-10-13",
+  "reviewDate": "2026-10-14",
   "status": "local-reviewed-draft",
   "hashAlgorithm": "SHA-256, UTF-8 with LF line endings",
   "meaningReview": "AI-assisted bilingual review; independent reader trial pending",
@@ -9,8 +9,8 @@
     {
       "zh-CN": "docs/zh-CN/01-project-and-build.md",
       "en": "docs/en/01-project-and-build.md",
-      "sourceHash": "3ec10feba4711f5a6762ff848ff6b53a290aa9fb36e294bd15f2b9ebb9728be7",
-      "translationHash": "b5f3d9aa8930e04118e615a9d1b3457b35abc2a4c9e67fd61d0a7032fd3b0b16"
+      "sourceHash": "0d304743c83bdf2b5728d98674b5eb350f14981b9dc06e9f35e70a64f290c996",
+      "translationHash": "ba18812b04a094a10986188be14bd011ebdf7545a6db479bc5da65e6db04a037"
     },
     {
       "zh-CN": "docs/zh-CN/02-content-creation.md",
@@ -27,8 +27,8 @@
     {
       "zh-CN": "docs/zh-CN/04-testing-and-publishing.md",
       "en": "docs/en/04-testing-and-publishing.md",
-      "sourceHash": "96cd260500e81d798d5fed43fcb7c4896de7d6efc45cfc9f227e252eb5b54ef2",
-      "translationHash": "d50d6d3a91c5a038aee69775500db634f18be76149d62e1fc134c9d06512f841"
+      "sourceHash": "28935bb76706237dfbf5054f67f6ae3578145c930332bf157b391853cc43c72f",
+      "translationHash": "0d60eef6423f48e39cdc8107006139dfd58e9635c5271e5bed2cdd7dbc39541b"
     },
     {
       "zh-CN": "docs/zh-CN/ai-authoring.md",
@@ -45,8 +45,8 @@
     {
       "zh-CN": "docs/zh-CN/README.md",
       "en": "docs/en/README.md",
-      "sourceHash": "94b6d0256ae224bac95ff4e90aef15293e47f4c211d42fd7fe26492c04179b17",
-      "translationHash": "0796e630f088e10109edb4e53e6ed3aa7f3b27e3fbb9b683ecd329f5829f038d"
+      "sourceHash": "3a519b505f60ba750bdd1117b146375b764b620aacc1a11f380c6e58d02e96a8",
+      "translationHash": "d5271cb4e8bbb980a59ffe014b467ca317cc37a8d2fe1d51c935d7816f768eef"
     },
     {
       "zh-CN": "docs/zh-CN/reference/actors.md",
@@ -105,20 +105,26 @@
     {
       "zh-CN": "docs/zh-CN/reference/treasures.md",
       "en": "docs/en/reference/treasures.md",
-      "sourceHash": "509f054c5ef994954b4a0c9c7c9192332421d37dbb19cf9cddf94ddad4b9c1e3",
-      "translationHash": "fdab741be0935f00bef6598d148379f06aec3475ee1eda183369744e11be579a"
+      "sourceHash": "ec2487375de9825e8262583a61b20599f04d2f9408e32eced0b300b2d7843452",
+      "translationHash": "65818fd1d55e1fe9d759e398afde72207df4ed833f36e8eb80abf7091e6d8e9b"
     },
     {
       "zh-CN": "docs/zh-CN/reference/versions.md",
       "en": "docs/en/reference/versions.md",
-      "sourceHash": "2f2858e6c3376a6ca303c1bae103b700545cc959c1b45c7b9cdccc8c076b5e90",
-      "translationHash": "306cb7f3ffc8039a844f2b38ab07a5c60d7504b7da553463879c65c8c4a8f403"
+      "sourceHash": "b31ca9fca71ec66cf809df4abb8ed09d1beb0ddeb2b92aeaa4d39a6fec065603",
+      "translationHash": "0fddb6c323929cdcbc3ed846a213ff66d427b96d14df313ce785de1b8aca83ba"
+    },
+    {
+      "zh-CN": "docs/zh-CN/reference/visual-walkthrough.md",
+      "en": "docs/en/reference/visual-walkthrough.md",
+      "sourceHash": "ce2d7f10741b740f6bc51c5a70de76f1e2ef66c46fdebcea9e2adb5b95ea4ea4",
+      "translationHash": "74bb2ddb4552168a8434571a74291266c9546539506ff7884328bdb01d875b43"
     },
     {
       "zh-CN": "docs/zh-CN/troubleshooting.md",
       "en": "docs/en/troubleshooting.md",
-      "sourceHash": "e31908d47fa6e350b41fab11f1dad4a29bf70a211add4c31ce6be4b04501ee0c",
-      "translationHash": "3147d23dd37a411e6eae1442e48675dd72af62ac30d044e16e0be0a05dd09ab9"
+      "sourceHash": "61118904e13c08bcfd234e3f6c29444c9d1574aa7485482ac47817ec87bb07ed",
+      "translationHash": "f8e0d4b650b620851fedd5363fd96c22bbccfe3b53ec80b2b914410e5034fbb7"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/adventure.md",
@@ -129,8 +135,8 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/assets-and-text.md",
       "en": "docs/en/tutorials/assets-and-text.md",
-      "sourceHash": "6a3bde43590bcbbb71336138a77501dbc2318773c658183d3353fbb49185e028",
-      "translationHash": "2dafce8dc70f8f52816dc648bf8f168a648e1480181fa02f582511a577d940fa"
+      "sourceHash": "50b70071d729be9bda8eabd123bf7f3faa384b8a7598285085007ebcf3e4a283",
+      "translationHash": "d3740179ca1a8f15e66be0ebaff1882179a2eafdce03ff6e12fb40a527b2bdd1"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/character.md",
@@ -147,8 +153,8 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/first-mod.md",
       "en": "docs/en/tutorials/first-mod.md",
-      "sourceHash": "50fca53892463a6c9fe8cd14da3d4ebc42f79c54612882456a59bcfe832e9ab1",
-      "translationHash": "bb847dc3546afad56ce4cfc923f885f89735500d9b9841cc5e22293ef6b3506b"
+      "sourceHash": "0a859dfb9d062a3157fef99d02d9b28d6fa5266799f482e6b384f6ee4f6661af",
+      "translationHash": "97f916e16f4506455b0fe7e25846514b0601b7bcb584d8fcc4103a65f035d56b"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/publish.md",
@@ -165,8 +171,8 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/treasure.md",
       "en": "docs/en/tutorials/treasure.md",
-      "sourceHash": "b0fe0d6ba11eb30d857a7dcc52e7327918e18be47b3c6e7426cef5c6e00c31bc",
-      "translationHash": "c756f24faf3e38e0cba67b884c13b4ad7c7f248ae3f3ab80816be04112fd8988"
+      "sourceHash": "fbc01902565e40f26a54e5c6cd522d42bded219d0eca3304e7bca663b6baecd5",
+      "translationHash": "6102fdd3872c86289d7826012f41a68fa5352df91c121db0f71d841f92ffd897"
     },
     {
       "zh-CN": "templates/zh-CN/01-entry-and-config.cs.txt",
@@ -225,8 +231,8 @@
     {
       "zh-CN": "README.zh-CN.md",
       "en": "README.md",
-      "sourceHash": "b0d48339a1fde6daa3538a1a6dd451258fb5c99cf325b8108f40b5ff0fd0d31c",
-      "translationHash": "92cb6b31e23e0e3abd9ef2cf3289200cc72b9991d1f103c719bcb5aab12a39eb"
+      "sourceHash": "8f3ba6e3bc153220b345f28f4877540bde968916c9b021c7f862ce01b0a64a4f",
+      "translationHash": "b2e4c5609e89eb019872f668966d9ba3254c7ef919ca827a51359f6f3e443f99"
     },
     {
       "zh-CN": "templates/README.zh-CN.md",

@@ -4,7 +4,7 @@
 
 用 C# 制作宝物、角色、敌人和关卡，并加入自己的图片、音乐和双语文本。教程从一个可观察的成果开始，再按目标扩展。
 
-教程修订 2 · Mod API 1.8.0 · 2026-10-13 · [版本与验证范围](docs/zh-CN/reference/versions.md)
+教程修订 2 · Mod API 1.8.0 · 2026-10-14 · [版本与验证范围](docs/zh-CN/reference/versions.md)
 
 ## 第一次制作
 

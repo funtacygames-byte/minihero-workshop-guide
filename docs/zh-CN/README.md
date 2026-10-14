@@ -2,7 +2,7 @@
 
 [English](../en/README.md) · [首页](../../README.zh-CN.md)
 
-教程修订 2 · API 1.8.0 · 2026-10-13
+教程修订 2 · API 1.8.0 · 2026-10-14
 
 ## 学习路径
 
@@ -33,6 +33,7 @@
 - [兼容与限制](reference/compatibility.md)
 - [版本与验证](reference/versions.md)
 - [公开 API 声明](reference/api-surface.md)
+- [操作配图与文件定位](reference/visual-walkthrough.md)
 
 ## 查阅总览与进阶
 
