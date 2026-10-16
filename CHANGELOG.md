@@ -3,6 +3,8 @@
 ## Unreleased — 2026-10-16
 
 - Documented the Windows AppContainer implementation, supported C# contract and pending release verification. / 补充 Windows AppContainer 隔离实现、受支持的 C# 接口范围及待完成的发行验证。
+- Updated the sandbox policy: no fixed memory, CPU-rate or cumulative CPU-time quotas, and no automatic startup, loading or call deadlines; permission isolation and protocol validation remain. / 同步沙箱策略：不设固定内存、CPU 速率和累计 CPU 时间配额，不设启动、加载或调用的自动超时；保留权限隔离与协议校验。
+- Clarified that local Windows x64 Mono development-build checks passed; release-build verification and Steam upload remain pending. / 明确本地 Windows x64 Mono 开发构建检查已通过，仍待发行构建验证和 Steam 上传。
 - Distinguished old in-process builds from sandbox builds in both safety sections. / 在两处安全说明中区分旧版进程内加载与沙箱版本。
 
 ## Guide revision 5 — 2026-10-14

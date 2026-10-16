@@ -19,6 +19,8 @@ Help the player change their existing game-generated mod project. Ask for the re
 
 - [English supported features](docs/en/feature-map.md)
 - [中文可用功能](docs/zh-CN/feature-map.md)
+- [C# mod isolation and compatibility](docs/en/reference/security.md)
+- [C# 模组隔离与兼容范围](docs/zh-CN/reference/security.md)
 - [English source files and dependencies](templates/README.md)
 - [中文源码与依赖](templates/README.zh-CN.md)
 - [Capability routes and limitations](docs/capabilities.json)

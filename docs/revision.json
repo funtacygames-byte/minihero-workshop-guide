@@ -129,8 +129,8 @@
     {
       "zh-CN": "docs/zh-CN/reference/security.md",
       "en": "docs/en/reference/security.md",
-      "sourceHash": "fa949a501767f40177f713de8183a9db17e92ece193d1144797b916c2cb599f3",
-      "translationHash": "b73c111d89236d0164e462f4e4d6e65f65fb1131f5f55bf2d28cb973cabd9e3b"
+      "sourceHash": "4b242a4a1e20498d4f25a5fd00c94c3ed87bb133e2f990e64391769fbb785645",
+      "translationHash": "06a32214e6568e4ff8b24e9a3047932bc29d69b5558db9b40679b5e473fab085"
     },
     {
       "zh-CN": "docs/zh-CN/reference/stages.md",
@@ -147,8 +147,8 @@
     {
       "zh-CN": "docs/zh-CN/reference/versions.md",
       "en": "docs/en/reference/versions.md",
-      "sourceHash": "f4bf80531e26b2228f0c2face8c61973068f38a5abcd04a9036b5c5ea2175148",
-      "translationHash": "8e53f41e8e74768cbea7dc0f67166d59693df71680fcc8c4048e207c42843c32"
+      "sourceHash": "e9897263fe2e7447cefaa974b7d9c8932f4ab8c8083d322c577cd0483c81da08",
+      "translationHash": "fd877fb35e9e246304f1ec4de631ffc99996f38128f611315a9671e7c682f3d9"
     },
     {
       "zh-CN": "docs/zh-CN/reference/visual-walkthrough.md",
