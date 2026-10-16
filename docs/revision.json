@@ -31,6 +31,12 @@
       "translationHash": "6c1b03baa23a9f4e3401a9e4346d346030837d6a963f1cd15a6203106eaeb001"
     },
     {
+      "zh-CN": "docs/zh-CN/README.md",
+      "en": "docs/en/README.md",
+      "sourceHash": "6c9282909cb776f98c39e976ebfcfb27850e957862f87b68c4d650dd3a36b287",
+      "translationHash": "4387bf267a984ccd1e2f995178b9d7b9807d31573e9aaf8623d620f174b027ab"
+    },
+    {
       "zh-CN": "docs/zh-CN/ai-authoring.md",
       "en": "docs/en/ai-authoring.md",
       "sourceHash": "11282ecb18b25dde45870677fcfb578122f07af1219c62e78f1b88ad7cfa8ad1",
@@ -47,12 +53,6 @@
       "en": "docs/en/glossary.md",
       "sourceHash": "780715a45719957713c7083fb6c89064167ce2defa293e19baa6dc22381ef85d",
       "translationHash": "8e7ac2a8f93693abb1a581d898cda97428ba9d29771fb1d52803cf29ea42e801"
-    },
-    {
-      "zh-CN": "docs/zh-CN/README.md",
-      "en": "docs/en/README.md",
-      "sourceHash": "6c9282909cb776f98c39e976ebfcfb27850e957862f87b68c4d650dd3a36b287",
-      "translationHash": "4387bf267a984ccd1e2f995178b9d7b9807d31573e9aaf8623d620f174b027ab"
     },
     {
       "zh-CN": "docs/zh-CN/reference/actors.md",

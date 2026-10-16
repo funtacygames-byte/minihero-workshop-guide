@@ -14,7 +14,9 @@ def digest(path):
 def pairs():
     result = []
     for source_dir, target_dir in [('docs/zh-CN', 'docs/en'), ('templates/zh-CN', 'templates/en')]:
-        for source in sorted((ROOT/source_dir).rglob('*')):
+        # Path ordering differs by OS (notably README.md versus lowercase names).
+        # Sort portable relative strings so Windows and POSIX record the same pairs.
+        for source in sorted((ROOT/source_dir).rglob('*'), key=lambda path: path.relative_to(ROOT).as_posix()):
             if not source.is_file(): continue
             target = ROOT/target_dir/source.relative_to(ROOT/source_dir)
             if not target.is_file(): raise ValueError(f'Missing English counterpart: {target.relative_to(ROOT)}')
