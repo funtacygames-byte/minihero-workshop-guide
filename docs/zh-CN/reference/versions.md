@@ -4,6 +4,8 @@
 
 本教程修订 5，对应 **Mod API 1.8.0**。你可以直接用游戏生成的模组项目学习，不需要教程作者的工程或验证工具。
 
+Windows 沙箱实现及其待完成的发行检查见 [C# 模组隔离](security.md)。
+
 ## 我的游戏能用这些例子吗？
 
 教程的 C# 构建路线使用支持代码模组的 Windows Mono 游戏版本。项目目标为 `netstandard2.1`、C# 9，由游戏准备 API/Core 开发引用。你另需安装 .NET SDK；准备步骤见[首课](../tutorials/first-mod.md#开始前准备)。

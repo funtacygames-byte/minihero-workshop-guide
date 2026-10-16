@@ -148,7 +148,7 @@ For 1.8 features such as adventure rules, looping, seed settings, or dynamic con
 
 ## 8. Permissions, trust, and signatures
 
-C# mods must declare `code.execute`. Their DLLs have the game process's local permissions; enable code only from sources you trust.
+C# mods must declare `code.execute`. Older game builds run their DLLs with the game process's local permissions. See [C# mod isolation](reference/security.md) for the Windows sandbox implementation and its release status; enable code only from sources you trust.
 
 Hashes detect changes and do not certify authorship. The author field is not platform-verified, and certificate signing is not currently provided. Trust binds to the exact package ID, version, and hash; changing files requires confirmation again.
 

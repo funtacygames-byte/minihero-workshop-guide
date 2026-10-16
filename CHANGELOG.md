@@ -1,5 +1,10 @@
 # Guide revisions / 教程修订
 
+## Unreleased — 2026-10-16
+
+- Documented the Windows AppContainer implementation, supported C# contract and pending release verification. / 补充 Windows AppContainer 隔离实现、受支持的 C# 接口范围及待完成的发行验证。
+- Distinguished old in-process builds from sandbox builds in both safety sections. / 在两处安全说明中区分旧版进程内加载与沙箱版本。
+
 ## Guide revision 5 — 2026-10-14
 
 - Rewrote the home pages and introductory route around making, playing and changing a mod. / 首页和入门三课按玩家能做出的结果组织。

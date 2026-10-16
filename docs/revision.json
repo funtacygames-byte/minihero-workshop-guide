@@ -9,8 +9,8 @@
     {
       "zh-CN": "docs/zh-CN/01-project-and-build.md",
       "en": "docs/en/01-project-and-build.md",
-      "sourceHash": "4aadcddce63bdfa9d256bee9ed9a97497c85669c75be49c086bc0fefbdb12303",
-      "translationHash": "cc405941a5d86d9418f100074727a7f31cf4f8ce7f341732cee869f1f0314c02"
+      "sourceHash": "f611e148fd711d3bd731e70f9aa46783ae3a9678a0042968b8fd3460f1c3d132",
+      "translationHash": "8eb79d2d68c14185e4b51b4df56f242b0131068880191399970a07e2897d34ce"
     },
     {
       "zh-CN": "docs/zh-CN/02-content-creation.md",
@@ -27,8 +27,8 @@
     {
       "zh-CN": "docs/zh-CN/04-testing-and-publishing.md",
       "en": "docs/en/04-testing-and-publishing.md",
-      "sourceHash": "4f04b6845b40bff885a2a9d93f67d747c6dd4f0ab3eeee63cea8ec6805611fc5",
-      "translationHash": "be6bacdbe855826291fff4317c5f6abb6b529ab257e1154e95bacdee6cd3c3f0"
+      "sourceHash": "043e20cb23cb00d26268b901b0b93da9ba3949ac1bc9c59657b3fc95eb0c5e54",
+      "translationHash": "6c1b03baa23a9f4e3401a9e4346d346030837d6a963f1cd15a6203106eaeb001"
     },
     {
       "zh-CN": "docs/zh-CN/ai-authoring.md",
@@ -127,6 +127,12 @@
       "translationHash": "8b439687d45727466fe64289e1a883fa0556cbb334b11f927eed911d0f529f0f"
     },
     {
+      "zh-CN": "docs/zh-CN/reference/security.md",
+      "en": "docs/en/reference/security.md",
+      "sourceHash": "fa949a501767f40177f713de8183a9db17e92ece193d1144797b916c2cb599f3",
+      "translationHash": "b73c111d89236d0164e462f4e4d6e65f65fb1131f5f55bf2d28cb973cabd9e3b"
+    },
+    {
       "zh-CN": "docs/zh-CN/reference/stages.md",
       "en": "docs/en/reference/stages.md",
       "sourceHash": "3198bc3999ded8cbfb8a3be274bf1c596bf2f203bd2185499a7e9cfbf936475a",
@@ -141,8 +147,8 @@
     {
       "zh-CN": "docs/zh-CN/reference/versions.md",
       "en": "docs/en/reference/versions.md",
-      "sourceHash": "df2c9651372cb95de9576a0961b7a28818b70c6c400f0c62953566d30614c42b",
-      "translationHash": "4c6a3c81fc1ccfc908412fa7b478e4b18faf9f7ee887f8a46913a90c06530114"
+      "sourceHash": "f4bf80531e26b2228f0c2face8c61973068f38a5abcd04a9036b5c5ea2175148",
+      "translationHash": "8e53f41e8e74768cbea7dc0f67166d59693df71680fcc8c4048e207c42843c32"
     },
     {
       "zh-CN": "docs/zh-CN/reference/visual-walkthrough.md",

@@ -186,7 +186,7 @@ A build hash summarizes publishable file contents using SHA-256. It is recorded 
 
 A hash tells you whether files changed. Anyone able to modify a package can also regenerate its hashes, so it is not a digital signature or proof of authorship. The workshop currently has no certificate signing or online author verification.
 
-A C# mod runs with the game process's permissions. The trust prompt displays the package ID, author, version, and content hash. Trust binds to the exact hash, so changed files require confirmation again. The author field alone is insufficient evidence of safety.
+Older game builds run C# mods with the game process's permissions. [C# mod isolation](reference/security.md) describes the Windows sandbox implementation and its release status. The trust prompt displays the package ID, author, version, and content hash. Trust binds to the exact hash, so changed files require confirmation again. The author field alone is insufficient evidence of safety.
 
 Common diagnostics:
 
