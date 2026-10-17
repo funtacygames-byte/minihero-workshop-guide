@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TYPES = {
     'ModLevelDefinition', 'ModLevelDifficultyDefinition', 'IModLevelDifficultyRegistrar',
     'ModLevelDifficultyExtensions', 'ModLevelDifficultyValidation', 'ModProgress', 'ModPersistentData',
+    'ProfessionUpgradeCurrency', 'ProfessionIds', 'ProfessionUpgradeIds',
     'ProfessionContent', 'ProfessionUpgradeConfig', 'ProfessionUpgradeEffectKind',
     'AdventureItemSegmentSettings', 'AdventureItemSegmentUnit',
     'MiniHeroModApi', 'MiniHeroMod', 'MiniHeroModAttribute', 'IModRegistrar', 'ModRegistrarExtensions',
@@ -131,7 +132,7 @@ def extract(game):
 def render(data,lang):
     zh=lang=='zh-CN'; other='en' if zh else 'zh-CN'
     lines=['# 公开 API 声明索引' if zh else '# Public API declaration index','',f'[{"English" if zh else "简体中文"}](../../{other}/reference/api-surface.md) · [{"目录" if zh else "Index"}](../README.md)','',
-        ('教程修订 6' if zh else 'Guide revision 6')+f' · API {data["api"]} · 2026-10-17','',
+        ('教程修订 7' if zh else 'Guide revision 7')+f' · API {data["api"]} · 2026-10-17','',
         '从当前授权工程只读提取的选定公开声明，不包含方法实现；它不是完整 SDK 文档。继承成员在定义它的基类下查询。默认值与调用语义须同时查对应[规则参考](../README.md#reference)。维护者可使用[提取工具](../../../tools/extract_api.py)重新生成。' if zh else 'Selected public declarations extracted read-only from the authorized source, without implementations. This is not the entire SDK. Look up inherited members under their defining base and use the [rule references](../README.md#reference) for defaults and semantics. Maintainers can regenerate it with the [extractor](../../../tools/extract_api.py).','']
     lines += ['| Type | Type | Type |','| --- | --- | --- |']
     names=list(data['types'])

@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/lifecycle.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
-This page explains who owns state and when it is created, read, and cleared. Baseline: 1.10.0. See [Events](events.md) and [API declarations](api-surface.md) for member details.
+This page explains who owns state and when it is created, read, and cleared. Baseline: 1.11.0. See [Events](events.md) and [API declarations](api-surface.md) for member details.
 
 ![Content lifecycle](../../../images/content-lifecycle.svg)
 

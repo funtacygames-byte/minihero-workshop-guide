@@ -2,7 +2,7 @@
 
 [English](../../en/reference/conditions.md) · [Index](../README.md)
 
-教程修订 6 · Mod API 1.10.0 · 2026-10-17
+教程修订 7 · Mod API 1.11.0 · 2026-10-17
 
 
 条件不是 C#、JavaScript 或任意脚本。`DeclarativeConditionEvaluator.Evaluate(expression, state)` 返回条件真假；遇到无法识别的已求值子句时返回 false。TryEvaluate 返回是否成功求值，out result 才是条件真假。空表达式通过。

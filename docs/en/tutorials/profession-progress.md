@@ -29,7 +29,7 @@ Enter a practice stage with guards as Lantern Ranger, defeat enemies, then retur
 
 A profession's `Upgrades` returns its definitions. Each `costs` entry prices the next level, and the array length sets the cap; no extra tiers are inferred. A profession has 1–32 upgrades, each with 1–100 levels and positive prices. Upgrade IDs start with the profession ID plus a dot. This example uses `StartingMaxHp` through shared settlement. For custom behavior, use `Custom`, keep the effect in the profession's own event callbacks and read the run's locked level through `UpgradeLevel(e.State, upgradeId)`.
 
-Upgrade prices use that profession's `CurrencyKey`, which defaults to `training_points`. Spending and gaining a level are saved together by the host and cannot consume official crystals. Profession and upgrade definitions stay stateless. Use short, natural profession and upgrade names that fit the existing font sizes and text boxes.
+Upgrade prices use that profession's `CurrencyKey`, which defaults to `training_points`. Spending and gaining a level are saved together by the host using this package’s training currency. API 1.11 also supports [game-crystal upgrades](profession.md). Profession and upgrade definitions stay stateless. Use short, natural profession and upgrade names that fit the existing font sizes and text boxes.
 
 ## 3. Store your own permanent flags
 
@@ -48,3 +48,5 @@ The host stores data under the package ID without granting the Mod a disk path o
 Upgrades are locked into a snapshot when a run starts. Purchases outside battle do not change an existing run; continuing a save restores its old levels, while new runs use current ones. Permanent resources do not roll back with a save. Authors must track stable chapter or reward IDs when a reward should not be farmed repeatedly. Disabling or reinstalling the same package ID keeps its data; a new package ID uses separate progress.
 
 Check that points and levels survive a restart, then compare a continued save with a fresh run. See the [API index](../reference/api-surface.md#professioncontent) for declarations.
+
+[Use game crystals and copy built-in profession upgrades](profession.md).

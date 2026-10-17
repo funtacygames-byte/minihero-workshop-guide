@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/troubleshooting.md) · [Index](README.md)
 
-Guide revision 6 · API 1.10.0 · 2026-10-17
+Guide revision 7 · API 1.11.0 · 2026-10-17
 
-Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.10.0, guide revision 6.
+Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.11.0, guide revision 7.
 
 ## Get the actual error
 

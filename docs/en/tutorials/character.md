@@ -68,3 +68,5 @@ Continue with [Enemies and instance state](enemy.md). See [Character and enemy r
 The fragment now reads character, trait, move and role text with ModText. Merge entries from the [Chinese example catalog](../../../templates/zh-CN/localization.json) and [English example catalog](../../../templates/en/localization.json) into your existing files without replacing generated entries. Rules and IDs remain in one source file. Start a fresh test run after changing language and check names, descriptions and role text; see [assets and text](assets-and-text.md).
 
 Continue with [Professions and permanent progress](profession-progress.md) to add training points and upgrades.
+
+[Add permanent profession upgrades with game crystals](profession.md).

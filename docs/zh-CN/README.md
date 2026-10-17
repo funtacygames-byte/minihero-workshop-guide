@@ -64,3 +64,5 @@
 完整手册：[工程与构建](01-project-and-build.md) · [内容制作](02-content-creation.md) · [资源与表现](03-assets-and-presentation.md) · [发布前检查](04-testing-and-publishing.md)。它们按系统组织，适合做完首课后查阅。
 
 [术语](glossary.md) · [反馈文档问题](../../CONTRIBUTING.md)
+
+- [职业与水晶强化](tutorials/profession.md)：创建独立职业并复用内置强化。

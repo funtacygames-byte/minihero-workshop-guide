@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/card-choice.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
 
 This contract follows current `CardChoiceModels.cs`, `CardChoiceEventContent.cs` and `GameEngine.CardChoices.cs` for the formal battle scene with the new card-choice overlay. Start with the [two-branch lesson](../tutorials/card-choice.md); declarations are in the [API index](api-surface.md).

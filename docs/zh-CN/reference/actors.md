@@ -2,9 +2,9 @@
 
 [English](../../en/reference/actors.md) · [目录](../README.md)
 
-教程修订 6 · Mod API 1.10.0 · 2026-10-17
+教程修订 7 · Mod API 1.11.0 · 2026-10-17
 
-当前基准 1.10.0。方法与类型查[API 声明](api-surface.md)；步骤见[角色课](../tutorials/character.md)和[敌人课](../tutorials/enemy.md)。
+当前基准 1.11.0。方法与类型查[API 声明](api-surface.md)；步骤见[角色课](../tutorials/character.md)和[敌人课](../tutorials/enemy.md)。
 
 ## CharacterContent
 

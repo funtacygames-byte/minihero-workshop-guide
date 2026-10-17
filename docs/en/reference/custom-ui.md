@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/custom-ui.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
 
 Follow the [custom-page lesson](../tutorials/custom-ui.md), then inspect [ModUi](api-surface.md#modui) and [IModUiContext](api-surface.md#imoduicontext). These interfaces describe page data that the host renders as Unity UI; they do not grant scene-editing access.

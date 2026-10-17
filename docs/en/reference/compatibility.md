@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/compatibility.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
-Baseline: 1.10.0. Use this page to maintain older mods and inspect limits. These features are not prerequisites for a first mod.
+Baseline: 1.11.0. Use this page to maintain older mods and inspect limits. These features are not prerequisites for a first mod.
 
 ## Configuration API
 

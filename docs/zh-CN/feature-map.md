@@ -2,7 +2,7 @@
 
 [English](../en/feature-map.md) · [Index](README.md)
 
-教程修订 6 · Mod API 1.10.0 · 2026-10-17
+教程修订 7 · Mod API 1.11.0 · 2026-10-17
 
 想知道某种玩法能不能做，可以从这里查。第一次制作先走[入门三课](README.md)，不需要先学这些接口。表里的限制帮助你决定采用哪条路线。
 
@@ -18,6 +18,7 @@
 | [冒险与难度](tutorials/adventure.md) | 可制作 | 入口、素材 Stage、步骤、角色名单、整备 |
 | [追加现有关卡难度](tutorials/level-difficulty.md) | 可制作（API 1.10.0） | 独立复制、唯一编号、引用检查、Mod 选关进度 |
 | [职业与永久进度](tutorials/profession-progress.md) | 可制作（API 1.9.0） | 开局锁定强化、独立资源、成功动作提交 |
+| [职业与水晶强化](tutorials/profession.md) | API 1.11 起支持 | 独立等级、复制强化、本体水晶或包内资源 |
 | [种子循环续接](tutorials/adventure-modes.md) | 可制作 | 每日偏移、总轮数上限、独立续接上下文 |
 | [规则与状态](tutorials/rules-and-state.md) | 可制作 | 次数、预览、换场景重置、激活冒险规则 |
 | [自定义页面](tutorials/custom-ui.md) | 可制作 | 宿主控件树、动作与本包导航；没有配置写入 |

@@ -1,0 +1,16 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [GameContent(ModEntry.PackageId + ".profession.runesmith")]
+    public sealed class RunesmithProfession : ProfessionContent
+    {
+        public override string PackageId => ModEntry.PackageId;
+        public override string Name => ModText.Get(PackageId, "profession.runesmith.name", "Runesmith");
+        public override ProfessionUpgradeCurrency UpgradeCurrency => ProfessionUpgradeCurrency.GameCrystals;
+        public override IReadOnlyList<ProfessionUpgradeConfig> Upgrades =>
+            ProfessionUpgradeConfig.CopyBuiltInProfession(ProfessionIds.Mage, Id);
+    }
+}

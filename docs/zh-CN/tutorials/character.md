@@ -68,3 +68,5 @@ columns[1].cards.Add(secondGuard);
 本课片段已使用 ModText 读取角色、特性、招式和职业显示文字。将[中文示例键](../../../templates/zh-CN/localization.json)和[英文示例键](../../../templates/en/localization.json)的 entries 合并到你已有的两份目录，不覆盖生成条目。规则和 ID 保持同一份源码；切语言后新开测试局核对名称、说明和职业，详见[素材与文本课](assets-and-text.md)。
 
 职业的永久强化与训练点可接着按[职业与永久进度课](profession-progress.md)制作。
+
+[给角色接入水晶职业强化](profession.md)。

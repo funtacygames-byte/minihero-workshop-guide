@@ -2,7 +2,17 @@
 
 [简体中文](../../zh-CN/reference/documentation-design.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
+
+## Revision 7 verification
+
+The new crystal-profession fragment compiles in both languages against the current API/Core using netstandard2.1 and C# 9. The declaration index contains 102 selected types and 879 declarations. Public checks cover 95 Markdown files, 65 language pairs and 19 capability routes.
+
+The formal game Editor passed 206 focused regression tests, including real AppContainer loading, crystal purchases, insufficient balance, caps, save-failure rollback, independent levels, disabling/re-enabling content, restarts and old run snapshots. The existing profession upgrade page purchased the sample's first wisdom level with crystals changing from 2000 to 1500. Chinese and English profession labels and upgrade titles fit the original font sizes and text boxes; the role stayed within two lines and upgrade titles within one.
+
+The Windows x64 Mono development player built with zero errors. Its real-process crystal-profession check passed: five copied Mage nodes, crystals 2000 → 1500, level 1 restored in a new worker, and locked snapshots for an active or continued run. Downloaded Mod assemblies stayed outside the game process.
+
+These checks use isolated test saves. They do not establish Steam release availability or independent player comprehension. The tutorial repository contains source fragments and declarations, without game binaries or private test data.
 
 ## Revision 6 verification
 

@@ -39,6 +39,7 @@ This route needs no external artwork or music. The word `config` in 01's filenam
 | [15 Chained choice](en/15-chained-choice.cs.txt) | `source/TwoStepSupplies.cs` | Place this event in 08; try confirmation and cancellation in [the choice lesson](../docs/en/tutorials/card-choice.md) |
 | [16 Difficulty copy](en/16-level-difficulty.cs.txt) | `source/ExtraDifficulty.cs` | Call `ExtraDifficulty.Register(registrar)` in the existing Load; [lesson](../docs/en/tutorials/level-difficulty.md) |
 | [17 Profession and progress](en/17-profession-progress.cs.txt) | `source/LanternTraining.cs` | Register it and update 02's ProfessionId/Role; [lesson](../docs/en/tutorials/profession-progress.md) |
+| [18 Crystal profession](en/18-crystal-profession.cs.txt) | `source/RunesmithProfession.cs` | API 1.11; register and bind the character in [Professions](../docs/en/tutorials/profession.md) |
 
 Do not copy every file at once. In particular, 07 does not include its three source regions and cannot run alone. Add files before using image bindings; character and enemy lessons can be completed without custom artwork first.
 

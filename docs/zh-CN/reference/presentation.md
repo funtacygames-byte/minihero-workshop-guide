@@ -2,9 +2,9 @@
 
 [English](../../en/reference/presentation.md) · [目录](../README.md)
 
-教程修订 6 · Mod API 1.10.0 · 2026-10-17
+教程修订 7 · Mod API 1.11.0 · 2026-10-17
 
-当前基准 1.10.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
+当前基准 1.11.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
 
 ## 图片签名与槽位
 

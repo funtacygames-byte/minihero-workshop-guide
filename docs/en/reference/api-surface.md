@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/api-surface.md) · [Index](../README.md)
 
-Guide revision 6 · API 1.10.0 · 2026-10-17
+Guide revision 7 · API 1.11.0 · 2026-10-17
 
 Selected public declarations extracted read-only from the authorized source, without implementations. This is not the entire SDK. Look up inherited members under their defining base and use the [rule references](../README.md#reference) for defaults and semantics. Maintainers can regenerate it with the [extractor](../../../tools/extract_api.py).
 
@@ -35,8 +35,9 @@ Selected public declarations extracted read-only from the authorized source, wit
 | [ModUiElement](#moduielement) | [ModUiElementKind](#moduielementkind) | [ModUiImageFit](#moduiimagefit) |
 | [ModUiStyle](#moduistyle) | [ModUiThickness](#moduithickness) | [MoveCapacityEvent](#movecapacityevent) |
 | [MoveContent](#movecontent) | [NormalAttackResolvedEvent](#normalattackresolvedevent) | [PlayerDamageTakenEvent](#playerdamagetakenevent) |
-| [PlayerStatusProjectionEvent](#playerstatusprojectionevent) | [ProfessionContent](#professioncontent) | [ProfessionUpgradeConfig](#professionupgradeconfig) |
-| [ProfessionUpgradeEffectKind](#professionupgradeeffectkind) | [RichEventChoiceState](#richeventchoicestate) | [StageContent](#stagecontent) |
+| [PlayerStatusProjectionEvent](#playerstatusprojectionevent) | [ProfessionContent](#professioncontent) | [ProfessionIds](#professionids) |
+| [ProfessionUpgradeConfig](#professionupgradeconfig) | [ProfessionUpgradeCurrency](#professionupgradecurrency) | [ProfessionUpgradeEffectKind](#professionupgradeeffectkind) |
+| [ProfessionUpgradeIds](#professionupgradeids) | [RichEventChoiceState](#richeventchoicestate) | [StageContent](#stagecontent) |
 | [StageDefinition](#stagedefinition) | [StageEnteredEvent](#stageenteredevent) | [StageGenerationProfiles](#stagegenerationprofiles) |
 | [StageGraphEdgeDefinition](#stagegraphedgedefinition) | [StageGraphNodeDefinition](#stagegraphnodedefinition) | [StageGraphNodeKind](#stagegraphnodekind) |
 | [StatEffect](#stateffect) | [TraitContent](#traitcontent) | [TreasureContent](#treasurecontent) |
@@ -838,7 +839,7 @@ public abstract class MiniHeroMod
 ```csharp
 public static class MiniHeroModApi
 {
-    public const string Version = "1.10.0";
+    public const string Version = "1.11.0";
     public const string MinimumCompatibleVersion = "1.0.0";
 }
 ```
@@ -1351,12 +1352,28 @@ public abstract class ProfessionContent : GameContentModule
 {
     public abstract string PackageId { get; }
     public abstract IReadOnlyList<ProfessionUpgradeConfig> Upgrades { get; }
+    public virtual ProfessionUpgradeCurrency UpgradeCurrency { get; }
     public virtual string CurrencyKey { get; }
     public virtual string CurrencyName { get; }
     public virtual string CurrencyIconId { get; }
     public void ValidateRegistration(string packageId);
     public int UpgradeLevel(GameState state, string upgradeId);
     public virtual string UpgradeDescription(string upgradeId, int level);
+}
+```
+
+## ProfessionIds
+
+```csharp
+public static class ProfessionIds
+{
+    public const string Assassin = "profession.assassin";
+    public const string Warrior = "profession.warrior";
+    public const string Ranger = "profession.ranger";
+    public const string Mage = "profession.mage";
+    public const string MartialArtist = "profession.martial_artist";
+    public static string FromCharacterId(string characterId);
+    public static string DisplayName(string professionId);
 }
 ```
 
@@ -1369,10 +1386,23 @@ public sealed class ProfessionUpgradeConfig
     public string name = string.Empty;
     public string description = string.Empty;
     public string iconId = string.Empty;
+    public string builtInUpgradeId = string.Empty;
     public ProfessionUpgradeEffectKind effectKind = ProfessionUpgradeEffectKind.Custom;
     public int valuePerLevel;
     public int[] costs = Array.Empty<int>();
+    public static ProfessionUpgradeConfig FromBuiltIn(string id, string builtInUpgradeId);
+    public static IReadOnlyList<ProfessionUpgradeConfig> CopyBuiltInProfession(string sourceProfessionId, string professionId);
     public ProfessionUpgradeConfig Clone();
+}
+```
+
+## ProfessionUpgradeCurrency
+
+```csharp
+public enum ProfessionUpgradeCurrency
+{
+    ModCurrency,
+    GameCrystals,
 }
 ```
 
@@ -1393,6 +1423,39 @@ public enum ProfessionUpgradeEffectKind
     BossDefeatHealingPercent,
     PotionEffectPercent,
     Custom,
+}
+```
+
+## ProfessionUpgradeIds
+
+```csharp
+public static class ProfessionUpgradeIds
+{
+    public const string AssassinWisdom = "profession.assassin.wisdom";
+    public const string AssassinStartingGold = "profession.assassin.starting_gold";
+    public const string AssassinMaxHp = "profession.assassin.max_hp";
+    public const string AssassinAttack = "profession.assassin.attack";
+    public const string AssassinStartingTreasure = "profession.assassin.starting_treasure";
+    public const string WarriorMaxHp = "profession.warrior.max_hp";
+    public const string WarriorStartingGold = "profession.warrior.starting_gold";
+    public const string WarriorDefense = "profession.warrior.defense";
+    public const string WarriorIntermissionHealing = "profession.warrior.intermission_healing";
+    public const string WarriorBossShield = "profession.warrior.boss_shield";
+    public const string RangerAttack = "profession.ranger.attack";
+    public const string RangerStartingGold = "profession.ranger.starting_gold";
+    public const string RangerMaxHp = "profession.ranger.max_hp";
+    public const string RangerBossDodge = "profession.ranger.boss_dodge";
+    public const string RangerStartingTreasure = "profession.ranger.starting_treasure";
+    public const string MageWisdom = "profession.mage.wisdom";
+    public const string MageMaxHp = "profession.mage.max_hp";
+    public const string MageStartingGold = "profession.mage.starting_gold";
+    public const string MageBossDefeatHealingPercent = "profession.mage.boss_defeat_healing_percent";
+    public const string MagePotionEffectPercent = "profession.mage.potion_effect_percent";
+    public const string MartialArtistMaxHp = "profession.martial_artist.max_hp";
+    public const string MartialArtistStartingGold = "profession.martial_artist.starting_gold";
+    public const string MartialArtistStartingTreasure = "profession.martial_artist.starting_treasure";
+    public const string MartialArtistIntermissionHealing = "profession.martial_artist.intermission_healing";
+    public const string MartialArtistBossShield = "profession.martial_artist.boss_shield";
 }
 ```
 

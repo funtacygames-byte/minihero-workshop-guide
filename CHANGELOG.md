@@ -1,5 +1,10 @@
 # Guide revisions / 教程修订
 
+## Guide revision 7 — 2026-10-17
+
+- Custom professions can spend game crystals in the existing upgrade page and copy built-in upgrade definitions with independent levels. / 自定义职业可在既有强化页使用本体水晶，复制内置强化并独立保存等级。
+- Add a bilingual crystal-profession lesson, focused fragment and current API declarations. / 新增双语水晶职业教程、源码片段和当前接口声明。
+
 ## Guide revision 6 — 2026-10-17
 
 - Corrected avatar source art to opaque 4:5 portraits and documented the automatic top-square crop; documented tall character main art with a complete background separately. / 头像改为带背景 4:5 肖像，说明顶部方形裁切，与带背景的高竖幅角色主图分开。

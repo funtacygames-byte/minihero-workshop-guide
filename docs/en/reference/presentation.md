@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/presentation.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
-Baseline: 1.10.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
+Baseline: 1.11.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
 
 ## Image signatures and slots
 

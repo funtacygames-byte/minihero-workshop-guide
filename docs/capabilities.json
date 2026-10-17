@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "guideRevision": 6,
-  "reviewedApi": "1.10.0",
+  "guideRevision": 7,
+  "reviewedApi": "1.11.0",
   "reviewDate": "2026-10-17",
   "statusMeaning": {
     "available": "Current authoring entry exists; not a claim that every example was playtested.",
@@ -310,6 +310,25 @@
       "boundary": {
         "zh-CN": "API 1.9：职业强化与标量进度，开局快照，成功动作提交，不写官方资源",
         "en": "API 1.9: profession upgrades/scalar progress, run snapshots, successful-action commits, no official-resource writes"
+      }
+    },
+    {
+      "id": "crystal-professions",
+      "status": "available",
+      "apiTypes": [
+        "ProfessionContent",
+        "ProfessionUpgradeConfig",
+        "ProfessionUpgradeCurrency",
+        "ProfessionIds",
+        "ProfessionUpgradeIds"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/profession.md",
+        "en": "docs/en/tutorials/profession.md"
+      },
+      "boundary": {
+        "zh-CN": "API 1.11：复制本体职业强化，既有强化页消费本体水晶，等级独立，回调不能直接改水晶",
+        "en": "API 1.11: copied built-in upgrades, game-crystal purchases in the existing upgrade page, independent levels; callbacks cannot directly change crystals"
       }
     }
   ]

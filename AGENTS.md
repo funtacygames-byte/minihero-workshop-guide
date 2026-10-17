@@ -3,7 +3,7 @@
 This is a bilingual tutorial repository. Keep English and Simplified Chinese chapters aligned in mechanics, numbers, conditions, limitations, and code identifiers. Read `docs/en/ai-authoring.md` or `docs/zh-CN/ai-authoring.md` before changing authoring instructions.
 
 - Publish tutorials, focused fragments, and neutral reference diagrams. Do not add complete adventure examples or Starfall Expedition assets without a new user request.
-- Check claims against the current game/API rather than historical plans. The reviewed baseline is guide revision 6, API 1.10.0 on 2026-10-17; state unverified behavior accurately.
+- Check claims against the current game/API rather than historical plans. The reviewed baseline is guide revision 7, API 1.11.0 on 2026-10-17; state unverified behavior accurately.
 - Author gameplay in C# content classes. Do not route players or AI to declarative gameplay JSON, contentIndex recipes or a JSON authoring editor. Generated manifests, translation catalogs and saves are auxiliary data; identify their purpose clearly.
 - Keep package/content IDs, localization keys, and API names stable. Translate displayed values.
 - MiniHero uses Western fantasy/fairy-tale adventure. Yaoguang is the explicitly authorized ancient Chinese heroine exception.

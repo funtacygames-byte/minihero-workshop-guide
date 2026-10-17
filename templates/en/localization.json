@@ -280,6 +280,10 @@
     {
       "key": "profession.trailwarden.vitality.description",
       "value": "Start runs with +{value} max health."
+    },
+    {
+      "key": "profession.runesmith.name",
+      "value": "Runesmith"
     }
   ]
 }

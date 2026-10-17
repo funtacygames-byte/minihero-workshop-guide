@@ -6,7 +6,7 @@ Start with one small change: load a treasure called **Wayfarer's Relic**, then c
 
 ## Before you start
 
-- **MiniHero:** use the Windows game build with C# mod support. This guide indexes API 1.10.0; use the minimum required by the lesson. Update before starting; see [versions](../reference/versions.md) for build limitations.
+- **MiniHero:** use the Windows game build with C# mod support. This guide indexes API 1.11.0; use the minimum required by the lesson. Update before starting; see [versions](../reference/versions.md) for build limitations.
 - **A code editor:** use an editor you are comfortable with that can edit C# files. Source files are plain text; do not save them using Word.
 - **The .NET SDK:** this compiles C# into a DLL the game can load. If you need it, choose the **SDK** for your system from [Microsoft's download page](https://dotnet.microsoft.com/download). Installing only the Runtime is not enough.
 

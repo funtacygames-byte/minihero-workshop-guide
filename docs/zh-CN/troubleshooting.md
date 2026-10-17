@@ -2,7 +2,7 @@
 
 [English](../en/troubleshooting.md) · [目录](README.md)
 
-教程修订 6 · API 1.10.0 · 2026-10-17
+教程修订 7 · API 1.11.0 · 2026-10-17
 
 先定位失败阶段，再修复对应文件。保留 Sources，不在 Builds 或 Installed 直接改文件。当前基准 API 1.8.0，教程修订 4。
 

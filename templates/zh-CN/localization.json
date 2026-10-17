@@ -280,6 +280,10 @@
     {
       "key": "profession.trailwarden.vitality.description",
       "value": "开始游戏时，最大生命增加 {value} 点。"
+    },
+    {
+      "key": "profession.runesmith.name",
+      "value": "符文师"
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/feature-map.md) · [Index](README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
 Use this page to check whether a feature is supported. For your first mod, start with [the three introductory lessons](README.md). You do not need these APIs first; the limitations help you choose a route later.
 
@@ -18,6 +18,7 @@ Use this page to check whether a feature is supported. For your first mod, start
 | [Adventures and difficulty](tutorials/adventure.md) | Supported | Entry, source Stage, steps, character list, preparation |
 | [Extend existing difficulties](tutorials/level-difficulty.md) | Available (API 1.10.0) | Independent copies, unique numbers, reference checks, Mod selection progress |
 | [Professions and progress](tutorials/profession-progress.md) | Available (API 1.9.0) | Run-locked upgrades, separate resources, commits on successful actions |
+| [Professions and crystals](tutorials/profession.md) | Supported from API 1.11 | Independent levels, copied upgrades, game crystals or package currency |
 | [Seeds, loops and continuation](tutorials/adventure-modes.md) | Supported | Daily offset, total loop cap, isolated continuation context |
 | [Rules and state](tutorials/rules-and-state.md) | Supported | Counters, preview, stage reset, adventure-rule activation |
 | [Custom pages](tutorials/custom-ui.md) | Supported | Host UI tree, actions, same-package navigation; no configuration writes |

@@ -64,3 +64,5 @@ Use these to look up a class, property or event. You do not need to read them al
 Full manuals: [Project and build](01-project-and-build.md) · [Content](02-content-creation.md) · [Assets](03-assets-and-presentation.md) · [Before publishing](04-testing-and-publishing.md). These are organized by system and are useful after the first lesson.
 
 [Terminology](glossary.md) · [Report a documentation problem](../../CONTRIBUTING.md)
+
+- [Professions and crystal upgrades](tutorials/profession.md) — create an independent profession and reuse built-in nodes.

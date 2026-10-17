@@ -1,9 +1,9 @@
 {
-  "api": "1.10.0",
+  "api": "1.11.0",
   "reviewDate": "2026-10-17",
   "extraction": "selected public declarations and protected extension points; inherited members listed under their defining base",
   "sources": {
-    "Assets/Game/脚本/ModApi/MiniHeroModApi.cs": "aaeee24cf9d14911c5b699cb1b8f1f20d90b488db413469310c7b63af5bdbfeb",
+    "Assets/Game/脚本/ModApi/MiniHeroModApi.cs": "2cc24a5d6747780b0b03137adedcdb651bd826373a1b52a83119ca58803ebf95",
     "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs": "e41bb27ce0a06f1438c23ba746819dc8a919b773147a3444b764db042fe72b78",
     "Assets/Game/脚本/ModApi/ModPersistentData.cs": "bdaccd6741240ce69fc936eee2200d6ebc65092356c7672510815e46d1cbc1df",
     "Assets/Game/脚本/核心/内容系统/AdventureContent.cs": "ff44335f0955f2a3742aca6029cc7192c4693150c4d00a2ba77eac763592ee3c",
@@ -15,7 +15,7 @@
     "Assets/Game/脚本/核心/内容系统/CharacterContent.cs": "c7c23ac80c76c48e9b6a962f59890d1655e8ef2873b7128b2d6af42ac19b9a7c",
     "Assets/Game/脚本/核心/内容系统/ContentFramework.cs": "e4b33a054fc85c02cb66f4a6f8ad0e46b2a0602389cd175bd306455986212cd7",
     "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs": "2480a1b65c778c4aeecc8c20f06c020bfd19ed8505f7ce2a71e9b363efa13eef",
-    "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs": "74119e09b82dd296296c6db1ab9851f6ec0ccbb12285cb317bb795c4dfaeea5d",
+    "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs": "cf7355d6a6c7699c69aca4d13c44adef7165b17989115f113805b425d6eedb5a",
     "Assets/Game/脚本/核心/内容系统/ShopContent.cs": "2b918fef89c0080490c1509230f3d34bb6f712c93b9c3a55a2834e7c84634aac",
     "Assets/Game/脚本/核心/内容系统/TreasureContent.cs": "4713889c4ff502701129b5f83301531076cab87814f83242100c69bee0e3acfe",
     "Assets/Game/脚本/核心/内容系统/敌人特性/EnemyTraitEvents.cs": "1c1b64990e7c35ff3f6e9cb8382a12313eecfc3be9c1c5c3a21c69a88acffd66",
@@ -25,7 +25,7 @@
     "Assets/Game/脚本/核心/运行逻辑/GameActionModels.cs": "11a737250fb80fd194f9391971abca9d9acaade53392219892fd187028c2037f",
     "Assets/Game/脚本/核心/运行逻辑/GameModels.cs": "57fbea4b6c33bae9afa479a7b9e8da2b09a3d27536e7ac5c3d025f92adaa6a7c",
     "Assets/Game/脚本/核心/运行逻辑/GamePrimitives.cs": "ba420e0fe5034b81e2ea8a8eacdcdafc2f59f28f4a3d985878adca1dd5040d3d",
-    "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs": "ce50c4b96fe9743ddb1ea614f0b0490b42fbc5d36de1c4de1f83aae69e4d36cf",
+    "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs": "ba50d080fe44263608395c7c3633d41341d0d2809ef78940f4b1df93138840db",
     "Assets/Game/脚本/核心/运行逻辑/卡牌执行/CardExecutionContext.cs": "3ba8562f3b1187a68eb22d86b3f88b72a7cd9795d1eb0943ce5c1e429a7d46a8"
   },
   "types": {
@@ -731,7 +731,7 @@
     "MiniHeroModApi": {
       "declaration": "public static class MiniHeroModApi",
       "members": [
-        "public const string Version = \"1.10.0\";",
+        "public const string Version = \"1.11.0\";",
         "public const string MinimumCompatibleVersion = \"1.0.0\";"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
@@ -1172,6 +1172,7 @@
       "members": [
         "public abstract string PackageId { get; }",
         "public abstract IReadOnlyList<ProfessionUpgradeConfig> Upgrades { get; }",
+        "public virtual ProfessionUpgradeCurrency UpgradeCurrency { get; }",
         "public virtual string CurrencyKey { get; }",
         "public virtual string CurrencyName { get; }",
         "public virtual string CurrencyIconId { get; }",
@@ -1181,6 +1182,19 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs"
     },
+    "ProfessionIds": {
+      "declaration": "public static class ProfessionIds",
+      "members": [
+        "public const string Assassin = \"profession.assassin\";",
+        "public const string Warrior = \"profession.warrior\";",
+        "public const string Ranger = \"profession.ranger\";",
+        "public const string Mage = \"profession.mage\";",
+        "public const string MartialArtist = \"profession.martial_artist\";",
+        "public static string FromCharacterId(string characterId);",
+        "public static string DisplayName(string professionId);"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs"
+    },
     "ProfessionUpgradeConfig": {
       "declaration": "public sealed class ProfessionUpgradeConfig",
       "members": [
@@ -1188,10 +1202,21 @@
         "public string name = string.Empty;",
         "public string description = string.Empty;",
         "public string iconId = string.Empty;",
+        "public string builtInUpgradeId = string.Empty;",
         "public ProfessionUpgradeEffectKind effectKind = ProfessionUpgradeEffectKind.Custom;",
         "public int valuePerLevel;",
         "public int[] costs = Array.Empty<int>();",
+        "public static ProfessionUpgradeConfig FromBuiltIn(string id, string builtInUpgradeId);",
+        "public static IReadOnlyList<ProfessionUpgradeConfig> CopyBuiltInProfession(string sourceProfessionId, string professionId);",
         "public ProfessionUpgradeConfig Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs"
+    },
+    "ProfessionUpgradeCurrency": {
+      "declaration": "public enum ProfessionUpgradeCurrency",
+      "members": [
+        "ModCurrency",
+        "GameCrystals"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs"
     },
@@ -1210,6 +1235,37 @@
         "BossDefeatHealingPercent",
         "PotionEffectPercent",
         "Custom"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs"
+    },
+    "ProfessionUpgradeIds": {
+      "declaration": "public static class ProfessionUpgradeIds",
+      "members": [
+        "public const string AssassinWisdom = \"profession.assassin.wisdom\";",
+        "public const string AssassinStartingGold = \"profession.assassin.starting_gold\";",
+        "public const string AssassinMaxHp = \"profession.assassin.max_hp\";",
+        "public const string AssassinAttack = \"profession.assassin.attack\";",
+        "public const string AssassinStartingTreasure = \"profession.assassin.starting_treasure\";",
+        "public const string WarriorMaxHp = \"profession.warrior.max_hp\";",
+        "public const string WarriorStartingGold = \"profession.warrior.starting_gold\";",
+        "public const string WarriorDefense = \"profession.warrior.defense\";",
+        "public const string WarriorIntermissionHealing = \"profession.warrior.intermission_healing\";",
+        "public const string WarriorBossShield = \"profession.warrior.boss_shield\";",
+        "public const string RangerAttack = \"profession.ranger.attack\";",
+        "public const string RangerStartingGold = \"profession.ranger.starting_gold\";",
+        "public const string RangerMaxHp = \"profession.ranger.max_hp\";",
+        "public const string RangerBossDodge = \"profession.ranger.boss_dodge\";",
+        "public const string RangerStartingTreasure = \"profession.ranger.starting_treasure\";",
+        "public const string MageWisdom = \"profession.mage.wisdom\";",
+        "public const string MageMaxHp = \"profession.mage.max_hp\";",
+        "public const string MageStartingGold = \"profession.mage.starting_gold\";",
+        "public const string MageBossDefeatHealingPercent = \"profession.mage.boss_defeat_healing_percent\";",
+        "public const string MagePotionEffectPercent = \"profession.mage.potion_effect_percent\";",
+        "public const string MartialArtistMaxHp = \"profession.martial_artist.max_hp\";",
+        "public const string MartialArtistStartingGold = \"profession.martial_artist.starting_gold\";",
+        "public const string MartialArtistStartingTreasure = \"profession.martial_artist.starting_treasure\";",
+        "public const string MartialArtistIntermissionHealing = \"profession.martial_artist.intermission_healing\";",
+        "public const string MartialArtistBossShield = \"profession.martial_artist.boss_shield\";"
       ],
       "source": "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs"
     },

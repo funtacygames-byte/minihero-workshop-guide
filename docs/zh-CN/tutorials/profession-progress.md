@@ -29,7 +29,7 @@ public override string Role => ModText.Get(ModEntry.PackageId, "profession.trail
 
 职业的 `Upgrades` 返回强化定义。`costs` 每项是升到下一级的价格，数组长度就是等级上限；不推算额外档位。每个职业 1–32 项，每项 1–100 级，价格为正数。强化 ID 以职业 ID 加点开头。示例用 `StartingMaxHp`，由共同规则结算；自定义规则使用 `Custom`，效果写在职业自己的事件回调中，通过 `UpgradeLevel(e.State, upgradeId)` 读取本局锁定等级。
 
-升级费用来自该职业的 `CurrencyKey`，默认 `training_points`；扣费与升一级在宿主一次保存，不能消费官方水晶。职业及强化定义保持无状态。职业名称和强化标题用自然短译文，沿用现有字号和文本框。
+升级费用来自该职业的 `CurrencyKey`，默认 `training_points`；扣费与升一级在宿主一次保存，本课消费本包训练点；API 1.11 另支持[本体水晶强化](profession.md)。职业及强化定义保持无状态。职业名称和强化标题用自然短译文，沿用现有字号和文本框。
 
 ## 3. 自己的永久标记
 
@@ -48,3 +48,5 @@ bool accepted = progress.AddInt("enemies_defeated", 1);
 强化在开局锁定快照。局外购买不改变进行中的对局；继续旧存档恢复旧等级，新开局读取新等级。永久资源不会随回档倒退；若某奖励不能反复刷取，作者需记录稳定章节或奖励 ID。停用、重新安装同一包 ID 不会删除这些数据；更换包 ID 会使用另一份进度。
 
 检查重启后资源和等级仍保留，再用旧存档、新开局各试一次。接口声明见[API 索引](../reference/api-surface.md#professioncontent)。
+
+[使用本体水晶并复制内置职业强化](profession.md)。

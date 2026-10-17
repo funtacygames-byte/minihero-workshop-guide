@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/entry.md) · [Index](../README.md)
 
-Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+Guide revision 7 · Mod API 1.11.0 · 2026-10-17
 
-Purpose: locate one public entry from a package manifest and register content definitions, presentation, and music. This reference is checked against 1.10.0. See [Versions](versions.md) for compatibility and [API surface](api-surface.md) for declarations.
+Purpose: locate one public entry from a package manifest and register content definitions, presentation, and music. This reference is checked against 1.11.0. See [Versions](versions.md) for compatibility and [API surface](api-surface.md) for declarations.
 
 ## Manifest-to-source contract
 
