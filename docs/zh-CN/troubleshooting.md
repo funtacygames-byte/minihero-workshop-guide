@@ -2,7 +2,7 @@
 
 [English](../en/troubleshooting.md) · [目录](README.md)
 
-教程修订 5 · API 1.8.0 · 2026-10-14
+教程修订 6 · API 1.10.0 · 2026-10-17
 
 先定位失败阶段，再修复对应文件。保留 Sources，不在 Builds 或 Installed 直接改文件。当前基准 API 1.8.0，教程修订 4。
 
@@ -53,7 +53,7 @@
 
 引用角色／特性／招式不存在：检查具体类是否 public、ID是否本包命名空间、Load是否注册。只有源码类还不够。StartingTreasureTypes 不发奖，后续 StartingMoveTypes 不自动装备，见[限制](reference/compatibility.md)。
 
-`MH_MOD_PRESENTATION_ASSET`：检查文件存在、包内相对路径、大小写、标准目录、索引和槽位。角色主图检查 Icon，Portrait 只是兼容回退；1:1 头像不要直接充当 71:128 主图。图片尺寸正确仍需实机检查裁切。
+`MH_MOD_PRESENTATION_ASSET`：检查文件存在、包内相对路径、大小写、标准目录、索引和槽位。角色主图检查 Icon，Portrait 只是兼容回退；主图按 71:128 构图，Avatar 单独制作带背景的 4:5 肖像。图片尺寸正确仍需实机检查裁切。
 
 ## 关卡没有入口、守卫或合法出口
 

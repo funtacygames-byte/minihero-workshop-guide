@@ -6,7 +6,7 @@
 
 ## 开始前准备
 
-- **MiniHero**：本教程使用支持 C# 模组的 Windows 游戏版本，对应 Mod API 1.8.0。更新游戏后再开始；具体版本限制见[版本页](../reference/versions.md)。
+- **MiniHero**：本教程使用支持 C# 模组的 Windows 游戏版本，当前接口索引为 Mod API 1.10.0；各课说明所需最低版本。更新游戏后再开始；具体版本限制见[版本页](../reference/versions.md)。
 - **代码编辑器**：用你熟悉、能够编辑 C# 文件的编辑器打开项目。源码文件是普通文本，不能用 Word 保存。
 - **.NET SDK**：用于把 C# 编译成游戏能加载的 DLL。若尚未安装，从 [Microsoft 的下载页](https://dotnet.microsoft.com/download)选择适合系统的 **SDK**；仅安装 Runtime 不够。
 

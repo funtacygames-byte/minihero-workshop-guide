@@ -3,7 +3,7 @@
 This is a bilingual tutorial repository. Keep English and Simplified Chinese chapters aligned in mechanics, numbers, conditions, limitations, and code identifiers. Read `docs/en/ai-authoring.md` or `docs/zh-CN/ai-authoring.md` before changing authoring instructions.
 
 - Publish tutorials, focused fragments, and neutral reference diagrams. Do not add complete adventure examples or Starfall Expedition assets without a new user request.
-- Check claims against the current game/API rather than historical plans. The reviewed baseline is guide revision 5, API 1.8.0 on 2026-10-14; state unverified behavior accurately.
+- Check claims against the current game/API rather than historical plans. The reviewed baseline is guide revision 6, API 1.10.0 on 2026-10-17; state unverified behavior accurately.
 - Author gameplay in C# content classes. Do not route players or AI to declarative gameplay JSON, contentIndex recipes or a JSON authoring editor. Generated manifests, translation catalogs and saves are auxiliary data; identify their purpose clearly.
 - Keep package/content IDs, localization keys, and API names stable. Translate displayed values.
 - MiniHero uses Western fantasy/fairy-tale adventure. Yaoguang is the explicitly authorized ancient Chinese heroine exception.
@@ -24,3 +24,5 @@ This is a bilingual tutorial repository. Keep English and Simplified Chinese cha
 - The AI page teaches a player how to ask for help and use the answer. Machine lookup belongs in llms.txt and capability references; AI is optional for every lesson.
 - Start introductory code without unavailable artwork bindings. Show custom artwork as a later addition, with actual paths and slots.
 - Review English as instructions written for an English-speaking player, then compare both languages for values, IDs, targets, caps, reset timing and file operations. Hash checks are not a meaning review.
+
+- Character art is two files: opaque 71:128 Icon with a complete scene background (284×512 display frame; larger equivalent sources are allowed) and opaque 4:5 Avatar with a painted background (for example 1024×1280). The game takes the Avatar top square for small selection images. Do not collapse Avatar and BattleArt into one square specification. Verify true encoding, final dimensions and Alpha separately from slot registration.

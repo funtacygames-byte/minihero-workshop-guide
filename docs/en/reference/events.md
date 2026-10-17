@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/events.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
-Baseline: 1.8.0. Override callbacks on public content classes, such as `public override void OnAfterHealing(AfterHealingEvent e)`. See [API surface](api-surface.md) for fields and [Lifecycle](lifecycle.md) for execution phases. Do not dispatch host events yourself.
+Baseline: 1.10.0. Override callbacks on public content classes, such as `public override void OnAfterHealing(AfterHealingEvent e)`. See [API surface](api-surface.md) for fields and [Lifecycle](lifecycle.md) for execution phases. Do not dispatch host events yourself.
 
 ## Shared event context
 

@@ -1,5 +1,12 @@
 # Guide revisions / 教程修订
 
+## Guide revision 6 — 2026-10-17
+
+- Corrected avatar source art to opaque 4:5 portraits and documented the automatic top-square crop; documented tall character main art with a complete background separately. / 头像改为带背景 4:5 肖像，说明顶部方形裁切，与带背景的高竖幅角色主图分开。
+- Added separate AI artwork requests and checks for encoding, final dimensions, Alpha and composition. / 补充两张图分别制作的 AI 请求及编码、尺寸、Alpha、构图检查。
+- Added bilingual difficulty-copy and profession/progress lessons with focused source fragments. / 增加难度复制、职业与永久进度的双语教程及独立片段。
+- Updated task routes, metadata and selected public declarations to API 1.10.0; new lessons identify their minimum API versions. / 路由、元数据与公开声明同步到 API 1.10.0，新课单独写明最低版本。
+
 ## Unreleased — 2026-10-16
 
 - Documented the Windows AppContainer implementation, supported C# contract and pending release verification. / 补充 Windows AppContainer 隔离实现、受支持的 C# 接口范围及待完成的发行验证。

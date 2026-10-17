@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/presentation.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
-Baseline: 1.8.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
+Baseline: 1.10.0. See [Assets and bilingual text](../tutorials/assets-and-text.md) for steps and the [asset overview](../03-assets-and-presentation.md) for full slot specifications.
 
 ## Image signatures and slots
 
@@ -25,8 +25,8 @@ These are reference declarations for the interface and `ModAssets` factories. Fa
 | Slot | Specification/purpose |
 | --- | --- |
 | Treasure/move Icon | 1:1 icon |
-| Character Icon | 284×512 or 71:128 main art |
-| Character Avatar | 1:1 avatar |
+| Character Icon | 71:128 main art with a complete opaque background; 284×512 display frame, larger sources allowed |
+| Character Avatar | 4:5 portrait with a full background, such as 1024×1280; small selection avatars use the top square |
 | Character Portrait | Compatibility fallback, preferably 71:128 |
 | Enemy BattleArt | 1:1 battle art |
 | StageBackground/StageMapThumbnail/StageArrivalArt | Background/selection/arrival image, cropped for the actual slot |

@@ -2,7 +2,7 @@
 
 [English](../../en/reference/card-choice.md) · [Index](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
 
 本页依据当前 `CardChoiceModels.cs`、`CardChoiceEventContent.cs` 和 `GameEngine.CardChoices.cs`，适用于已接入“新卡牌选择”的正式战斗场景。先做[双分支课](../tutorials/card-choice.md)，完整声明查[API 索引](api-surface.md)。

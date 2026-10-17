@@ -31,8 +31,10 @@ The character and enemy lessons start without custom bindings. Once your files a
 | Class | Files to prepare | Ratio |
 | --- | --- | --- |
 | `SilverBolt` | `assets/icons/silver-bolt.png` | 1:1 |
-| `LanternRanger` | `assets/icons/lantern-ranger.png` and `assets/portraits/lantern-ranger-avatar.png` | Main art 284×512 or 71:128; avatar 1:1 |
+| `LanternRanger` | `assets/icons/lantern-ranger.png` and `assets/portraits/lantern-ranger-avatar.png` | Main art 71:128, PNG with a complete background; avatar 4:5 (such as 1024×1280), full background |
 | `MossWolf` | `assets/portraits/moss-wolf.png` | 1:1 |
+
+The character `Icon` is tall main art with a complete background. Its selection frame is 284×512 (71:128); sources can use 568×1024 or larger equivalent sizes. `Avatar` is a separate 4:5 portrait with a background, shown in the battle status bar; small avatars use its top square. Both images stay opaque and need their own composition. Check encoding, exported dimensions and backgrounds against the [specifications](../03-assets-and-presentation.md); see the [two-image AI request](../ai-authoring.md#prepare-full-body-art-and-an-avatar-for-one-character).
 
 Add inside `SilverBolt`:
 

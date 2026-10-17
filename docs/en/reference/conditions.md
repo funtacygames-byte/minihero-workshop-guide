@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/conditions.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 
 Conditions are not C#, JavaScript or arbitrary scripts. `DeclarativeConditionEvaluator.Evaluate(expression, state)` returns truth and fails on an unrecognized clause it actually evaluates. TryEvaluate reports evaluation success; out result carries truth. An empty expression passes.

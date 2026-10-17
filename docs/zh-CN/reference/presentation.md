@@ -2,9 +2,9 @@
 
 [English](../../en/reference/presentation.md) · [目录](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
-当前基准 1.8.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
+当前基准 1.10.0。操作教程见[资源与双语文本](../tutorials/assets-and-text.md)，全部槽位规格见[资源总览](../03-assets-and-presentation.md)。
 
 ## 图片签名与槽位
 
@@ -25,8 +25,8 @@ public static ModPresentation Create(params (ModPresentationSlot slot, string pa
 | 槽位 | 制作规格／用途 |
 | --- | --- |
 | 宝物／招式 Icon | 1:1 图标 |
-| 角色 Icon | 284×512 或 71:128，主图 |
-| 角色 Avatar | 1:1 头像 |
+| 角色 Icon | 71:128 高竖幅、完整不透明场景背景；显示框 284×512，源图可更大 |
+| 角色 Avatar | 4:5 带背景肖像，如 1024×1280；选人小头像取顶部 1:1 |
 | 角色 Portrait | 兼容主图回退，建议 71:128 |
 | 敌人 BattleArt | 1:1 战斗图 |
 | StageBackground／StageMapThumbnail／StageArrivalArt | 背景／选关图／抵达图，按实际槽位裁切 |

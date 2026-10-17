@@ -2,7 +2,25 @@
 
 [简体中文](../../zh-CN/reference/documentation-design.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
+
+## Revision 6 verification
+
+This revision checks artwork guidance against current code, formal-scene references and actual image files. It also adds professions/permanent progress from API 1.9 and level-difficulty extensions from API 1.10.
+
+| Check | Result and scope |
+| --- | --- |
+| Main art and avatars | Inspected the formal scene's 6 main images and 6 avatars: PNG, Alpha 255 throughout, with scene backgrounds; main art is tall and avatars are approximately 4:5 |
+| Image routing | Checked Icon for character selection, preferred Avatar for the battle status bar and top-square cropping for small avatars; 284×512 is the main display frame, not a loader-mandated source resolution |
+| Declaration index | Exported 99 selected types and 841 declarations from current source, including the new interfaces; not the whole SDK |
+| Compilation | All 17 fragments in each language compile against current API/Core with netstandard2.1 and C# 9; development references are excluded from this repository |
+| New-fragment rules | 15 current-assembly checks per language: tier numbering, values, independent copies, validation, existing extra tiers, profession costs/caps, description substitution, kill points and read-only write restrictions |
+| Diagram and meaning | Rendered and inspected the neutral SVG locally; compared backgrounds, proportions, slots, crops, values, IDs, text keys and instructions across languages |
+| Document checks | Local links/anchors, bilingual technical contracts, JSON/SVG, routes and public-file boundaries; synchronized hashes record file versions only |
+
+The rule checks use local host substitutes. They do not rerun the full loader, saves, game UI or Steam acceptance. This revision did not start Unity or change the game's character images. Authors' own artwork, other screen ratios and independent reader trials still need practical checks. GitHub Actions results belong to the corresponding run after a push.
+
+## Historical organization decisions
 
 
 Organization decisions based on primary documentation read on 2026-10-14. This compares documentation methods; it does not turn another game's APIs into MiniHero features.
@@ -14,7 +32,7 @@ Organization decisions based on primary documentation read on 2026-10-14. This c
 | [Fabric first item](https://docs.fabricmc.net/develop/items/first-item) | Registration, visible entry, naming, assets and related source files | Connect each feature to rules, player entry, text and assets rather than only a type name |
 | [NeoForge getting started](https://docs.neoforged.net/docs/gettingstarted/) | Separate environment, project and testing | Record references, compilation, loading, gameplay and online publication separately |
 
-This revision adds seven task routes: items/events, card choices, pages, configuration boundaries, stateful rules, seeds/loops/continuation and debugging. Field references and the feature map support lookup. Existing manuals and fragment links remain available so earlier bookmarks work.
+Earlier revisions added seven task routes: items/events, card choices, pages, configuration boundaries, stateful rules, seeds/loops/continuation and debugging. Field references and the feature map support lookup. Existing manuals and fragment links remain available so earlier bookmarks work.
 
 The code workflow follows the pattern illustrated by [tModLoader's C# first lesson](https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide): a generated project, one content class, a real result and one observable change. Fabric's [first-item lesson](https://docs.fabricmc.net/develop/items/first-item) also connects registration to visible entry and assets. Here, gameplay remains C# classes → Load registration → compiled DLL → player-action checks; manifests and translations are auxiliary data.
 
@@ -25,7 +43,7 @@ Quality layers are source checks, bilingual meaning review, code-contract compar
 
 ## Historical verification for revision 4
 
-These are retained revision-4 records, not claims of rerunning them for revision 5.
+These are retained revision-4 records, not claims of rerunning them for later revisions.
 
 ### Baseline
 

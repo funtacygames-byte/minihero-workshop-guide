@@ -2,9 +2,9 @@
 
 [English](../../en/reference/stages.md) · [目录](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
-当前基准 1.8.0。先做[固定关卡课](../tutorials/stage.md)，再查字段；公开声明见[API 表面](api-surface.md)。
+当前基准 1.10.0。先做[固定关卡课](../tutorials/stage.md)，再查字段；公开声明见[API 表面](api-surface.md)。
 
 ## StageContent
 

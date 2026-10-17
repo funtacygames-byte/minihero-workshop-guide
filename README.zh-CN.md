@@ -23,6 +23,8 @@
 | 做“每场景最多触发三次”的宝物 | [次数与状态](docs/zh-CN/tutorials/rules-and-state.md) |
 | 把几个场景连成冒险 | [连接多个场景](docs/zh-CN/tutorials/adventure.md) |
 | 做每日挑战或循环冒险 | [种子与循环](docs/zh-CN/tutorials/adventure-modes.md) |
+| 给现有关卡增加或复制难度 | [新增难度](docs/zh-CN/tutorials/level-difficulty.md) |
+| 给角色加职业强化和永久训练点 | [职业与进度](docs/zh-CN/tutorials/profession-progress.md) |
 | 换上自己的图片、音乐和英文文本 | [素材与文本](docs/zh-CN/tutorials/assets-and-text.md) |
 | 改一个自己的开始页面 | [自定义页面](docs/zh-CN/tutorials/custom-ui.md) |
 | 把模组分享给其他玩家 | [发布与更新](docs/zh-CN/tutorials/publish.md) |
@@ -35,4 +37,4 @@
 - **不熟悉 C#，想边做边学**：看[用 AI 帮你制作模组](docs/zh-CN/ai-authoring.md)，有可以直接改写的提问示例。
 - **已经在写代码，想查某个字段或事件**：看[接口与规则参考](docs/zh-CN/README.md#reference)。
 
-本教程适用于 Mod API 1.8.0。[版本与已知限制](docs/zh-CN/reference/versions.md) · [更新记录](CHANGELOG.md) · [文档维护](CONTRIBUTING.md)
+本教程当前核对到 Mod API 1.10.0；新功能需使用支持对应接口的游戏版本。[版本与已知限制](docs/zh-CN/reference/versions.md) · [更新记录](CHANGELOG.md) · [文档维护](CONTRIBUTING.md)

@@ -23,6 +23,8 @@ You need MiniHero, a code editor and a .NET SDK. [The first lesson walks through
 | Limit a treasure to three triggers per stage | [Counters and state](docs/en/tutorials/rules-and-state.md) |
 | Connect several stages into an adventure | [Connected stages](docs/en/tutorials/adventure.md) |
 | Make a daily challenge or a looping adventure | [Seeds and loops](docs/en/tutorials/adventure-modes.md) |
+| Add or copy a difficulty on an existing map | [Difficulty extension](docs/en/tutorials/level-difficulty.md) |
+| Add profession upgrades and permanent training points | [Professions and progress](docs/en/tutorials/profession-progress.md) |
 | Add artwork, music and a second language | [Assets and text](docs/en/tutorials/assets-and-text.md) |
 | Create a custom start page | [Custom pages](docs/en/tutorials/custom-ui.md) |
 | Share a mod with other players | [Publishing and updates](docs/en/tutorials/publish.md) |
@@ -35,4 +37,4 @@ Not sure where to go? Browse [all lessons](docs/en/README.md). Pick the topic yo
 - **You are learning C# and would like help:** [Making mods with AI](docs/en/ai-authoring.md) includes prompts you can adapt.
 - **You are writing code and need a field or event:** use the [API and rule references](docs/en/README.md#reference).
 
-This guide covers Mod API 1.8.0. [Versions and known limitations](docs/en/reference/versions.md) · [Changes](CHANGELOG.md) · [Contributing to the docs](CONTRIBUTING.md)
+This guide is checked against Mod API 1.10.0; new features require a game version that supports their APIs. [Versions and known limitations](docs/en/reference/versions.md) · [Changes](CHANGELOG.md) · [Contributing to the docs](CONTRIBUTING.md)

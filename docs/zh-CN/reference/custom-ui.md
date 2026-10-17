@@ -2,7 +2,7 @@
 
 [English](../../en/reference/custom-ui.md) · [Index](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
 
 制作步骤见[自定义页面课](../tutorials/custom-ui.md)，签名见[ModUi](api-surface.md#modui)、[IModUiContext](api-surface.md#imoduicontext)。这组接口定义页面数据，宿主生成 Unity UI；不是开放 Unity 场景编辑权限。

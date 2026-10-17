@@ -27,6 +27,8 @@ After the three introductory lessons, choose a topic that interests you. Each le
 | [Counters and state](tutorials/rules-and-state.md) | A practice flask that grants shield after healing, up to three times per stage |
 | [Connected stages](tutorials/adventure.md) | An adventure with exits, preparation and a next stage |
 | [Seeds and loops](tutorials/adventure-modes.md) | Fixed challenges, daily seeds, three-pass loops and bounded continuation |
+| [Extend level difficulties](tutorials/level-difficulty.md) | Copy, edit and append a difficulty to an existing map |
+| [Professions and progress](tutorials/profession-progress.md) | Earn training points and buy permanent profession upgrades |
 | [Assets and bilingual text](tutorials/assets-and-text.md) | Your own icon, exploration music, names and descriptions in two languages |
 | [Custom pages](tutorials/custom-ui.md) | A camp guide with buttons, changing text and a way back to the original menu |
 | [Publishing and updates](tutorials/publish.md) | Release information, an upload and updates to the same Steam item |

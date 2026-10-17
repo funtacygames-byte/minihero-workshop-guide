@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/feature-map.md) · [Index](README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 Use this page to check whether a feature is supported. For your first mod, start with [the three introductory lessons](README.md). You do not need these APIs first; the limitations help you choose a route later.
 
@@ -16,6 +16,8 @@ Use this page to check whether a feature is supported. For your first mod, start
 | [New card choices](tutorials/card-choice.md) | Supported | Any-size single choice, conditions/costs, resolver, chains, rollback and saves |
 | [Fixed stages](tutorials/stage.md) | Supported | Complete bottom-to-top columns; no mixed fixed/random fill |
 | [Adventures and difficulty](tutorials/adventure.md) | Supported | Entry, source Stage, steps, character list, preparation |
+| [Extend existing difficulties](tutorials/level-difficulty.md) | Available (API 1.10.0) | Independent copies, unique numbers, reference checks, Mod selection progress |
+| [Professions and progress](tutorials/profession-progress.md) | Available (API 1.9.0) | Run-locked upgrades, separate resources, commits on successful actions |
 | [Seeds, loops and continuation](tutorials/adventure-modes.md) | Supported | Daily offset, total loop cap, isolated continuation context |
 | [Rules and state](tutorials/rules-and-state.md) | Supported | Counters, preview, stage reset, adventure-rule activation |
 | [Custom pages](tutorials/custom-ui.md) | Supported | Host UI tree, actions, same-package navigation; no configuration writes |

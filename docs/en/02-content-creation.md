@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/02-content-creation.md) · [Guide index](README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 This manual groups fields and rules by system. For guided steps, [choose a lesson for your content](README.md), then return here when you need a reference.
 

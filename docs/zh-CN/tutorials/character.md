@@ -20,6 +20,8 @@ registrar.AddContents(new LanternSight(), new SilverBolt(), new LanternRanger())
 
 当前源码没有自定义图片绑定，复制后可以直接构建。做好角色后，再按[素材课](assets-and-text.md#角色和敌人也想换图)增加招式图标、角色主图和头像。先不要填尚不存在的图片路径。
 
+角色图片分为带完整场景背景的角色主图 `Icon` 和带背景的 4:5 肖像 `Avatar`；完整规格和两张图的区别见[素材课](assets-and-text.md#角色和敌人也想换图)。
+
 ## 2. 将角色加入练习入口
 
 打开 `source/PracticeStage.cs`，找到 `PracticeAdventure` 的 `Difficulties` 属性。将其中原本只含符刃猎手的 `availableHeroIds` 列表替换为：
@@ -64,3 +66,5 @@ columns[1].cards.Add(secondGuard);
 ## 让同一份源码随语言变化
 
 本课片段已使用 ModText 读取角色、特性、招式和职业显示文字。将[中文示例键](../../../templates/zh-CN/localization.json)和[英文示例键](../../../templates/en/localization.json)的 entries 合并到你已有的两份目录，不覆盖生成条目。规则和 ID 保持同一份源码；切语言后新开测试局核对名称、说明和职业，详见[素材与文本课](assets-and-text.md)。
+
+职业的永久强化与训练点可接着按[职业与永久进度课](profession-progress.md)制作。

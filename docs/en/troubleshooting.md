@@ -2,9 +2,9 @@
 
 [简体中文](../zh-CN/troubleshooting.md) · [Index](README.md)
 
-Guide revision 5 · API 1.8.0 · 2026-10-14
+Guide revision 6 · API 1.10.0 · 2026-10-17
 
-Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.8.0, guide revision 4.
+Find the failing phase before editing its files. Keep Sources; do not patch Builds or Installed. Baseline: API 1.10.0, guide revision 6.
 
 ## Get the actual error
 
@@ -53,7 +53,7 @@ Missing character/trait/move reference: check public classes, package-prefixed I
 
 `AW_CHARACTER_EMPTY_TREASURE_POOL`: the final character pool needs eligible registered treasures. The character lesson includes a life-build tag for its starting pool; using only a custom tag requires registering treasures with that tag before loading.
 
-`MH_MOD_PRESENTATION_ASSET`: check existence, package-relative paths, case, standard directories, index, and slots. Main character art uses Icon; Portrait is a compatibility fallback. Do not substitute a square avatar for 71:128 main art. Correct dimensions still require in-game crop checks.
+`MH_MOD_PRESENTATION_ASSET`: check existence, package-relative paths, case, standard directories, index, and slots. Main character art uses Icon; Portrait is a compatibility fallback. Compose main art at 71:128 and provide a separate 4:5 Avatar with a background. Correct dimensions still require in-game crop checks.
 
 ## Stage has no entry, guard, or usable exit
 

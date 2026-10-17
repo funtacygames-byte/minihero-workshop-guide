@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/visual-walkthrough.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 Use these images to find buttons and files. Workshop screenshots use English; the Chinese interface has the same layout. Alice is an example name, so enter your own name or nickname. Folder and cropping diagrams help you compare your files.
 

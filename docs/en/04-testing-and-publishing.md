@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/04-testing-and-publishing.md) · [Guide index](README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 This manual groups fields and rules by system. For guided steps, [follow the publishing steps](tutorials/publish.md), then return here when you need a reference.
 
@@ -105,7 +105,7 @@ Set `CardState.isBoss` on the boss card and `AdventureStepDefinition.boss` on th
 
 Check icons, main character art, avatars, enemy art, backgrounds, map thumbnails, and arrival art. Inspect transparency, safe margins, scaling, and cropping at different resolutions.
 
-Use 284×512 (71:128) for main character `Icon`, square `Avatar/BattleArt`, and preferably the same tall size for a fallback `Portrait`. Treasure and move icons are square. Never bind a raw 3×2 sheet directly. Rebuild after slicing so `assets/asset-index.json` records the final files.
+Check dimensions and backgrounds: character `Icon` uses a complete opaque background at 71:128, matching a 284×512 frame; sources may be larger; `Avatar` is a 4:5 portrait with a complete background, such as 1024×1280. Its top-square crop must retain the face. `BattleArt`, treasure and move icons remain square; `Portrait` may share the main art file. Use an image editor to check actual encoding, pixel dimensions and Alpha, checking that character backgrounds are opaque and no checkerboard is painted in. Slice a 3×2 sheet into separate files before binding, then rebuild so the index records the final files.
 
 Check `StageExplore` on ordinary stages and `BossBattle` on boss stages. Missing boss music first falls back to same-theme exploration; missing/failed exploration falls back to the built-in in-game playlist. An ordinary stage with a boss-only theme also uses that playlist. Verify global and relative mod volume, playback after a track finishes, and that disabling a mod or changing stages does not retain the wrong theme.
 

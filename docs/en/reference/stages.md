@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/stages.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
-Baseline: 1.8.0. Start with [A fixed stage](../tutorials/stage.md), then use this field reference and the [API surface](api-surface.md).
+Baseline: 1.10.0. Start with [A fixed stage](../tutorials/stage.md), then use this field reference and the [API surface](api-surface.md).
 
 ## StageContent
 

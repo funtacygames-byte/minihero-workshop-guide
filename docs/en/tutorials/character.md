@@ -20,6 +20,8 @@ registrar.AddContents(new LanternSight(), new SilverBolt(), new LanternRanger())
 
 The source has no custom image bindings, so it can build as copied. Once the character works, follow [Assets and text](assets-and-text.md#add-character-and-enemy-artwork) to add a move icon, character art and avatar. Leave out paths to files you have not added yet.
 
+Character artwork uses an opaque main `Icon` with a complete scene background and a separate 4:5 `Avatar` with a background. See the [asset lesson](assets-and-text.md#add-character-and-enemy-artwork) for the two files and their specifications.
+
 ## 2. Add the character to the practice entry
 
 Open `source/PracticeStage.cs` and find the `Difficulties` property in `PracticeAdventure`. Replace its `availableHeroIds` list, which currently contains only Runehunter, with:
@@ -64,3 +66,5 @@ Continue with [Enemies and instance state](enemy.md). See [Character and enemy r
 ## Let one source file follow the selected language
 
 The fragment now reads character, trait, move and role text with ModText. Merge entries from the [Chinese example catalog](../../../templates/zh-CN/localization.json) and [English example catalog](../../../templates/en/localization.json) into your existing files without replacing generated entries. Rules and IDs remain in one source file. Start a fresh test run after changing language and check names, descriptions and role text; see [assets and text](assets-and-text.md).
+
+Continue with [Professions and permanent progress](profession-progress.md) to add training points and upgrades.

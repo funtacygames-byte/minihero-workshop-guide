@@ -43,3 +43,5 @@ These are not prerequisites for a two-stage adventure. After adding a mechanism,
 Next: [Images, music, and bilingual text](assets-and-text.md).
 
 To show names and descriptions in both languages, follow [the text-merging steps](assets-and-text.md#merge-text-for-topic-fragments) for this lesson's entries. Without them, the code's fallback text is shown. Start a new run after switching languages.
+
+To add a tier to an existing map, follow [difficulty extension](level-difficulty.md).

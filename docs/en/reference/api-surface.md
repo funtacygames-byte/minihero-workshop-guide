@@ -2,37 +2,41 @@
 
 [简体中文](../../zh-CN/reference/api-surface.md) · [Index](../README.md)
 
-Guide revision 5 · API 1.8.0 · 2026-10-14
+Guide revision 6 · API 1.10.0 · 2026-10-17
 
 Selected public declarations extracted read-only from the authorized source, without implementations. This is not the entire SDK. Look up inherited members under their defining base and use the [rule references](../README.md#reference) for defaults and semantics. Maintainers can regenerate it with the [extractor](../../../tools/extract_api.py).
 
 | Type | Type | Type |
 | --- | --- | --- |
 | [AdventureContent](#adventurecontent) | [AdventureContinuationContext](#adventurecontinuationcontext) | [AdventureDefinition](#adventuredefinition) |
-| [AdventureDifficultyDefinition](#adventuredifficultydefinition) | [AdventureLoopSettings](#adventureloopsettings) | [AdventureRuleContent](#adventurerulecontent) |
-| [AdventureSeedMode](#adventureseedmode) | [AdventureSeedSettings](#adventureseedsettings) | [AdventureStepDefinition](#adventurestepdefinition) |
-| [AfterHealingEvent](#afterhealingevent) | [AfterMoveResolvedEvent](#aftermoveresolvedevent) | [BeforeHealingEvent](#beforehealingevent) |
-| [BeforeItemEffectEvent](#beforeitemeffectevent) | [BeforeMoveResolvedEvent](#beforemoveresolvedevent) | [BeforePlayerDamageEvent](#beforeplayerdamageevent) |
-| [CardChoiceContext](#cardchoicecontext) | [CardChoiceEventContent](#cardchoiceeventcontent) | [CardChoiceOption](#cardchoiceoption) |
-| [CardChoiceRequest](#cardchoicerequest) | [CardExecutionContext](#cardexecutioncontext) | [CharacterContent](#charactercontent) |
-| [ColumnClearedEvent](#columnclearedevent) | [ContentCards](#contentcards) | [DeclarativeConditionEvaluator](#declarativeconditionevaluator) |
-| [EnemyContent](#enemycontent) | [EnemyKilledEvent](#enemykilledevent) | [EnemyTraitContent](#enemytraitcontent) |
-| [EnemyTraitDamageEvent](#enemytraitdamageevent) | [EnemyTraitEvent](#enemytraitevent) | [EventContent](#eventcontent) |
-| [GameActionResult](#gameactionresult) | [GameContentModule](#gamecontentmodule) | [GameRuleEvent](#gameruleevent) |
-| [IAdventureContinuationContent](#iadventurecontinuationcontent) | [ICardChoiceResolver](#icardchoiceresolver) | [IModPresentationContent](#imodpresentationcontent) |
+| [AdventureDifficultyDefinition](#adventuredifficultydefinition) | [AdventureItemSegmentSettings](#adventureitemsegmentsettings) | [AdventureItemSegmentUnit](#adventureitemsegmentunit) |
+| [AdventureLoopSettings](#adventureloopsettings) | [AdventureRuleContent](#adventurerulecontent) | [AdventureSeedMode](#adventureseedmode) |
+| [AdventureSeedSettings](#adventureseedsettings) | [AdventureStepDefinition](#adventurestepdefinition) | [AfterHealingEvent](#afterhealingevent) |
+| [AfterMoveResolvedEvent](#aftermoveresolvedevent) | [BeforeHealingEvent](#beforehealingevent) | [BeforeItemEffectEvent](#beforeitemeffectevent) |
+| [BeforeMoveResolvedEvent](#beforemoveresolvedevent) | [BeforePlayerDamageEvent](#beforeplayerdamageevent) | [CardChoiceContext](#cardchoicecontext) |
+| [CardChoiceEventContent](#cardchoiceeventcontent) | [CardChoiceOption](#cardchoiceoption) | [CardChoiceRequest](#cardchoicerequest) |
+| [CardExecutionContext](#cardexecutioncontext) | [CharacterContent](#charactercontent) | [ColumnClearedEvent](#columnclearedevent) |
+| [ContentCards](#contentcards) | [DeclarativeConditionEvaluator](#declarativeconditionevaluator) | [EnemyContent](#enemycontent) |
+| [EnemyKilledEvent](#enemykilledevent) | [EnemyTraitContent](#enemytraitcontent) | [EnemyTraitDamageEvent](#enemytraitdamageevent) |
+| [EnemyTraitEvent](#enemytraitevent) | [EventContent](#eventcontent) | [GameActionResult](#gameactionresult) |
+| [GameContentModule](#gamecontentmodule) | [GameRuleEvent](#gameruleevent) | [IAdventureContinuationContent](#iadventurecontinuationcontent) |
+| [ICardChoiceResolver](#icardchoiceresolver) | [IModLevelDifficultyRegistrar](#imodleveldifficultyregistrar) | [IModPresentationContent](#imodpresentationcontent) |
 | [IModRegistrar](#imodregistrar) | [IModUiContext](#imoduicontext) | [IMultipleVariantEffect](#imultiplevarianteffect) |
 | [ITreasureRuntime](#itreasureruntime) | [ItemContent](#itemcontent) | [ItemUsedEvent](#itemusedevent) |
 | [MiniHeroMod](#miniheromod) | [MiniHeroModApi](#miniheromodapi) | [MiniHeroModAttribute](#miniheromodattribute) |
 | [ModAssets](#modassets) | [ModConfig](#modconfig) | [ModConfigDefinition](#modconfigdefinition) |
-| [ModConfigValueKind](#modconfigvaluekind) | [ModMusicCue](#modmusiccue) | [ModMusicTheme](#modmusictheme) |
-| [ModPresentation](#modpresentation) | [ModPresentationSlot](#modpresentationslot) | [ModRegistrarExtensions](#modregistrarextensions) |
+| [ModConfigValueKind](#modconfigvaluekind) | [ModLevelDefinition](#modleveldefinition) | [ModLevelDifficultyDefinition](#modleveldifficultydefinition) |
+| [ModLevelDifficultyExtensions](#modleveldifficultyextensions) | [ModLevelDifficultyValidation](#modleveldifficultyvalidation) | [ModMusicCue](#modmusiccue) |
+| [ModMusicTheme](#modmusictheme) | [ModPersistentData](#modpersistentdata) | [ModPresentation](#modpresentation) |
+| [ModPresentationSlot](#modpresentationslot) | [ModProgress](#modprogress) | [ModRegistrarExtensions](#modregistrarextensions) |
 | [ModScreenController](#modscreencontroller) | [ModScreenDefinition](#modscreendefinition) | [ModScreenPlacement](#modscreenplacement) |
 | [ModStartScreenAction](#modstartscreenaction) | [ModStartScreenButton](#modstartscreenbutton) | [ModStartScreenDefinition](#modstartscreendefinition) |
 | [ModText](#modtext) | [ModUi](#modui) | [ModUiAlignment](#moduialignment) |
 | [ModUiElement](#moduielement) | [ModUiElementKind](#moduielementkind) | [ModUiImageFit](#moduiimagefit) |
 | [ModUiStyle](#moduistyle) | [ModUiThickness](#moduithickness) | [MoveCapacityEvent](#movecapacityevent) |
 | [MoveContent](#movecontent) | [NormalAttackResolvedEvent](#normalattackresolvedevent) | [PlayerDamageTakenEvent](#playerdamagetakenevent) |
-| [PlayerStatusProjectionEvent](#playerstatusprojectionevent) | [RichEventChoiceState](#richeventchoicestate) | [StageContent](#stagecontent) |
+| [PlayerStatusProjectionEvent](#playerstatusprojectionevent) | [ProfessionContent](#professioncontent) | [ProfessionUpgradeConfig](#professionupgradeconfig) |
+| [ProfessionUpgradeEffectKind](#professionupgradeeffectkind) | [RichEventChoiceState](#richeventchoicestate) | [StageContent](#stagecontent) |
 | [StageDefinition](#stagedefinition) | [StageEnteredEvent](#stageenteredevent) | [StageGenerationProfiles](#stagegenerationprofiles) |
 | [StageGraphEdgeDefinition](#stagegraphedgedefinition) | [StageGraphNodeDefinition](#stagegraphnodedefinition) | [StageGraphNodeKind](#stagegraphnodekind) |
 | [StatEffect](#stateffect) | [TraitContent](#traitcontent) | [TreasureContent](#treasurecontent) |
@@ -114,7 +118,33 @@ public sealed class AdventureDifficultyDefinition
     public int[] ruleAttackBySection;
     public int[] ruleDefenseBySection;
     public int[] ruleHealthBySection;
+    public bool adventureItemPoolConfigured;
+    public List<string> adventureItemPoolIds = new List<string>();
+    public AdventureItemSegmentSettings adventureItemSegments;
     public AdventureDifficultyDefinition Clone();
+}
+```
+
+## AdventureItemSegmentSettings
+
+```csharp
+public sealed class AdventureItemSegmentSettings
+{
+    public bool enabled;
+    public AdventureItemSegmentUnit unit;
+    public int segmentLength = 12;
+    public int loopUnits;
+    public AdventureItemSegmentSettings Clone();
+}
+```
+
+## AdventureItemSegmentUnit
+
+```csharp
+public enum AdventureItemSegmentUnit
+{
+    [InspectorName("主线战斗场次")] CombatScene,
+    [InspectorName("关卡步骤（首领组或区域）")] LevelStep,
 }
 ```
 
@@ -370,6 +400,7 @@ public abstract class CharacterContent : GameContentModule
     public virtual IReadOnlyList<Type> StartingMoveTypes { get; }
     public virtual IReadOnlyList<string> TreasurePoolTags { get; }
     public virtual TreasurePoolDefinition TreasurePool { get; }
+    public virtual string ProfessionId { get; }
     public virtual CharacterDefinition CreateDefinition(GameContentRegistry registry);
 }
 ```
@@ -582,7 +613,7 @@ public abstract class GameContentModule : IGameContent, IAppearanceContent
 {
     protected GameContentModule();
     protected GameContentModule(string id);
-    public string Id { get; }
+    public virtual string Id { get; }
     public abstract string Name { get; }
     public virtual int Order { get; }
     public virtual ContentCombatVfxProfile CombatVfxProfile { get; }
@@ -665,6 +696,16 @@ public interface IAdventureContinuationContent
 public interface ICardChoiceResolver : IGameContent
 {
     GameActionResult ResolveCardChoice(CardChoiceContext context);
+}
+```
+
+## IModLevelDifficultyRegistrar
+
+```csharp
+public interface IModLevelDifficultyRegistrar
+{
+    IReadOnlyList<ModLevelDefinition> GetLevels();
+    void AddLevelDifficulty(ModLevelDifficultyDefinition definition);
 }
 ```
 
@@ -797,7 +838,7 @@ public abstract class MiniHeroMod
 ```csharp
 public static class MiniHeroModApi
 {
-    public const string Version = "1.8.0";
+    public const string Version = "1.10.0";
     public const string MinimumCompatibleVersion = "1.0.0";
 }
 ```
@@ -874,6 +915,51 @@ public enum ModConfigValueKind
 }
 ```
 
+## ModLevelDefinition
+
+```csharp
+public sealed class ModLevelDefinition
+{
+    public string id = string.Empty;
+    public string name = string.Empty;
+    public List<AdventureDifficultyDefinition> difficulties = new List<AdventureDifficultyDefinition>();
+    public ModLevelDefinition Clone();
+}
+```
+
+## ModLevelDifficultyDefinition
+
+```csharp
+public sealed class ModLevelDifficultyDefinition
+{
+    public string id = string.Empty;
+    public string packageId = string.Empty;
+    public string levelId = string.Empty;
+    public AdventureDifficultyDefinition difficulty;
+}
+```
+
+## ModLevelDifficultyExtensions
+
+```csharp
+public static class ModLevelDifficultyExtensions
+{
+    public static IReadOnlyList<ModLevelDefinition> GetLevels(this IModRegistrar registrar);
+    public static AdventureDifficultyDefinition GetLevelDifficulty(this IModRegistrar registrar, string levelId, int difficulty);
+    public static AdventureDifficultyDefinition CopyLevelDifficulty(this IModRegistrar registrar, string sourceLevelId, int sourceDifficulty, int newDifficulty);
+    public static void AddLevelDifficulty(this IModRegistrar registrar, string id, string levelId, AdventureDifficultyDefinition difficulty);
+}
+```
+
+## ModLevelDifficultyValidation
+
+```csharp
+public static class ModLevelDifficultyValidation
+{
+    public static void Validate(AdventureDifficultyDefinition value);
+}
+```
+
 ## ModMusicCue
 
 ```csharp
@@ -894,6 +980,24 @@ public sealed class ModMusicTheme
     public ModMusicTheme(string id, IReadOnlyDictionary<ModMusicCue, string> tracks);
     public string Id { get; }
     public IReadOnlyDictionary<ModMusicCue, string> Tracks { get; }
+}
+```
+
+## ModPersistentData
+
+```csharp
+public sealed class ModPersistentData
+{
+    public string PackageId { get; }
+    public string GetString(string key, string fallback = "");
+    public int GetInt(string key, int fallback = 0);
+    public bool GetBool(string key, bool fallback = false);
+    public bool SetString(string key, string value);
+    public bool SetInt(string key, int value);
+    public bool SetBool(string key, bool value);
+    public bool Remove(string key);
+    public bool AddInt(string key, int amount);
+    public bool TrySpend(string key, int amount);
 }
 ```
 
@@ -921,6 +1025,18 @@ public enum ModPresentationSlot
     StageBackground,
     StageMapThumbnail,
     StageArrivalArt,
+}
+```
+
+## ModProgress
+
+```csharp
+public static class ModProgress
+{
+    public static ModPersistentData ForPackage(string packageId);
+    public static void ConfigureHost(Func<string, string, string> reader, Func<string, string, string, bool> writer);
+    public static void ValidatePackageId(string id);
+    public static void ValidateKey(string key);
 }
 ```
 
@@ -1228,6 +1344,58 @@ public sealed class PlayerStatusProjectionEvent : GameRuleEvent
 }
 ```
 
+## ProfessionContent
+
+```csharp
+public abstract class ProfessionContent : GameContentModule
+{
+    public abstract string PackageId { get; }
+    public abstract IReadOnlyList<ProfessionUpgradeConfig> Upgrades { get; }
+    public virtual string CurrencyKey { get; }
+    public virtual string CurrencyName { get; }
+    public virtual string CurrencyIconId { get; }
+    public void ValidateRegistration(string packageId);
+    public int UpgradeLevel(GameState state, string upgradeId);
+    public virtual string UpgradeDescription(string upgradeId, int level);
+}
+```
+
+## ProfessionUpgradeConfig
+
+```csharp
+public sealed class ProfessionUpgradeConfig
+{
+    public string id = string.Empty;
+    public string name = string.Empty;
+    public string description = string.Empty;
+    public string iconId = string.Empty;
+    public ProfessionUpgradeEffectKind effectKind = ProfessionUpgradeEffectKind.Custom;
+    public int valuePerLevel;
+    public int[] costs = Array.Empty<int>();
+    public ProfessionUpgradeConfig Clone();
+}
+```
+
+## ProfessionUpgradeEffectKind
+
+```csharp
+public enum ProfessionUpgradeEffectKind
+{
+    StartingWisdom,
+    StartingGold,
+    StartingMaxHp,
+    StartingAttack,
+    StartingDefense,
+    StartingRandomTreasure,
+    IntermissionHealing,
+    BossShield,
+    BossDodge,
+    BossDefeatHealingPercent,
+    PotionEffectPercent,
+    Custom,
+}
+```
+
 ## RichEventChoiceState
 
 ```csharp
@@ -1444,7 +1612,7 @@ public abstract class TreasureContent : GameContentModule
     public virtual GameActionResult Execute(TreasureState treasure, TreasureActivationContext context);
     public TreasureDefinition CreateDefinition();
     public virtual TreasureState CreateState(int level = 1);
-    public TreasureContent CloneRuntime();
+    public virtual TreasureContent CloneRuntime();
     protected virtual string DescribeVariant(int value, int level);
     public virtual IEnumerable<TreasureState> GetStateVariants();
     protected TreasureState CreateVariant(TreasureRank rank, int level = 1);

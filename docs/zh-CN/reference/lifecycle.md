@@ -2,9 +2,9 @@
 
 [English](../../en/reference/lifecycle.md) · [目录](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
-本页集中解释状态属于谁，以及什么时候初始化、读取和清空。当前基准 1.8.0；[事件](events.md)与[API 声明](api-surface.md)提供字段细节。
+本页集中解释状态属于谁，以及什么时候初始化、读取和清空。当前基准 1.10.0；[事件](events.md)与[API 声明](api-surface.md)提供字段细节。
 
 ![内容生命周期](../../../images/content-lifecycle.svg)
 

@@ -46,9 +46,9 @@ Use the [reader-trial checklist](docs/en/reference/reader-trial.md) / [试读记
 
 `tools/check_docs.py` uses Python standard libraries to check local links/anchors, fences, bilingual code contracts, snapshot alignment, SVG syntax, and forbidden release artifacts. It does not fetch external links, compile C#, render game UI, or verify online publishing.
 
-`.github/workflows/docs.yml` runs these public checks when the revision is eventually pushed. It uses the documented [checkout](https://github.com/actions/checkout) and [setup-python](https://github.com/actions/setup-python) actions with read-only repository permission. This local revision has not run GitHub Actions until published. Game-reference compilation stays in an authorized local environment; do not upload references to public CI.
+`.github/workflows/docs.yml` runs these public checks on pushes and pull requests. It uses the documented [checkout](https://github.com/actions/checkout) and [setup-python](https://github.com/actions/setup-python) actions with read-only repository permission. Record actual GitHub Actions results separately from local checks. Game-reference compilation stays in an authorized local environment; do not upload references to public CI.
 
-自动检查不证明玩家语义、界面、编译或线上发布；当前本地修订尚未推送，不把本地命令称为已执行的 GitHub Actions。
+自动检查不证明玩家语义、界面、编译或线上发布；推送后另记实际 GitHub Actions 结果，不把本地命令称为已执行的线上检查。
 
 
 ## Capability and AI routing / 能力与 AI 路由

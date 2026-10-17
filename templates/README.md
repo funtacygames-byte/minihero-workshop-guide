@@ -37,6 +37,8 @@ This route needs no external artwork or music. The word `config` in 01's filenam
 | [13 Capped flask](en/13-stateful-relic.cs.txt) | `source/PracticeCounterRelic.cs` | Grant with 09 and test four potions; follow [the state lesson](../docs/en/tutorials/rules-and-state.md) |
 | [14 Bounded continuation](en/14-dynamic-continuation.cs.txt) | `source/ContinuingPracticeAdventure.cs` | Keep 08's `PracticeStage`, replace adventure registration; three stages total |
 | [15 Chained choice](en/15-chained-choice.cs.txt) | `source/TwoStepSupplies.cs` | Place this event in 08; try confirmation and cancellation in [the choice lesson](../docs/en/tutorials/card-choice.md) |
+| [16 Difficulty copy](en/16-level-difficulty.cs.txt) | `source/ExtraDifficulty.cs` | Call `ExtraDifficulty.Register(registrar)` in the existing Load; [lesson](../docs/en/tutorials/level-difficulty.md) |
+| [17 Profession and progress](en/17-profession-progress.cs.txt) | `source/LanternTraining.cs` | Register it and update 02's ProfessionId/Role; [lesson](../docs/en/tutorials/profession-progress.md) |
 
 Do not copy every file at once. In particular, 07 does not include its three source regions and cannot run alone. Add files before using image bindings; character and enemy lessons can be completed without custom artwork first.
 

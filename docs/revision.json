@@ -1,52 +1,52 @@
 {
-  "guideRevision": 5,
-  "reviewedApi": "1.8.0",
-  "reviewDate": "2026-10-14",
-  "status": "local-reviewed-draft",
+  "guideRevision": 6,
+  "reviewedApi": "1.10.0",
+  "reviewDate": "2026-10-17",
+  "status": "reviewed",
   "hashAlgorithm": "SHA-256, UTF-8 with LF line endings",
   "meaningReview": "AI-assisted bilingual review; independent reader trial pending",
   "pairs": [
     {
       "zh-CN": "docs/zh-CN/01-project-and-build.md",
       "en": "docs/en/01-project-and-build.md",
-      "sourceHash": "f611e148fd711d3bd731e70f9aa46783ae3a9678a0042968b8fd3460f1c3d132",
-      "translationHash": "8eb79d2d68c14185e4b51b4df56f242b0131068880191399970a07e2897d34ce"
+      "sourceHash": "9cfef3e7367bc2517dae52ce2061a12d71c4d5b085c29a11d20ee0a522fc5d27",
+      "translationHash": "7881737a8a2d612a624be790efeb71a8b880b71aeada1ed4f41387e500b52436"
     },
     {
       "zh-CN": "docs/zh-CN/02-content-creation.md",
       "en": "docs/en/02-content-creation.md",
-      "sourceHash": "a67e751f1f8a5158ee53ff929e6923cc79a02f154638b0cddce169cf79fc2559",
-      "translationHash": "2362aa3b560e4ccd8882d13ec63715aecb35d78ce36f3b7b559cbe153213b576"
+      "sourceHash": "609a02a9a2323ae78f71bb0602954f03259deee831804c146425d07ec7cfaa4b",
+      "translationHash": "46d1c67cf1e2919ee8fd51ee749f0abc994e76c3203e749e9bec251a1e5fab7c"
     },
     {
       "zh-CN": "docs/zh-CN/03-assets-and-presentation.md",
       "en": "docs/en/03-assets-and-presentation.md",
-      "sourceHash": "06480b96094b9d50c807e1cf2dd64750a189984852dc01977e0558a39e268879",
-      "translationHash": "5c12c662c092e19d6c9bf170abff9981b26c104a5557fcd8c22c4fbb043c6680"
+      "sourceHash": "29e96b9d866556b464a1d1ed82b184c48d80487d03627c28d8fd3064e9d7718c",
+      "translationHash": "5382760b1580f05626cb90214e91f3a68420b1692e2160d323fb4b22144b45ce"
     },
     {
       "zh-CN": "docs/zh-CN/04-testing-and-publishing.md",
       "en": "docs/en/04-testing-and-publishing.md",
-      "sourceHash": "043e20cb23cb00d26268b901b0b93da9ba3949ac1bc9c59657b3fc95eb0c5e54",
-      "translationHash": "6c1b03baa23a9f4e3401a9e4346d346030837d6a963f1cd15a6203106eaeb001"
+      "sourceHash": "4853b03549769d905e10ea4fba5f1406e96ee62c37a107fea7ee7016eda945df",
+      "translationHash": "82ac4ec30b42633a12e4af06814e70120010718396c853aa5dab109f48683831"
     },
     {
       "zh-CN": "docs/zh-CN/README.md",
       "en": "docs/en/README.md",
-      "sourceHash": "6c9282909cb776f98c39e976ebfcfb27850e957862f87b68c4d650dd3a36b287",
-      "translationHash": "4387bf267a984ccd1e2f995178b9d7b9807d31573e9aaf8623d620f174b027ab"
+      "sourceHash": "6fda8aede40b8215a2a08376af606564af92ba2d379c9792a31853300bb0632f",
+      "translationHash": "742648453e84a3ce59743c511a49b54d0ea3cc8efcd82388fd44a517160f63fe"
     },
     {
       "zh-CN": "docs/zh-CN/ai-authoring.md",
       "en": "docs/en/ai-authoring.md",
-      "sourceHash": "11282ecb18b25dde45870677fcfb578122f07af1219c62e78f1b88ad7cfa8ad1",
-      "translationHash": "8d312e7d8f9a779cc1325ed6f3fc54f4af885aa317b0b6e3117534527da471d6"
+      "sourceHash": "2bea97d8e4d828833f03c3dce98a8c111f8b401ab1340d090f59ac99be3823c0",
+      "translationHash": "b82d4a6866bc0e0753506c329410d5afa966678fb10039e2484eafe3265279ab"
     },
     {
       "zh-CN": "docs/zh-CN/feature-map.md",
       "en": "docs/en/feature-map.md",
-      "sourceHash": "48127847eb84bc4a764902b6dcc75c154eb91d7ce89c36abc7af872473089c73",
-      "translationHash": "4a387b74b149df3d52afba3828eb7675552047b4b35fab562cfe6b0d2263b7f8"
+      "sourceHash": "9b9ce3d7582bd65b7399fed9dc67977396cfae22fdecd86e43f191ecea3a77b3",
+      "translationHash": "3e3b61c5fb6a83e484acdef29b8d87bb382c6c1299fa8840b6fcf9052a97f432"
     },
     {
       "zh-CN": "docs/zh-CN/glossary.md",
@@ -57,74 +57,74 @@
     {
       "zh-CN": "docs/zh-CN/reference/actors.md",
       "en": "docs/en/reference/actors.md",
-      "sourceHash": "fbaa6dfd9155f289fe23bd84ae7c8b5cfe80688613b94dc65a4afe7fbe6da8c1",
-      "translationHash": "a6288b8afed3f5bd81e88c2da5f67ae028c43362598330de2e852afb4b883cf0"
+      "sourceHash": "29a3fcba88a6f9a9c54872df5113735966fb13c6ba7e1e66359ef8e97dffdfdc",
+      "translationHash": "453294aeb786c071e4584c1130b85c56c5843cb8a5546e48c1e5db0586123c47"
     },
     {
       "zh-CN": "docs/zh-CN/reference/api-surface.md",
       "en": "docs/en/reference/api-surface.md",
-      "sourceHash": "e82a8e26eabb84ee87256ebc5250a2b81eb9e204dc964f39a706b855d3ef5501",
-      "translationHash": "84da77c58023a3aedfa0e3f7539c5e6541cb31e85149bde89c2f7abcd4163b8e"
+      "sourceHash": "f7a8a3a119eb5ebce026e577c1373f78c2aa0bee70d85c0c669c37435dc23972",
+      "translationHash": "0928638af94f5fd60bc2cd8370cb5e2f1dfa66c933f6e666e58534c1a6613b6b"
     },
     {
       "zh-CN": "docs/zh-CN/reference/card-choice.md",
       "en": "docs/en/reference/card-choice.md",
-      "sourceHash": "e640f743a3c9078637afb44d0c82254ca083804966a8a253c9932f2527b811f1",
-      "translationHash": "0c7f095ccd398b89eab267e994a6127bf4ab4472d50f1812872a8d5154bca278"
+      "sourceHash": "7c9b8a500a175a8cc6aa9a03464fc1229d470382ab4e4fea382383d186635dc1",
+      "translationHash": "c46c2168b4732fe70626f04cf2e6a4461b74e85b339c3354e0c9962480d822e8"
     },
     {
       "zh-CN": "docs/zh-CN/reference/compatibility.md",
       "en": "docs/en/reference/compatibility.md",
-      "sourceHash": "aba0a87373589a8299d1b255580484bb369aaee3995488d920f25adbf5d48c55",
-      "translationHash": "45812c3dddea007b8991c8d955a24041434a71df44a4bb493bf5adddc95e6a4f"
+      "sourceHash": "9fc125eaae0629ba463b2d13f07aa7d2049b2532b50f59020b60dfbb207287e4",
+      "translationHash": "992779d0779f9a0439b11f000a29583a09cdb4128e776fb50389c7a8b260036d"
     },
     {
       "zh-CN": "docs/zh-CN/reference/conditions.md",
       "en": "docs/en/reference/conditions.md",
-      "sourceHash": "df6e246f916f5650b084b78b47440b7d431a2a02973abdc53c707702fda4fb16",
-      "translationHash": "755596a108ec4c3345bf30f0a7f95bb9014bdd759aed0535f47f1d373c1419e0"
+      "sourceHash": "6ac64e3814a364e73fdd6d53849d9fd31d82913544ff5993a93c5b1821b30e4a",
+      "translationHash": "fbcfee143885d2c9294d8339b20a1ff6b27bdc07e721e417fe2d4035bf69a3d4"
     },
     {
       "zh-CN": "docs/zh-CN/reference/custom-ui.md",
       "en": "docs/en/reference/custom-ui.md",
-      "sourceHash": "cdc107e924b2424f0588d249a59cf0ad6124eaeef4c829e649a309319436276d",
-      "translationHash": "274b7671da2e6fda6c50fbd44f5c69ce0ec2b1cd5a79b138215b234986e0c720"
+      "sourceHash": "551f235de3a931b51e78dfc1b923c4de23ad95b075d5ff05de713bdbd01706a4",
+      "translationHash": "4debcee18218b5f61d6f54dedad7b71bb893be09a76d0548a5c169ed95a0fcda"
     },
     {
       "zh-CN": "docs/zh-CN/reference/documentation-design.md",
       "en": "docs/en/reference/documentation-design.md",
-      "sourceHash": "a8aedec80b6a2fbae293ae6e96f2923465dbde31b9383e127797a1e6af1b6f8d",
-      "translationHash": "c8d37010baba21ab26dca2a08285c91e64c1b11a06d137752a01b6253fe70f67"
+      "sourceHash": "b62173fe7cb98afbc0a2f578ddfbcdd3ade66da371924f6554115713a6dde237",
+      "translationHash": "72d380e0bc663236f2abf1de32fcf38f3fa0dfae7ed3257b45a003e3014ddee0"
     },
     {
       "zh-CN": "docs/zh-CN/reference/entry.md",
       "en": "docs/en/reference/entry.md",
-      "sourceHash": "8682003055cfe3fda2c47046ac237ef2b0c834789078146c90e701e19a3a30f2",
-      "translationHash": "e84abf6517a9e2c7f4540afffcd01d41b78de594ffb5df5dc9485d2a6622f105"
+      "sourceHash": "466e4a03c92c7fd40a7797517d358c9906508efc41800da5d93098e49d2c66fc",
+      "translationHash": "1059793ba8da726454a93f25d659997074475aaacc479ddfca61031f47bfc1ea"
     },
     {
       "zh-CN": "docs/zh-CN/reference/events.md",
       "en": "docs/en/reference/events.md",
-      "sourceHash": "0fb733f4f07039cf095a345b287b9a147a77fd0a0403c53f62966aa1c62a44e2",
-      "translationHash": "542602cc4f3f9e02e93da4d83fc5e3765c64befeefb0d374052ae4b056450624"
+      "sourceHash": "6963aa228cc50be8e27e51ea561cd13b916ad328e12799d81f9ad5f7d546d931",
+      "translationHash": "af4f9e4972ae7d1a88924a2986e287d9173684f93f7541fdc878fe9289dc5838"
     },
     {
       "zh-CN": "docs/zh-CN/reference/lifecycle.md",
       "en": "docs/en/reference/lifecycle.md",
-      "sourceHash": "15d9a79982a953a92747f81a06d6a8b974ed772ff829f505172853abd0c3bf8f",
-      "translationHash": "19ef16c11f3afc5ac54af80163663883923bed72ee0b2723b1d228a2da2d2e9b"
+      "sourceHash": "5e255461f100172344c3e2fc6b71e9d313cd6a968675bb02651736f2105252fb",
+      "translationHash": "644aa40c805704952a68f69f2702aa0ad418718a54fb3316485e33acfcb45cb3"
     },
     {
       "zh-CN": "docs/zh-CN/reference/presentation.md",
       "en": "docs/en/reference/presentation.md",
-      "sourceHash": "0d00d3c182ac772e613fb2ccb54073f0648df60bf379355deadff6beedefd97b",
-      "translationHash": "b71349da6c20c17dc63bd82472d182eca92a61c7d6a47046a32e551360544a53"
+      "sourceHash": "9546ef28db739cd3c3377887dd868c21a6705836ad7f89287e4cbb5082ccf113",
+      "translationHash": "0c8960f69d4062c26c7a2c6d009a76aad4d0b61c529f4e98e9428e1fdbcaa7df"
     },
     {
       "zh-CN": "docs/zh-CN/reference/reader-trial.md",
       "en": "docs/en/reference/reader-trial.md",
-      "sourceHash": "a79770d891949c273ef9d188a46236399fc432e41b90c35936be1152fabf18f2",
-      "translationHash": "8b439687d45727466fe64289e1a883fa0556cbb334b11f927eed911d0f529f0f"
+      "sourceHash": "9197a9c805889993e41295914ce2038c2b951311a5afefcb49690c8236cb7d1d",
+      "translationHash": "5a1cf447b1b5a6da234d11f53838bfe2319f2f666b52db3e7279cec11af546ff"
     },
     {
       "zh-CN": "docs/zh-CN/reference/security.md",
@@ -135,32 +135,32 @@
     {
       "zh-CN": "docs/zh-CN/reference/stages.md",
       "en": "docs/en/reference/stages.md",
-      "sourceHash": "3198bc3999ded8cbfb8a3be274bf1c596bf2f203bd2185499a7e9cfbf936475a",
-      "translationHash": "09bc80a5f07045b050db1f3ced564e958a1874b75716ce51baa3e5d82d73c7e6"
+      "sourceHash": "218421846d1565f0f264539b4ea5f153b1cfd9033be560c133a7ea417be5a994",
+      "translationHash": "f7aceec9ccb780cfd6f2abd57e932558c8091300a57090de2069eb05bbdb2b8b"
     },
     {
       "zh-CN": "docs/zh-CN/reference/treasures.md",
       "en": "docs/en/reference/treasures.md",
-      "sourceHash": "4303f7d7e2fa506202f54a34950b5753b9b32af6abe862ce32b83e5c15197eae",
-      "translationHash": "b27a48ca6b8c5dee5e50e16f8e53ab96e56dfc8cbcc20f395058d202b285b55a"
+      "sourceHash": "0e10de2c2fef96d5163e63a05ff11eade757446b2670bdecb93c8288ff00c0fc",
+      "translationHash": "d67967bfbdd7d959792f8874308294f5268d3876c5de203ca4bc7e3502d95691"
     },
     {
       "zh-CN": "docs/zh-CN/reference/versions.md",
       "en": "docs/en/reference/versions.md",
-      "sourceHash": "e9897263fe2e7447cefaa974b7d9c8932f4ab8c8083d322c577cd0483c81da08",
-      "translationHash": "fd877fb35e9e246304f1ec4de631ffc99996f38128f611315a9671e7c682f3d9"
+      "sourceHash": "5d9f4e8ff1a91aef1a89e3df4c3be219f42eafaea803361fe6f36a8e2cc50882",
+      "translationHash": "55f4b573a9651b0693ced88c6e5ae68c4a1b72a7805778d141f3f2eb503f9643"
     },
     {
       "zh-CN": "docs/zh-CN/reference/visual-walkthrough.md",
       "en": "docs/en/reference/visual-walkthrough.md",
-      "sourceHash": "20ada402da6ee0219ed5d92f9db339c60d01b0e728407d78784c5f4e6a31fe06",
-      "translationHash": "742406f53779f01d13da1fbc6d8331f0002c8816fae3500d921e3f8f208721fe"
+      "sourceHash": "b1d4b9c527106050d2b6f3b04e265411ede01ad20910d954ae6cc39494ad98f6",
+      "translationHash": "f12bc88e7e4c248aba41d1c07090e97b3c64dc528c13b266583019abec16f2c3"
     },
     {
       "zh-CN": "docs/zh-CN/troubleshooting.md",
       "en": "docs/en/troubleshooting.md",
-      "sourceHash": "88eecb7b45e95510dcbe186ac66bfdb791f0af9968ba5b42a1dd58cd94922343",
-      "translationHash": "aabce6c96e62295e5fcb1e55b0e59aa29789c5f3367b14e7b96ce193c589f26b"
+      "sourceHash": "14597c3f9a372d92af587ec92f2a9f0bf523787b9e4e067290cb4b8b5652c37b",
+      "translationHash": "48db1733ef207c0a743d822b78b71f3e290328a6b8164176f0f96df79dae8053"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/adventure-modes.md",
@@ -171,14 +171,14 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/adventure.md",
       "en": "docs/en/tutorials/adventure.md",
-      "sourceHash": "7bc4bf2671b638a71168e3930e89261b140f14a7e16286e65e849dc70f1aec40",
-      "translationHash": "89840c29dc235655de68ce5b0059e7c170bc2142e7237a529ef3152a9f20bbce"
+      "sourceHash": "06284e7d7ac67cff4d9b0fe0354f055f56e0219f4e469fff70c4e945d602a296",
+      "translationHash": "5ebb776448891507f7e6170944e67ab237a621e2a29fe04b49d7ba5872f57653"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/assets-and-text.md",
       "en": "docs/en/tutorials/assets-and-text.md",
-      "sourceHash": "31ea6683407aa24d223ad78647682d93fd7d4d9568219dbe427bb2b639a3f05e",
-      "translationHash": "2571eb9e1323c31a3e745d7e896fdf1269a28a76d548b9419b9ca252b37e9b82"
+      "sourceHash": "5c87fcc36a392b7b8e96a321c0ed0ec2bd0617327680e7afbb85036e02faa90d",
+      "translationHash": "ca5048c6648c698c90afb18ea4a04741d08b8863f536c541d2a32ab2a161b58f"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/card-choice.md",
@@ -189,8 +189,8 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/character.md",
       "en": "docs/en/tutorials/character.md",
-      "sourceHash": "8b4d62f0fb5cd82ba00c14506681a6365c92268cf6a271e5146f62b5b4452dac",
-      "translationHash": "d3b98d0365c9c4d5f6f46976e9dd860647f618d59889718826a33576947dc4c7"
+      "sourceHash": "6d633e92807aedf4ba8a536433d5c1731e049933684aa33dac9587fc1942dce7",
+      "translationHash": "8964d767dbe092953a935847999acbcc240a6ea9429b5b341950674d7db0fadb"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/configuration.md",
@@ -219,14 +219,26 @@
     {
       "zh-CN": "docs/zh-CN/tutorials/first-mod.md",
       "en": "docs/en/tutorials/first-mod.md",
-      "sourceHash": "c3c3a8c77e37206e1a64fa2af01b1c99c76d56e2cb66ce221da19941f4134105",
-      "translationHash": "9d899fe0c21b2fd30acbaea6bd492be90281db0a55537682fbeb61e86edae0c1"
+      "sourceHash": "05456dfc5bddb515285e7e552575b52b394ffd18690f1834b87658389cf1b266",
+      "translationHash": "fb5fb5f0ec8236f8acf61ed4bd7a6dc2b6edb6e257b2d2eb958c255f1d6e68e5"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/items-and-events.md",
       "en": "docs/en/tutorials/items-and-events.md",
       "sourceHash": "99832797cf81a352ad3af4e92ff779bbad60000272bf22b58b1c6678181225aa",
       "translationHash": "b40ba6c60c2071461b724c7d38189cba61fed37128e9cdb1e33c93b24abbfc16"
+    },
+    {
+      "zh-CN": "docs/zh-CN/tutorials/level-difficulty.md",
+      "en": "docs/en/tutorials/level-difficulty.md",
+      "sourceHash": "e4d999d58d07967a11d27782c199be16470d6db5d282518444e1bcf4a1971dcb",
+      "translationHash": "d96687542b3b7ffdd8c06503c8449b9899f346eba29078bb29adc23043652f85"
+    },
+    {
+      "zh-CN": "docs/zh-CN/tutorials/profession-progress.md",
+      "en": "docs/en/tutorials/profession-progress.md",
+      "sourceHash": "5dce74bce8b4d607595a7120a86ccd7db48d1902c8cf8fa06ad953135fc37660",
+      "translationHash": "350a04db0eb334baad3cfe22787dc519ad814f437a60d521264987174e9ea140"
     },
     {
       "zh-CN": "docs/zh-CN/tutorials/publish.md",
@@ -343,22 +355,34 @@
       "translationHash": "6bc5ead6dbef9aa76dd82505cb66339977de823a799ed12f2bc549351c7cd7fc"
     },
     {
+      "zh-CN": "templates/zh-CN/16-level-difficulty.cs.txt",
+      "en": "templates/en/16-level-difficulty.cs.txt",
+      "sourceHash": "cd4584490b899b3e1a7436853d43becb22ba35559d6bb8985ecd487827174fbd",
+      "translationHash": "de6808913112ba9c62fefdc3f072e7f5d92bc316bc6b79c60c088c4e9fa2c380"
+    },
+    {
+      "zh-CN": "templates/zh-CN/17-profession-progress.cs.txt",
+      "en": "templates/en/17-profession-progress.cs.txt",
+      "sourceHash": "6087d1bbe8caef219063ea10d9f48414bdf783317313764ad6eb3518062f3292",
+      "translationHash": "cdbfce6d0bcb0c1d137b0065e4b57606e23e62bdcecb7ecaa50f322135d70566"
+    },
+    {
       "zh-CN": "templates/zh-CN/localization.json",
       "en": "templates/en/localization.json",
-      "sourceHash": "a9a441af7da3e7f8e6fb8d7616c34e92ac7aba7afee65892872ea5f20ad7fc0d",
-      "translationHash": "4fea1633c6bb65e6b51073d0cfe7a9f6b44f9cacc409fa1141fbe705374686a4"
+      "sourceHash": "1af659177bd61f7f74475877f76c319acaf10fad808e21a77fcafbec8d972084",
+      "translationHash": "4d978f217c7c86183bd98f94bef85ff6218d351124d8170440c4b2c91398aa3c"
     },
     {
       "zh-CN": "README.zh-CN.md",
       "en": "README.md",
-      "sourceHash": "175ed2eed831ca2556a22da52666758d2af9ac77dd2aee2316501ad6919455c6",
-      "translationHash": "96a15516e391b9c672f2ebb5e7cbf02f0012ac7a8216b53cba95a1bff38d609e"
+      "sourceHash": "14d6cf87508d637e33737036a49d7f0a4cbd7d01d67a68010a74af8cfa4d77a3",
+      "translationHash": "e6792cdd952b0c0a4d02fcf641e0fb9f85be19e4bfa9987c5b8f238173bbb775"
     },
     {
       "zh-CN": "templates/README.zh-CN.md",
       "en": "templates/README.md",
-      "sourceHash": "8881f14f16eb25c195fc74a3a5e843a6245262ab8559e7083424228daeed6271",
-      "translationHash": "aa64d68da35ac0bd97e12409de1c9444e48f05c13dbc0c9d8aedfa2c719b3432"
+      "sourceHash": "4e5d0b65cc308777187a9f1660470764505672c390c7cc130800913acfe01942",
+      "translationHash": "9d4598a6c5321da456c67a57822a93215079e2022d899ae0e87eeeaf0b05a6bf"
     }
   ]
 }

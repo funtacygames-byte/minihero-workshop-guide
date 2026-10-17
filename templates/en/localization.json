@@ -260,6 +260,26 @@
     {
       "key": "ui.camp.title",
       "value": "Camp Guide"
+    },
+    {
+      "key": "difficulty.starlight.description",
+      "value": "Starlight challenge: enemies gain +8 attack and +20 health; crystals ×1.8."
+    },
+    {
+      "key": "profession.trailwarden.name",
+      "value": "Trailwarden"
+    },
+    {
+      "key": "profession.trailwarden.currency",
+      "value": "Training"
+    },
+    {
+      "key": "profession.trailwarden.vitality.name",
+      "value": "Vitality"
+    },
+    {
+      "key": "profession.trailwarden.vitality.description",
+      "value": "Start runs with +{value} max health."
     }
   ]
 }

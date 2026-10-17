@@ -27,6 +27,8 @@
 | [次数与状态](tutorials/rules-and-state.md) | 每场景最多三次、治疗后加盾的练习量瓶 |
 | [连接多个场景](tutorials/adventure.md) | 出口、整备和下一个场景组成的冒险 |
 | [种子与循环](tutorials/adventure-modes.md) | 固定挑战、每日种子、三轮循环和有限续接 |
+| [新增与复制难度](tutorials/level-difficulty.md) | 给已有地图追加独立难度，复制别处的参数后修改 |
+| [职业与永久进度](tutorials/profession-progress.md) | 击败敌人获得训练点，在已有强化页购买永久职业强化 |
 | [素材与双语文本](tutorials/assets-and-text.md) | 自己的图标、探索音乐与中英文名称说明 |
 | [自定义页面](tutorials/custom-ui.md) | 有按钮、动态文字和原菜单入口的营地手册 |
 | [发布与更新](tutorials/publish.md) | 整理发布资料，上传并更新同一个 Steam 条目 |

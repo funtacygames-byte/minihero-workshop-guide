@@ -1,9 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="500" viewBox="0 0 1040 500" role="img" aria-labelledby="title desc">
-<title id="title">Artwork proportions</title><desc id="desc">Character Icon 284 by 512; Avatar and BattleArt square; StageBackground 16 to 9. Dashed boxes indicate a suggested margin.</desc>
-<rect width="1040" height="500" rx="16" fill="#f7f3e9"/>
-<g fill="#e5edde" stroke="#59715e" stroke-width="2"><rect x="70" y="100" width="142" height="256" rx="4"/><rect x="295" y="132" width="180" height="180" rx="4"/><rect x="570" y="132" width="400" height="225" rx="4"/></g>
-<g fill="none" stroke="#8e9f84" stroke-width="2" stroke-dasharray="7 7"><rect x="82" y="112" width="118" height="232"/><rect x="310" y="147" width="150" height="150"/><rect x="590" y="152" width="360" height="185"/></g>
-<g fill="#a8bea0"><circle cx="141" cy="153" r="24"/><path d="M118 184h46l17 107h-80z"/><rect x="118" y="291" width="16" height="40"/><rect x="148" y="291" width="16" height="40"/><circle cx="385" cy="205" r="37"/><path d="M331 276c0-62 108-62 108 0z"/><path d="M590 322l92-98 90 80 63-54 115 87H590z"/></g>
-<g font-family="sans-serif" text-anchor="middle" fill="#31443c" font-size="23"><text x="141" y="65">Icon</text><text x="385" y="65">Avatar / BattleArt</text><text x="770" y="65">StageBackground</text></g>
-<g font-family="sans-serif" text-anchor="middle" fill="#685c49" font-size="19"><text x="141" y="401">284 × 512</text><text x="141" y="432">71:128</text><text x="385" y="401">512 × 512 / 1024 × 1024</text><text x="385" y="432">1:1</text><text x="770" y="401">1672 × 941</text><text x="770" y="432">≈ 16:9</text></g>
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="560" viewBox="0 0 1220 560" role="img" aria-labelledby="title desc">
+<title id="title">Character artwork: two compositions with complete backgrounds</title>
+<desc id="desc">Both character images have complete opaque scene backgrounds. Icon: 71 to 128 tall art in a 284 by 512 display frame, with larger equivalent sources allowed. Avatar: 4 to 5 portrait, such as 1024 by 1280; small selection avatars use its top square. Enemy BattleArt stays square. StageBackground is landscape.</desc>
+
+<rect width="1220" height="560" rx="16" fill="#f7f3e9"/>
+<g font-family="sans-serif" text-anchor="middle" fill="#31443c" font-size="22"><text x="131" y="65">Character Icon</text><text x="402" y="65">Character Avatar</text><text x="675" y="65">Enemy BattleArt</text><text x="1000" y="65">StageBackground</text></g>
+<rect x="60" y="110" width="142" height="256" rx="3" fill="#b9d1be" stroke="#59715e" stroke-width="2"/>
+<path d="M61 270l40-95 35 65 28-50 37 75v100H61z" fill="#93af99"/>
+<g fill="#6c9075"><circle cx="131" cy="160" r="23"/><path d="M110 190h42l16 99H94z"/><rect x="109" y="289" width="15" height="48"/><rect x="139" y="289" width="15" height="48"/></g>
+<rect x="310" y="125" width="184" height="230" fill="#b9d1be" stroke="#59715e" stroke-width="2"/>
+<path d="M311 245l46-77 46 77 40-62 50 67v104H311z" fill="#819f88"/><circle cx="402" cy="187" r="32" fill="#f0d0a0"/><path d="M350 331q0-105 52-105t52 105v23H350z" fill="#476a54"/>
+<rect x="310" y="125" width="184" height="184" fill="none" stroke="#b56a48" stroke-width="3" stroke-dasharray="8 5"/>
+<text x="402" y="105" font-family="sans-serif" font-size="16" text-anchor="middle" fill="#a55a3a">top square → selection</text>
+<rect x="585" y="152" width="180" height="180" rx="3" fill="#d9e4d1" stroke="#59715e" stroke-width="2"/>
+<path d="M628 272l-6-77 33 23 46-6 22-22-4 77-44 27z" fill="#78927c"/><circle cx="655" cy="247" r="5" fill="#31443c"/><circle cx="697" cy="247" r="5" fill="#31443c"/>
+<rect x="840" y="152" width="320" height="180" rx="3" fill="#d9e4d1" stroke="#59715e" stroke-width="2"/><path d="M841 318l75-90 66 70 68-57 109 87H841z" fill="#a1b69a"/>
+<g font-family="sans-serif" text-anchor="middle" fill="#685c49" font-size="19"><text x="131" y="410">568 × 1024 · 71:128</text><text x="131" y="442">full opaque background</text><text x="402" y="410">1024 × 1280 · 4:5</text><text x="402" y="442">full opaque background</text><text x="675" y="410">512 × 512 · 1:1</text><text x="675" y="442">separate enemy image</text><text x="1000" y="410">1672 × 941 · ≈ 16:9</text><text x="1000" y="442">full scene background</text><text x="610" y="510" font-size="17">Both character files need complete backgrounds. The game does not paint them.</text></g>
 </svg>

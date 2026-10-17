@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "guideRevision": 5,
-  "reviewedApi": "1.8.0",
-  "reviewDate": "2026-10-14",
+  "guideRevision": 6,
+  "reviewedApi": "1.10.0",
+  "reviewDate": "2026-10-17",
   "statusMeaning": {
     "available": "Current authoring entry exists; not a claim that every example was playtested.",
     "backend-only": "Backend/compatibility capability without a player-facing authoring or settings page.",
@@ -275,6 +275,41 @@
       "boundary": {
         "zh-CN": "本地构建导出可验；Steam 在线须实际账号环境",
         "en": "Local build/export verifiable; online Steam needs account environment"
+      }
+    },
+    {
+      "id": "level-difficulties",
+      "status": "available",
+      "apiTypes": [
+        "IModLevelDifficultyRegistrar",
+        "ModLevelDifficultyExtensions",
+        "AdventureDifficultyDefinition"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/level-difficulty.md",
+        "en": "docs/en/tutorials/level-difficulty.md"
+      },
+      "boundary": {
+        "zh-CN": "API 1.10：复制独立参数后追加，目标/编号/引用校验，独立 Mod 选关进度",
+        "en": "API 1.10: append independent copies; target/number/reference checks; separate Mod selection progress"
+      }
+    },
+    {
+      "id": "professions-progress",
+      "status": "available",
+      "apiTypes": [
+        "ProfessionContent",
+        "ProfessionUpgradeConfig",
+        "ModProgress",
+        "ModPersistentData"
+      ],
+      "docs": {
+        "zh-CN": "docs/zh-CN/tutorials/profession-progress.md",
+        "en": "docs/en/tutorials/profession-progress.md"
+      },
+      "boundary": {
+        "zh-CN": "API 1.9：职业强化与标量进度，开局快照，成功动作提交，不写官方资源",
+        "en": "API 1.9: profession upgrades/scalar progress, run snapshots, successful-action commits, no official-resource writes"
       }
     }
   ]

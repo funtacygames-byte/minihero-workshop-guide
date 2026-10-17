@@ -260,6 +260,26 @@
     {
       "key": "ui.camp.title",
       "value": "营地手册"
+    },
+    {
+      "key": "difficulty.starlight.description",
+      "value": "星光挑战：敌人额外攻击 8、生命 20；水晶×1.8。"
+    },
+    {
+      "key": "profession.trailwarden.name",
+      "value": "林地守卫"
+    },
+    {
+      "key": "profession.trailwarden.currency",
+      "value": "训练点"
+    },
+    {
+      "key": "profession.trailwarden.vitality.name",
+      "value": "体魄"
+    },
+    {
+      "key": "profession.trailwarden.vitality.description",
+      "value": "开始游戏时，最大生命增加 {value} 点。"
     }
   ]
 }

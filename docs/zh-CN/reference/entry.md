@@ -2,9 +2,9 @@
 
 [English](../../en/reference/entry.md) · [目录](../README.md)
 
-教程修订 5 · Mod API 1.8.0 · 2026-10-14
+教程修订 6 · Mod API 1.10.0 · 2026-10-17
 
-用途：从包清单定位一个公开入口，注册内容定义、展示和音乐。本文按当前 1.8.0 核对；跨版本最低要求查[版本页](versions.md)，公开声明见[API 表面](api-surface.md)。
+用途：从包清单定位一个公开入口，注册内容定义、展示和音乐。本文按当前 1.10.0 核对；跨版本最低要求查[版本页](versions.md)，公开声明见[API 表面](api-surface.md)。
 
 ## 清单与源码契约
 
@@ -54,3 +54,7 @@ public interface IModRegistrar
 ## 生命周期和最小用法
 
 在 `Load` 中只注册，不保存当前 `GameState`，也不做玩家发奖。实例规则在运行事件中执行，见[生命周期](lifecycle.md)。最小可构建入口和全部整合步骤见[首课](../tutorials/first-mod.md)。图片注册会验证路径与槽位；缺素材时不能只靠编译通过判断加载成功。
+
+## 后续接口
+
+API 1.9.0 的 `ProfessionContent` 也通过 `AddContent` 注册，见[职业与进度](../tutorials/profession-progress.md)。API 1.10.0 的难度读取、复制和追加由可选 `IModLevelDifficultyRegistrar` 与扩展方法提供，`IModRegistrar` 不增加必实现成员，见[难度课](../tutorials/level-difficulty.md)。

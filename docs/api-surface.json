@@ -1,26 +1,31 @@
 {
-  "api": "1.8.0",
-  "reviewDate": "2026-10-14",
+  "api": "1.10.0",
+  "reviewDate": "2026-10-17",
   "extraction": "selected public declarations and protected extension points; inherited members listed under their defining base",
   "sources": {
-    "Assets/Game/脚本/ModApi/MiniHeroModApi.cs": "3a0ed15a46010eccde46f1e5d83dfb9e06a3e658388fd7151bcaa8d7b47891a5",
-    "Assets/Game/脚本/核心/内容系统/AdventureContent.cs": "73b76b8aad6523bf6a9590ce2a350f2a7bcc8be1dc2dbb7958d90d2cd55c11da",
+    "Assets/Game/脚本/ModApi/MiniHeroModApi.cs": "aaeee24cf9d14911c5b699cb1b8f1f20d90b488db413469310c7b63af5bdbfeb",
+    "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs": "e41bb27ce0a06f1438c23ba746819dc8a919b773147a3444b764db042fe72b78",
+    "Assets/Game/脚本/ModApi/ModPersistentData.cs": "bdaccd6741240ce69fc936eee2200d6ebc65092356c7672510815e46d1cbc1df",
+    "Assets/Game/脚本/核心/内容系统/AdventureContent.cs": "ff44335f0955f2a3742aca6029cc7192c4693150c4d00a2ba77eac763592ee3c",
     "Assets/Game/脚本/核心/内容系统/AdventureExtensions.cs": "28ea3635cabdeebdf0e1395fe8f67546c679354cc0f4af1ba83b7b56eb893451",
     "Assets/Game/脚本/核心/内容系统/AdventureRuleContent.cs": "aee39cbb100d0b3cb4a0726c2ac835011dfc16a5c0655ce247eddc8d86a67112",
     "Assets/Game/脚本/核心/内容系统/BuiltInStageModules.cs": "cbb3b52124cd0fe0bee3082582c29e4e7b844908398c28e58a741050211ef515",
     "Assets/Game/脚本/核心/内容系统/CardChoiceEventContent.cs": "7b19548b7fa35dcc05fc3eebc079e6440e5cbbb23ba71f90cfa6554cef92ec7a",
     "Assets/Game/脚本/核心/内容系统/CardContent.cs": "911c6f91081850a3893970d09346dd1b01be3fcf4fba7fe21aa2022a19078fa8",
-    "Assets/Game/脚本/核心/内容系统/CharacterContent.cs": "fccbc57eed718943a42bdbe7c349b8d2d8e2b34394c73cf5ab69e750dad9ff58",
-    "Assets/Game/脚本/核心/内容系统/ContentFramework.cs": "53651734d75d1e30dcc84b2a7e5c75481fd3acaa14024693c6e3988eba160962",
-    "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs": "7000979404a9ac5a8946d884c223328a42a5d18060e230ea404fb2df1e3e8c6d",
+    "Assets/Game/脚本/核心/内容系统/CharacterContent.cs": "c7c23ac80c76c48e9b6a962f59890d1655e8ef2873b7128b2d6af42ac19b9a7c",
+    "Assets/Game/脚本/核心/内容系统/ContentFramework.cs": "e4b33a054fc85c02cb66f4a6f8ad0e46b2a0602389cd175bd306455986212cd7",
+    "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs": "2480a1b65c778c4aeecc8c20f06c020bfd19ed8505f7ce2a71e9b363efa13eef",
+    "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs": "74119e09b82dd296296c6db1ab9851f6ec0ccbb12285cb317bb795c4dfaeea5d",
     "Assets/Game/脚本/核心/内容系统/ShopContent.cs": "2b918fef89c0080490c1509230f3d34bb6f712c93b9c3a55a2834e7c84634aac",
-    "Assets/Game/脚本/核心/内容系统/TreasureContent.cs": "6a4cb4d04af3218a3ca7226e161df6befc950a7d1c51b73cfea50d0aedb442b3",
+    "Assets/Game/脚本/核心/内容系统/TreasureContent.cs": "4713889c4ff502701129b5f83301531076cab87814f83242100c69bee0e3acfe",
     "Assets/Game/脚本/核心/内容系统/敌人特性/EnemyTraitEvents.cs": "1c1b64990e7c35ff3f6e9cb8382a12313eecfc3be9c1c5c3a21c69a88acffd66",
+    "Assets/Game/脚本/核心/运行逻辑/AdventureItemSegments.cs": "ae579f1a9e9544f8bf62d37d2f0a10f34d337a0bd8dc53df6ae55314f37b0f53",
     "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs": "1cdd5ea2ac948e12fafdb59cd533ce1f3bcf35d91d822ebed2ce3f36f884a122",
     "Assets/Game/脚本/核心/运行逻辑/DeclarativeConditionEvaluator.cs": "b43ebf3a916d44631f8a01b73c4ca82ff64d92a32c52f0b45dc3d00726674668",
     "Assets/Game/脚本/核心/运行逻辑/GameActionModels.cs": "11a737250fb80fd194f9391971abca9d9acaade53392219892fd187028c2037f",
     "Assets/Game/脚本/核心/运行逻辑/GameModels.cs": "57fbea4b6c33bae9afa479a7b9e8da2b09a3d27536e7ac5c3d025f92adaa6a7c",
     "Assets/Game/脚本/核心/运行逻辑/GamePrimitives.cs": "ba420e0fe5034b81e2ea8a8eacdcdafc2f59f28f4a3d985878adca1dd5040d3d",
+    "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs": "ce50c4b96fe9743ddb1ea614f0b0490b42fbc5d36de1c4de1f83aae69e4d36cf",
     "Assets/Game/脚本/核心/运行逻辑/卡牌执行/CardExecutionContext.cs": "3ba8562f3b1187a68eb22d86b3f88b72a7cd9795d1eb0943ce5c1e429a7d46a8"
   },
   "types": {
@@ -92,9 +97,31 @@
         "public int[] ruleAttackBySection;",
         "public int[] ruleDefenseBySection;",
         "public int[] ruleHealthBySection;",
+        "public bool adventureItemPoolConfigured;",
+        "public List<string> adventureItemPoolIds = new List<string>();",
+        "public AdventureItemSegmentSettings adventureItemSegments;",
         "public AdventureDifficultyDefinition Clone();"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/AdventureContent.cs"
+    },
+    "AdventureItemSegmentSettings": {
+      "declaration": "public sealed class AdventureItemSegmentSettings",
+      "members": [
+        "public bool enabled;",
+        "public AdventureItemSegmentUnit unit;",
+        "public int segmentLength = 12;",
+        "public int loopUnits;",
+        "public AdventureItemSegmentSettings Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/AdventureItemSegments.cs"
+    },
+    "AdventureItemSegmentUnit": {
+      "declaration": "public enum AdventureItemSegmentUnit",
+      "members": [
+        "[InspectorName(\"主线战斗场次\")] CombatScene",
+        "[InspectorName(\"关卡步骤（首领组或区域）\")] LevelStep"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/AdventureItemSegments.cs"
     },
     "AdventureLoopSettings": {
       "declaration": "public sealed class AdventureLoopSettings",
@@ -314,6 +341,7 @@
         "public virtual IReadOnlyList<Type> StartingMoveTypes { get; }",
         "public virtual IReadOnlyList<string> TreasurePoolTags { get; }",
         "public virtual TreasurePoolDefinition TreasurePool { get; }",
+        "public virtual string ProfessionId { get; }",
         "public virtual CharacterDefinition CreateDefinition(GameContentRegistry registry);"
       ],
       "source": "Assets/Game/脚本/核心/内容系统/CharacterContent.cs"
@@ -504,7 +532,7 @@
       "members": [
         "protected GameContentModule();",
         "protected GameContentModule(string id);",
-        "public string Id { get; }",
+        "public virtual string Id { get; }",
         "public abstract string Name { get; }",
         "public virtual int Order { get; }",
         "public virtual ContentCombatVfxProfile CombatVfxProfile { get; }",
@@ -583,6 +611,14 @@
         "GameActionResult ResolveCardChoice(CardChoiceContext context);"
       ],
       "source": "Assets/Game/脚本/核心/运行逻辑/CardChoiceModels.cs"
+    },
+    "IModLevelDifficultyRegistrar": {
+      "declaration": "public interface IModLevelDifficultyRegistrar",
+      "members": [
+        "IReadOnlyList<ModLevelDefinition> GetLevels();",
+        "void AddLevelDifficulty(ModLevelDifficultyDefinition definition);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs"
     },
     "IModPresentationContent": {
       "declaration": "public interface IModPresentationContent",
@@ -695,7 +731,7 @@
     "MiniHeroModApi": {
       "declaration": "public static class MiniHeroModApi",
       "members": [
-        "public const string Version = \"1.8.0\";",
+        "public const string Version = \"1.10.0\";",
         "public const string MinimumCompatibleVersion = \"1.0.0\";"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
@@ -762,6 +798,43 @@
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
     },
+    "ModLevelDefinition": {
+      "declaration": "public sealed class ModLevelDefinition",
+      "members": [
+        "public string id = string.Empty;",
+        "public string name = string.Empty;",
+        "public List<AdventureDifficultyDefinition> difficulties = new List<AdventureDifficultyDefinition>();",
+        "public ModLevelDefinition Clone();"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs"
+    },
+    "ModLevelDifficultyDefinition": {
+      "declaration": "public sealed class ModLevelDifficultyDefinition",
+      "members": [
+        "public string id = string.Empty;",
+        "public string packageId = string.Empty;",
+        "public string levelId = string.Empty;",
+        "public AdventureDifficultyDefinition difficulty;"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs"
+    },
+    "ModLevelDifficultyExtensions": {
+      "declaration": "public static class ModLevelDifficultyExtensions",
+      "members": [
+        "public static IReadOnlyList<ModLevelDefinition> GetLevels(this IModRegistrar registrar);",
+        "public static AdventureDifficultyDefinition GetLevelDifficulty(this IModRegistrar registrar, string levelId, int difficulty);",
+        "public static AdventureDifficultyDefinition CopyLevelDifficulty(this IModRegistrar registrar, string sourceLevelId, int sourceDifficulty, int newDifficulty);",
+        "public static void AddLevelDifficulty(this IModRegistrar registrar, string id, string levelId, AdventureDifficultyDefinition difficulty);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs"
+    },
+    "ModLevelDifficultyValidation": {
+      "declaration": "public static class ModLevelDifficultyValidation",
+      "members": [
+        "public static void Validate(AdventureDifficultyDefinition value);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModLevelDifficulties.cs"
+    },
     "ModMusicCue": {
       "declaration": "public enum ModMusicCue",
       "members": [
@@ -780,6 +853,22 @@
         "public IReadOnlyDictionary<ModMusicCue, string> Tracks { get; }"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModPersistentData": {
+      "declaration": "public sealed class ModPersistentData",
+      "members": [
+        "public string PackageId { get; }",
+        "public string GetString(string key, string fallback = \"\");",
+        "public int GetInt(string key, int fallback = 0);",
+        "public bool GetBool(string key, bool fallback = false);",
+        "public bool SetString(string key, string value);",
+        "public bool SetInt(string key, int value);",
+        "public bool SetBool(string key, bool value);",
+        "public bool Remove(string key);",
+        "public bool AddInt(string key, int amount);",
+        "public bool TrySpend(string key, int amount);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModPersistentData.cs"
     },
     "ModPresentation": {
       "declaration": "public sealed class ModPresentation",
@@ -803,6 +892,16 @@
         "StageArrivalArt"
       ],
       "source": "Assets/Game/脚本/ModApi/MiniHeroModApi.cs"
+    },
+    "ModProgress": {
+      "declaration": "public static class ModProgress",
+      "members": [
+        "public static ModPersistentData ForPackage(string packageId);",
+        "public static void ConfigureHost(Func<string, string, string> reader, Func<string, string, string, bool> writer);",
+        "public static void ValidatePackageId(string id);",
+        "public static void ValidateKey(string key);"
+      ],
+      "source": "Assets/Game/脚本/ModApi/ModPersistentData.cs"
     },
     "ModRegistrarExtensions": {
       "declaration": "public static class ModRegistrarExtensions",
@@ -1068,6 +1167,52 @@
       ],
       "source": "Assets/Game/脚本/核心/内容系统/ContentRuleEvents.cs"
     },
+    "ProfessionContent": {
+      "declaration": "public abstract class ProfessionContent : GameContentModule",
+      "members": [
+        "public abstract string PackageId { get; }",
+        "public abstract IReadOnlyList<ProfessionUpgradeConfig> Upgrades { get; }",
+        "public virtual string CurrencyKey { get; }",
+        "public virtual string CurrencyName { get; }",
+        "public virtual string CurrencyIconId { get; }",
+        "public void ValidateRegistration(string packageId);",
+        "public int UpgradeLevel(GameState state, string upgradeId);",
+        "public virtual string UpgradeDescription(string upgradeId, int level);"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs"
+    },
+    "ProfessionUpgradeConfig": {
+      "declaration": "public sealed class ProfessionUpgradeConfig",
+      "members": [
+        "public string id = string.Empty;",
+        "public string name = string.Empty;",
+        "public string description = string.Empty;",
+        "public string iconId = string.Empty;",
+        "public ProfessionUpgradeEffectKind effectKind = ProfessionUpgradeEffectKind.Custom;",
+        "public int valuePerLevel;",
+        "public int[] costs = Array.Empty<int>();",
+        "public ProfessionUpgradeConfig Clone();"
+      ],
+      "source": "Assets/Game/脚本/核心/内容系统/ProfessionContent.cs"
+    },
+    "ProfessionUpgradeEffectKind": {
+      "declaration": "public enum ProfessionUpgradeEffectKind",
+      "members": [
+        "StartingWisdom",
+        "StartingGold",
+        "StartingMaxHp",
+        "StartingAttack",
+        "StartingDefense",
+        "StartingRandomTreasure",
+        "IntermissionHealing",
+        "BossShield",
+        "BossDodge",
+        "BossDefeatHealingPercent",
+        "PotionEffectPercent",
+        "Custom"
+      ],
+      "source": "Assets/Game/脚本/核心/运行逻辑/ProfessionProgression.cs"
+    },
     "RichEventChoiceState": {
       "declaration": "public sealed class RichEventChoiceState",
       "members": [
@@ -1262,7 +1407,7 @@
         "public virtual GameActionResult Execute(TreasureState treasure, TreasureActivationContext context);",
         "public TreasureDefinition CreateDefinition();",
         "public virtual TreasureState CreateState(int level = 1);",
-        "public TreasureContent CloneRuntime();",
+        "public virtual TreasureContent CloneRuntime();",
         "protected virtual string DescribeVariant(int value, int level);",
         "public virtual IEnumerable<TreasureState> GetStateVariants();",
         "protected TreasureState CreateVariant(TreasureRank rank, int level = 1);",

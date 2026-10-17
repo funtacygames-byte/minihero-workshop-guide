@@ -37,6 +37,8 @@
 | [13 三次上限量瓶](zh-CN/13-stateful-relic.cs.txt) | `source/PracticeCounterRelic.cs` | 用 09 确定领取，摆四瓶药剂检查；看[状态课](../docs/zh-CN/tutorials/rules-and-state.md) |
 | [14 有限动态续接](zh-CN/14-dynamic-continuation.cs.txt) | `source/ContinuingPracticeAdventure.cs` | 需要 08 的 `PracticeStage`；替换冒险注册，共三场景 |
 | [15 连续选择](zh-CN/15-chained-choice.cs.txt) | `source/TwoStepSupplies.cs` | 将 08 的事件改为此类；按[连续选择步骤](../docs/zh-CN/tutorials/card-choice.md)测试确认和取消 |
+| [16 难度复制](zh-CN/16-level-difficulty.cs.txt) | `source/ExtraDifficulty.cs` | 在原 Load 调用 `ExtraDifficulty.Register(registrar)`；[难度课](../docs/zh-CN/tutorials/level-difficulty.md) |
+| [17 职业与进度](zh-CN/17-profession-progress.cs.txt) | `source/LanternTraining.cs` | 注册职业并修改 02 的 ProfessionId/Role；[职业课](../docs/zh-CN/tutorials/profession-progress.md) |
 
 不要一次复制全部文件。特别是 07 不包含它所引用的三个地区关卡，不能单独运行。需要图片的片段应先放好文件；角色和敌人课则可以先无自定义图片完成。
 

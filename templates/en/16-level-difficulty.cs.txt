@@ -1,0 +1,23 @@
+using System;
+using System.Linq;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    public static class ExtraDifficulty
+    {
+        public static void Register(IModRegistrar registrar)
+        {
+            const string target = "challenge_wild_corruption_nest";
+            int next = registrar.GetLevels().Single(level => level.id == target)
+                .difficulties.Max(item => item.difficulty) + 1;
+            var difficulty = registrar.CopyLevelDifficulty("challenge_starlit_expedition", 3, next);
+            difficulty.description = ModText.Get(ModEntry.PackageId,
+                "difficulty.starlight.description", "Starlight challenge: enemies gain +8 attack and +20 health; crystals ×1.8.");
+            difficulty.attackEnhance = 8;
+            difficulty.healthEnhance = 20;
+            difficulty.crystalRewardMultiplier = 1.8f;
+            registrar.AddLevelDifficulty(ModEntry.PackageId + ".difficulty.starlight", target, difficulty);
+        }
+    }
+}

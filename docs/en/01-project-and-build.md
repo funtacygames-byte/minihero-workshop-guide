@@ -2,7 +2,7 @@
 
 [简体中文](../zh-CN/01-project-and-build.md) · [Guide index](README.md)
 
-Guide revision 5 · Reviewed: October 14, 2026 · Mod API: 1.8.0.
+Guide revision 6 · Reviewed: October 17, 2026 · Mod API: 1.10.0.
 
 This manual groups fields and rules by system. For guided steps, [make your first mod](tutorials/first-mod.md), then return here when you need a reference.
 

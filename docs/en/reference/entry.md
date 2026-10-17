@@ -2,9 +2,9 @@
 
 [简体中文](../../zh-CN/reference/entry.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
-Purpose: locate one public entry from a package manifest and register content definitions, presentation, and music. This reference is checked against 1.8.0. See [Versions](versions.md) for compatibility and [API surface](api-surface.md) for declarations.
+Purpose: locate one public entry from a package manifest and register content definitions, presentation, and music. This reference is checked against 1.10.0. See [Versions](versions.md) for compatibility and [API surface](api-surface.md) for declarations.
 
 ## Manifest-to-source contract
 
@@ -41,7 +41,7 @@ public interface IModRegistrar
 
 These are reference declarations; do not copy the types into a mod. `Load` runs while the host builds a content snapshot and registers static definitions. Compiling source does not execute the mod DLL. The entry must be public, concrete, correctly attributed, and have a public parameterless constructor.
 
-`AddContent` returns `void`; the host collects rejection information in loading diagnostics. Supported contents include characters, traits, treasures, moves, enemies/traits, items, encounters, stages, adventures, rules, and presentation content. Classes must belong to this mod's assembly. IDs begin with the package ID plus `.`; combined registration still rejects duplicate IDs. Register every referenced content.
+`AddContent` returns `void`; the host collects rejection information in loading diagnostics. Supported contents include characters, traits, treasures, moves, enemies/traits, items, encounters, stages, adventures, rules, professions, and presentation content. Classes must belong to this mod's assembly. IDs begin with the package ID plus `.`; combined registration still rejects duplicate IDs. Register every referenced content.
 
 `AddContents(this IModRegistrar registrar, params IGameContent[] contents)` is an extension method requiring `using MiniHero.ModApi;`. It calls `AddContent` in sequence without discovering classes or adding dependencies. A consistent order—traits, moves, treasures, characters, enemy traits, enemies, items/encounters, stages, adventures—makes reviews easier.
 
@@ -54,3 +54,7 @@ Actual selection rosters use the level difficulty's `availableHeroIds`. `Stage.a
 ## Lifecycle and minimal use
 
 Register in `Load` without retaining a run's `GameState` or granting player rewards there. Runtime events perform instance rules; see [Lifecycle](lifecycle.md). The [first lesson](../tutorials/first-mod.md) provides a complete minimal entry and integration steps. Presentation registration validates paths and slots, so compilation alone cannot prove asset loading.
+
+## Later APIs
+
+API 1.9.0 registers `ProfessionContent` through `AddContent`; see [professions and progress](../tutorials/profession-progress.md). API 1.10.0 provides difficulty queries, copying and additions through the optional `IModLevelDifficultyRegistrar` and extension methods, without adding required `IModRegistrar` members. See [difficulty extension](../tutorials/level-difficulty.md).

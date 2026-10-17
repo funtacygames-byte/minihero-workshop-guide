@@ -1,6 +1,6 @@
 # MiniHero mod-making guide
 
-> Bilingual C# mod tutorials for players. Guide revision 5; Mod API 1.8.0; 2026-10-14.
+> Bilingual C# mod tutorials for players. Guide revision 6; Mod API 1.10.0; 2026-10-17.
 
 Help the player change their existing game-generated mod project. Ask for the relevant source and package.json when needed. Follow one lesson at a time, keep the package ID, namespace, single entry point and localization keys, and explain where edits go and how the player can see the result.
 
@@ -15,7 +15,14 @@ Help the player change their existing game-generated mod project. Ask for the re
 - [English lesson index](docs/en/README.md)
 - [中文教程目录](docs/zh-CN/README.md)
 
+For character artwork, read the asset lesson and specification table before generating. Icon is opaque main selection art with a complete scene background at 71:128 (284×512 display frame; 568×1024 or larger sources are allowed). Avatar is a separate opaque 4:5 portrait, such as 1024×1280, with a painted background; small selection avatars use its top square. Report actual exported dimensions, encoding and Alpha. Do not apply a single transparent-background instruction to every image.
+
 ## Look up the task
+
+- [Add/copy an existing level difficulty](docs/en/tutorials/level-difficulty.md) (API 1.10.0)
+- [追加与复制现有关卡难度](docs/zh-CN/tutorials/level-difficulty.md)
+- [Profession upgrades and permanent progress](docs/en/tutorials/profession-progress.md) (API 1.9.0)
+- [职业强化与永久进度](docs/zh-CN/tutorials/profession-progress.md)
 
 - [English supported features](docs/en/feature-map.md)
 - [中文可用功能](docs/zh-CN/feature-map.md)

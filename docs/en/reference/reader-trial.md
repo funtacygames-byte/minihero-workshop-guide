@@ -2,7 +2,7 @@
 
 [简体中文](../../zh-CN/reference/reader-trial.md) · [Index](../README.md)
 
-Guide revision 5 · Mod API 1.8.0 · 2026-10-14
+Guide revision 6 · Mod API 1.10.0 · 2026-10-17
 
 Status: pending. Source review, compilation, and AI self-review are not independent reader trials.
 

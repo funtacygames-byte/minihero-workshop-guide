@@ -1,0 +1,30 @@
+using System.Collections.Generic;
+using MiniAdventureWorld.Core;
+using MiniHero.ModApi;
+
+namespace LocalAliceLanternTrailMod
+{
+    [GameContent(ModEntry.PackageId + ".profession.trailwarden")]
+    public sealed class LanternTraining : ProfessionContent
+    {
+        public override string PackageId => ModEntry.PackageId;
+        public override string Name => ModText.Get(ModEntry.PackageId, "profession.trailwarden.name", "林地守卫");
+        public override string CurrencyName => ModText.Get(ModEntry.PackageId, "profession.trailwarden.currency", "训练点");
+        public override IReadOnlyList<ProfessionUpgradeConfig> Upgrades => new[]
+        {
+            new ProfessionUpgradeConfig
+            {
+                id = Id + ".vitality",
+                name = ModText.Get(ModEntry.PackageId, "profession.trailwarden.vitality.name", "体魄"),
+                description = ModText.Get(ModEntry.PackageId, "profession.trailwarden.vitality.description", "开始游戏时，最大生命增加 {value} 点。"),
+                effectKind = ProfessionUpgradeEffectKind.StartingMaxHp,
+                valuePerLevel = 2,
+                costs = new[] { 2, 3 }
+            }
+        };
+        public override void OnEnemyKilled(EnemyKilledEvent e)
+        {
+            ModProgress.ForPackage(PackageId).AddInt("training_points", 1);
+        }
+    }
+}

@@ -31,8 +31,10 @@ public ModPresentation Presentation => ModAssets.Icon("assets/icons/starter-reli
 | 类 | 准备的文件 | 比例 |
 | --- | --- | --- |
 | `SilverBolt` | `assets/icons/silver-bolt.png` | 1:1 |
-| `LanternRanger` | `assets/icons/lantern-ranger.png` 与 `assets/portraits/lantern-ranger-avatar.png` | 主图 284×512 或 71:128，头像 1:1 |
+| `LanternRanger` | `assets/icons/lantern-ranger.png` 与 `assets/portraits/lantern-ranger-avatar.png` | 主图 71:128、带完整背景 PNG；头像 4:5（如 1024×1280）、完整背景 |
 | `MossWolf` | `assets/portraits/moss-wolf.png` | 1:1 |
+
+角色的 `Icon` 是带完整背景的高竖幅主图，选人页框为 284×512（71:128），源图可用 568×1024 等更高分辨率。`Avatar` 是另一张带背景的 4:5 肖像，战斗底栏用它显示，小头像取它的顶部正方形。两张都保持不透明，分别构图。按[完整素材规格](../03-assets-and-presentation.md)检查编码、最终宽高和背景；AI 请求见[双图提示词](../ai-authoring.md#为同一角色准备立绘和头像)。
 
 `SilverBolt` 类里加入：
 
